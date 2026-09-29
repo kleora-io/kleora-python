@@ -1,0 +1,29 @@
+# Publishes this package to PyPI through trusted publishing: no token exists
+# anywhere. PyPI's publisher for this project names this repository, this file
+# (`release.yml`) and the environment `pypi`, which requires a maintainer's
+# approval before the upload runs.
+#
+# For now it publishes the 0.0.0 placeholder that reserves the name. The real
+# SDK replaces the package contents; this file keeps its name, so the publisher
+# never changes.
+name: Release
+
+on:
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+      - uses: astral-sh/setup-uv@v6
+      - name: Build
+        run: uv build --out-dir dist && ls -l dist
+      - name: Upload to PyPI
+        run: uv publish --trusted-publishing always dist/*
