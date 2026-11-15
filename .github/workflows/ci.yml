@@ -1,0 +1,58 @@
+# Lint, format check, typecheck, test and build, plus a drift check of the
+# generated management and self-service clients against the OpenAPI documents
+# Kleora serves. The contract tests (`-m live`) do not run here: they need a
+# live environment (README, "Contract tests").
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          # The floor `requires-python` promises.
+          python-version: "3.12"
+
+      - name: Install
+        run: uv sync --locked
+
+      - name: Lint
+        run: uv run --locked ruff check .
+
+      - name: Format
+        run: uv run --locked ruff format --check .
+
+      - name: Typecheck
+        run: uv run --locked mypy
+
+      - name: Test
+        run: uv run --locked pytest
+
+      - name: Build
+        run: uv build --out-dir dist && ls -l dist
+
+      # Regenerates `openapi/*.json` and `src/kleora/_generated*/` from
+      # https://api.kleora.io/api/v1/openapi.json and
+      # https://id.kleora.eu/account/v1/openapi.json. A diff means the deployed
+      # API moved: run `uv run python scripts/generate_client.py` and commit the
+      # result.
+      - name: Generated client matches the deployed document
+        run: |
+          uv run --locked python scripts/generate_client.py
+          git status --porcelain -- openapi src/kleora/_generated src/kleora/_generated_account
+          git add --intent-to-add -- openapi src/kleora/_generated src/kleora/_generated_account
+          git diff --exit-code -- openapi src/kleora/_generated src/kleora/_generated_account

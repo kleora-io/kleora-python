@@ -1,0 +1,3426 @@
+{
+  "components": {
+    "schemas": {
+      "DeletionCancelIn": {
+        "description": "`DELETE /deletion` with `{token}` — the one anonymous body on this surface.\n\nThe person holds no session by construction: the request that produced this token\nrevoked every one of them. So the mailed token is the whole credential, and\n`TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`\ncarries, for the same reason — one `400 invalid-token` for every way a token can\nbe wrong, and a length bound would make a second answer out of one of them.",
+        "properties": {
+          "token": {
+            "maxLength": 256,
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "title": "DeletionCancelIn",
+        "type": "object"
+      },
+      "DeletionOut": {
+        "description": "§API `POST /deletion`: `202 {\"erase_after\": \"…\"}`.\n\nOne member, and it is the only thing a caller needs and the only thing we can\nhonestly promise: the moment the hourly sweep will erase this person unless the\ncancellation link is opened. RFC 3339 UTC like every other timestamp here.\n\n**Not `{\"deleted\": true}` and not a `204`**, because neither would be true.\n§\"What happens, and when\" is a seven-day grace period, and \"delete my account\"\nnot deleting immediately \"has to be said on the page in plain words\" — a screen\ncan only say it if the API says when.",
+        "properties": {
+          "erase_after": {
+            "format": "date-time",
+            "title": "Erase After",
+            "type": "string"
+          }
+        },
+        "required": [
+          "erase_after"
+        ],
+        "title": "DeletionOut",
+        "type": "object"
+      },
+      "EmailChangeIn": {
+        "description": "§\"Changing an email address\" step 1: `POST /email` with `{email}`.\n\n**The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`\ndeclares `writes_own={\"email\"}` — the one declared exception on this surface, and\n`api.public.v1.account.authz`'s module docstring argues it. The spec gives the\nbody as `{email}` and the spec wins; what the declaration says is that this\n`email` is a value written onto the caller's own row rather than a way to name\nsomebody else's.\n\n`max_length` and nothing else. §\"Failure modes\" wants a malformed or over-length\naddress to be `422 validation-error` with `field = \"email\"` — \"the caller is a\nprogram here, not a login form, so there is no oracle to protect: it never saw an\naddress it did not supply\" — and the normalisation and the real validation are\n`users-and-credentials.md` §Email's, applied by the service through\n`normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be\na *second* definition of a valid address, which is the thing `User.email` is a\n`CharField` rather than an `EmailField` to avoid.",
+        "properties": {
+          "email": {
+            "maxLength": 254,
+            "title": "Email",
+            "type": "string"
+          }
+        },
+        "required": [
+          "email"
+        ],
+        "title": "EmailChangeIn",
+        "type": "object"
+      },
+      "EmailConfirmIn": {
+        "description": "`POST /email/confirm` with `{token}` — the row drafted in `U10-05`'s Log.\n\nThe operation §API omits: §\"Changing an email address\" step 2 requires a route\nthe mailed token is `POST`ed to (\"only the `POST` spends it, so a mail scanner\ncannot\") and §\"Failure modes\" declares its two refusals, but the table has no row.\n\nNo `max_length` bound below the column's: a token is 32 random bytes as URL-safe\nbase64 and the only thing that matters about a wrong one is that it is wrong, so\na length refusal would answer `422` where §\"Failure modes\" says `400\ninvalid-token` — one answer for unknown, spent and expired, and a bound would\nmake a fourth.",
+        "properties": {
+          "token": {
+            "maxLength": 256,
+            "title": "Token",
+            "type": "string"
+          }
+        },
+        "required": [
+          "token"
+        ],
+        "title": "EmailConfirmIn",
+        "type": "object"
+      },
+      "EmailOut": {
+        "description": "§API `GET /email`: `{email, email_verified, change_pending}`.\n\n`change_pending` is read from the existence of an unspent `change_email`\n`ActionToken` and from nowhere else — §\"Changing an email address\": \"A pending\nchange lives only on the `ActionToken`, and there is no `pending_email`\ncolumn\", so there is exactly one place the pending address is written and no\nsecond place for it to be wrong.\n\nIt is declared here, and in this pull request it is always `false`: the\noperation that creates such a token (`POST /email`) is deferred with the rest\nof the email change — see `U10-03`'s Log. Declaring it now rather than adding\nit later keeps the member off the list of things that break a generated client.",
+        "properties": {
+          "change_pending": {
+            "title": "Change Pending",
+            "type": "boolean"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "email_verified": {
+            "title": "Email Verified",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "email",
+          "email_verified",
+          "change_pending"
+        ],
+        "title": "EmailOut",
+        "type": "object"
+      },
+      "EnrollConfirmIn": {
+        "description": "The six digits. No `req`: this surface has no login chain to be bound to.",
+        "properties": {
+          "code": {
+            "maxLength": 32,
+            "title": "Code",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "title": "EnrollConfirmIn",
+        "type": "object"
+      },
+      "EnrollStartOut": {
+        "description": "The shared secret and the `otpauth://` URI, returned once.\n\nTOTP enrolment is on this surface on purpose (§\"Two ceremonies are\norigin-bound\"): \"it is a shared secret and a six-digit code, with no origin\nbinding of any kind, so the one second factor a customer can offer inside\ntheir own product is the one every plan includes.\"",
+        "properties": {
+          "otpauth_uri": {
+            "title": "Otpauth Uri",
+            "type": "string"
+          },
+          "secret": {
+            "title": "Secret",
+            "type": "string"
+          }
+        },
+        "required": [
+          "secret",
+          "otpauth_uri"
+        ],
+        "title": "EnrollStartOut",
+        "type": "object"
+      },
+      "FlowFieldError": {
+        "description": "One field-level failure inside a `validation-error` problem.\n\n`code` is the stable machine token the SPA's catalogue keys on; `params`\nholds the numbers its sentence needs (`{\"minimum\": 12, \"maximum\": 128}`).\n`message` is a fixed English developer-facing string and is never rendered\nto an end user — ADR 0011 puts every user-visible string in the SPA.",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "field": {
+            "title": "Field",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "params": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            },
+            "title": "Params",
+            "type": "object"
+          }
+        },
+        "required": [
+          "field",
+          "message",
+          "code"
+        ],
+        "title": "FlowFieldError",
+        "type": "object"
+      },
+      "FlowProblem": {
+        "additionalProperties": true,
+        "description": "RFC 9457 problem details, plus the `code` every flow refusal carries.\n\nA plain `BaseModel` for `api.management.v1.schemas.Problem`'s reason: a\n`Schema` validates through django-ninja's attribute getter, which would\nsilently drop the extension members RFC 9457 exists to allow.",
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "errors": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/FlowFieldError"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Errors"
+          },
+          "feature": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Feature"
+          },
+          "instance": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instance"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan"
+          },
+          "request_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Request Id"
+          },
+          "required_plans": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Required Plans"
+          },
+          "retry_after": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Retry After"
+          },
+          "status": {
+            "title": "Status",
+            "type": "integer"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "status",
+          "code"
+        ],
+        "title": "FlowProblem",
+        "type": "object"
+      },
+      "IdentitiesOut": {
+        "description": "§API `GET /identities`: \"links, `providers[]`, `has_password`\".\n\n`providers` carries each kind's `start_url`, which is the other origin-bound\nceremony's hand-off: linking is a redirect round trip through\n`GET /oauth/social/{kind}/start?intent=link`, so the API lists and removes and\nthe navigation is the customer's screen's to make, top-level.",
+        "properties": {
+          "has_password": {
+            "title": "Has Password",
+            "type": "boolean"
+          },
+          "identities": {
+            "items": {
+              "$ref": "#/components/schemas/IdentityOut"
+            },
+            "title": "Identities",
+            "type": "array"
+          },
+          "providers": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderOut"
+            },
+            "title": "Providers",
+            "type": "array"
+          }
+        },
+        "required": [
+          "identities",
+          "providers",
+          "has_password"
+        ],
+        "title": "IdentitiesOut",
+        "type": "object"
+      },
+      "IdentityOut": {
+        "description": "One provider link. No `provider_subject` — it is the operator's projection.",
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "last_login_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Login At"
+          },
+          "linked_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Linked At"
+          },
+          "provider_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Email"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "provider_email",
+          "linked_at",
+          "last_login_at"
+        ],
+        "title": "IdentityOut",
+        "type": "object"
+      },
+      "ListQuery": {
+        "description": "The two query parameters every list endpoint takes.\n\nDeclared once and reused, so `limit=201` is a 422 by schema rather than by a\ncheck each endpoint has to remember — and so the OpenAPI document says the\nbounds, which is what a generated client validates against.",
+        "properties": {
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cursor"
+          },
+          "limit": {
+            "default": 50,
+            "maximum": 200,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "ListQuery",
+        "type": "object"
+      },
+      "MfaFactorOut": {
+        "description": "One factor, in `GET /flow/mfa`'s own shape. Never a seed and never a hash.",
+        "properties": {
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "last_used_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Used At"
+          },
+          "recovery_codes_remaining": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Recovery Codes Remaining"
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "confirmed_at",
+          "last_used_at",
+          "created_at",
+          "recovery_codes_remaining"
+        ],
+        "title": "MfaFactorOut",
+        "type": "object"
+      },
+      "MfaOut": {
+        "description": "The factors, and the policy that decides what may be removed.",
+        "properties": {
+          "factors": {
+            "items": {
+              "$ref": "#/components/schemas/MfaFactorOut"
+            },
+            "title": "Factors",
+            "type": "array"
+          },
+          "policy": {
+            "title": "Policy",
+            "type": "string"
+          }
+        },
+        "required": [
+          "factors",
+          "policy"
+        ],
+        "title": "MfaOut",
+        "type": "object"
+      },
+      "PasskeyOut": {
+        "description": "One credential, as its owner may see it.",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_used_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Used At"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "transports": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Transports",
+            "type": "array"
+          },
+          "verified": {
+            "title": "Verified",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "created_at",
+          "last_used_at",
+          "verified",
+          "transports"
+        ],
+        "title": "PasskeyOut",
+        "type": "object"
+      },
+      "PasskeysOut": {
+        "description": "The credentials, and where a person can add one.\n\n`portal_url` is the second half of §\"Two ceremonies are origin-bound\"'s\n`Registering a passkey` row — \"`GET`/`DELETE` on the list, and a **portal\nURL** the customer's screen links to, deep-linked at the security page\". There\nis no `POST /passkeys/register/*` on this surface and there never will be: the\nceremony's `rp_id` is the issuer host, so `navigator.credentials.create()` on\na customer's origin is refused by the browser and not by us.",
+        "properties": {
+          "passkeys": {
+            "items": {
+              "$ref": "#/components/schemas/PasskeyOut"
+            },
+            "title": "Passkeys",
+            "type": "array"
+          },
+          "portal_url": {
+            "title": "Portal Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "passkeys",
+          "portal_url"
+        ],
+        "title": "PasskeysOut",
+        "type": "object"
+      },
+      "PasswordIn": {
+        "description": "`current_password` and `new_password`, the second required.\n\n`current_password` is optional **only** because a person who has none has none\nto send (§\"The operations\": \"Set a password (person has none) … No\n`current_password` to supply\"). It is not a way to skip the check: a person who\n*does* have a password and omits it gets `401 invalid-credentials` and not a\n`422`, because \"naming the missing field would distinguish 'you have a\npassword' from 'you do not' to a caller holding somebody's token\"\n(§\"Failure modes\").\n\nNeither field carries a `min_length`. The policy is the Environment's and its\nrefusal is `422 password-policy` with `errors[].field = \"password\"`; a schema\nbound would answer first, in django-ninja's shape, for the one input whose\nrefusal §\"Failure modes\" writes out.",
+        "properties": {
+          "current_password": {
+            "default": "",
+            "maxLength": 128,
+            "title": "Current Password",
+            "type": "string"
+          },
+          "new_password": {
+            "maxLength": 128,
+            "title": "New Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "new_password"
+        ],
+        "title": "PasswordIn",
+        "type": "object"
+      },
+      "PasswordPolicyOut": {
+        "description": "§API `GET /password`: `{has_password, min_length, breach_check}`.\n\nWhat a screen needs to render the form before anybody types: whether to ask\nfor a current password at all, the minimum to say out loud, and whether a\nrefusal can come back from the breach corpus. All three are the Environment's,\nso a customer's own screens show the same rules the portal does.",
+        "properties": {
+          "breach_check": {
+            "title": "Breach Check",
+            "type": "boolean"
+          },
+          "has_password": {
+            "title": "Has Password",
+            "type": "boolean"
+          },
+          "min_length": {
+            "title": "Min Length",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "has_password",
+          "min_length",
+          "breach_check"
+        ],
+        "title": "PasswordPolicyOut",
+        "type": "object"
+      },
+      "PortalOut": {
+        "description": "§API `GET /portal`: `{url, sections[]}`.\n\n\"One document naming the portal URL and which sections this Environment\noffers, so a customer's own page renders the right links without hard-coding a\npath of ours or guessing at `self_deletion`.\"\n\n`url` is the portal's stable entry point, `{issuer}/account`. The `client_id`\nand `return_to` parameters §\"Getting there and back\" describes are the\ncaller's to add — they are about where the *customer's* browser should come\nback to, which this endpoint cannot know and an SDK helper builds\n(`accountPortalUrl`, `U10-04`).",
+        "properties": {
+          "sections": {
+            "items": {
+              "$ref": "#/components/schemas/PortalSection"
+            },
+            "title": "Sections",
+            "type": "array"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "sections"
+        ],
+        "title": "PortalOut",
+        "type": "object"
+      },
+      "PortalSection": {
+        "enum": [
+          "profile",
+          "password",
+          "security",
+          "sessions",
+          "danger"
+        ],
+        "type": "string"
+      },
+      "ProfileOut": {
+        "description": "§\"The operations\", row 1, member for member — and no `metadata`.",
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "email_verified": {
+            "title": "Email Verified",
+            "type": "boolean"
+          },
+          "has_password": {
+            "title": "Has Password",
+            "type": "boolean"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "mfa_enrolled": {
+            "title": "Mfa Enrolled",
+            "type": "boolean"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "picture_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Picture Url"
+          }
+        },
+        "required": [
+          "id",
+          "email",
+          "email_verified",
+          "name",
+          "picture_url",
+          "locale",
+          "has_password",
+          "mfa_enrolled",
+          "created_at"
+        ],
+        "title": "ProfileOut",
+        "type": "object"
+      },
+      "ProfilePatch": {
+        "description": "Name, language and picture. Every member optional, and `None` clears it.\n\nThe address is **not** here: it is the login identity and cannot change on one\nrequest (§\"Changing an email address\"), so it has its own two-step operation\nand a `PATCH` that accepted it would be a way round the confirmation.",
+        "properties": {
+          "locale": {
+            "anyOf": [
+              {
+                "maxLength": 35,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 200,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "picture_url": {
+            "anyOf": [
+              {
+                "maxLength": 2048,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Picture Url"
+          }
+        },
+        "title": "ProfilePatch",
+        "type": "object"
+      },
+      "ProviderOut": {
+        "description": "One provider a person could re-authenticate or link with.\n\n`start_url` is a same-origin path on the issuer with no destination parameter\nin it, exactly as `/flow/identities` carries it — the navigation is top-level\nand the customer's screen does not get to choose where it lands.",
+        "properties": {
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "start_url": {
+            "title": "Start Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "label",
+          "start_url"
+        ],
+        "title": "ProviderOut",
+        "type": "object"
+      },
+      "ReauthIn": {
+        "description": "A password and nothing else (§Re-authentication).\n\nA passkey assertion cannot be accepted here — `rp_id` is the issuer host and a\nceremony on the customer's origin is refused by the browser — and a provider\nround trip cannot, because it is a navigation. Both remain available on the\nhosted `/account/reauth`, which accepts all three; the asymmetry is the\nbrowser's and `GET /reauth` is how a caller finds out which it has.",
+        "properties": {
+          "password": {
+            "title": "Password",
+            "type": "string"
+          }
+        },
+        "required": [
+          "password"
+        ],
+        "title": "ReauthIn",
+        "type": "object"
+      },
+      "ReauthOut": {
+        "description": "§Re-authentication: \"The API tells a caller what this person can answer with\".\n\n`Q3-126`'s lesson, applied before it could be repeated: that ticket's brief\nsaid the login page \"already knows what the environment offers\" and neither\ndocument it reads carried the field, so the fix became a new member on a public\nAPI that nobody had presented as a design decision. This is that member,\ndesigned up front — a claim that a page knows something is a claim about a\nschema, and this is the schema saying it.\n\n`reauthenticated_until` is `null` when the mark is absent or has expired, so a\nscreen can decide whether to show the gate at all rather than discovering it\nfrom a `401`.",
+        "properties": {
+          "has_password": {
+            "title": "Has Password",
+            "type": "boolean"
+          },
+          "passkey_available": {
+            "title": "Passkey Available",
+            "type": "boolean"
+          },
+          "reauth_providers": {
+            "items": {
+              "$ref": "#/components/schemas/ProviderOut"
+            },
+            "title": "Reauth Providers",
+            "type": "array"
+          },
+          "reauthenticated_until": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reauthenticated Until"
+          }
+        },
+        "required": [
+          "has_password",
+          "reauth_providers",
+          "passkey_available",
+          "reauthenticated_until"
+        ],
+        "title": "ReauthOut",
+        "type": "object"
+      },
+      "RecoveryCodesOut": {
+        "description": "The ten codes, shown once — the only place a secret appears in a body here.",
+        "properties": {
+          "recovery_codes": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Recovery Codes",
+            "type": "array"
+          }
+        },
+        "required": [
+          "recovery_codes"
+        ],
+        "title": "RecoveryCodesOut",
+        "type": "object"
+      },
+      "ResendOut": {
+        "description": "§API `POST /email/resend`: `{\"sent\": bool}`.\n\n`false` for a person whose address is already verified — the same document with\nnothing sent, which is `users-and-credentials.md`'s rule and the reason this is\na bool rather than a `204`.",
+        "properties": {
+          "sent": {
+            "title": "Sent",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "sent"
+        ],
+        "title": "ResendOut",
+        "type": "object"
+      },
+      "RevokedOut": {
+        "description": "§Sessions: `POST /sessions/revoke-others` answers `{\"revoked\": n}`.",
+        "properties": {
+          "revoked": {
+            "title": "Revoked",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "revoked"
+        ],
+        "title": "RevokedOut",
+        "type": "object"
+      },
+      "SessionOut": {
+        "description": "§Sessions, member for member. Not `tenant_id` and not `client_ids`.",
+        "properties": {
+          "amr": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Amr",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "current": {
+            "title": "Current",
+            "type": "boolean"
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "ip": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ip"
+          },
+          "last_seen_at": {
+            "format": "date-time",
+            "title": "Last Seen At",
+            "type": "string"
+          },
+          "user_agent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Agent"
+          }
+        },
+        "required": [
+          "id",
+          "current",
+          "amr",
+          "ip",
+          "user_agent",
+          "created_at",
+          "last_seen_at",
+          "expires_at"
+        ],
+        "title": "SessionOut",
+        "type": "object"
+      },
+      "SessionPage": {
+        "description": "One cursor page of sessions — the `{items, next_cursor}` every list has.",
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/SessionOut"
+            },
+            "title": "Items",
+            "type": "array"
+          },
+          "next_cursor": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Next Cursor"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "title": "SessionPage",
+        "type": "object"
+      },
+      "SettingIn": {
+        "description": "One value, of whatever shape the definition's constraints allow.",
+        "properties": {
+          "value": {
+            "title": "Value"
+          }
+        },
+        "title": "SettingIn",
+        "type": "object"
+      },
+      "UserSettingDocument": {
+        "description": "One definition-with-value row (user-settings.md §API, public surface).\n\nExplicit nulls: a `value` of `null` means \"no stored value and no default\",\nwhich is the answer rather than the absence of one. `value` is otherwise the\nuser's written value where one exists and the definition's default where\nnot — the same resolution the management surface serves an operator.\n\n`constraints` is the stored, normalised record whose by-type shape\nuser-settings.md §Model fixes: `choices` for `enum`, `max_length` for\n`string` (always present, the default made explicit), `min`/`max` for\n`number`, `{}` for `boolean`. The member list is the spec's — key, type,\nconstraints, label, value — and carries no `access`: the listing only ever\nholds the two visible levels, and \"read-only\" is the `PUT`'s `403` to give.",
+        "properties": {
+          "constraints": {
+            "additionalProperties": true,
+            "title": "Constraints",
+            "type": "object"
+          },
+          "key": {
+            "title": "Key",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/UserSettingType"
+          },
+          "value": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserSettingValue"
+              }
+            ]
+          }
+        },
+        "required": [
+          "key",
+          "type",
+          "constraints",
+          "label"
+        ],
+        "title": "UserSettingDocument",
+        "type": "object"
+      },
+      "UserSettingType": {
+        "enum": [
+          "boolean",
+          "enum",
+          "string",
+          "number"
+        ],
+        "type": "string"
+      },
+      "UserSettingValue": {
+        "anyOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "integer"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "UserSettingsDocument": {
+        "description": "`GET /account/v1/settings` — one row per definition the user may see.\n\nAt most 50 rows (the definitions cap), in key order. `hidden` definitions\nare absent — not present-but-masked — which is the enumeration property the\n404s rest on.",
+        "properties": {
+          "settings": {
+            "items": {
+              "$ref": "#/components/schemas/UserSettingDocument"
+            },
+            "title": "Settings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "settings"
+        ],
+        "title": "UserSettingsDocument",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "AccountAuth": {
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "description": "End-user self-service on an issuer host: a person's own profile, password, second factors, passkeys, linked accounts, sessions and settings. Authenticated by that person's own OAuth access token, bounded by the 'self_service' scope. Passkey registration and provider linking are origin-bound ceremonies and are hosted-only; this API lists and removes them and names the portal URL that can create one.",
+    "title": "Kleora Account API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/account/v1/deletion": {
+      "delete": {
+        "description": "Spend the mailed token and put the account back.\n\n**The one route on this surface with no bearer token**, and the reason is\nstructural rather than a convenience: the request that produced this token revoked\nevery session of the person it belongs to, so there is no session to present. A\nroute here that demanded one would make the cancellation link useless, and a\ncancellation link that does not work is a seven-day grace period that is not an\nundo.\n\nIt is on this surface rather than on `/flow/*` \"so that the deletion resource has\none home\" (§\"What happens, and when\"), and it is keyed by IP because there is no\n`sid` to key on — 30 a minute, \"the shared 30-per-IP-per-minute token row every\nother token endpoint takes\".\n\nThe Environment comes from the host rather than from the credential, which is the\none thing this handler does differently from every other on the surface:\n`HostResolutionMiddleware` has already resolved it, and it is what scopes the\ntoken lookup (ADR 0005). A token of another Environment is `400 invalid-token`\nfor free, because `users.consume` never sees it.\n\n`204` for a token that was spent and for a row with nothing outstanding alike:\nthe state the caller asked for is the state that holds. A second click on the same\nlink is `400 invalid-token`, because the first one spent it — one answer for\nunknown, spent and expired, which §\"Failure modes\" asks for in as many words.",
+        "operationId": "api_public_v1_account_deletion_cancel_deletion",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeletionCancelIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Cancel a deletion request with the token from the emailed link",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-token-ip",
+        "x-kleora-sensitive": false
+      },
+      "post": {
+        "description": "Schedule this person's erasure for seven days' time, and mail them the undo.\n\n**No body.** §API's row has none, and there is nothing a caller could usefully\nput in one: there is no user id on this surface, the grace period is ours, and a\n\"reason\" would be free text about a person we are about to erase. The\nre-authentication is the confirmation.\n\n`202`, not `204` and not `200`: the thing asked for has not happened yet.\n`erase_after` is the moment it will, which is what lets a screen say \"your account\nwill be deleted on …\" — §\"What happens, and when\" requires that the delay be\n\"said on the page in plain words\", and a page can only say it if the API does.\n\n`409 last-owner` through the predicate `DELETE .../users/{id}` already applies\n(ADR 0013): the service asks `guard_erasure`, and this handler only translates.\nThe `detail` is deliberately *not* the management surface's\n`LAST_OWNER_ERASURE_DETAIL` — that one is written for an operator erasing somebody\nelse (\"give another member 'owner' first\" addressed to a third party) — but the\nslug is byte-identical, which is the half that is contract.\n\n**An outstanding request answers the same `202` with the same date, and sends\nnothing.** `AlreadyRequested` is not a refusal here, for two reasons: it cannot be\nreached through this surface anyway — the first request revoked every session, so a\nsecond token is `401 session-revoked` at `AccountAuth` — and §\"Failure modes\" gives\nthis route no slug for it, so answering one would mean a problem document nothing\ndeclares. Idempotent is the honest reading: the state the caller asked for holds,\nand `erase_after` is read off the row rather than recomputed as \"now plus seven\ndays\", which would quietly *move* a deadline a person has already been told.",
+        "operationId": "api_public_v1_account_deletion_request_deletion",
+        "parameters": [],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletionOut"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Ask for the signed-in person's own account to be deleted",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-deletion",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/email": {
+      "get": {
+        "description": "`{email, email_verified, change_pending}`.\n\n`change_pending` is read from the existence of an unspent `change_email`\n`ActionToken` — §\"Changing an email address\": \"there is exactly one place the\npending address is written and no second place for it to be wrong\".\n\n**It never names the pending address**, only that there is one. The address is on\nthe token and the token was mailed to it; a `GET` that echoed it would hand a\nstolen session the one fact a person could otherwise notice from the mail in their\nown inbox, and §API asks for a bool.",
+        "operationId": "api_public_v1_account_profile_read_email",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own address, and whether a change is outstanding",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      },
+      "post": {
+        "description": "Step 1 of two: mail a confirmation link to the **new** address.\n\nSensitive — §\"The operations\" marks it — so `@self_service` has already refused an\nun-re-authenticated caller before this body runs. That gate is the reason the\noperation can be so plain: it changes nothing, and everything it could change is\nbehind a link that arrives somewhere the caller may not be able to read.\n\n**`202 {\"sent\": true}` whatever happens**, which is §API's row and\n§\"Failure modes\"' \"`POST /email` with an address already registered in this\nEnvironment | `202` | identical to success, and nothing is sent\". `ResendOut` is\nreused rather than a `SentOut` of its own: it is `{\"sent\": bool}` and the bool is\nalways `true` here, which is exactly the point — a generated client sees one shape\nfor \"a mail was asked for\" across this surface, and a second schema with the same\nsingle member would be two names for one thing.\n\nWhy `true` and not the truth: the document is what a stranger reads. §API declares\nthe literal and the no-enumeration rule requires it, so the one branch that sends\nnothing must be indistinguishable — including in the budget, which is why\n`mail_send` is spent here, ahead of the service's decision.\n\n**The shared per-user mailed-link budget, not a bucket of its own.**\n§\"Rate limits\" gives this row as \"*the shared per-user mailed-link budget*\" — one\nwindow across verification, reset and this, counted for the person. So the\n`@self_service` limiter stays the catch-all row (there is no `account-email` bucket\nto declare) and `throttles.mail_send` is the real limit, exactly as\n`POST /email/resend` above spends it.",
+        "operationId": "api_public_v1_account_profile_request_email_change",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailChangeIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResendOut"
+                }
+              }
+            },
+            "description": "Accepted"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Ask to change the signed-in person's own email address",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/email/confirm": {
+      "post": {
+        "description": "Step 2 of two: spend the mailed token and move the address.\n\nThe operation §API omits; the row is drafted in `U10-05`'s Log and three things\nabout it are decisions rather than defaults:\n\n* **Authenticated.** §API's note under the table calls `DELETE /deletion` \"the one\n  route on this surface that takes no bearer token\", and one is one. It also means\n  an attacker who can read the new mailbox but holds no token cannot move the\n  address — the mailbox and the session are two credentials and this step wants\n  both.\n* **Not sensitive.** §\"Failure modes\" gives this route `invalid-token` and\n  `email-taken` and no `reauth-required`, and step 1 already took a\n  re-authentication. A second password prompt in front of clicking a link we\n  ourselves mailed would teach people to type their password at prompts that did\n  not need it.\n* **The token must be the caller's own**, and a token that is somebody else's is\n  `400 invalid-token` rather than a `403` — one document for every way a token\n  cannot be spent, so a caller holding a guessed one learns nothing from which\n  reason refused it.",
+        "operationId": "api_public_v1_account_profile_confirm_email_change",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmailConfirmIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Confirm a new email address with the token from the emailed link",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/email/resend": {
+      "post": {
+        "description": "`POST /flow/verify-email/resend`'s per-user budget, shared, not a second one.\n\n§\"The operations\" says exactly that, so the spend goes through\n`apps.identity.throttles.mail_send` — one window across verification, reset\nand (later) the email change, counted for the person rather than for a\nsurface. A second bucket here would mean a person who had just used the\nhosted resend form could send again from a customer's screen, which is the\nbudget saying one thing and meaning another.\n\nA person whose address is already verified gets `{\"sent\": false}` and nothing\nis sent (`users-and-credentials.md`), rather than a refusal: there is nothing\nwrong with asking, and the answer is simply that there was nothing to send.\n\n**A `POST` that fails closed on Redis, including on the throttle.** The rate\nlimiter above already answers `503 unavailable` when Redis cannot decide, and\n`mail_send` raising `RateLimitUnavailable` is the same outage one layer in, so\nit gets the same answer. That is `/flow/*`'s split — the management API chooses\nthe other way and logs, because there it is an authenticated operator's own\nrequest and `management-api.md` §\"Failure modes\" prefers availability; here the\nbudget is the only thing standing between one bearer token and a mailbox.\n\nNo `req`: this surface has no login chain, so there is no AuthRequest to put\ninto the link and the tab that opens the mail lands on the hosted\n`/verify-email` page as a direct visit.",
+        "operationId": "api_public_v1_account_profile_resend_verification",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResendOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Send another verification link to the signed-in person's own address",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/identities": {
+      "get": {
+        "description": "This person's links, every provider on offer, and whether they hold a password.\n\n`has_password` is here for the same reason it is on `GET /flow/identities`: a\nscreen deciding whether to offer Remove needs to know what else could begin a\nsign-in, and the alternative is a second call that could disagree with this\none about the same person.\n\n`providers` is `link_buttons`, which carries a same-origin `start_url` with no\ndestination parameter in it — the navigation is top-level and the customer's\nscreen does not get to choose where it lands.",
+        "operationId": "api_public_v1_account_identities_list_identities",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentitiesOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own provider links, and what can be linked",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/identities/{identity_id}": {
+      "delete": {
+        "description": "`409 last-credential` when this is the last thing that could begin a sign-in.\n\nThe closed set is a usable password, another provider identity, or another\nconfirmed passkey — **not** a TOTP factor and **not** recovery codes, which\nare second factors and cannot start one (`social-login.md` §Unlinking). The\nrefusal is the API's: a screen shows the sentence, and would still be refused\nif it did not.\n\nRemoving a link revokes the sessions that provider authenticated and **no\nothers**, which is why a caller whose own session came from a password keeps\nworking and one whose session came from the provider it has just removed does\nnot — and on this surface \"does not\" is immediate, because step 7 of\nauthentication reads the session rather than trusting the token.",
+        "operationId": "api_public_v1_account_identities_delete_identity",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "identity_id",
+            "required": true,
+            "schema": {
+              "title": "Identity Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Remove one of the signed-in person's own provider links",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/mfa": {
+      "get": {
+        "description": "Every factor, confirmed or not, and the policy that governs removal.\n\n`mfa.md` §API: \"Unconfirmed factors included with `confirmed_at: null`. Never\nseeds or hashes.\" `policy` is here because a screen cannot render a Remove\nbutton honestly without it — under `required` the last factor cannot go, and\nfinding that out from a `403` after the click is worse than not offering it.",
+        "operationId": "api_public_v1_account_mfa_list_mfa",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MfaOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own second factors",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/mfa/enroll/confirm": {
+      "post": {
+        "description": "Verify the code, confirm the factor, and return the ten codes once.\n\nThe one place on this surface a secret appears in a body, and it appears\nonce — there is no operation that reads them back.\n\nA wrong code is `401 invalid-code`, the same answer a spent recovery code and\na locked account get, because which of the three it was is not something a\ncaller who does not already know should learn here.\n\n**`amr` is not extended.** `/flow/mfa/enroll/confirm` adds `otp` to the\nsession because that session is mid-sign-in and the chain reads `amr` to\ndecide whether the second factor is done; nothing here is mid-anything, and a\nself-service enrolment is not a sign-in that proved a second factor. The next\nsign-in will challenge and record it.",
+        "operationId": "api_public_v1_account_mfa_enroll_confirm",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EnrollConfirmIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryCodesOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Confirm TOTP enrolment, and receive the recovery codes once",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-mfa",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/mfa/enroll/start": {
+      "post": {
+        "description": "Seed a factor (or reuse the pending one) and return the secret once.\n\nSensitive, and §\"The operations\" marks the whole write column so. The reason\nis not procedural, and `api.public.v1.flow.mfa` argues it at length: a caller\nholding only a session — a stolen token, XSS — could otherwise plant a factor\nof *their own* on an account with none, which under `optional` policy starts\nchallenging the legitimate owner at every login for a code only the attacker\nholds, with no self-service way back (removal is gated too) short of an\nadministrative reset.\n\n`409 mfa-already-enrolled` because \"at most one confirmed TOTP factor\"\n(`mfa.md` §TOTP): without it a signed-in caller could re-enrol and silently\nreplace a confirmed factor outside the gated remove flow.",
+        "operationId": "api_public_v1_account_mfa_enroll_start",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EnrollStartOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Begin TOTP enrolment",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-mfa",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/mfa/recovery/regenerate": {
+      "post": {
+        "description": "The ten codes, once, behind the same gate removal is behind.\n\n`404` when the person holds no confirmed factor of either kind: recovery codes\nback one up, and there is nothing here to regenerate a set for.\n`also_qualifies` is what makes a confirmed passkey count as that factor, which\nis `passkeys.md`'s rule and is passed rather than re-derived.",
+        "operationId": "api_public_v1_account_mfa_regenerate_recovery",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryCodesOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Replace the signed-in person's own recovery-code set",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-mfa",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/mfa/{factor_id}": {
+      "delete": {
+        "description": "`403 mfa-required` for the last factor under `required`; `404` otherwise.\n\nA malformed id and somebody else's factor answer identically — `404`, never\n`403` — so an id reveals nothing about what exists for another person.\n\nRemoving either kind removes both, which is\n`apps.identity.services.mfa.remove_factors`' rule and is shared with the\nadministrative reset: a person who removes their TOTP factor does not keep a\nrecovery-code set that can no longer back anything up.",
+        "operationId": "api_public_v1_account_mfa_delete_mfa",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "factor_id",
+            "required": true,
+            "schema": {
+              "title": "Factor Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Remove the signed-in person's own second factor",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-mfa",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/passkeys": {
+      "get": {
+        "description": "The credentials, and the hosted URL that can register another.\n\n`fail_open` like every `GET` on the catch-all row: making a person's security\nlist unreachable because Redis is unreachable is a worse outage than serving\nit unbounded for a few minutes.",
+        "operationId": "api_public_v1_account_passkeys_list_passkeys",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasskeysOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own passkeys, and where one can be added",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/passkeys/{factor_id}": {
+      "delete": {
+        "description": "Two refusals, from `passkeys.md`'s two rules — and this surface separates them.\n\n`passkeys.md` §\"Multiple credentials, and removing them\" has two rules:\nrefused unconditionally when removing it would leave the person **no way to\nsign in at all**, and refused under `mfa_policy: required` when it is their\nlast *second factor* of any kind. `webauthn.removal_refused` answers both with\none bool, which is all `DELETE /flow/passkeys/{id}` needs — that surface\nanswers `403 mfa-required` either way.\n\n**§API asks this surface for two answers**: `409 last-credential` and\n`403 mfa-required`, and §\"Failure modes\" gives them separate rows with\nseparate closed sets. That is right for an API a customer programs against:\n\"you would have no way in\" and \"this environment insists on a second factor\"\ncall for different screens, and a client that saw one slug for both would have\nto guess which it was.\n\nSo the split asks `identities.ways_to_sign_in` — the *same* predicate\n`removal_refused` asks for its first rule, with the same\n`excluding_passkey` — and only then asks `removal_refused` for what is left,\nwhich can then only be the policy rule. One rule, one predicate, two slugs:\nnothing here re-derives what a way in is, which is exactly the mistake `S9-08`\nfound when the passkey rule knew about passwords and passkeys and nothing\nabout provider identities.",
+        "operationId": "api_public_v1_account_passkeys_delete_passkey",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "factor_id",
+            "required": true,
+            "schema": {
+              "title": "Factor Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Remove one of the signed-in person's own passkeys",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-mfa",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/password": {
+      "get": {
+        "description": "`{has_password, min_length, breach_check}` — the form, before anybody types.\n\nAll three are the Environment's, so a customer's own screen shows the same\nrules the portal does and neither has to hard-code a number of ours.\n`has_password` is what decides whether to ask for a current password at all.",
+        "operationId": "api_public_v1_account_password_read_password_policy",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PasswordPolicyOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Whether the signed-in person has a password, and the rules for a new one",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      },
+      "post": {
+        "description": "`current_password` **and** the re-auth mark, exactly as `/me/password` requires both.\n\nThe mark is the decorator's (`@self_service(sensitive=True)`), so by the time\nthis runs the session has re-proved itself inside five minutes.\n\nTwo paths, decided by what the person *has* and never by what the caller\nsent:\n\n* **They have a password** → `passwords.change_password`, which verifies\n  `current_password`. A wrong one — or a missing one — is\n  `401 invalid-credentials`, never a `422`, because \"naming the missing field\n  would distinguish 'you have a password' from 'you do not' to a caller\n  holding somebody's token\" (§\"Failure modes\"). Every *other* session is\n  revoked and this one survives, so the screen the change was made on keeps\n  working.\n* **They have none** → `passwords.set_password`, the §\"The operations\" row\n  \"Set a password (person has none)\": there is no `current_password` to\n  supply, \"the re-auth gate is what stands in for it, and a person who can\n  satisfy it holds a passkey or a provider identity\". That service revokes\n  **every** session including this one, which is its own rule for an\n  administrative set — and is the right one here too: a person who had no\n  password now has a credential that did not exist a moment ago, and the\n  sessions opened before it should not outlive the change.\n\nA new password the policy refuses is `422 password-policy` or\n`422 password-breached`, with `errors[].field = \"password\"`, which is the same\npair every other password endpoint in this codebase answers with.",
+        "operationId": "api_public_v1_account_password_change_password",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PasswordIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Change the signed-in person's own password",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-password",
+        "x-kleora-sensitive": true
+      }
+    },
+    "/account/v1/portal": {
+      "get": {
+        "description": "The portal's stable entry URL, and the sections this Environment offers.\n\n**`danger` is here when `Environment.self_deletion` is on, and absent otherwise**\n— the seam `U10-03` left (`PortalSection` already declared the value, `ALWAYS` did\nnot list it), closed by `U10-05` with the column it needs. §\"The portal\" gives the\ncondition as \"when the Environment offers it\", and this is the only place on the\nsurface that answers that question in a document rather than as a `404`: §API says\nso in as many words, \"so a customer's own page renders the right links without\nhard-coding a path of ours or **guessing at `self_deletion`**\".\n\nIt is still not the decision. The `/deletion` routes are `404` when the column is\nfalse whatever this list says, which is §\"Failure modes\"' \"the API's `404` is what\ndecides it\" — a client-side route that hides itself is not a control.",
+        "operationId": "api_public_v1_account_portal_read_portal",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Where the hosted account portal is, and which sections it offers",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/profile": {
+      "get": {
+        "description": "Name, address, language, picture and two computed facts. Never `metadata`.",
+        "operationId": "api_public_v1_account_profile_read_profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own profile",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      },
+      "patch": {
+        "description": "Not sensitive, and §\"The operations\" says so by leaving the column empty.\n\nNothing here is a credential: a name, a language and a picture are how a\nperson is addressed, and putting a password prompt in front of correcting the\nspelling of your own name would teach people to type their password at\nprompts that did not need it — which is the habit every phishing page relies\non.\n\nOnly the members the caller actually sent are written, which is what makes\n\"a key present and already equal to the stored value changed nothing\" true:\n`Schema.dict(exclude_unset=True)` is the same `api.management.patching`\ndistinction between \"set this to null\" and \"do not touch this\".",
+        "operationId": "api_public_v1_account_profile_patch_profile",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePatch"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Change the signed-in person's own name, language or picture",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/reauth": {
+      "get": {
+        "description": "`{has_password, reauth_providers[], passkey_available, reauthenticated_until}`.\n\nThe same three facts `GET /flow/identities` already carries for the same\nreason, from the same two services — `identities.has_password` and\n`reauth_buttons`, which is the **intersection** of the providers this person\nholds and the providers this Environment still offers. A kind the person holds\nbut the Environment has since disabled is left out, because a control that can\nonly produce a refusal is worse than no control (`S9-12`).\n\n`passkey_available` is \"this person holds a confirmed passkey\", which is a\nfact about them and not about what this API can accept — a customer's screen\nuses it to decide whether linking to the hosted `/account/reauth` is worth\noffering, since that page accepts an assertion and this endpoint cannot.\n\n`reauthenticated_until` is `null` when there is no live mark, so a screen can\nskip the gate it does not need rather than discovering that from a `401`\nafter somebody has filled a form in.",
+        "operationId": "api_public_v1_account_reauth_read_reauth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReauthOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "What the signed-in person can re-authenticate with",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      },
+      "post": {
+        "description": "Verify the password against this session's own user, and mark the session.\n\n**`sensitive=False`, and it has to be**: this is the operation that satisfies\nthe gate, so gating it would be a cycle with no way in. That is not a\nweakening — it takes a password, which is a stronger proof than the mark it\nwrites.\n\nA wrong password is `401 invalid-credentials`, indistinguishable from every\nother credential refusal on this surface, and **counts toward the same\nprogressive lockout** a wrong password anywhere else does — because the check\ngoes through `authenticate_password` rather than through a hash comparison.\n§\"Rate limits\" says so in as many words: \"A failed re-authentication and a\nwrong `current_password` both count toward progressive lockout\".\n\nNothing about the session is disturbed. `amr` is unchanged and no new session\nis opened: `reauth.mark` writes a property *next to* the session, which is the\nwhole of what `mfa.md` §Self-service asks for and the reason a person who has\njust re-authenticated is not suddenly treated as having passed a second factor.",
+        "operationId": "api_public_v1_account_reauth_reauthenticate",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReauthIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Re-prove the signed-in person's own password",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-reauth",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/sessions": {
+      "get": {
+        "description": "Newest first, cursor paginated like every other list.\n\nThe cursor is `api.management.pagination`'s and not a second implementation:\nit is a *position* rather than an offset, it is HMAC-tagged so a client cannot\nmint one, and it names its own query so a cursor issued for one listing cannot\nseek in another. A person with two devices will never see the difference; a\nperson with two hundred would, and writing a second cursor to find that out\nwould be the mistake this codebase keeps a single `paginate` to avoid.\n\n`ManagementProblem` is caught rather than raised: that module answers an\nunusable cursor with `400 invalid-cursor`, which is the right decision in the\nwrong surface's shape — this surface's problems carry a `code`. The slug is\nthe same one, for the reason every shared slug here is shared.\n**`account-portal.md` declares no row for it**; the amendment is drafted in\n`U10-03`'s Log.",
+        "operationId": "api_public_v1_account_sessions_list_sessions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "cursor",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Cursor"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionPage"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own live sessions",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/sessions/revoke-others": {
+      "post": {
+        "description": "Every live session except this token's, and the count of what went.\n\nNot sensitive, and not a `revoke-all`: see the module docstring for both. The\ncount is what a screen puts in its confirmation — \"3 other devices signed\nout\" — and is the reason this is not a `204`.\n\n`sessions.revoke_all_for_user` rather than a loop over `_live`, because that\nservice is what also emits the `sessions.revoked_all` summary the taxonomy\ndefines: \"without it, revoking forty sessions is forty rows and no record of\nthe single act that caused them\". It is one transaction, it cascades to the\nrefresh families, and `except_session` is exactly this token's own — the\nargument that function already exists to take.",
+        "operationId": "api_public_v1_account_sessions_revoke_other_sessions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevokedOut"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Sign every other device out",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/sessions/{session_id}": {
+      "delete": {
+        "description": "Revoke one of this person's own live sessions, which may be this one.\n\n`404 not-found` for a malformed id, for somebody else's session and for one\nthat is already dead — one answer, so an id discloses nothing about what\nexists. The row is resolved inside `user=caller.user`, so there is no id a\ncaller could supply that reaches another person's session.\n\nRevocation cascades to the refresh families exactly as\n`sessions-and-tokens.md` §\"Revocation semantics\" says; nothing about that\nchanges here, because `sessions.revoke_session` is the one thing that does it.",
+        "operationId": "api_public_v1_account_sessions_revoke_session",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "session_id",
+            "required": true,
+            "schema": {
+              "title": "Session Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Sign one device out",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/settings": {
+      "get": {
+        "description": "Every definition the person may see, each with their value or the default.\n\n`value` is the written value where one exists, the definition's default where\nnot, and `null` where there is neither — `user-settings.md` §Model calls that\n\"what a user has before any write\". `.get`'s fallback fires only on a missing\nkey, so a written value — which a write can never make `None` — always\noutranks the default.",
+        "operationId": "api_public_v1_account_settings_list_settings",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSettingsDocument"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "The signed-in person's own settings",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    },
+    "/account/v1/settings/{key}": {
+      "delete": {
+        "description": "Remove the stored value, so the default answers again.\n\nThe same access semantics as the write, and idempotent by the service's\ndesign: clearing a value that was never written is the same `204`, because\n\"unset\" is the state the caller asked for and it holds either way\n(`user-settings.md` §API).",
+        "operationId": "api_public_v1_account_settings_delete_setting",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "title": "Key",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Clear one of the signed-in person's own settings back to its default",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      },
+      "put": {
+        "description": "One value, validated against the definition by the shared validator.\n\n`404 setting-not-found` for a key this environment does not define *and* for a\n`hidden` one — byte-identical but for `instance` and `request_id`, so probing\nwrites cannot enumerate hidden keys. `403 setting-not-editable` for\n`user_visible`: readable in the listing, operator-writable only. `422` names\n`value` for anything the constraints refuse —\n`apps.settings.validation.validate_value` is the one validator every writer\ntakes (`P5-02`), non-finite numbers included.",
+        "operationId": "api_public_v1_account_settings_put_setting",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "key",
+            "required": true,
+            "schema": {
+              "title": "Key",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SettingIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserSettingDocument"
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FlowProblem"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "security": [
+          {
+            "AccountAuth": []
+          }
+        ],
+        "summary": "Write one of the signed-in person's own settings",
+        "tags": [
+          "account"
+        ],
+        "x-kleora-rate-limit": "account-catch-all",
+        "x-kleora-sensitive": false
+      }
+    }
+  },
+  "servers": []
+}

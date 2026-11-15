@@ -1,17 +1,42 @@
 [project]
 name = "kleora"
-version = "0.0.0"
-description = "Reserved for the official Kleora SDK. The first release is 0.1.0."
+version = "0.1.0"
+description = "Kleora Python SDK — token verification, JWKS cache and the generated management client."
 readme = "README.md"
 requires-python = ">=3.12"
 license = "Apache-2.0"
 license-files = ["LICENSE"]
-classifiers = ["Development Status :: 1 - Planning"]
+# Without this PyPI renders an empty Author field on the project page, which
+# reads as an abandoned or squatted package on the first thing a developer
+# looks at when deciding whether to install it.
+authors = [{ name = "Kleora", email = "contact@kleora.io" }]
+dependencies = [
+    # `src/kleora/_generated/` imports the first three; the verifier adds
+    # the fourth. `httpx` is the only HTTP client in the package — the JWKS cache
+    # and both management clients go through it — and `pyjwt[crypto]` is the JOSE
+    # half, the same library and the same `cryptography` backend the backend
+    # signs with, so a signature that verifies here is one it produced.
+    "attrs>=24.2.0",
+    "httpx>=0.28.0",
+    "typing-extensions>=4.12.0",
+    "pyjwt[crypto]>=2.10.0",
+]
 
+# `api.kleora.io` and the `*.kleora.eu` issuers are not pages a person should
+# be sent to, so neither is linked here.
 [project.urls]
 Homepage = "https://kleora.io"
 Documentation = "https://kleora.io/en/docs"
-Source = "https://github.com/kleora-io/kleora-python"
+Repository = "https://github.com/kleora-io/kleora-python"
+Issues = "https://github.com/kleora-io/kleora-python/issues"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.18.0",
+    "openapi-python-client>=0.29.0",
+    "pytest>=8.4.0",
+    "ruff>=0.14.0",
+]
 
 [build-system]
 requires = ["hatchling"]
@@ -19,3 +44,37 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/kleora"]
+
+# The source distribution carries what builds the wheel and nothing else: no
+# tests, no generator, no committed OpenAPI copies, no CI configuration.
+[tool.hatch.build.targets.sdist]
+include = ["src/kleora", "README.md", "LICENSE"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# `_generated/` and `_generated_account/` are written by `openapi-python-client`,
+# which formats them with its own ruff configuration. Ours would fight it every
+# regeneration.
+extend-exclude = ["src/kleora/_generated", "src/kleora/_generated_account"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "BLE", "C4", "SIM", "RUF"]
+
+[tool.mypy]
+# `mypy --strict`, over the generated trees included: they are the type surface
+# every caller of the management and self-service APIs sees, and a type surface
+# nothing checks is a type surface that is wrong.
+python_version = "3.12"
+strict = true
+files = ["src"]
+
+[tool.pytest.ini_options]
+python_files = ["test_*.py"]
+# `live` is opt-in: the contract tests need a running issuer and a real API key,
+# which no unit run has. `-m 'not live'` is the default selection, `-m live`
+# runs them, and each of them also skips itself when the environment it needs is
+# not answering. CI does not run them (README, "Contract tests").
+markers = ["live: needs a live Kleora environment (KLEORA_TEST_* in the environment)"]
+addopts = "-ra --strict-markers -m 'not live'"
+testpaths = ["tests"]
