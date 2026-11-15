@@ -101,14 +101,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EmailTemplateOut | Problem]:
-    r"""Reset an email template to the shipped default
+    """Reset an email template to the shipped default
 
-     The shipped file back, and `is_default` true again.
+     Restore the shipped default template, and set `is_default` to `true`.
 
-    The shipped copy, not the copy this environment started with: a default
-    that has been improved since the App was created is the one a reset
-    restores, which is the same rule the data migration that rewrites unedited
-    rows follows (email.md §\"Kinds, locales and defaults\").
+    The current shipped version is restored, which may have been improved since the App was created.
 
     Args:
         environment_id (str):
@@ -143,14 +140,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> EmailTemplateOut | Problem | None:
-    r"""Reset an email template to the shipped default
+    """Reset an email template to the shipped default
 
-     The shipped file back, and `is_default` true again.
+     Restore the shipped default template, and set `is_default` to `true`.
 
-    The shipped copy, not the copy this environment started with: a default
-    that has been improved since the App was created is the one a reset
-    restores, which is the same rule the data migration that rewrites unedited
-    rows follows (email.md §\"Kinds, locales and defaults\").
+    The current shipped version is restored, which may have been improved since the App was created.
 
     Args:
         environment_id (str):
@@ -180,14 +174,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EmailTemplateOut | Problem]:
-    r"""Reset an email template to the shipped default
+    """Reset an email template to the shipped default
 
-     The shipped file back, and `is_default` true again.
+     Restore the shipped default template, and set `is_default` to `true`.
 
-    The shipped copy, not the copy this environment started with: a default
-    that has been improved since the App was created is the one a reset
-    restores, which is the same rule the data migration that rewrites unedited
-    rows follows (email.md §\"Kinds, locales and defaults\").
+    The current shipped version is restored, which may have been improved since the App was created.
 
     Args:
         environment_id (str):
@@ -220,14 +211,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> EmailTemplateOut | Problem | None:
-    r"""Reset an email template to the shipped default
+    """Reset an email template to the shipped default
 
-     The shipped file back, and `is_default` true again.
+     Restore the shipped default template, and set `is_default` to `true`.
 
-    The shipped copy, not the copy this environment started with: a default
-    that has been improved since the App was created is the one a reset
-    restores, which is the same rule the data migration that rewrites unedited
-    rows follows (email.md §\"Kinds, locales and defaults\").
+    The current shipped version is restored, which may have been improved since the App was created.
 
     Args:
         environment_id (str):

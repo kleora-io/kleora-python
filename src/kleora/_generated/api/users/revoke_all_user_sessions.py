@@ -100,12 +100,10 @@ def sync_detailed(
 ) -> Response[Problem | RevokedOut]:
     r"""Revoke all of a user's sessions
 
-     End every live session of the user, and every refresh token with them.
+     Revoke every live session of the user, and their refresh tokens.
 
-    The count is what was live at the moment of the call, so a second call
-    answers `{\"revoked\": 0}` — the end state the caller asked for is the end
-    state, and the log distinguishes the two through the `session.revoked`
-    events the first one wrote.
+    `revoked` counts the sessions that were live at the time, so a second call answers `{\"revoked\":
+    0}`.
 
     Args:
         environment_id (str):
@@ -139,12 +137,10 @@ def sync(
 ) -> Problem | RevokedOut | None:
     r"""Revoke all of a user's sessions
 
-     End every live session of the user, and every refresh token with them.
+     Revoke every live session of the user, and their refresh tokens.
 
-    The count is what was live at the moment of the call, so a second call
-    answers `{\"revoked\": 0}` — the end state the caller asked for is the end
-    state, and the log distinguishes the two through the `session.revoked`
-    events the first one wrote.
+    `revoked` counts the sessions that were live at the time, so a second call answers `{\"revoked\":
+    0}`.
 
     Args:
         environment_id (str):
@@ -173,12 +169,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | RevokedOut]:
     r"""Revoke all of a user's sessions
 
-     End every live session of the user, and every refresh token with them.
+     Revoke every live session of the user, and their refresh tokens.
 
-    The count is what was live at the moment of the call, so a second call
-    answers `{\"revoked\": 0}` — the end state the caller asked for is the end
-    state, and the log distinguishes the two through the `session.revoked`
-    events the first one wrote.
+    `revoked` counts the sessions that were live at the time, so a second call answers `{\"revoked\":
+    0}`.
 
     Args:
         environment_id (str):
@@ -210,12 +204,10 @@ async def asyncio(
 ) -> Problem | RevokedOut | None:
     r"""Revoke all of a user's sessions
 
-     End every live session of the user, and every refresh token with them.
+     Revoke every live session of the user, and their refresh tokens.
 
-    The count is what was live at the moment of the call, so a second call
-    answers `{\"revoked\": 0}` — the end state the caller asked for is the end
-    state, and the log distinguishes the two through the `session.revoked`
-    events the first one wrote.
+    `revoked` counts the sessions that were live at the time, so a second call answers `{\"revoked\":
+    0}`.
 
     Args:
         environment_id (str):

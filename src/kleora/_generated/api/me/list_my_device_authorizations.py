@@ -106,10 +106,8 @@ def sync_detailed(
 ) -> Response[DeviceAuthorizationList | Problem]:
     """The caller's own device authorizations
 
-     `GET /me/device-authorizations` — every agent the caller has approved.
-
-    The same `DeviceAuthorizationOut` rows `GET …/users/{uid}/device-authorizations`
-    answers with, over `own_identity` rather than a path id.
+     Every device or agent you have authorized, in the same shape as `GET
+    .../users/{user_id}/device-authorizations`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -143,10 +141,8 @@ def sync(
 ) -> DeviceAuthorizationList | Problem | None:
     """The caller's own device authorizations
 
-     `GET /me/device-authorizations` — every agent the caller has approved.
-
-    The same `DeviceAuthorizationOut` rows `GET …/users/{uid}/device-authorizations`
-    answers with, over `own_identity` rather than a path id.
+     Every device or agent you have authorized, in the same shape as `GET
+    .../users/{user_id}/device-authorizations`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -175,10 +171,8 @@ async def asyncio_detailed(
 ) -> Response[DeviceAuthorizationList | Problem]:
     """The caller's own device authorizations
 
-     `GET /me/device-authorizations` — every agent the caller has approved.
-
-    The same `DeviceAuthorizationOut` rows `GET …/users/{uid}/device-authorizations`
-    answers with, over `own_identity` rather than a path id.
+     Every device or agent you have authorized, in the same shape as `GET
+    .../users/{user_id}/device-authorizations`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -210,10 +204,8 @@ async def asyncio(
 ) -> DeviceAuthorizationList | Problem | None:
     """The caller's own device authorizations
 
-     `GET /me/device-authorizations` — every agent the caller has approved.
-
-    The same `DeviceAuthorizationOut` rows `GET …/users/{uid}/device-authorizations`
-    answers with, over `own_identity` rather than a path id.
+     Every device or agent you have authorized, in the same shape as `GET
+    .../users/{user_id}/device-authorizations`.
 
     Args:
         limit (int | Unset):  Default: 50.

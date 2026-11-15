@@ -107,21 +107,20 @@ def sync_detailed(
 ) -> Response[Problem | SettingDefinitionOut]:
     """Create a setting definition
 
-     A new definition. `key` and `type` are fixed here, forever.
+     Create a user setting definition. `key` and `type` cannot be changed afterwards.
 
-    Constraints that do not fit the type, or a default that does not satisfy
-    them, are 422 `validation-error` naming the field; a key the environment
-    already defines is 409 `setting-exists`; the 51st definition is 422
-    `limit-exceeded` (user-settings.md §Model, §Limits).
+    Constraints that do not fit the type, or a default that does not satisfy them, are `422
+    validation-error` naming the field. A key the environment already defines is `409
+    setting-exists`. The 51st definition is `422 limit-exceeded`.
 
     Args:
         environment_id (str):
-        body (SettingDefinitionIn): `POST …/settings/definitions`.
+        body (SettingDefinitionIn): The body of `POST .../settings/definitions`.
 
-            `key` and `type` are set here and never again (user-settings.md §Model).
-            `constraints` may be omitted where the type needs none — a boolean always,
-            a string or number falling back to its defaults — but an enum without
-            `choices` is a 422, from the same validator every other write runs.
+            `key` and `type` cannot be changed afterwards. `constraints` may be omitted where the type
+            needs
+            none (a boolean) or has defaults (a string or number); an `enum` without `choices` is
+            `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,21 +150,20 @@ def sync(
 ) -> Problem | SettingDefinitionOut | None:
     """Create a setting definition
 
-     A new definition. `key` and `type` are fixed here, forever.
+     Create a user setting definition. `key` and `type` cannot be changed afterwards.
 
-    Constraints that do not fit the type, or a default that does not satisfy
-    them, are 422 `validation-error` naming the field; a key the environment
-    already defines is 409 `setting-exists`; the 51st definition is 422
-    `limit-exceeded` (user-settings.md §Model, §Limits).
+    Constraints that do not fit the type, or a default that does not satisfy them, are `422
+    validation-error` naming the field. A key the environment already defines is `409
+    setting-exists`. The 51st definition is `422 limit-exceeded`.
 
     Args:
         environment_id (str):
-        body (SettingDefinitionIn): `POST …/settings/definitions`.
+        body (SettingDefinitionIn): The body of `POST .../settings/definitions`.
 
-            `key` and `type` are set here and never again (user-settings.md §Model).
-            `constraints` may be omitted where the type needs none — a boolean always,
-            a string or number falling back to its defaults — but an enum without
-            `choices` is a 422, from the same validator every other write runs.
+            `key` and `type` cannot be changed afterwards. `constraints` may be omitted where the type
+            needs
+            none (a boolean) or has defaults (a string or number); an `enum` without `choices` is
+            `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,21 +188,20 @@ async def asyncio_detailed(
 ) -> Response[Problem | SettingDefinitionOut]:
     """Create a setting definition
 
-     A new definition. `key` and `type` are fixed here, forever.
+     Create a user setting definition. `key` and `type` cannot be changed afterwards.
 
-    Constraints that do not fit the type, or a default that does not satisfy
-    them, are 422 `validation-error` naming the field; a key the environment
-    already defines is 409 `setting-exists`; the 51st definition is 422
-    `limit-exceeded` (user-settings.md §Model, §Limits).
+    Constraints that do not fit the type, or a default that does not satisfy them, are `422
+    validation-error` naming the field. A key the environment already defines is `409
+    setting-exists`. The 51st definition is `422 limit-exceeded`.
 
     Args:
         environment_id (str):
-        body (SettingDefinitionIn): `POST …/settings/definitions`.
+        body (SettingDefinitionIn): The body of `POST .../settings/definitions`.
 
-            `key` and `type` are set here and never again (user-settings.md §Model).
-            `constraints` may be omitted where the type needs none — a boolean always,
-            a string or number falling back to its defaults — but an enum without
-            `choices` is a 422, from the same validator every other write runs.
+            `key` and `type` cannot be changed afterwards. `constraints` may be omitted where the type
+            needs
+            none (a boolean) or has defaults (a string or number); an `enum` without `choices` is
+            `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -232,21 +229,20 @@ async def asyncio(
 ) -> Problem | SettingDefinitionOut | None:
     """Create a setting definition
 
-     A new definition. `key` and `type` are fixed here, forever.
+     Create a user setting definition. `key` and `type` cannot be changed afterwards.
 
-    Constraints that do not fit the type, or a default that does not satisfy
-    them, are 422 `validation-error` naming the field; a key the environment
-    already defines is 409 `setting-exists`; the 51st definition is 422
-    `limit-exceeded` (user-settings.md §Model, §Limits).
+    Constraints that do not fit the type, or a default that does not satisfy them, are `422
+    validation-error` naming the field. A key the environment already defines is `409
+    setting-exists`. The 51st definition is `422 limit-exceeded`.
 
     Args:
         environment_id (str):
-        body (SettingDefinitionIn): `POST …/settings/definitions`.
+        body (SettingDefinitionIn): The body of `POST .../settings/definitions`.
 
-            `key` and `type` are set here and never again (user-settings.md §Model).
-            `constraints` may be omitted where the type needs none — a boolean always,
-            a string or number falling back to its defaults — but an enum without
-            `choices` is a 422, from the same validator every other write runs.
+            `key` and `type` cannot be changed afterwards. `constraints` may be omitted where the type
+            needs
+            none (a boolean) or has defaults (a string or number); an `enum` without `choices` is
+            `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -19,7 +19,7 @@ T = TypeVar("T", bound="SessionOut")
 
 @_attrs_define
 class SessionOut:
-    """§Sessions, member for member. Not `tenant_id` and not `client_ids`.
+    """One of the person's sessions.
 
     Attributes:
         amr (list[str]):

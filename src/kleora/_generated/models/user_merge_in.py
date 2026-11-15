@@ -16,19 +16,10 @@ T = TypeVar("T", bound="UserMergeIn")
 
 @_attrs_define
 class UserMergeIn:
-    """`POST …/users/{user_id}/merge` — the User being folded in and erased.
+    """The body of `POST .../users/{user_id}/merge`: the user to merge into this one. That user is
+    erased.
 
-    One field, and `extra="forbid"` around it. There is deliberately nothing else
-    to send: what a merge does is fixed by `social-login.md` §Merge, and an option
-    (*"keep the source's authenticator"*, *"leave my own sessions alone"*) would be
-    a caller choosing which half of a takeover-shaped operation to weaken. The
-    winner is the path, so the row being **erased** is the one the caller had to
-    name explicitly.
-
-    A `str` rather than a `uuid.UUID`, so a malformed id is the same 404 as an id
-    that names nothing (`merge.find_source`) rather than a 422 among the shape
-    errors — the answer a caller who mistyped an id should get either way, and one
-    that says nothing about which ids exist.
+    There are no options. A malformed id is `404`, like an id that names no user.
 
         Attributes:
             source_id (str):

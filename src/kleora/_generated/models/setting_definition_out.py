@@ -26,23 +26,19 @@ T = TypeVar("T", bound="SettingDefinitionOut")
 
 @_attrs_define
 class SettingDefinitionOut:
-    """One definition, as `GET …/settings/definitions/{key}` answers it.
+    """One user setting definition.
 
-    `value_count` is how many users hold a written value — what the console's
-    confirmed delete names, since deleting the definition deletes exactly
-    those rows (user-settings.md §Model).
+    `value_count` is how many users hold a stored value, which is how many values deleting the
+    definition deletes.
 
         Attributes:
             access (SettingDefinitionOutAccess):
-            constraints (SettingConstraints): The by-type constraints of one definition (user-settings.md §Model).
+            constraints (SettingConstraints): The constraints of a setting definition, by `type`.
 
-                One schema for all four types rather than a union, because which fields
-                apply is decided by the sibling `type` field: `choices` for `enum` (1-32
-                strings, each ≤ 64 chars), `max_length` for `string` (≤ 1024, default 256,
-                always present on a stored definition), `min`/`max` for `number`, nothing
-                for `boolean`. A field sent for another type is a 422 naming it; the
-                server stores the constraints normalised, so a reader never has to know a
-                default.
+                `choices` for `enum` (1 to 32 strings, each at most 64 characters), `max_length` for `string`
+                (at most 1024, default 256), `min` and `max` for `number`, and nothing for `boolean`. A field
+                that does not apply to the type is `422` naming it. Stored constraints are normalised, with
+                defaults filled in.
             created_at (datetime.datetime):
             default (bool | float | int | None | str):
             description (str):

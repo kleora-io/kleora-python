@@ -84,21 +84,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EnrollStartOut | FlowProblem]:
-    r"""Begin TOTP enrolment
+    """Begin TOTP enrolment
 
-     Seed a factor (or reuse the pending one) and return the secret once.
+     Start enrolling a TOTP factor: create one (or reuse the pending one) and return its secret,
+    once.
 
-    Sensitive, and §\"The operations\" marks the whole write column so. The reason
-    is not procedural, and `api.public.v1.flow.mfa` argues it at length: a caller
-    holding only a session — a stolen token, XSS — could otherwise plant a factor
-    of *their own* on an account with none, which under `optional` policy starts
-    challenging the legitimate owner at every login for a code only the attacker
-    holds, with no self-service way back (removal is gated too) short of an
-    administrative reset.
-
-    `409 mfa-already-enrolled` because \"at most one confirmed TOTP factor\"
-    (`mfa.md` §TOTP): without it a signed-in caller could re-enrol and silently
-    replace a confirmed factor outside the gated remove flow.
+    Requires a recent re-authentication. `409 mfa-already-enrolled` when the person already holds a
+    confirmed TOTP factor; at most one is allowed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -121,21 +113,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> EnrollStartOut | FlowProblem | None:
-    r"""Begin TOTP enrolment
+    """Begin TOTP enrolment
 
-     Seed a factor (or reuse the pending one) and return the secret once.
+     Start enrolling a TOTP factor: create one (or reuse the pending one) and return its secret,
+    once.
 
-    Sensitive, and §\"The operations\" marks the whole write column so. The reason
-    is not procedural, and `api.public.v1.flow.mfa` argues it at length: a caller
-    holding only a session — a stolen token, XSS — could otherwise plant a factor
-    of *their own* on an account with none, which under `optional` policy starts
-    challenging the legitimate owner at every login for a code only the attacker
-    holds, with no self-service way back (removal is gated too) short of an
-    administrative reset.
-
-    `409 mfa-already-enrolled` because \"at most one confirmed TOTP factor\"
-    (`mfa.md` §TOTP): without it a signed-in caller could re-enrol and silently
-    replace a confirmed factor outside the gated remove flow.
+    Requires a recent re-authentication. `409 mfa-already-enrolled` when the person already holds a
+    confirmed TOTP factor; at most one is allowed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,21 +138,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EnrollStartOut | FlowProblem]:
-    r"""Begin TOTP enrolment
+    """Begin TOTP enrolment
 
-     Seed a factor (or reuse the pending one) and return the secret once.
+     Start enrolling a TOTP factor: create one (or reuse the pending one) and return its secret,
+    once.
 
-    Sensitive, and §\"The operations\" marks the whole write column so. The reason
-    is not procedural, and `api.public.v1.flow.mfa` argues it at length: a caller
-    holding only a session — a stolen token, XSS — could otherwise plant a factor
-    of *their own* on an account with none, which under `optional` policy starts
-    challenging the legitimate owner at every login for a code only the attacker
-    holds, with no self-service way back (removal is gated too) short of an
-    administrative reset.
-
-    `409 mfa-already-enrolled` because \"at most one confirmed TOTP factor\"
-    (`mfa.md` §TOTP): without it a signed-in caller could re-enrol and silently
-    replace a confirmed factor outside the gated remove flow.
+    Requires a recent re-authentication. `409 mfa-already-enrolled` when the person already holds a
+    confirmed TOTP factor; at most one is allowed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,21 +165,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> EnrollStartOut | FlowProblem | None:
-    r"""Begin TOTP enrolment
+    """Begin TOTP enrolment
 
-     Seed a factor (or reuse the pending one) and return the secret once.
+     Start enrolling a TOTP factor: create one (or reuse the pending one) and return its secret,
+    once.
 
-    Sensitive, and §\"The operations\" marks the whole write column so. The reason
-    is not procedural, and `api.public.v1.flow.mfa` argues it at length: a caller
-    holding only a session — a stolen token, XSS — could otherwise plant a factor
-    of *their own* on an account with none, which under `optional` policy starts
-    challenging the legitimate owner at every login for a code only the attacker
-    holds, with no self-service way back (removal is gated too) short of an
-    administrative reset.
-
-    `409 mfa-already-enrolled` because \"at most one confirmed TOTP factor\"
-    (`mfa.md` §TOTP): without it a signed-in caller could re-enrol and silently
-    replace a confirmed factor outside the gated remove flow.
+    Requires a recent re-authentication. `409 mfa-already-enrolled` when the person already holds a
+    confirmed TOTP factor; at most one is allowed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

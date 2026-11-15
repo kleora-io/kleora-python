@@ -23,7 +23,7 @@ T = TypeVar("T", bound="RoleOut")
 
 @_attrs_define
 class RoleOut:
-    """A Role as every read of it reports it (rbac.md §API).
+    """A role.
 
     Attributes:
         created_at (datetime.datetime):

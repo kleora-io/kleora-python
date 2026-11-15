@@ -93,29 +93,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[MfaFactorList | Problem]:
-    r"""A user's MFA factors
+    """A user's MFA factors
 
-     Every factor of the user's — confirmed and unconfirmed alike.
+     Every MFA factor of the user, confirmed or not.
 
-    **Never plan-gated**, and for a reason that is not obvious from this
-    operation alone: it is the **only** route on this surface that hands out
-    another user's `MfaFactor` id, and `DELETE …/users/{uid}/mfa/{factor_id}`
-    needs one. The user export carries a factor's kind and timestamps
-    (`api.management.v1.schemas.ExportFactor`) and deliberately no id, so there
-    is no second source. Gating this while leaving the reset open would make
-    the reset unreachable — an ungated exit behind a locked door.
-
-    So the line P6-15 draws is: reading or resetting **one named user's**
-    factors, which is what an operator does to get somebody back in, is on
-    every plan; asking the fleet-wide question — `?mfa=` on the users
-    listing — is `pro` and above. See `delete_user_mfa_factor` below for the
-    whole argument.
-
-    Not paginated: this platform never holds more than two rows per user (one
-    `totp`, one `recovery`), the same reason the signing-key list gives.
-    \"Never seeds or hashes\" (`mfa.md` §API) — `_mfa_factor_body` is the only
-    thing this endpoint reads a row through, and it has no seed or hash to
-    leave off because it never asks for one.
+    Available on every plan, since resetting a user's MFA needs a factor id from this list. Not
+    paginated: a user holds at most a few factors. Secrets and recovery code hashes are never
+    returned.
 
     Args:
         environment_id (str):
@@ -147,29 +131,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> MfaFactorList | Problem | None:
-    r"""A user's MFA factors
+    """A user's MFA factors
 
-     Every factor of the user's — confirmed and unconfirmed alike.
+     Every MFA factor of the user, confirmed or not.
 
-    **Never plan-gated**, and for a reason that is not obvious from this
-    operation alone: it is the **only** route on this surface that hands out
-    another user's `MfaFactor` id, and `DELETE …/users/{uid}/mfa/{factor_id}`
-    needs one. The user export carries a factor's kind and timestamps
-    (`api.management.v1.schemas.ExportFactor`) and deliberately no id, so there
-    is no second source. Gating this while leaving the reset open would make
-    the reset unreachable — an ungated exit behind a locked door.
-
-    So the line P6-15 draws is: reading or resetting **one named user's**
-    factors, which is what an operator does to get somebody back in, is on
-    every plan; asking the fleet-wide question — `?mfa=` on the users
-    listing — is `pro` and above. See `delete_user_mfa_factor` below for the
-    whole argument.
-
-    Not paginated: this platform never holds more than two rows per user (one
-    `totp`, one `recovery`), the same reason the signing-key list gives.
-    \"Never seeds or hashes\" (`mfa.md` §API) — `_mfa_factor_body` is the only
-    thing this endpoint reads a row through, and it has no seed or hash to
-    leave off because it never asks for one.
+    Available on every plan, since resetting a user's MFA needs a factor id from this list. Not
+    paginated: a user holds at most a few factors. Secrets and recovery code hashes are never
+    returned.
 
     Args:
         environment_id (str):
@@ -196,29 +164,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[MfaFactorList | Problem]:
-    r"""A user's MFA factors
+    """A user's MFA factors
 
-     Every factor of the user's — confirmed and unconfirmed alike.
+     Every MFA factor of the user, confirmed or not.
 
-    **Never plan-gated**, and for a reason that is not obvious from this
-    operation alone: it is the **only** route on this surface that hands out
-    another user's `MfaFactor` id, and `DELETE …/users/{uid}/mfa/{factor_id}`
-    needs one. The user export carries a factor's kind and timestamps
-    (`api.management.v1.schemas.ExportFactor`) and deliberately no id, so there
-    is no second source. Gating this while leaving the reset open would make
-    the reset unreachable — an ungated exit behind a locked door.
-
-    So the line P6-15 draws is: reading or resetting **one named user's**
-    factors, which is what an operator does to get somebody back in, is on
-    every plan; asking the fleet-wide question — `?mfa=` on the users
-    listing — is `pro` and above. See `delete_user_mfa_factor` below for the
-    whole argument.
-
-    Not paginated: this platform never holds more than two rows per user (one
-    `totp`, one `recovery`), the same reason the signing-key list gives.
-    \"Never seeds or hashes\" (`mfa.md` §API) — `_mfa_factor_body` is the only
-    thing this endpoint reads a row through, and it has no seed or hash to
-    leave off because it never asks for one.
+    Available on every plan, since resetting a user's MFA needs a factor id from this list. Not
+    paginated: a user holds at most a few factors. Secrets and recovery code hashes are never
+    returned.
 
     Args:
         environment_id (str):
@@ -248,29 +200,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> MfaFactorList | Problem | None:
-    r"""A user's MFA factors
+    """A user's MFA factors
 
-     Every factor of the user's — confirmed and unconfirmed alike.
+     Every MFA factor of the user, confirmed or not.
 
-    **Never plan-gated**, and for a reason that is not obvious from this
-    operation alone: it is the **only** route on this surface that hands out
-    another user's `MfaFactor` id, and `DELETE …/users/{uid}/mfa/{factor_id}`
-    needs one. The user export carries a factor's kind and timestamps
-    (`api.management.v1.schemas.ExportFactor`) and deliberately no id, so there
-    is no second source. Gating this while leaving the reset open would make
-    the reset unreachable — an ungated exit behind a locked door.
-
-    So the line P6-15 draws is: reading or resetting **one named user's**
-    factors, which is what an operator does to get somebody back in, is on
-    every plan; asking the fleet-wide question — `?mfa=` on the users
-    listing — is `pro` and above. See `delete_user_mfa_factor` below for the
-    whole argument.
-
-    Not paginated: this platform never holds more than two rows per user (one
-    `totp`, one `recovery`), the same reason the signing-key list gives.
-    \"Never seeds or hashes\" (`mfa.md` §API) — `_mfa_factor_body` is the only
-    thing this endpoint reads a row through, and it has no seed or hash to
-    leave off because it never asks for one.
+    Available on every plan, since resetting a user's MFA needs a factor id from this list. Not
+    paginated: a user holds at most a few factors. Secrets and recovery code hashes are never
+    returned.
 
     Args:
         environment_id (str):

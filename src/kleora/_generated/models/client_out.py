@@ -19,11 +19,9 @@ T = TypeVar("T", bound="ClientOut")
 
 @_attrs_define
 class ClientOut:
-    """A Client as every read of it reports it (clients.md §"Client resource").
+    """An OAuth client.
 
-    `client_secret` is not a field here — absent, not null, in every list and
-    detail response. `has_secret` is the fact a caller actually wants, and it is
-    derived (`client_secret_hash is not None`) rather than stored.
+    The client secret is never returned. `has_secret` says whether the client has one.
 
         Attributes:
             allowed_scopes (list[str]):

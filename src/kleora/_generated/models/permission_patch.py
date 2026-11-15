@@ -18,12 +18,9 @@ T = TypeVar("T", bound="PermissionPatch")
 
 @_attrs_define
 class PermissionPatch:
-    """`PATCH /api/v1/permissions/{permission_id}` — the description, and nothing else.
+    """The body of `PATCH /api/v1/permissions/{permission_id}`: the description, and nothing else.
 
-    `name` is named in `immutable_fields` rather than left off: it is plainly a
-    property of the resource, and it is what every Role, API-key scope and token
-    claim carries, so a rename would silently change what a deployed
-    integration is asking for (rbac.md §API: "`name` present → 422").
+    `name` cannot be changed: sending it is refused as immutable.
 
         Attributes:
             description (str | Unset):

@@ -88,23 +88,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | WebhookEventDetailOut]:
-    r"""A webhook event, with every delivery attempt
+    """A webhook event, with every delivery attempt
 
-     The frozen envelope and every attempt against it, to every endpoint it
-    reached, newest first.
+     The event's envelope and every delivery attempt, to every endpoint, newest first.
 
-    `outcome`/`succeeded_endpoints`/`total_endpoints` are the same worst-
-    outcome summary the list computes (`_worst_outcome`, `_endpoint_counts`)
-    — over every delivery this event ever made, never narrowed to one
-    endpoint, since a detail page has no `?endpoint_id=` to narrow by. The
-    `deliveries` array below is unaffected by any of this: it is still every
-    attempt, to every endpoint, exactly as stored.
-
-    `payload.data` reads `{}` for an event about a user who has since been
-    erased (`apps.webhooks.services.blank_erased_user_events`; webhooks.md
-    §\"Retention, and erasure\": the envelope and every delivery outcome survive
-    erasure, only `data` is blanked) — this returns the row exactly as stored,
-    so there is nothing further to blank here.
+    `outcome`, `succeeded_endpoints` and `total_endpoints` summarise every delivery of the event, as
+    in the list. `payload.data` is `{}` for an event about a user who has since been erased; the
+    envelope and delivery outcomes are kept.
 
     Args:
         environment_id (str):
@@ -136,23 +126,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Problem | WebhookEventDetailOut | None:
-    r"""A webhook event, with every delivery attempt
+    """A webhook event, with every delivery attempt
 
-     The frozen envelope and every attempt against it, to every endpoint it
-    reached, newest first.
+     The event's envelope and every delivery attempt, to every endpoint, newest first.
 
-    `outcome`/`succeeded_endpoints`/`total_endpoints` are the same worst-
-    outcome summary the list computes (`_worst_outcome`, `_endpoint_counts`)
-    — over every delivery this event ever made, never narrowed to one
-    endpoint, since a detail page has no `?endpoint_id=` to narrow by. The
-    `deliveries` array below is unaffected by any of this: it is still every
-    attempt, to every endpoint, exactly as stored.
-
-    `payload.data` reads `{}` for an event about a user who has since been
-    erased (`apps.webhooks.services.blank_erased_user_events`; webhooks.md
-    §\"Retention, and erasure\": the envelope and every delivery outcome survive
-    erasure, only `data` is blanked) — this returns the row exactly as stored,
-    so there is nothing further to blank here.
+    `outcome`, `succeeded_endpoints` and `total_endpoints` summarise every delivery of the event, as
+    in the list. `payload.data` is `{}` for an event about a user who has since been erased; the
+    envelope and delivery outcomes are kept.
 
     Args:
         environment_id (str):
@@ -179,23 +159,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | WebhookEventDetailOut]:
-    r"""A webhook event, with every delivery attempt
+    """A webhook event, with every delivery attempt
 
-     The frozen envelope and every attempt against it, to every endpoint it
-    reached, newest first.
+     The event's envelope and every delivery attempt, to every endpoint, newest first.
 
-    `outcome`/`succeeded_endpoints`/`total_endpoints` are the same worst-
-    outcome summary the list computes (`_worst_outcome`, `_endpoint_counts`)
-    — over every delivery this event ever made, never narrowed to one
-    endpoint, since a detail page has no `?endpoint_id=` to narrow by. The
-    `deliveries` array below is unaffected by any of this: it is still every
-    attempt, to every endpoint, exactly as stored.
-
-    `payload.data` reads `{}` for an event about a user who has since been
-    erased (`apps.webhooks.services.blank_erased_user_events`; webhooks.md
-    §\"Retention, and erasure\": the envelope and every delivery outcome survive
-    erasure, only `data` is blanked) — this returns the row exactly as stored,
-    so there is nothing further to blank here.
+    `outcome`, `succeeded_endpoints` and `total_endpoints` summarise every delivery of the event, as
+    in the list. `payload.data` is `{}` for an event about a user who has since been erased; the
+    envelope and delivery outcomes are kept.
 
     Args:
         environment_id (str):
@@ -225,23 +195,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Problem | WebhookEventDetailOut | None:
-    r"""A webhook event, with every delivery attempt
+    """A webhook event, with every delivery attempt
 
-     The frozen envelope and every attempt against it, to every endpoint it
-    reached, newest first.
+     The event's envelope and every delivery attempt, to every endpoint, newest first.
 
-    `outcome`/`succeeded_endpoints`/`total_endpoints` are the same worst-
-    outcome summary the list computes (`_worst_outcome`, `_endpoint_counts`)
-    — over every delivery this event ever made, never narrowed to one
-    endpoint, since a detail page has no `?endpoint_id=` to narrow by. The
-    `deliveries` array below is unaffected by any of this: it is still every
-    attempt, to every endpoint, exactly as stored.
-
-    `payload.data` reads `{}` for an event about a user who has since been
-    erased (`apps.webhooks.services.blank_erased_user_events`; webhooks.md
-    §\"Retention, and erasure\": the envelope and every delivery outcome survive
-    erasure, only `data` is blanked) — this returns the row exactly as stored,
-    so there is nothing further to blank here.
+    `outcome`, `succeeded_endpoints` and `total_endpoints` summarise every delivery of the event, as
+    in the list. `payload.data` is `{}` for an event about a user who has since been erased; the
+    envelope and delivery outcomes are kept.
 
     Args:
         environment_id (str):

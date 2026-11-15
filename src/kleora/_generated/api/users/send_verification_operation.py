@@ -100,24 +100,12 @@ def sync_detailed(
 ) -> Response[Problem | SentOut]:
     r"""Send a verification email
 
-     Mail the `verify_email` link, under the per-user send budget.
+     Email the user a link to verify their address, within the per-user email budget.
 
-    An address that is already verified is a no-op: `{\"sent\": false}`, no
-    message, and no slot of the budget spent. users-and-credentials.md wants it
-    to \"still report success\", which a 200 is; what it must not do is charge
-    somebody's mailbox budget for a message nobody sent, because that is how
-    five real sends become four.
+    For an address that is already verified, nothing is sent and nothing is counted against the
+    budget, and the answer is `{\"sent\": false}`. `{\"sent\": true}` means one message was sent.
 
-    One status and one shape, with `sent` carrying the difference —
-    `{\"sent\": true}` means exactly \"one went out\", so a caller can tell the two
-    apart without reading `email_verified_at` back, and a generated client has
-    a single response type to unwrap. (Ruled in review of P2-10; the spec will
-    say so.)
-
-    The budget is `apps.identity.throttles`, and it is **one** budget: this
-    endpoint, `…/send-password-reset` and the hosted resend form all spend the
-    same windows, because the rule protects somebody's mailbox from us and a
-    mailbox does not care which endpoint asked.
+    The budget is shared by this operation, `send-password-reset` and the hosted pages' resend form.
 
     Args:
         environment_id (str):
@@ -151,24 +139,12 @@ def sync(
 ) -> Problem | SentOut | None:
     r"""Send a verification email
 
-     Mail the `verify_email` link, under the per-user send budget.
+     Email the user a link to verify their address, within the per-user email budget.
 
-    An address that is already verified is a no-op: `{\"sent\": false}`, no
-    message, and no slot of the budget spent. users-and-credentials.md wants it
-    to \"still report success\", which a 200 is; what it must not do is charge
-    somebody's mailbox budget for a message nobody sent, because that is how
-    five real sends become four.
+    For an address that is already verified, nothing is sent and nothing is counted against the
+    budget, and the answer is `{\"sent\": false}`. `{\"sent\": true}` means one message was sent.
 
-    One status and one shape, with `sent` carrying the difference —
-    `{\"sent\": true}` means exactly \"one went out\", so a caller can tell the two
-    apart without reading `email_verified_at` back, and a generated client has
-    a single response type to unwrap. (Ruled in review of P2-10; the spec will
-    say so.)
-
-    The budget is `apps.identity.throttles`, and it is **one** budget: this
-    endpoint, `…/send-password-reset` and the hosted resend form all spend the
-    same windows, because the rule protects somebody's mailbox from us and a
-    mailbox does not care which endpoint asked.
+    The budget is shared by this operation, `send-password-reset` and the hosted pages' resend form.
 
     Args:
         environment_id (str):
@@ -197,24 +173,12 @@ async def asyncio_detailed(
 ) -> Response[Problem | SentOut]:
     r"""Send a verification email
 
-     Mail the `verify_email` link, under the per-user send budget.
+     Email the user a link to verify their address, within the per-user email budget.
 
-    An address that is already verified is a no-op: `{\"sent\": false}`, no
-    message, and no slot of the budget spent. users-and-credentials.md wants it
-    to \"still report success\", which a 200 is; what it must not do is charge
-    somebody's mailbox budget for a message nobody sent, because that is how
-    five real sends become four.
+    For an address that is already verified, nothing is sent and nothing is counted against the
+    budget, and the answer is `{\"sent\": false}`. `{\"sent\": true}` means one message was sent.
 
-    One status and one shape, with `sent` carrying the difference —
-    `{\"sent\": true}` means exactly \"one went out\", so a caller can tell the two
-    apart without reading `email_verified_at` back, and a generated client has
-    a single response type to unwrap. (Ruled in review of P2-10; the spec will
-    say so.)
-
-    The budget is `apps.identity.throttles`, and it is **one** budget: this
-    endpoint, `…/send-password-reset` and the hosted resend form all spend the
-    same windows, because the rule protects somebody's mailbox from us and a
-    mailbox does not care which endpoint asked.
+    The budget is shared by this operation, `send-password-reset` and the hosted pages' resend form.
 
     Args:
         environment_id (str):
@@ -246,24 +210,12 @@ async def asyncio(
 ) -> Problem | SentOut | None:
     r"""Send a verification email
 
-     Mail the `verify_email` link, under the per-user send budget.
+     Email the user a link to verify their address, within the per-user email budget.
 
-    An address that is already verified is a no-op: `{\"sent\": false}`, no
-    message, and no slot of the budget spent. users-and-credentials.md wants it
-    to \"still report success\", which a 200 is; what it must not do is charge
-    somebody's mailbox budget for a message nobody sent, because that is how
-    five real sends become four.
+    For an address that is already verified, nothing is sent and nothing is counted against the
+    budget, and the answer is `{\"sent\": false}`. `{\"sent\": true}` means one message was sent.
 
-    One status and one shape, with `sent` carrying the difference —
-    `{\"sent\": true}` means exactly \"one went out\", so a caller can tell the two
-    apart without reading `email_verified_at` back, and a generated client has
-    a single response type to unwrap. (Ruled in review of P2-10; the spec will
-    say so.)
-
-    The budget is `apps.identity.throttles`, and it is **one** budget: this
-    endpoint, `…/send-password-reset` and the hosted resend form all spend the
-    same windows, because the rule protects somebody's mailbox from us and a
-    mailbox does not care which endpoint asked.
+    The budget is shared by this operation, `send-password-reset` and the hosted pages' resend form.
 
     Args:
         environment_id (str):

@@ -21,18 +21,11 @@ T = TypeVar("T", bound="IdentityOut")
 
 @_attrs_define
 class IdentityOut:
-    """One provider identity of a User.
+    """One external provider identity of a user, and the `id` to remove it by.
 
-    Exactly the seven facts social-login.md §"Management API" names, plus the `id`
-    the `DELETE` addresses it by. `provider_email` and `provider_email_verified`
-    are **claims**, stored and displayed and never read as authorisation inputs
-    (§Linking) — a console rendering them is showing what a provider said, which is
-    the only thing they are for. They are blank and `false` on a row an
-    administrator created, because no provider said anything.
-
-    `provider` is the narrow `IdentityProviderKind` and never `password`: a
-    password is `UserOut.has_password` and is managed by `POST …/users/{id}/password`,
-    and this resource's every row is one the `DELETE` can remove.
+    `provider_email` and `provider_email_verified` are what the provider reported, for display only;
+    they are empty and `false` for an identity an administrator linked. `provider` is never
+    `password`: a user's password is reported by `UserOut.has_password`.
 
         Attributes:
             id (UUID):

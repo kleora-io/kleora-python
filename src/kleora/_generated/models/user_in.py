@@ -23,18 +23,13 @@ T = TypeVar("T", bound="UserIn")
 
 @_attrs_define
 class UserIn:
-    """`POST /api/v1/environments/{environment_id}/users`.
+    """The body of `POST /api/v1/environments/{environment_id}/users`.
 
-    `extra="forbid"` is the whole of the "not an input field" rule: `id`,
-    `status`, `has_password`, `email_verified_at`, `last_login_at` and
-    `locked_until` are 422 as unknown fields. `email_verified` and
-    `send_verification` are *instructions* rather than properties — the first
-    resolves into `email_verified_at`, the second sends a message — which is
-    why neither appears in `UserOut`.
+    `id`, `status`, `has_password`, `email_verified_at`, `last_login_at` and `locked_until` are
+    refused as unknown fields. `email_verified` marks the address verified, and `send_verification`
+    emails a verification link; neither is a field of the user.
 
-    `password` is optional and, when given, never echoed anywhere: it is not a
-    field of any response shape, and the audit event for the creation carries
-    only whether the breach check ran.
+    `password` is optional, and is never returned.
 
         Attributes:
             email (str):

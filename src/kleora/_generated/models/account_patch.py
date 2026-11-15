@@ -18,18 +18,10 @@ T = TypeVar("T", bound="AccountPatch")
 
 @_attrs_define
 class AccountPatch:
-    """`PATCH /api/v1/account` — one property, and one refusal worth explaining.
+    """The body of `PATCH /api/v1/account`.
 
-    `slug` is not a field of this schema, so it cannot be written; it is named
-    in `immutable_fields` so that sending it is answered as what it is rather
-    than as an unknown key. It is also the Account's tenant slug and the value
-    `tenant=` carries when the console re-authorises, so renaming it would
-    invalidate every bookmarked switch URL and every token in flight
-    (platform-bootstrap.md §"The Account resource").
-
-    `plan`, `status` and `tenant_id` are unknown fields on purpose:
-    they are not properties a caller has any business addressing, and
-    `extra="forbid"` says so.
+    `slug` cannot be changed: sending it is refused as immutable. `plan`, `status` and `tenant_id`
+    are not fields of this resource and are refused as unknown.
 
         Attributes:
             name (str | Unset):

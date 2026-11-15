@@ -105,23 +105,22 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: RolePermissionsIn,
 ) -> Response[Problem | RoleOut]:
-    r"""Replace a role's permissions
+    """Replace a role's permissions
 
-     The whole set, atomically, and `role.permissions_replaced` with both halves.
+     Replace the role's whole permission set, atomically. Audited as `role.permissions_replaced`
+    with the old and new sets.
 
-    Members holding the role carry the new permissions in the next token issued
-    for them — within `access_token_ttl` for a live token, immediately on the
-    next refresh. There is no revocation list for access tokens (ADR 0008), so
-    \"immediately\" is `sessions:write` (rbac.md §Propagation).
+    Members holding the role get the new permissions in the next token issued for them: within
+    `access_token_ttl` for a live access token, and at once on the next refresh. To apply a change
+    immediately, revoke the members' sessions.
 
     Args:
         role_id (str):
-        body (RolePermissionsIn): `PUT /api/v1/roles/{role_id}/permissions` — the whole set,
-            atomically.
+        body (RolePermissionsIn): The body of `PUT /api/v1/roles/{role_id}/permissions`: the
+            role's whole permission set,
+            replaced atomically.
 
-            A `PUT` rather than a `PATCH` because there is no add-one or remove-one
-            operation: the body is the set the role will have, and the response is the
-            Role that resulted.
+            The response is the resulting role.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,23 +148,22 @@ def sync(
     client: AuthenticatedClient,
     body: RolePermissionsIn,
 ) -> Problem | RoleOut | None:
-    r"""Replace a role's permissions
+    """Replace a role's permissions
 
-     The whole set, atomically, and `role.permissions_replaced` with both halves.
+     Replace the role's whole permission set, atomically. Audited as `role.permissions_replaced`
+    with the old and new sets.
 
-    Members holding the role carry the new permissions in the next token issued
-    for them — within `access_token_ttl` for a live token, immediately on the
-    next refresh. There is no revocation list for access tokens (ADR 0008), so
-    \"immediately\" is `sessions:write` (rbac.md §Propagation).
+    Members holding the role get the new permissions in the next token issued for them: within
+    `access_token_ttl` for a live access token, and at once on the next refresh. To apply a change
+    immediately, revoke the members' sessions.
 
     Args:
         role_id (str):
-        body (RolePermissionsIn): `PUT /api/v1/roles/{role_id}/permissions` — the whole set,
-            atomically.
+        body (RolePermissionsIn): The body of `PUT /api/v1/roles/{role_id}/permissions`: the
+            role's whole permission set,
+            replaced atomically.
 
-            A `PUT` rather than a `PATCH` because there is no add-one or remove-one
-            operation: the body is the set the role will have, and the response is the
-            Role that resulted.
+            The response is the resulting role.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,23 +186,22 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: RolePermissionsIn,
 ) -> Response[Problem | RoleOut]:
-    r"""Replace a role's permissions
+    """Replace a role's permissions
 
-     The whole set, atomically, and `role.permissions_replaced` with both halves.
+     Replace the role's whole permission set, atomically. Audited as `role.permissions_replaced`
+    with the old and new sets.
 
-    Members holding the role carry the new permissions in the next token issued
-    for them — within `access_token_ttl` for a live token, immediately on the
-    next refresh. There is no revocation list for access tokens (ADR 0008), so
-    \"immediately\" is `sessions:write` (rbac.md §Propagation).
+    Members holding the role get the new permissions in the next token issued for them: within
+    `access_token_ttl` for a live access token, and at once on the next refresh. To apply a change
+    immediately, revoke the members' sessions.
 
     Args:
         role_id (str):
-        body (RolePermissionsIn): `PUT /api/v1/roles/{role_id}/permissions` — the whole set,
-            atomically.
+        body (RolePermissionsIn): The body of `PUT /api/v1/roles/{role_id}/permissions`: the
+            role's whole permission set,
+            replaced atomically.
 
-            A `PUT` rather than a `PATCH` because there is no add-one or remove-one
-            operation: the body is the set the role will have, and the response is the
-            Role that resulted.
+            The response is the resulting role.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -230,23 +227,22 @@ async def asyncio(
     client: AuthenticatedClient,
     body: RolePermissionsIn,
 ) -> Problem | RoleOut | None:
-    r"""Replace a role's permissions
+    """Replace a role's permissions
 
-     The whole set, atomically, and `role.permissions_replaced` with both halves.
+     Replace the role's whole permission set, atomically. Audited as `role.permissions_replaced`
+    with the old and new sets.
 
-    Members holding the role carry the new permissions in the next token issued
-    for them — within `access_token_ttl` for a live token, immediately on the
-    next refresh. There is no revocation list for access tokens (ADR 0008), so
-    \"immediately\" is `sessions:write` (rbac.md §Propagation).
+    Members holding the role get the new permissions in the next token issued for them: within
+    `access_token_ttl` for a live access token, and at once on the next refresh. To apply a change
+    immediately, revoke the members' sessions.
 
     Args:
         role_id (str):
-        body (RolePermissionsIn): `PUT /api/v1/roles/{role_id}/permissions` — the whole set,
-            atomically.
+        body (RolePermissionsIn): The body of `PUT /api/v1/roles/{role_id}/permissions`: the
+            role's whole permission set,
+            replaced atomically.
 
-            A `PUT` rather than a `PATCH` because there is no add-one or remove-one
-            operation: the body is the set the role will have, and the response is the
-            Role that resulted.
+            The response is the resulting role.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

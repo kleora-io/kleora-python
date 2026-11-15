@@ -20,12 +20,10 @@ T = TypeVar("T", bound="UserSettingOut")
 
 @_attrs_define
 class UserSettingOut:
-    """One definition's answer for one user: the stored value, or the default.
+    """One setting's value for one user.
 
-    `value` is what the user *has* — their written value where one exists, the
-    definition's default otherwise, `null` where there is neither — which is
-    the same resolution the public surface will serve the user themself
-    (user-settings.md §API).
+    `value` is the user's stored value where there is one, otherwise the setting's default,
+    otherwise `null`.
 
         Attributes:
             access (UserSettingOutAccess):

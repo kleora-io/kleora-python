@@ -17,18 +17,9 @@ T = TypeVar("T", bound="BlockedByDisplay")
 
 @_attrs_define
 class BlockedByDisplay:
-    """Who `blocked_by` names, resolved when the user is read.
+    """The name and email of whoever `blocked_by` names, as they are now.
 
-    Read time, never write time — audit-log.md §"Naming the actor and the
-    target" settles this for the audit surface and the reason is identical
-    here: a name denormalised onto the blocked user's row at block time would
-    **survive the erasure of the operator it names**. Resolution follows
-    erasure automatically, so an erased operator shows as one.
-
-    Two fields and no more. `users:read` reaches this, and what it is allowed
-    past is "what identifies a subject" — the name, and the email that tells
-    two people sharing one apart. Not the avatar, not the picture: this is one
-    line of prose on a detail page, not a second User resource.
+    Resolved when the user is read, so an operator who has since been erased shows as erased.
 
         Attributes:
             email (str):

@@ -107,35 +107,25 @@ def sync_detailed(
 ) -> Response[ApiKeyCreated | Problem]:
     """Create an API key
 
-     A key for this environment, with a prefix that follows the environment.
+     Create an API key. Its prefix follows the environment's kind.
 
-    The 201 carries the full key, once, under the shown-once rules — `no_store`
-    on the response and nothing that could show it again. A replay under the
-    same `Idempotency-Key` returns the stored body including the key, because
-    that is the same response and the store holds it under the same guarantees;
-    a second `POST` without one mints a second key, which is what a second
-    creation means.
+    The `201` carries the full key, once, and is never cached. Repeating the request with the same
+    `Idempotency-Key` returns the same response, key included; without one, a second request creates
+    a second key.
 
-    Three refusals are the resource's rather than the schema's: a scope outside
-    the allowed set is 422 `invalid-scope` naming every offending entry, an
-    environment already holding 100 non-revoked keys is 422 `limit-exceeded`,
-    and an `expires_at` less than 60 s ahead is 422 `validation-error` on that
-    field.
+    - A scope that is not allowed: `422 invalid-scope`, naming each.
+    - An environment that already has 100 keys that are not revoked: `422 limit-exceeded`.
+    - An `expires_at` less than 60 seconds ahead: `422 validation-error` on that field.
 
     Args:
         environment_id (str):
-        body (ApiKeyIn): `POST /api/v1/environments/{environment_id}/api-keys`.
+        body (ApiKeyIn): The body of `POST /api/v1/environments/{environment_id}/api-keys`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `prefix`,
-            `key`, `key_hash`, `status`, `environment_id` and `created_by` are 422 as
-            unknown fields. The prefix in particular is never a caller's choice — it
-            follows the environment's kind, which is what makes a `kl_test_` key
-            structurally unable to reach production (api-keys.md §Format).
-
-            The scope rules are not here. They are the resource's — the allowed set is
-            the reserved permission table minus the account-level half — and they
-            answer 422 `invalid-scope` rather than `validation-error`, which is a slug
-            a schema cannot produce.
+            `prefix`, `key`, `key_hash`, `status`, `environment_id` and `created_by` are refused as
+            unknown
+            fields. The prefix follows the environment's kind, so a `kl_test_` key can never be used
+            in
+            production. A scope that is not allowed for an API key is `422 invalid-scope`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,35 +155,25 @@ def sync(
 ) -> ApiKeyCreated | Problem | None:
     """Create an API key
 
-     A key for this environment, with a prefix that follows the environment.
+     Create an API key. Its prefix follows the environment's kind.
 
-    The 201 carries the full key, once, under the shown-once rules — `no_store`
-    on the response and nothing that could show it again. A replay under the
-    same `Idempotency-Key` returns the stored body including the key, because
-    that is the same response and the store holds it under the same guarantees;
-    a second `POST` without one mints a second key, which is what a second
-    creation means.
+    The `201` carries the full key, once, and is never cached. Repeating the request with the same
+    `Idempotency-Key` returns the same response, key included; without one, a second request creates
+    a second key.
 
-    Three refusals are the resource's rather than the schema's: a scope outside
-    the allowed set is 422 `invalid-scope` naming every offending entry, an
-    environment already holding 100 non-revoked keys is 422 `limit-exceeded`,
-    and an `expires_at` less than 60 s ahead is 422 `validation-error` on that
-    field.
+    - A scope that is not allowed: `422 invalid-scope`, naming each.
+    - An environment that already has 100 keys that are not revoked: `422 limit-exceeded`.
+    - An `expires_at` less than 60 seconds ahead: `422 validation-error` on that field.
 
     Args:
         environment_id (str):
-        body (ApiKeyIn): `POST /api/v1/environments/{environment_id}/api-keys`.
+        body (ApiKeyIn): The body of `POST /api/v1/environments/{environment_id}/api-keys`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `prefix`,
-            `key`, `key_hash`, `status`, `environment_id` and `created_by` are 422 as
-            unknown fields. The prefix in particular is never a caller's choice — it
-            follows the environment's kind, which is what makes a `kl_test_` key
-            structurally unable to reach production (api-keys.md §Format).
-
-            The scope rules are not here. They are the resource's — the allowed set is
-            the reserved permission table minus the account-level half — and they
-            answer 422 `invalid-scope` rather than `validation-error`, which is a slug
-            a schema cannot produce.
+            `prefix`, `key`, `key_hash`, `status`, `environment_id` and `created_by` are refused as
+            unknown
+            fields. The prefix follows the environment's kind, so a `kl_test_` key can never be used
+            in
+            production. A scope that is not allowed for an API key is `422 invalid-scope`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -218,35 +198,25 @@ async def asyncio_detailed(
 ) -> Response[ApiKeyCreated | Problem]:
     """Create an API key
 
-     A key for this environment, with a prefix that follows the environment.
+     Create an API key. Its prefix follows the environment's kind.
 
-    The 201 carries the full key, once, under the shown-once rules — `no_store`
-    on the response and nothing that could show it again. A replay under the
-    same `Idempotency-Key` returns the stored body including the key, because
-    that is the same response and the store holds it under the same guarantees;
-    a second `POST` without one mints a second key, which is what a second
-    creation means.
+    The `201` carries the full key, once, and is never cached. Repeating the request with the same
+    `Idempotency-Key` returns the same response, key included; without one, a second request creates
+    a second key.
 
-    Three refusals are the resource's rather than the schema's: a scope outside
-    the allowed set is 422 `invalid-scope` naming every offending entry, an
-    environment already holding 100 non-revoked keys is 422 `limit-exceeded`,
-    and an `expires_at` less than 60 s ahead is 422 `validation-error` on that
-    field.
+    - A scope that is not allowed: `422 invalid-scope`, naming each.
+    - An environment that already has 100 keys that are not revoked: `422 limit-exceeded`.
+    - An `expires_at` less than 60 seconds ahead: `422 validation-error` on that field.
 
     Args:
         environment_id (str):
-        body (ApiKeyIn): `POST /api/v1/environments/{environment_id}/api-keys`.
+        body (ApiKeyIn): The body of `POST /api/v1/environments/{environment_id}/api-keys`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `prefix`,
-            `key`, `key_hash`, `status`, `environment_id` and `created_by` are 422 as
-            unknown fields. The prefix in particular is never a caller's choice — it
-            follows the environment's kind, which is what makes a `kl_test_` key
-            structurally unable to reach production (api-keys.md §Format).
-
-            The scope rules are not here. They are the resource's — the allowed set is
-            the reserved permission table minus the account-level half — and they
-            answer 422 `invalid-scope` rather than `validation-error`, which is a slug
-            a schema cannot produce.
+            `prefix`, `key`, `key_hash`, `status`, `environment_id` and `created_by` are refused as
+            unknown
+            fields. The prefix follows the environment's kind, so a `kl_test_` key can never be used
+            in
+            production. A scope that is not allowed for an API key is `422 invalid-scope`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -274,35 +244,25 @@ async def asyncio(
 ) -> ApiKeyCreated | Problem | None:
     """Create an API key
 
-     A key for this environment, with a prefix that follows the environment.
+     Create an API key. Its prefix follows the environment's kind.
 
-    The 201 carries the full key, once, under the shown-once rules — `no_store`
-    on the response and nothing that could show it again. A replay under the
-    same `Idempotency-Key` returns the stored body including the key, because
-    that is the same response and the store holds it under the same guarantees;
-    a second `POST` without one mints a second key, which is what a second
-    creation means.
+    The `201` carries the full key, once, and is never cached. Repeating the request with the same
+    `Idempotency-Key` returns the same response, key included; without one, a second request creates
+    a second key.
 
-    Three refusals are the resource's rather than the schema's: a scope outside
-    the allowed set is 422 `invalid-scope` naming every offending entry, an
-    environment already holding 100 non-revoked keys is 422 `limit-exceeded`,
-    and an `expires_at` less than 60 s ahead is 422 `validation-error` on that
-    field.
+    - A scope that is not allowed: `422 invalid-scope`, naming each.
+    - An environment that already has 100 keys that are not revoked: `422 limit-exceeded`.
+    - An `expires_at` less than 60 seconds ahead: `422 validation-error` on that field.
 
     Args:
         environment_id (str):
-        body (ApiKeyIn): `POST /api/v1/environments/{environment_id}/api-keys`.
+        body (ApiKeyIn): The body of `POST /api/v1/environments/{environment_id}/api-keys`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `prefix`,
-            `key`, `key_hash`, `status`, `environment_id` and `created_by` are 422 as
-            unknown fields. The prefix in particular is never a caller's choice — it
-            follows the environment's kind, which is what makes a `kl_test_` key
-            structurally unable to reach production (api-keys.md §Format).
-
-            The scope rules are not here. They are the resource's — the allowed set is
-            the reserved permission table minus the account-level half — and they
-            answer 422 `invalid-scope` rather than `validation-error`, which is a slug
-            a schema cannot produce.
+            `prefix`, `key`, `key_hash`, `status`, `environment_id` and `created_by` are refused as
+            unknown
+            fields. The prefix follows the environment's kind, so a `kl_test_` key can never be used
+            in
+            production. A scope that is not allowed for an API key is `422 invalid-scope`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

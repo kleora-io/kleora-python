@@ -17,16 +17,11 @@ T = TypeVar("T", bound="EnrollStartOut")
 
 @_attrs_define
 class EnrollStartOut:
-    """The shared secret and the `otpauth://` URI, returned once.
+    """The TOTP shared secret and its `otpauth://` URI, returned once.
 
-    TOTP enrolment is on this surface on purpose (§"Two ceremonies are
-    origin-bound"): "it is a shared secret and a six-digit code, with no origin
-    binding of any kind, so the one second factor a customer can offer inside
-    their own product is the one every plan includes."
-
-        Attributes:
-            otpauth_uri (str):
-            secret (str):
+    Attributes:
+        otpauth_uri (str):
+        secret (str):
     """
 
     otpauth_uri: str

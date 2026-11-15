@@ -98,12 +98,10 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Clear a user's lockout
 
-     Zero `failed_login_count` and `locked_until` (security-baseline.md §API).
+     Reset the user's failed sign-in count and lift any lockout.
 
-    The only lever there is over progressive lockout: expiry of `locked_until`
-    does not reset the count, so somebody nineteen failures in is one failure
-    from an hour until a success, an unlock, or a completed reset says
-    otherwise. Blocking is a different state and is untouched.
+    A lockout's expiry does not reset the failed sign-in count; only a successful sign-in, a
+    password reset or this operation does. A block is a different state and is not affected.
 
     Args:
         environment_id (str):
@@ -137,12 +135,10 @@ def sync(
 ) -> Any | Problem | None:
     """Clear a user's lockout
 
-     Zero `failed_login_count` and `locked_until` (security-baseline.md §API).
+     Reset the user's failed sign-in count and lift any lockout.
 
-    The only lever there is over progressive lockout: expiry of `locked_until`
-    does not reset the count, so somebody nineteen failures in is one failure
-    from an hour until a success, an unlock, or a completed reset says
-    otherwise. Blocking is a different state and is untouched.
+    A lockout's expiry does not reset the failed sign-in count; only a successful sign-in, a
+    password reset or this operation does. A block is a different state and is not affected.
 
     Args:
         environment_id (str):
@@ -171,12 +167,10 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Clear a user's lockout
 
-     Zero `failed_login_count` and `locked_until` (security-baseline.md §API).
+     Reset the user's failed sign-in count and lift any lockout.
 
-    The only lever there is over progressive lockout: expiry of `locked_until`
-    does not reset the count, so somebody nineteen failures in is one failure
-    from an hour until a success, an unlock, or a completed reset says
-    otherwise. Blocking is a different state and is untouched.
+    A lockout's expiry does not reset the failed sign-in count; only a successful sign-in, a
+    password reset or this operation does. A block is a different state and is not affected.
 
     Args:
         environment_id (str):
@@ -208,12 +202,10 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Clear a user's lockout
 
-     Zero `failed_login_count` and `locked_until` (security-baseline.md §API).
+     Reset the user's failed sign-in count and lift any lockout.
 
-    The only lever there is over progressive lockout: expiry of `locked_until`
-    does not reset the count, so somebody nineteen failures in is one failure
-    from an hour until a success, an unlock, or a completed reset says
-    otherwise. Blocking is a different state and is untouched.
+    A lockout's expiry does not reset the failed sign-in count; only a successful sign-in, a
+    password reset or this operation does. A block is a different state and is not affected.
 
     Args:
         environment_id (str):

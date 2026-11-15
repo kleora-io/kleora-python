@@ -17,23 +17,9 @@ T = TypeVar("T", bound="EmailChangeIn")
 
 @_attrs_define
 class EmailChangeIn:
-    """§"Changing an email address" step 1: `POST /email` with `{email}`.
+    """The body of `POST /email`: the new address.
 
-    **The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`
-    declares `writes_own={"email"}` — the one declared exception on this surface, and
-    `api.public.v1.account.authz`'s module docstring argues it. The spec gives the
-    body as `{email}` and the spec wins; what the declaration says is that this
-    `email` is a value written onto the caller's own row rather than a way to name
-    somebody else's.
-
-    `max_length` and nothing else. §"Failure modes" wants a malformed or over-length
-    address to be `422 validation-error` with `field = "email"` — "the caller is a
-    program here, not a login form, so there is no oracle to protect: it never saw an
-    address it did not supply" — and the normalisation and the real validation are
-    `users-and-credentials.md` §Email's, applied by the service through
-    `normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be
-    a *second* definition of a valid address, which is the thing `User.email` is a
-    `CharField` rather than an `EmailField` to avoid.
+    A malformed or over-long address is `422 validation-error` with `field = "email"`.
 
         Attributes:
             email (str):

@@ -20,14 +20,10 @@ T = TypeVar("T", bound="InvitationRole")
 class InvitationRole:
     """One of the roles an invitation offers.
 
-    No `scope`, unlike `MemberRole`: an invitation is an offer of roles the
-    tenant can assign, and whether a role happens to be app-scoped is a fact
-    about the role rather than about the offer.
-
-        Attributes:
-            id (UUID):
-            name (str):
-            slug (str):
+    Attributes:
+        id (UUID):
+        name (str):
+        slug (str):
     """
 
     id: UUID

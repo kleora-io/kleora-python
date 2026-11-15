@@ -22,7 +22,7 @@ T = TypeVar("T", bound="MeMembership")
 
 @_attrs_define
 class MeMembership:
-    """One Account the console user may switch to (ADR 0010).
+    """One Account the console user may switch to.
 
     Attributes:
         account (MeAccount):

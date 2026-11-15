@@ -18,11 +18,9 @@ T = TypeVar("T", bound="InvitationInviter")
 
 @_attrs_define
 class InvitationInviter:
-    """Who sent it, when that is a User of this environment.
+    """Who sent the invitation, when that is a user of this environment.
 
-    `null` for a console user administering a customer's environment: an
-    Invitation's `invited_by` is a User of its own Environment and a console
-    user is a User of the platform's `id` App (ADR 0010).
+    `null` when it was sent by a console user administering the environment.
 
         Attributes:
             email (str):

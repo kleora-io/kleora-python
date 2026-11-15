@@ -100,26 +100,17 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: AppIn,
 ) -> Response[AppOut | Problem]:
-    r"""Create an app
+    """Create an app
 
-     An App, both its Environments, and everything the two contain.
+     Create an App with its production and sandbox environments and their default contents.
 
-    Every rule here is `create_app`'s, which is what makes this endpoint and the
-    console agree — there is no App-count ceiling on any plan (billing.md
-    §Plans: \"Apps: unlimited\"), so the only thing that can fail past validation
-    is a slug race, and a failure anywhere leaves no App, no Environment and no
-    `app.created`.
-
-    Worth an `Idempotency-Key` more than anything else on this surface, given
-    how much a single call provisions — and it takes one for free, from
-    `ManagementApiMiddleware`.
+    Either everything is created or nothing is. Accepts an `Idempotency-Key` header, which is
+    recommended given how much one call provisions.
 
     Args:
-        body (AppIn): `POST /api/v1/apps`.
+        body (AppIn): The body of `POST /api/v1/apps`.
 
-            `slug` is optional and derived from `name` when absent (apps.md §"The slug
-            is the issuer"). Absent and `null` mean the same thing here, which they may
-            on a creation: there is no stored value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,26 +136,17 @@ def sync(
     client: AuthenticatedClient,
     body: AppIn,
 ) -> AppOut | Problem | None:
-    r"""Create an app
+    """Create an app
 
-     An App, both its Environments, and everything the two contain.
+     Create an App with its production and sandbox environments and their default contents.
 
-    Every rule here is `create_app`'s, which is what makes this endpoint and the
-    console agree — there is no App-count ceiling on any plan (billing.md
-    §Plans: \"Apps: unlimited\"), so the only thing that can fail past validation
-    is a slug race, and a failure anywhere leaves no App, no Environment and no
-    `app.created`.
-
-    Worth an `Idempotency-Key` more than anything else on this surface, given
-    how much a single call provisions — and it takes one for free, from
-    `ManagementApiMiddleware`.
+    Either everything is created or nothing is. Accepts an `Idempotency-Key` header, which is
+    recommended given how much one call provisions.
 
     Args:
-        body (AppIn): `POST /api/v1/apps`.
+        body (AppIn): The body of `POST /api/v1/apps`.
 
-            `slug` is optional and derived from `name` when absent (apps.md §"The slug
-            is the issuer"). Absent and `null` mean the same thing here, which they may
-            on a creation: there is no stored value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -185,26 +167,17 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: AppIn,
 ) -> Response[AppOut | Problem]:
-    r"""Create an app
+    """Create an app
 
-     An App, both its Environments, and everything the two contain.
+     Create an App with its production and sandbox environments and their default contents.
 
-    Every rule here is `create_app`'s, which is what makes this endpoint and the
-    console agree — there is no App-count ceiling on any plan (billing.md
-    §Plans: \"Apps: unlimited\"), so the only thing that can fail past validation
-    is a slug race, and a failure anywhere leaves no App, no Environment and no
-    `app.created`.
-
-    Worth an `Idempotency-Key` more than anything else on this surface, given
-    how much a single call provisions — and it takes one for free, from
-    `ManagementApiMiddleware`.
+    Either everything is created or nothing is. Accepts an `Idempotency-Key` header, which is
+    recommended given how much one call provisions.
 
     Args:
-        body (AppIn): `POST /api/v1/apps`.
+        body (AppIn): The body of `POST /api/v1/apps`.
 
-            `slug` is optional and derived from `name` when absent (apps.md §"The slug
-            is the issuer"). Absent and `null` mean the same thing here, which they may
-            on a creation: there is no stored value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -228,26 +201,17 @@ async def asyncio(
     client: AuthenticatedClient,
     body: AppIn,
 ) -> AppOut | Problem | None:
-    r"""Create an app
+    """Create an app
 
-     An App, both its Environments, and everything the two contain.
+     Create an App with its production and sandbox environments and their default contents.
 
-    Every rule here is `create_app`'s, which is what makes this endpoint and the
-    console agree — there is no App-count ceiling on any plan (billing.md
-    §Plans: \"Apps: unlimited\"), so the only thing that can fail past validation
-    is a slug race, and a failure anywhere leaves no App, no Environment and no
-    `app.created`.
-
-    Worth an `Idempotency-Key` more than anything else on this surface, given
-    how much a single call provisions — and it takes one for free, from
-    `ManagementApiMiddleware`.
+    Either everything is created or nothing is. Accepts an `Idempotency-Key` header, which is
+    recommended given how much one call provisions.
 
     Args:
-        body (AppIn): `POST /api/v1/apps`.
+        body (AppIn): The body of `POST /api/v1/apps`.
 
-            `slug` is optional and derived from `name` when absent (apps.md §"The slug
-            is the issuer"). Absent and `null` mean the same thing here, which they may
-            on a creation: there is no stored value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

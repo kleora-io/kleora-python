@@ -24,13 +24,10 @@ T = TypeVar("T", bound="AuditTarget")
 
 @_attrs_define
 class AuditTarget:
-    """What was acted on: the model label and the row's id, never a foreign key.
+    """What was acted on: the kind of resource and its id.
 
-    Present only when the action had a target — `target` is `null` on the
-    response otherwise, rather than an object with two nulls in it.
-
-    `display` names a `user` or `tenant` target the same way `AuditActor`'s
-    does, and is absent for every other target kind.
+    `target` is `null` when the action had no target. `display` names a `user` or `tenant` target,
+    as `AuditActor`'s does, and is absent for every other kind.
 
         Attributes:
             id (UUID):

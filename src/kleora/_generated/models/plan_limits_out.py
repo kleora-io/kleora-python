@@ -17,12 +17,9 @@ T = TypeVar("T", bound="PlanLimitsOut")
 
 @_attrs_define
 class PlanLimitsOut:
-    """The numbers a plan is held to — `apps.accounts.plan_limits`, verbatim.
+    """The limits a plan sets.
 
-    `AccountOut` deliberately carries no limits, so this is where a caller
-    reads them (P6-13 scope). `tenant_limit` is the derived ceiling
-    `effective_tenant_limit` returns, override included: what actually applies
-    to this App right now, not what its plan implies.
+    `tenant_limit` is the limit that applies to this App now, including any override.
 
         Attributes:
             audit_retention_days (int):

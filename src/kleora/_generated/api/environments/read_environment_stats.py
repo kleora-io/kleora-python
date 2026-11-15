@@ -105,16 +105,11 @@ def sync_detailed(
 ) -> Response[EnvironmentStats | Problem]:
     """Environment statistics
 
-     The overview's numbers: totals now, a daily series, and four setup facts.
+     The environment's overview figures: current totals, a daily series over the range, and setup
+    progress.
 
-    One request rather than five, because the overview draws all of it at once
-    and five round trips would be five chances for the cards to disagree about
-    which environment they are describing.
-
-    Cached for 60 seconds per environment and range
-    (`apps.accounts.services.stats`), so the range switcher's three answers cost
-    one computation each however often somebody clicks between them —
-    `computed_at` is the moment of that computation, not of this request.
+    Cached for 60 seconds per environment and range; `computed_at` is when the figures were
+    computed.
 
     Args:
         app_id (str):
@@ -151,16 +146,11 @@ def sync(
 ) -> EnvironmentStats | Problem | None:
     """Environment statistics
 
-     The overview's numbers: totals now, a daily series, and four setup facts.
+     The environment's overview figures: current totals, a daily series over the range, and setup
+    progress.
 
-    One request rather than five, because the overview draws all of it at once
-    and five round trips would be five chances for the cards to disagree about
-    which environment they are describing.
-
-    Cached for 60 seconds per environment and range
-    (`apps.accounts.services.stats`), so the range switcher's three answers cost
-    one computation each however often somebody clicks between them —
-    `computed_at` is the moment of that computation, not of this request.
+    Cached for 60 seconds per environment and range; `computed_at` is when the figures were
+    computed.
 
     Args:
         app_id (str):
@@ -192,16 +182,11 @@ async def asyncio_detailed(
 ) -> Response[EnvironmentStats | Problem]:
     """Environment statistics
 
-     The overview's numbers: totals now, a daily series, and four setup facts.
+     The environment's overview figures: current totals, a daily series over the range, and setup
+    progress.
 
-    One request rather than five, because the overview draws all of it at once
-    and five round trips would be five chances for the cards to disagree about
-    which environment they are describing.
-
-    Cached for 60 seconds per environment and range
-    (`apps.accounts.services.stats`), so the range switcher's three answers cost
-    one computation each however often somebody clicks between them —
-    `computed_at` is the moment of that computation, not of this request.
+    Cached for 60 seconds per environment and range; `computed_at` is when the figures were
+    computed.
 
     Args:
         app_id (str):
@@ -236,16 +221,11 @@ async def asyncio(
 ) -> EnvironmentStats | Problem | None:
     """Environment statistics
 
-     The overview's numbers: totals now, a daily series, and four setup facts.
+     The environment's overview figures: current totals, a daily series over the range, and setup
+    progress.
 
-    One request rather than five, because the overview draws all of it at once
-    and five round trips would be five chances for the cards to disagree about
-    which environment they are describing.
-
-    Cached for 60 seconds per environment and range
-    (`apps.accounts.services.stats`), so the range switcher's three answers cost
-    one computation each however often somebody clicks between them —
-    `computed_at` is the moment of that computation, not of this request.
+    Cached for 60 seconds per environment and range; `computed_at` is when the figures were
+    computed.
 
     Args:
         app_id (str):

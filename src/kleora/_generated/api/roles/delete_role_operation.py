@@ -95,11 +95,10 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Delete a role
 
-     Remove it from every Member and open Invitation that carries it.
+     Delete a role, removing it from every member and open invitation that carries it.
 
-    System roles are 409 `system-role`: `owner`, `admin`, `developer`, `billing`
-    and `viewer` are what the console's own authority is made of, and
-    `bootstrap_platform` is their only writer.
+    The system roles `owner`, `admin`, `developer`, `billing` and `viewer` cannot be deleted: `409
+    system-role`.
 
     Args:
         role_id (str):
@@ -130,11 +129,10 @@ def sync(
 ) -> Any | Problem | None:
     """Delete a role
 
-     Remove it from every Member and open Invitation that carries it.
+     Delete a role, removing it from every member and open invitation that carries it.
 
-    System roles are 409 `system-role`: `owner`, `admin`, `developer`, `billing`
-    and `viewer` are what the console's own authority is made of, and
-    `bootstrap_platform` is their only writer.
+    The system roles `owner`, `admin`, `developer`, `billing` and `viewer` cannot be deleted: `409
+    system-role`.
 
     Args:
         role_id (str):
@@ -160,11 +158,10 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Delete a role
 
-     Remove it from every Member and open Invitation that carries it.
+     Delete a role, removing it from every member and open invitation that carries it.
 
-    System roles are 409 `system-role`: `owner`, `admin`, `developer`, `billing`
-    and `viewer` are what the console's own authority is made of, and
-    `bootstrap_platform` is their only writer.
+    The system roles `owner`, `admin`, `developer`, `billing` and `viewer` cannot be deleted: `409
+    system-role`.
 
     Args:
         role_id (str):
@@ -193,11 +190,10 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Delete a role
 
-     Remove it from every Member and open Invitation that carries it.
+     Delete a role, removing it from every member and open invitation that carries it.
 
-    System roles are 409 `system-role`: `owner`, `admin`, `developer`, `billing`
-    and `viewer` are what the console's own authority is made of, and
-    `bootstrap_platform` is their only writer.
+    The system roles `owner`, `admin`, `developer`, `billing` and `viewer` cannot be deleted: `409
+    system-role`.
 
     Args:
         role_id (str):

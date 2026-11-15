@@ -24,12 +24,10 @@ T = TypeVar("T", bound="SettingDefinitionIn")
 
 @_attrs_define
 class SettingDefinitionIn:
-    """`POST …/settings/definitions`.
+    """The body of `POST .../settings/definitions`.
 
-    `key` and `type` are set here and never again (user-settings.md §Model).
-    `constraints` may be omitted where the type needs none — a boolean always,
-    a string or number falling back to its defaults — but an enum without
-    `choices` is a 422, from the same validator every other write runs.
+    `key` and `type` cannot be changed afterwards. `constraints` may be omitted where the type needs
+    none (a boolean) or has defaults (a string or number); an `enum` without `choices` is `422`.
 
         Attributes:
             key (str):

@@ -110,18 +110,16 @@ def sync_detailed(
 ) -> Response[Problem | SigningKeyRotated]:
     r"""Rotate the signing keys
 
-     Promote `next` to `active`, retire the old `active`, pre-announce a new `next`.
+     Rotate the environment's signing keys: `next` becomes `active`, the old `active` key is
+    retired, and a new `next` key is announced.
 
-    One transaction in the service, and one `signing_key.rotated` event carrying
-    the three kids. The body is optional — a plain `POST` with no body is the
-    ordinary rotation — and `{\"retire_immediately\": true}` is the compromise
-    case: the previously active key is deleted rather than retired, so it leaves
-    JWKS at once and everything it signed stops verifying as caches refresh.
+    Audited as one `signing_key.rotated` event naming the three key ids. The body is optional;
+    `{\"retire_immediately\": true}` is for a key compromise, and deletes the previously active key
+    rather than retiring it, so it leaves the JWKS at once and tokens it signed stop verifying as
+    caches refresh.
 
-    The 200 is the three states *after* the rotation, read back from the
-    database rather than assembled from the service's return value, so what a
-    caller sees is what `GET …/signing-keys` and `/.well-known/jwks.json` will
-    say the moment it asks.
+    The response is the keys' state after the rotation, as `GET .../signing-keys` and
+    `/.well-known/jwks.json` report it.
 
     Args:
         environment_id (str):
@@ -155,18 +153,16 @@ def sync(
 ) -> Problem | SigningKeyRotated | None:
     r"""Rotate the signing keys
 
-     Promote `next` to `active`, retire the old `active`, pre-announce a new `next`.
+     Rotate the environment's signing keys: `next` becomes `active`, the old `active` key is
+    retired, and a new `next` key is announced.
 
-    One transaction in the service, and one `signing_key.rotated` event carrying
-    the three kids. The body is optional — a plain `POST` with no body is the
-    ordinary rotation — and `{\"retire_immediately\": true}` is the compromise
-    case: the previously active key is deleted rather than retired, so it leaves
-    JWKS at once and everything it signed stops verifying as caches refresh.
+    Audited as one `signing_key.rotated` event naming the three key ids. The body is optional;
+    `{\"retire_immediately\": true}` is for a key compromise, and deletes the previously active key
+    rather than retiring it, so it leaves the JWKS at once and tokens it signed stop verifying as
+    caches refresh.
 
-    The 200 is the three states *after* the rotation, read back from the
-    database rather than assembled from the service's return value, so what a
-    caller sees is what `GET …/signing-keys` and `/.well-known/jwks.json` will
-    say the moment it asks.
+    The response is the keys' state after the rotation, as `GET .../signing-keys` and
+    `/.well-known/jwks.json` report it.
 
     Args:
         environment_id (str):
@@ -195,18 +191,16 @@ async def asyncio_detailed(
 ) -> Response[Problem | SigningKeyRotated]:
     r"""Rotate the signing keys
 
-     Promote `next` to `active`, retire the old `active`, pre-announce a new `next`.
+     Rotate the environment's signing keys: `next` becomes `active`, the old `active` key is
+    retired, and a new `next` key is announced.
 
-    One transaction in the service, and one `signing_key.rotated` event carrying
-    the three kids. The body is optional — a plain `POST` with no body is the
-    ordinary rotation — and `{\"retire_immediately\": true}` is the compromise
-    case: the previously active key is deleted rather than retired, so it leaves
-    JWKS at once and everything it signed stops verifying as caches refresh.
+    Audited as one `signing_key.rotated` event naming the three key ids. The body is optional;
+    `{\"retire_immediately\": true}` is for a key compromise, and deletes the previously active key
+    rather than retiring it, so it leaves the JWKS at once and tokens it signed stop verifying as
+    caches refresh.
 
-    The 200 is the three states *after* the rotation, read back from the
-    database rather than assembled from the service's return value, so what a
-    caller sees is what `GET …/signing-keys` and `/.well-known/jwks.json` will
-    say the moment it asks.
+    The response is the keys' state after the rotation, as `GET .../signing-keys` and
+    `/.well-known/jwks.json` report it.
 
     Args:
         environment_id (str):
@@ -238,18 +232,16 @@ async def asyncio(
 ) -> Problem | SigningKeyRotated | None:
     r"""Rotate the signing keys
 
-     Promote `next` to `active`, retire the old `active`, pre-announce a new `next`.
+     Rotate the environment's signing keys: `next` becomes `active`, the old `active` key is
+    retired, and a new `next` key is announced.
 
-    One transaction in the service, and one `signing_key.rotated` event carrying
-    the three kids. The body is optional — a plain `POST` with no body is the
-    ordinary rotation — and `{\"retire_immediately\": true}` is the compromise
-    case: the previously active key is deleted rather than retired, so it leaves
-    JWKS at once and everything it signed stops verifying as caches refresh.
+    Audited as one `signing_key.rotated` event naming the three key ids. The body is optional;
+    `{\"retire_immediately\": true}` is for a key compromise, and deletes the previously active key
+    rather than retiring it, so it leaves the JWKS at once and tokens it signed stop verifying as
+    caches refresh.
 
-    The 200 is the three states *after* the rotation, read back from the
-    database rather than assembled from the service's return value, so what a
-    caller sees is what `GET …/signing-keys` and `/.well-known/jwks.json` will
-    say the moment it asks.
+    The response is the keys' state after the rotation, as `GET .../signing-keys` and
+    `/.well-known/jwks.json` report it.
 
     Args:
         environment_id (str):

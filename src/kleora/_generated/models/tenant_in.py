@@ -22,11 +22,9 @@ T = TypeVar("T", bound="TenantIn")
 
 @_attrs_define
 class TenantIn:
-    """`POST /api/v1/environments/{environment_id}/tenants`.
+    """The body of `POST /api/v1/environments/{environment_id}/tenants`.
 
-    `slug` is required, unlike an Account's or an App's: a tenant slug is the
-    `tenant` authorization parameter and the customer chooses it deliberately,
-    and there is no hosted form here to derive one from a name for.
+    `slug` is required: it is the value of the `tenant` authorization parameter.
 
         Attributes:
             name (str):

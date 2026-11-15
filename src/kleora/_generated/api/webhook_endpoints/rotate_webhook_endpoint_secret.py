@@ -100,12 +100,10 @@ def sync_detailed(
 ) -> Response[Problem | WebhookEndpointSecretOut]:
     """Rotate a webhook endpoint's secret
 
-     A new secret, returned once. The previous one keeps verifying for 24 hours.
+     Issue a new signing secret, returned once. The previous secret keeps verifying for 24 hours.
 
-    webhooks.md §Signature: rotating without an overlap breaks a customer's
-    handler between our rotation and their deploy, so the row keeps both
-    ciphertexts until `previous_secret_expires_at`, which this response
-    reports.
+    Both secrets sign deliveries until `previous_secret_expires_at`, which the response reports, so
+    a handler can be updated without missing a delivery.
 
     Args:
         environment_id (str):
@@ -139,12 +137,10 @@ def sync(
 ) -> Problem | WebhookEndpointSecretOut | None:
     """Rotate a webhook endpoint's secret
 
-     A new secret, returned once. The previous one keeps verifying for 24 hours.
+     Issue a new signing secret, returned once. The previous secret keeps verifying for 24 hours.
 
-    webhooks.md §Signature: rotating without an overlap breaks a customer's
-    handler between our rotation and their deploy, so the row keeps both
-    ciphertexts until `previous_secret_expires_at`, which this response
-    reports.
+    Both secrets sign deliveries until `previous_secret_expires_at`, which the response reports, so
+    a handler can be updated without missing a delivery.
 
     Args:
         environment_id (str):
@@ -173,12 +169,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | WebhookEndpointSecretOut]:
     """Rotate a webhook endpoint's secret
 
-     A new secret, returned once. The previous one keeps verifying for 24 hours.
+     Issue a new signing secret, returned once. The previous secret keeps verifying for 24 hours.
 
-    webhooks.md §Signature: rotating without an overlap breaks a customer's
-    handler between our rotation and their deploy, so the row keeps both
-    ciphertexts until `previous_secret_expires_at`, which this response
-    reports.
+    Both secrets sign deliveries until `previous_secret_expires_at`, which the response reports, so
+    a handler can be updated without missing a delivery.
 
     Args:
         environment_id (str):
@@ -210,12 +204,10 @@ async def asyncio(
 ) -> Problem | WebhookEndpointSecretOut | None:
     """Rotate a webhook endpoint's secret
 
-     A new secret, returned once. The previous one keeps verifying for 24 hours.
+     Issue a new signing secret, returned once. The previous secret keeps verifying for 24 hours.
 
-    webhooks.md §Signature: rotating without an overlap breaks a customer's
-    handler between our rotation and their deploy, so the row keeps both
-    ciphertexts until `previous_secret_expires_at`, which this response
-    reports.
+    Both secrets sign deliveries until `previous_secret_expires_at`, which the response reports, so
+    a handler can be updated without missing a delivery.
 
     Args:
         environment_id (str):

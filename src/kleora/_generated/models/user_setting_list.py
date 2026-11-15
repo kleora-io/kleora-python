@@ -23,11 +23,10 @@ T = TypeVar("T", bound="UserSettingList")
 
 @_attrs_define
 class UserSettingList:
-    """`GET …/settings/users/{user_id}/values` — one row per definition.
+    """The body of `GET .../settings/users/{user_id}/values`: one row per setting definition.
 
-    At most 50 rows (the definitions cap), so `next_cursor` is present and
-    always null, for the reason `EmailTemplateList` gives: one envelope for
-    every list of the surface, and `limit`/`cursor` accepted and ignored.
+    At most 50 rows, so `next_cursor` is always `null`, and `limit` and `cursor` are accepted and
+    ignored.
 
         Attributes:
             items (list[UserSettingOut]):

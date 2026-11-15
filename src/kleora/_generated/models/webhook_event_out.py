@@ -21,18 +21,13 @@ T = TypeVar("T", bound="WebhookEventOut")
 
 @_attrs_define
 class WebhookEventOut:
-    """One row of `GET …/webhook-events` — no payload, no attempts; see
-    `WebhookEventDetailOut` for both.
+    """One webhook event in a list, without its payload or delivery attempts (see
+    `WebhookEventDetailOut`).
 
-    `outcome` is the **worst** outcome among the endpoints this event
-    reached — failed beats pending beats succeeded — not the most recently
-    attempted one (webhooks.md §"Trackable and debuggable": "One event,
-    several endpoints, one row" — a success arriving after a failure must
-    not paint the row green and hide the failure behind it).
-    `succeeded_endpoints`/`total_endpoints` are the counts the console
-    renders beside it ("1 of 3 delivered"): how many of the endpoints this
-    event reached currently read `succeeded`, out of how many it reached at
-    all. Both are `0` for an event with no delivery yet.
+    `outcome` is the worst outcome among the endpoints the event was delivered to (failed, then
+    pending, then succeeded), not the latest attempt, so a later success does not hide a failure.
+    `succeeded_endpoints` and `total_endpoints` count the endpoints that currently read `succeeded`,
+    and all the endpoints the event was delivered to; both are `0` before the first delivery.
 
         Attributes:
             dispatched_at (datetime.datetime | None):

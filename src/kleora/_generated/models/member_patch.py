@@ -20,13 +20,10 @@ T = TypeVar("T", bound="MemberPatch")
 
 @_attrs_define
 class MemberPatch:
-    """`PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
+    """The body of `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
 
-    `roles` replaces the whole set — there is no add-one or remove-one
-    operation on this surface — and `[]` is a valid value distinct from the
-    `null` it does not accept. `user`, `tenant_id` and the timestamps are
-    unknown fields: a membership is not moved from one user or tenant to
-    another, it is removed and another is added.
+    `roles` replaces the whole set; `[]` is valid, `null` is not. `user`, `tenant_id` and the
+    timestamps are refused as unknown fields: to move a membership, remove it and add another.
 
         Attributes:
             roles (list[UUID] | Unset):

@@ -22,11 +22,8 @@ T = TypeVar("T", bound="ProblemError")
 class ProblemError:
     """One field-level failure inside a `validation-error` problem.
 
-    `field` is `null` for the failures that belong to no single field — a rule
-    over two settings, say. Django spells that `__all__` internally, which is
-    its name for the absence of a field rather than a field any caller sent, so
-    it never reaches the wire. A client reads `null` as "about the request, not
-    about one property"; `errors[].field` is a string everywhere else.
+    `field` is `null` for a failure that concerns the request as a whole rather than one field, such
+    as a rule over two settings.
 
         Attributes:
             code (str):

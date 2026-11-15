@@ -17,11 +17,10 @@ T = TypeVar("T", bound="ProviderOut")
 
 @_attrs_define
 class ProviderOut:
-    """One provider a person could re-authenticate or link with.
+    """One provider the person can link or re-authenticate with.
 
-    `start_url` is a same-origin path on the issuer with no destination parameter
-    in it, exactly as `/flow/identities` carries it — the navigation is top-level
-    and the customer's screen does not get to choose where it lands.
+    `start_url` is a same-origin path on the issuer with no destination parameter, to be opened as a
+    top-level navigation.
 
         Attributes:
             kind (str):

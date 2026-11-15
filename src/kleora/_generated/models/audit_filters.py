@@ -22,12 +22,10 @@ T = TypeVar("T", bound="AuditFilters")
 
 @_attrs_define
 class AuditFilters:
-    """The filters every audit endpoint takes (audit-log.md §API).
+    """The filters every audit event list takes.
 
-    `from` is inclusive and `to` is exclusive on `occurred_at`, and both are
-    `AwareDatetime`: an instant without a UTC offset is 422
-    `validation-error` naming the field, not a value this surface guesses a
-    zone for (management-api.md §Conventions, "Input timestamps").
+    `from` is inclusive and `to` exclusive, on `occurred_at`. Both must carry a UTC offset; a
+    timestamp without one is `422 validation-error` naming the field.
 
         Attributes:
             action (list[str] | None | Unset):

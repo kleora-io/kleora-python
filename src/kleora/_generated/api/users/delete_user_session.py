@@ -99,20 +99,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke a session
+    """Revoke a session
 
-     Revoke the session and its refresh tokens. 204, and idempotent.
+     Revoke the session and its refresh tokens. Idempotent.
 
-    A session id that is not this user's — or not a UUID at all — is the same
-    404 a missing row gets (sessions-and-tokens.md §\"Failure modes\"). A repeat
-    on an already revoked session is 204 as well and writes no second event:
-    the row is in the state the caller asked for.
-
-    409 `conflict` when the row is deleted between this handler's lookup and the
-    service's write — `identity.sessions.prune` and user erasure both remove
-    Session rows, so the PATCH-vs-DELETE race is a real one here.
-    `sessions.revoke_session` writes through `save_or_conflict`, and the API's
-    own `StaleRow` handler answers it; nothing is caught in this handler.
+    A session id that is not this user's, or not a UUID, is `404`. Revoking a session that is
+    already revoked is also `204`, with no second event. `409 conflict` when the session is deleted
+    while the request is being processed.
 
     Args:
         environment_id (str):
@@ -147,20 +140,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke a session
+    """Revoke a session
 
-     Revoke the session and its refresh tokens. 204, and idempotent.
+     Revoke the session and its refresh tokens. Idempotent.
 
-    A session id that is not this user's — or not a UUID at all — is the same
-    404 a missing row gets (sessions-and-tokens.md §\"Failure modes\"). A repeat
-    on an already revoked session is 204 as well and writes no second event:
-    the row is in the state the caller asked for.
-
-    409 `conflict` when the row is deleted between this handler's lookup and the
-    service's write — `identity.sessions.prune` and user erasure both remove
-    Session rows, so the PATCH-vs-DELETE race is a real one here.
-    `sessions.revoke_session` writes through `save_or_conflict`, and the API's
-    own `StaleRow` handler answers it; nothing is caught in this handler.
+    A session id that is not this user's, or not a UUID, is `404`. Revoking a session that is
+    already revoked is also `204`, with no second event. `409 conflict` when the session is deleted
+    while the request is being processed.
 
     Args:
         environment_id (str):
@@ -190,20 +176,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke a session
+    """Revoke a session
 
-     Revoke the session and its refresh tokens. 204, and idempotent.
+     Revoke the session and its refresh tokens. Idempotent.
 
-    A session id that is not this user's — or not a UUID at all — is the same
-    404 a missing row gets (sessions-and-tokens.md §\"Failure modes\"). A repeat
-    on an already revoked session is 204 as well and writes no second event:
-    the row is in the state the caller asked for.
-
-    409 `conflict` when the row is deleted between this handler's lookup and the
-    service's write — `identity.sessions.prune` and user erasure both remove
-    Session rows, so the PATCH-vs-DELETE race is a real one here.
-    `sessions.revoke_session` writes through `save_or_conflict`, and the API's
-    own `StaleRow` handler answers it; nothing is caught in this handler.
+    A session id that is not this user's, or not a UUID, is `404`. Revoking a session that is
+    already revoked is also `204`, with no second event. `409 conflict` when the session is deleted
+    while the request is being processed.
 
     Args:
         environment_id (str):
@@ -236,20 +215,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke a session
+    """Revoke a session
 
-     Revoke the session and its refresh tokens. 204, and idempotent.
+     Revoke the session and its refresh tokens. Idempotent.
 
-    A session id that is not this user's — or not a UUID at all — is the same
-    404 a missing row gets (sessions-and-tokens.md §\"Failure modes\"). A repeat
-    on an already revoked session is 204 as well and writes no second event:
-    the row is in the state the caller asked for.
-
-    409 `conflict` when the row is deleted between this handler's lookup and the
-    service's write — `identity.sessions.prune` and user erasure both remove
-    Session rows, so the PATCH-vs-DELETE race is a real one here.
-    `sessions.revoke_session` writes through `save_or_conflict`, and the API's
-    own `StaleRow` handler answers it; nothing is caught in this handler.
+    A session id that is not this user's, or not a UUID, is `404`. Revoking a session that is
+    already revoked is also `204`, with no second event. `409 conflict` when the session is deleted
+    while the request is being processed.
 
     Args:
         environment_id (str):

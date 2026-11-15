@@ -105,25 +105,23 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> Response[BrandingOut | Problem]:
-    r"""Replace an environment's branding record
+    """Replace an environment's branding record
 
-     The whole record, validated and normalised, with the changed keys audited.
+     Replace the environment's whole branding record. The record is validated and normalised, and
+    the changed keys are audited.
 
-    `exclude_unset` is what carries \"unknown keys anywhere are rejected\" past
-    the schema and into the validator: a `background` of `{\"kind\": \"solid\"}`
-    reaches it as that and not as `solid` plus six nulls, so
-    `background.angle` on a solid background is the 422 branding.md asks for
-    rather than a null the validator would have to guess about.
+    Unknown keys anywhere in the record are rejected, as are members that do not apply (for example
+    `background.angle` on a solid background).
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,25 +149,23 @@ def sync(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> BrandingOut | Problem | None:
-    r"""Replace an environment's branding record
+    """Replace an environment's branding record
 
-     The whole record, validated and normalised, with the changed keys audited.
+     Replace the environment's whole branding record. The record is validated and normalised, and
+    the changed keys are audited.
 
-    `exclude_unset` is what carries \"unknown keys anywhere are rejected\" past
-    the schema and into the validator: a `background` of `{\"kind\": \"solid\"}`
-    reaches it as that and not as `solid` plus six nulls, so
-    `background.angle` on a solid background is the 422 branding.md asks for
-    rather than a null the validator would have to guess about.
+    Unknown keys anywhere in the record are rejected, as are members that do not apply (for example
+    `background.angle` on a solid background).
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -192,25 +188,23 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> Response[BrandingOut | Problem]:
-    r"""Replace an environment's branding record
+    """Replace an environment's branding record
 
-     The whole record, validated and normalised, with the changed keys audited.
+     Replace the environment's whole branding record. The record is validated and normalised, and
+    the changed keys are audited.
 
-    `exclude_unset` is what carries \"unknown keys anywhere are rejected\" past
-    the schema and into the validator: a `background` of `{\"kind\": \"solid\"}`
-    reaches it as that and not as `solid` plus six nulls, so
-    `background.angle` on a solid background is the 422 branding.md asks for
-    rather than a null the validator would have to guess about.
+    Unknown keys anywhere in the record are rejected, as are members that do not apply (for example
+    `background.angle` on a solid background).
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -236,25 +230,23 @@ async def asyncio(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> BrandingOut | Problem | None:
-    r"""Replace an environment's branding record
+    """Replace an environment's branding record
 
-     The whole record, validated and normalised, with the changed keys audited.
+     Replace the environment's whole branding record. The record is validated and normalised, and
+    the changed keys are audited.
 
-    `exclude_unset` is what carries \"unknown keys anywhere are rejected\" past
-    the schema and into the validator: a `background` of `{\"kind\": \"solid\"}`
-    reaches it as that and not as `solid` plus six nulls, so
-    `background.angle` on a solid background is the 422 branding.md asks for
-    rather than a null the validator would have to guess about.
+    Unknown keys anywhere in the record are rejected, as are members that do not apply (for example
+    `background.angle` on a solid background).
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

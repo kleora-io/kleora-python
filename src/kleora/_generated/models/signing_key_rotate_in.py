@@ -18,12 +18,10 @@ T = TypeVar("T", bound="SigningKeyRotateIn")
 
 @_attrs_define
 class SigningKeyRotateIn:
-    """The optional body of `POST …/signing-keys/rotate`.
+    """The optional body of `POST .../signing-keys/rotate`.
 
-    `retire_immediately` is the key-compromise case (security-baseline.md): the
-    previously active key is deleted in the rotation's own transaction rather
-    than retired, so it leaves JWKS at once. The default is `false`, which is
-    the ordinary rotation every environment does on a schedule.
+    `retire_immediately` is for a key compromise: the previously active key is deleted rather than
+    retired, so it leaves the JWKS at once. The default, `false`, is an ordinary rotation.
 
         Attributes:
             retire_immediately (bool | Unset):  Default: False.

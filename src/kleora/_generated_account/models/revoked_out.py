@@ -17,7 +17,7 @@ T = TypeVar("T", bound="RevokedOut")
 
 @_attrs_define
 class RevokedOut:
-    """§Sessions: `POST /sessions/revoke-others` answers `{"revoked": n}`.
+    """The number of sessions revoked.
 
     Attributes:
         revoked (int):

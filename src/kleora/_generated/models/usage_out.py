@@ -24,16 +24,11 @@ T = TypeVar("T", bound="UsageOut")
 
 @_attrs_define
 class UsageOut:
-    """`GET /api/v1/account/usage` (environments.md §API).
+    """The body of `GET /api/v1/account/usage`.
 
-    `sandbox_users` is reported so the console can show it and is never counted
-    toward anything. `mau` is the Account's monthly active users for the current
-    calendar month, from the same roll-up `GET /account/billing/usage` reads
-    (`apps.billing.metering`, P6-12) — it was declared as a `null` placeholder
-    first so that filling it in would be additive for every generated client,
-    and the type stays optional for exactly that reason. It is read from the
-    roll-up rather than counted here, because two arithmetics for one figure is
-    how a usage page and an invoice come to disagree.
+    `sandbox_users` is reported but never counted toward a limit. `mau` is the Account's monthly
+    active users for the current calendar month, the same figure `GET /account/billing/usage`
+    reports; it may be `null`.
 
         Attributes:
             apps (list[AppUsageOut]):

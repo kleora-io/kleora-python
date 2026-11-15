@@ -88,21 +88,16 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Remove one of the signed-in person's own provider links
+    """Remove one of the signed-in person's own provider links
 
-     `409 last-credential` when this is the last thing that could begin a sign-in.
+     Unlink one of the person's external provider identities.
 
-    The closed set is a usable password, another provider identity, or another
-    confirmed passkey — **not** a TOTP factor and **not** recovery codes, which
-    are second factors and cannot start one (`social-login.md` §Unlinking). The
-    refusal is the API's: a screen shows the sentence, and would still be refused
-    if it did not.
+    `409 last-credential` when it is the last thing the person could start a sign-in with: a usable
+    password, another provider identity or another confirmed passkey. A TOTP factor and recovery
+    codes are second factors and do not count.
 
-    Removing a link revokes the sessions that provider authenticated and **no
-    others**, which is why a caller whose own session came from a password keeps
-    working and one whose session came from the provider it has just removed does
-    not — and on this surface \"does not\" is immediate, because step 7 of
-    authentication reads the session rather than trusting the token.
+    Revokes the sessions that were authenticated through this provider, and no others. If the
+    caller's own session came from that provider, its token stops working immediately.
 
     Args:
         identity_id (str):
@@ -131,21 +126,16 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Remove one of the signed-in person's own provider links
+    """Remove one of the signed-in person's own provider links
 
-     `409 last-credential` when this is the last thing that could begin a sign-in.
+     Unlink one of the person's external provider identities.
 
-    The closed set is a usable password, another provider identity, or another
-    confirmed passkey — **not** a TOTP factor and **not** recovery codes, which
-    are second factors and cannot start one (`social-login.md` §Unlinking). The
-    refusal is the API's: a screen shows the sentence, and would still be refused
-    if it did not.
+    `409 last-credential` when it is the last thing the person could start a sign-in with: a usable
+    password, another provider identity or another confirmed passkey. A TOTP factor and recovery
+    codes are second factors and do not count.
 
-    Removing a link revokes the sessions that provider authenticated and **no
-    others**, which is why a caller whose own session came from a password keeps
-    working and one whose session came from the provider it has just removed does
-    not — and on this surface \"does not\" is immediate, because step 7 of
-    authentication reads the session rather than trusting the token.
+    Revokes the sessions that were authenticated through this provider, and no others. If the
+    caller's own session came from that provider, its token stops working immediately.
 
     Args:
         identity_id (str):
@@ -169,21 +159,16 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Remove one of the signed-in person's own provider links
+    """Remove one of the signed-in person's own provider links
 
-     `409 last-credential` when this is the last thing that could begin a sign-in.
+     Unlink one of the person's external provider identities.
 
-    The closed set is a usable password, another provider identity, or another
-    confirmed passkey — **not** a TOTP factor and **not** recovery codes, which
-    are second factors and cannot start one (`social-login.md` §Unlinking). The
-    refusal is the API's: a screen shows the sentence, and would still be refused
-    if it did not.
+    `409 last-credential` when it is the last thing the person could start a sign-in with: a usable
+    password, another provider identity or another confirmed passkey. A TOTP factor and recovery
+    codes are second factors and do not count.
 
-    Removing a link revokes the sessions that provider authenticated and **no
-    others**, which is why a caller whose own session came from a password keeps
-    working and one whose session came from the provider it has just removed does
-    not — and on this surface \"does not\" is immediate, because step 7 of
-    authentication reads the session rather than trusting the token.
+    Revokes the sessions that were authenticated through this provider, and no others. If the
+    caller's own session came from that provider, its token stops working immediately.
 
     Args:
         identity_id (str):
@@ -210,21 +195,16 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Remove one of the signed-in person's own provider links
+    """Remove one of the signed-in person's own provider links
 
-     `409 last-credential` when this is the last thing that could begin a sign-in.
+     Unlink one of the person's external provider identities.
 
-    The closed set is a usable password, another provider identity, or another
-    confirmed passkey — **not** a TOTP factor and **not** recovery codes, which
-    are second factors and cannot start one (`social-login.md` §Unlinking). The
-    refusal is the API's: a screen shows the sentence, and would still be refused
-    if it did not.
+    `409 last-credential` when it is the last thing the person could start a sign-in with: a usable
+    password, another provider identity or another confirmed passkey. A TOTP factor and recovery
+    codes are second factors and do not count.
 
-    Removing a link revokes the sessions that provider authenticated and **no
-    others**, which is why a caller whose own session came from a password keeps
-    working and one whose session came from the provider it has just removed does
-    not — and on this surface \"does not\" is immediate, because step 7 of
-    authentication reads the session rather than trusting the token.
+    Revokes the sessions that were authenticated through this provider, and no others. If the
+    caller's own session came from that provider, its token stops working immediately.
 
     Args:
         identity_id (str):

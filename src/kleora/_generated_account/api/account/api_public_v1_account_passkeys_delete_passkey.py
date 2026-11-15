@@ -88,31 +88,16 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Remove one of the signed-in person's own passkeys
+    """Remove one of the signed-in person's own passkeys
 
-     Two refusals, from `passkeys.md`'s two rules — and this surface separates them.
+     Remove one of the person's passkeys.
 
-    `passkeys.md` §\"Multiple credentials, and removing them\" has two rules:
-    refused unconditionally when removing it would leave the person **no way to
-    sign in at all**, and refused under `mfa_policy: required` when it is their
-    last *second factor* of any kind. `webauthn.removal_refused` answers both with
-    one bool, which is all `DELETE /flow/passkeys/{id}` needs — that surface
-    answers `403 mfa-required` either way.
+    Two refusals, with different meanings:
 
-    **§API asks this surface for two answers**: `409 last-credential` and
-    `403 mfa-required`, and §\"Failure modes\" gives them separate rows with
-    separate closed sets. That is right for an API a customer programs against:
-    \"you would have no way in\" and \"this environment insists on a second factor\"
-    call for different screens, and a client that saw one slug for both would have
-    to guess which it was.
-
-    So the split asks `identities.ways_to_sign_in` — the *same* predicate
-    `removal_refused` asks for its first rule, with the same
-    `excluding_passkey` — and only then asks `removal_refused` for what is left,
-    which can then only be the policy rule. One rule, one predicate, two slugs:
-    nothing here re-derives what a way in is, which is exactly the mistake `S9-08`
-    found when the passkey rule knew about passwords and passkeys and nothing
-    about provider identities.
+    - `409 last-credential` when removing it would leave the person no way to sign in at all (no
+      usable password, provider identity or other confirmed passkey).
+    - `403 mfa-required` when the environment requires MFA and this is the person's last second
+      factor of any kind.
 
     Args:
         factor_id (str):
@@ -141,31 +126,16 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Remove one of the signed-in person's own passkeys
+    """Remove one of the signed-in person's own passkeys
 
-     Two refusals, from `passkeys.md`'s two rules — and this surface separates them.
+     Remove one of the person's passkeys.
 
-    `passkeys.md` §\"Multiple credentials, and removing them\" has two rules:
-    refused unconditionally when removing it would leave the person **no way to
-    sign in at all**, and refused under `mfa_policy: required` when it is their
-    last *second factor* of any kind. `webauthn.removal_refused` answers both with
-    one bool, which is all `DELETE /flow/passkeys/{id}` needs — that surface
-    answers `403 mfa-required` either way.
+    Two refusals, with different meanings:
 
-    **§API asks this surface for two answers**: `409 last-credential` and
-    `403 mfa-required`, and §\"Failure modes\" gives them separate rows with
-    separate closed sets. That is right for an API a customer programs against:
-    \"you would have no way in\" and \"this environment insists on a second factor\"
-    call for different screens, and a client that saw one slug for both would have
-    to guess which it was.
-
-    So the split asks `identities.ways_to_sign_in` — the *same* predicate
-    `removal_refused` asks for its first rule, with the same
-    `excluding_passkey` — and only then asks `removal_refused` for what is left,
-    which can then only be the policy rule. One rule, one predicate, two slugs:
-    nothing here re-derives what a way in is, which is exactly the mistake `S9-08`
-    found when the passkey rule knew about passwords and passkeys and nothing
-    about provider identities.
+    - `409 last-credential` when removing it would leave the person no way to sign in at all (no
+      usable password, provider identity or other confirmed passkey).
+    - `403 mfa-required` when the environment requires MFA and this is the person's last second
+      factor of any kind.
 
     Args:
         factor_id (str):
@@ -189,31 +159,16 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Remove one of the signed-in person's own passkeys
+    """Remove one of the signed-in person's own passkeys
 
-     Two refusals, from `passkeys.md`'s two rules — and this surface separates them.
+     Remove one of the person's passkeys.
 
-    `passkeys.md` §\"Multiple credentials, and removing them\" has two rules:
-    refused unconditionally when removing it would leave the person **no way to
-    sign in at all**, and refused under `mfa_policy: required` when it is their
-    last *second factor* of any kind. `webauthn.removal_refused` answers both with
-    one bool, which is all `DELETE /flow/passkeys/{id}` needs — that surface
-    answers `403 mfa-required` either way.
+    Two refusals, with different meanings:
 
-    **§API asks this surface for two answers**: `409 last-credential` and
-    `403 mfa-required`, and §\"Failure modes\" gives them separate rows with
-    separate closed sets. That is right for an API a customer programs against:
-    \"you would have no way in\" and \"this environment insists on a second factor\"
-    call for different screens, and a client that saw one slug for both would have
-    to guess which it was.
-
-    So the split asks `identities.ways_to_sign_in` — the *same* predicate
-    `removal_refused` asks for its first rule, with the same
-    `excluding_passkey` — and only then asks `removal_refused` for what is left,
-    which can then only be the policy rule. One rule, one predicate, two slugs:
-    nothing here re-derives what a way in is, which is exactly the mistake `S9-08`
-    found when the passkey rule knew about passwords and passkeys and nothing
-    about provider identities.
+    - `409 last-credential` when removing it would leave the person no way to sign in at all (no
+      usable password, provider identity or other confirmed passkey).
+    - `403 mfa-required` when the environment requires MFA and this is the person's last second
+      factor of any kind.
 
     Args:
         factor_id (str):
@@ -240,31 +195,16 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Remove one of the signed-in person's own passkeys
+    """Remove one of the signed-in person's own passkeys
 
-     Two refusals, from `passkeys.md`'s two rules — and this surface separates them.
+     Remove one of the person's passkeys.
 
-    `passkeys.md` §\"Multiple credentials, and removing them\" has two rules:
-    refused unconditionally when removing it would leave the person **no way to
-    sign in at all**, and refused under `mfa_policy: required` when it is their
-    last *second factor* of any kind. `webauthn.removal_refused` answers both with
-    one bool, which is all `DELETE /flow/passkeys/{id}` needs — that surface
-    answers `403 mfa-required` either way.
+    Two refusals, with different meanings:
 
-    **§API asks this surface for two answers**: `409 last-credential` and
-    `403 mfa-required`, and §\"Failure modes\" gives them separate rows with
-    separate closed sets. That is right for an API a customer programs against:
-    \"you would have no way in\" and \"this environment insists on a second factor\"
-    call for different screens, and a client that saw one slug for both would have
-    to guess which it was.
-
-    So the split asks `identities.ways_to_sign_in` — the *same* predicate
-    `removal_refused` asks for its first rule, with the same
-    `excluding_passkey` — and only then asks `removal_refused` for what is left,
-    which can then only be the policy rule. One rule, one predicate, two slugs:
-    nothing here re-derives what a way in is, which is exactly the mistake `S9-08`
-    found when the passkey rule knew about passwords and passkeys and nothing
-    about provider identities.
+    - `409 last-credential` when removing it would leave the person no way to sign in at all (no
+      usable password, provider identity or other confirmed passkey).
+    - `403 mfa-required` when the environment requires MFA and this is the person's last second
+      factor of any kind.
 
     Args:
         factor_id (str):

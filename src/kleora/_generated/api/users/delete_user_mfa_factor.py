@@ -99,41 +99,16 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Administrative MFA reset
+    """Administrative MFA reset
 
-     Remove the user's factors and send the `mfa_removed` notice.
+     Reset the user's MFA: remove their factors, and email them a notice.
 
-    Removing either kind removes both (`mfa.md` §\"Administrative reset\"), so
-    the id in the path only has to name *a* factor of this user's — the same
-    404-not-403 shape `_target_session` gives a foreign id, so an id from
-    another user or another environment reveals nothing. Existing sessions are
-    not revoked by this action; under `required` the next login forces
-    re-enrolment.
+    Removing a TOTP factor or the recovery codes removes both, so the id only has to name one factor
+    of this user. An id of another user's factor is `404`. Sessions are not revoked; if the
+    environment requires MFA, the user enrols again at the next sign-in.
 
-    **Never plan-gated, on any plan.** billing.md §Plans, billing.md §\"What is
-    gated\" and mfa.md §\"What a plan gates\" all put \"fleet MFA management /
-    administrative reset\" behind `pro`, and P6-15 first implemented that. It
-    was removed on review, and the reason belongs here rather than in a commit
-    message, because the next person tidying gates will match on the resource
-    name and re-add it.
-
-    mfa.md §\"Failure modes\" says, of a user whose recovery codes are exhausted
-    and whose device is lost: \"**Administrative reset is the only path**; the
-    page says so.\" Gating this route therefore withholds nothing from *our*
-    customer — it permanently locks out **their** end user, a person who never
-    agreed to anything with us and cannot even find out why. That is the exact
-    outcome billing.md §\"The rule everything else bends around\" exists to
-    forbid, and it is the rule P6-11 established, P6-12 upheld in metering,
-    P6-14 proved through a day-60 OAuth flow and P6-15 proves for passkeys. A
-    lockout we cause, on a path the spec calls the only one, is a worse outcome
-    than an ungated feature on a free plan.
-
-    The three documents are describing *fleet MFA management at scale* as a
-    paid capability and sweeping this route up with it by resource name.
-    Administering users' MFA at scale is reasonably paid — the `?mfa=` filter on
-    the users listing still is. Being the sole exit from a lockout is not.
-    `tests/test_plan_gates.py` pins this with a test whose whole job is to say
-    so.
+    Available on every plan: this is how a user who has lost their device and their recovery codes
+    gets back in.
 
     Args:
         environment_id (str):
@@ -168,41 +143,16 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Administrative MFA reset
+    """Administrative MFA reset
 
-     Remove the user's factors and send the `mfa_removed` notice.
+     Reset the user's MFA: remove their factors, and email them a notice.
 
-    Removing either kind removes both (`mfa.md` §\"Administrative reset\"), so
-    the id in the path only has to name *a* factor of this user's — the same
-    404-not-403 shape `_target_session` gives a foreign id, so an id from
-    another user or another environment reveals nothing. Existing sessions are
-    not revoked by this action; under `required` the next login forces
-    re-enrolment.
+    Removing a TOTP factor or the recovery codes removes both, so the id only has to name one factor
+    of this user. An id of another user's factor is `404`. Sessions are not revoked; if the
+    environment requires MFA, the user enrols again at the next sign-in.
 
-    **Never plan-gated, on any plan.** billing.md §Plans, billing.md §\"What is
-    gated\" and mfa.md §\"What a plan gates\" all put \"fleet MFA management /
-    administrative reset\" behind `pro`, and P6-15 first implemented that. It
-    was removed on review, and the reason belongs here rather than in a commit
-    message, because the next person tidying gates will match on the resource
-    name and re-add it.
-
-    mfa.md §\"Failure modes\" says, of a user whose recovery codes are exhausted
-    and whose device is lost: \"**Administrative reset is the only path**; the
-    page says so.\" Gating this route therefore withholds nothing from *our*
-    customer — it permanently locks out **their** end user, a person who never
-    agreed to anything with us and cannot even find out why. That is the exact
-    outcome billing.md §\"The rule everything else bends around\" exists to
-    forbid, and it is the rule P6-11 established, P6-12 upheld in metering,
-    P6-14 proved through a day-60 OAuth flow and P6-15 proves for passkeys. A
-    lockout we cause, on a path the spec calls the only one, is a worse outcome
-    than an ungated feature on a free plan.
-
-    The three documents are describing *fleet MFA management at scale* as a
-    paid capability and sweeping this route up with it by resource name.
-    Administering users' MFA at scale is reasonably paid — the `?mfa=` filter on
-    the users listing still is. Being the sole exit from a lockout is not.
-    `tests/test_plan_gates.py` pins this with a test whose whole job is to say
-    so.
+    Available on every plan: this is how a user who has lost their device and their recovery codes
+    gets back in.
 
     Args:
         environment_id (str):
@@ -232,41 +182,16 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Administrative MFA reset
+    """Administrative MFA reset
 
-     Remove the user's factors and send the `mfa_removed` notice.
+     Reset the user's MFA: remove their factors, and email them a notice.
 
-    Removing either kind removes both (`mfa.md` §\"Administrative reset\"), so
-    the id in the path only has to name *a* factor of this user's — the same
-    404-not-403 shape `_target_session` gives a foreign id, so an id from
-    another user or another environment reveals nothing. Existing sessions are
-    not revoked by this action; under `required` the next login forces
-    re-enrolment.
+    Removing a TOTP factor or the recovery codes removes both, so the id only has to name one factor
+    of this user. An id of another user's factor is `404`. Sessions are not revoked; if the
+    environment requires MFA, the user enrols again at the next sign-in.
 
-    **Never plan-gated, on any plan.** billing.md §Plans, billing.md §\"What is
-    gated\" and mfa.md §\"What a plan gates\" all put \"fleet MFA management /
-    administrative reset\" behind `pro`, and P6-15 first implemented that. It
-    was removed on review, and the reason belongs here rather than in a commit
-    message, because the next person tidying gates will match on the resource
-    name and re-add it.
-
-    mfa.md §\"Failure modes\" says, of a user whose recovery codes are exhausted
-    and whose device is lost: \"**Administrative reset is the only path**; the
-    page says so.\" Gating this route therefore withholds nothing from *our*
-    customer — it permanently locks out **their** end user, a person who never
-    agreed to anything with us and cannot even find out why. That is the exact
-    outcome billing.md §\"The rule everything else bends around\" exists to
-    forbid, and it is the rule P6-11 established, P6-12 upheld in metering,
-    P6-14 proved through a day-60 OAuth flow and P6-15 proves for passkeys. A
-    lockout we cause, on a path the spec calls the only one, is a worse outcome
-    than an ungated feature on a free plan.
-
-    The three documents are describing *fleet MFA management at scale* as a
-    paid capability and sweeping this route up with it by resource name.
-    Administering users' MFA at scale is reasonably paid — the `?mfa=` filter on
-    the users listing still is. Being the sole exit from a lockout is not.
-    `tests/test_plan_gates.py` pins this with a test whose whole job is to say
-    so.
+    Available on every plan: this is how a user who has lost their device and their recovery codes
+    gets back in.
 
     Args:
         environment_id (str):
@@ -299,41 +224,16 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Administrative MFA reset
+    """Administrative MFA reset
 
-     Remove the user's factors and send the `mfa_removed` notice.
+     Reset the user's MFA: remove their factors, and email them a notice.
 
-    Removing either kind removes both (`mfa.md` §\"Administrative reset\"), so
-    the id in the path only has to name *a* factor of this user's — the same
-    404-not-403 shape `_target_session` gives a foreign id, so an id from
-    another user or another environment reveals nothing. Existing sessions are
-    not revoked by this action; under `required` the next login forces
-    re-enrolment.
+    Removing a TOTP factor or the recovery codes removes both, so the id only has to name one factor
+    of this user. An id of another user's factor is `404`. Sessions are not revoked; if the
+    environment requires MFA, the user enrols again at the next sign-in.
 
-    **Never plan-gated, on any plan.** billing.md §Plans, billing.md §\"What is
-    gated\" and mfa.md §\"What a plan gates\" all put \"fleet MFA management /
-    administrative reset\" behind `pro`, and P6-15 first implemented that. It
-    was removed on review, and the reason belongs here rather than in a commit
-    message, because the next person tidying gates will match on the resource
-    name and re-add it.
-
-    mfa.md §\"Failure modes\" says, of a user whose recovery codes are exhausted
-    and whose device is lost: \"**Administrative reset is the only path**; the
-    page says so.\" Gating this route therefore withholds nothing from *our*
-    customer — it permanently locks out **their** end user, a person who never
-    agreed to anything with us and cannot even find out why. That is the exact
-    outcome billing.md §\"The rule everything else bends around\" exists to
-    forbid, and it is the rule P6-11 established, P6-12 upheld in metering,
-    P6-14 proved through a day-60 OAuth flow and P6-15 proves for passkeys. A
-    lockout we cause, on a path the spec calls the only one, is a worse outcome
-    than an ungated feature on a free plan.
-
-    The three documents are describing *fleet MFA management at scale* as a
-    paid capability and sweeping this route up with it by resource name.
-    Administering users' MFA at scale is reasonably paid — the `?mfa=` filter on
-    the users listing still is. Being the sole exit from a lockout is not.
-    `tests/test_plan_gates.py` pins this with a test whose whole job is to say
-    so.
+    Available on every plan: this is how a user who has lost their device and their recovery codes
+    gets back in.
 
     Args:
         environment_id (str):

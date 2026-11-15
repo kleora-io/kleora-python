@@ -91,14 +91,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Delete an API key
+    """Delete an API key
 
-     Remove the row. Allowed whether or not the key was revoked first.
+     Delete an API key, whether or not it was revoked first.
 
-    The key stops authenticating immediately, for the same reason a revoked one
-    does: nothing caches validity, and the resolver finds no row. What is lost
-    is the listing — which is why `api_key.deleted` keeps the `name` and the
-    `prefix`, so the log can still answer \"what was that key\".
+    The key stops working immediately. The `api_key.deleted` audit event keeps the key's `name` and
+    `prefix`.
 
     Args:
         environment_id (str):
@@ -130,14 +128,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Delete an API key
+    """Delete an API key
 
-     Remove the row. Allowed whether or not the key was revoked first.
+     Delete an API key, whether or not it was revoked first.
 
-    The key stops authenticating immediately, for the same reason a revoked one
-    does: nothing caches validity, and the resolver finds no row. What is lost
-    is the listing — which is why `api_key.deleted` keeps the `name` and the
-    `prefix`, so the log can still answer \"what was that key\".
+    The key stops working immediately. The `api_key.deleted` audit event keeps the key's `name` and
+    `prefix`.
 
     Args:
         environment_id (str):
@@ -164,14 +160,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Delete an API key
+    """Delete an API key
 
-     Remove the row. Allowed whether or not the key was revoked first.
+     Delete an API key, whether or not it was revoked first.
 
-    The key stops authenticating immediately, for the same reason a revoked one
-    does: nothing caches validity, and the resolver finds no row. What is lost
-    is the listing — which is why `api_key.deleted` keeps the `name` and the
-    `prefix`, so the log can still answer \"what was that key\".
+    The key stops working immediately. The `api_key.deleted` audit event keeps the key's `name` and
+    `prefix`.
 
     Args:
         environment_id (str):
@@ -201,14 +195,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Delete an API key
+    """Delete an API key
 
-     Remove the row. Allowed whether or not the key was revoked first.
+     Delete an API key, whether or not it was revoked first.
 
-    The key stops authenticating immediately, for the same reason a revoked one
-    does: nothing caches validity, and the resolver finds no row. What is lost
-    is the listing — which is why `api_key.deleted` keeps the `name` and the
-    `prefix`, so the log can still answer \"what was that key\".
+    The key stops working immediately. The `api_key.deleted` audit event keeps the key's `name` and
+    `prefix`.
 
     Args:
         environment_id (str):

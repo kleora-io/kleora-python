@@ -105,25 +105,19 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: TenantIn,
 ) -> Response[Problem | TenantOut]:
-    r"""Create a tenant
+    """Create a tenant
 
-     A tenant with no members.
+     Create a tenant with no members.
 
-    An administrator creating a tenant is not joining it — \"a tenant may have
-    zero members\" is the spec's own sentence — so unlike the hosted workspace
-    form this writes one row and one event.
-
-    Three refusals are the resource's rather than the schema's: `single` mode is
-    409 `tenant-mode-single`, `default` and `kleora` are 409 `slug-reserved`
-    naming the field, and a slug someone else holds is 409 `slug-taken`.
+    - In `single` tenant mode: `409 tenant-mode-single`.
+    - The slugs `default` and `kleora` are reserved: `409 slug-reserved`.
+    - A slug another tenant holds: `409 slug-taken`.
 
     Args:
         environment_id (str):
-        body (TenantIn): `POST /api/v1/environments/{environment_id}/tenants`.
+        body (TenantIn): The body of `POST /api/v1/environments/{environment_id}/tenants`.
 
-            `slug` is required, unlike an Account's or an App's: a tenant slug is the
-            `tenant` authorization parameter and the customer chooses it deliberately,
-            and there is no hosted form here to derive one from a name for.
+            `slug` is required: it is the value of the `tenant` authorization parameter.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,25 +145,19 @@ def sync(
     client: AuthenticatedClient,
     body: TenantIn,
 ) -> Problem | TenantOut | None:
-    r"""Create a tenant
+    """Create a tenant
 
-     A tenant with no members.
+     Create a tenant with no members.
 
-    An administrator creating a tenant is not joining it — \"a tenant may have
-    zero members\" is the spec's own sentence — so unlike the hosted workspace
-    form this writes one row and one event.
-
-    Three refusals are the resource's rather than the schema's: `single` mode is
-    409 `tenant-mode-single`, `default` and `kleora` are 409 `slug-reserved`
-    naming the field, and a slug someone else holds is 409 `slug-taken`.
+    - In `single` tenant mode: `409 tenant-mode-single`.
+    - The slugs `default` and `kleora` are reserved: `409 slug-reserved`.
+    - A slug another tenant holds: `409 slug-taken`.
 
     Args:
         environment_id (str):
-        body (TenantIn): `POST /api/v1/environments/{environment_id}/tenants`.
+        body (TenantIn): The body of `POST /api/v1/environments/{environment_id}/tenants`.
 
-            `slug` is required, unlike an Account's or an App's: a tenant slug is the
-            `tenant` authorization parameter and the customer chooses it deliberately,
-            and there is no hosted form here to derive one from a name for.
+            `slug` is required: it is the value of the `tenant` authorization parameter.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -192,25 +180,19 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: TenantIn,
 ) -> Response[Problem | TenantOut]:
-    r"""Create a tenant
+    """Create a tenant
 
-     A tenant with no members.
+     Create a tenant with no members.
 
-    An administrator creating a tenant is not joining it — \"a tenant may have
-    zero members\" is the spec's own sentence — so unlike the hosted workspace
-    form this writes one row and one event.
-
-    Three refusals are the resource's rather than the schema's: `single` mode is
-    409 `tenant-mode-single`, `default` and `kleora` are 409 `slug-reserved`
-    naming the field, and a slug someone else holds is 409 `slug-taken`.
+    - In `single` tenant mode: `409 tenant-mode-single`.
+    - The slugs `default` and `kleora` are reserved: `409 slug-reserved`.
+    - A slug another tenant holds: `409 slug-taken`.
 
     Args:
         environment_id (str):
-        body (TenantIn): `POST /api/v1/environments/{environment_id}/tenants`.
+        body (TenantIn): The body of `POST /api/v1/environments/{environment_id}/tenants`.
 
-            `slug` is required, unlike an Account's or an App's: a tenant slug is the
-            `tenant` authorization parameter and the customer chooses it deliberately,
-            and there is no hosted form here to derive one from a name for.
+            `slug` is required: it is the value of the `tenant` authorization parameter.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -236,25 +218,19 @@ async def asyncio(
     client: AuthenticatedClient,
     body: TenantIn,
 ) -> Problem | TenantOut | None:
-    r"""Create a tenant
+    """Create a tenant
 
-     A tenant with no members.
+     Create a tenant with no members.
 
-    An administrator creating a tenant is not joining it — \"a tenant may have
-    zero members\" is the spec's own sentence — so unlike the hosted workspace
-    form this writes one row and one event.
-
-    Three refusals are the resource's rather than the schema's: `single` mode is
-    409 `tenant-mode-single`, `default` and `kleora` are 409 `slug-reserved`
-    naming the field, and a slug someone else holds is 409 `slug-taken`.
+    - In `single` tenant mode: `409 tenant-mode-single`.
+    - The slugs `default` and `kleora` are reserved: `409 slug-reserved`.
+    - A slug another tenant holds: `409 slug-taken`.
 
     Args:
         environment_id (str):
-        body (TenantIn): `POST /api/v1/environments/{environment_id}/tenants`.
+        body (TenantIn): The body of `POST /api/v1/environments/{environment_id}/tenants`.
 
-            `slug` is required, unlike an Account's or an App's: a tenant slug is the
-            `tenant` authorization parameter and the customer chooses it deliberately,
-            and there is no hosted form here to derive one from a name for.
+            `slug` is required: it is the value of the `tenant` authorization parameter.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

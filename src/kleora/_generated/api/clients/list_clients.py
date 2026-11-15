@@ -127,21 +127,13 @@ def sync_detailed(
     is_default: bool | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[ClientList | Problem]:
-    r"""List clients
+    """List clients
 
-     The environment's clients, oldest first, optionally filtered by the flag or searched.
+     The environment's OAuth clients, oldest first, optionally filtered or searched.
 
-    `?is_default=true` returns exactly one client for a provisioned
-    environment — which is how the console overview reads the quickstart's
-    `client_id` in one call — and `?is_default=false` returns the rest.
-
-    `q` is a case-insensitive substring of `name` or `client_id`
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint: a cursor issued for one cannot be presented
-    against the unfiltered listing and seek at a position that means something
-    else there.
+    `?is_default=true` returns the environment's default client, and `?is_default=false` the rest.
+    `q` is a case-insensitive substring of `name` or `client_id`. A cursor is only valid with the
+    filters it was issued for.
 
     Args:
         environment_id (str):
@@ -182,21 +174,13 @@ def sync(
     is_default: bool | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> ClientList | Problem | None:
-    r"""List clients
+    """List clients
 
-     The environment's clients, oldest first, optionally filtered by the flag or searched.
+     The environment's OAuth clients, oldest first, optionally filtered or searched.
 
-    `?is_default=true` returns exactly one client for a provisioned
-    environment — which is how the console overview reads the quickstart's
-    `client_id` in one call — and `?is_default=false` returns the rest.
-
-    `q` is a case-insensitive substring of `name` or `client_id`
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint: a cursor issued for one cannot be presented
-    against the unfiltered listing and seek at a position that means something
-    else there.
+    `?is_default=true` returns the environment's default client, and `?is_default=false` the rest.
+    `q` is a case-insensitive substring of `name` or `client_id`. A cursor is only valid with the
+    filters it was issued for.
 
     Args:
         environment_id (str):
@@ -232,21 +216,13 @@ async def asyncio_detailed(
     is_default: bool | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[ClientList | Problem]:
-    r"""List clients
+    """List clients
 
-     The environment's clients, oldest first, optionally filtered by the flag or searched.
+     The environment's OAuth clients, oldest first, optionally filtered or searched.
 
-    `?is_default=true` returns exactly one client for a provisioned
-    environment — which is how the console overview reads the quickstart's
-    `client_id` in one call — and `?is_default=false` returns the rest.
-
-    `q` is a case-insensitive substring of `name` or `client_id`
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint: a cursor issued for one cannot be presented
-    against the unfiltered listing and seek at a position that means something
-    else there.
+    `?is_default=true` returns the environment's default client, and `?is_default=false` the rest.
+    `q` is a case-insensitive substring of `name` or `client_id`. A cursor is only valid with the
+    filters it was issued for.
 
     Args:
         environment_id (str):
@@ -285,21 +261,13 @@ async def asyncio(
     is_default: bool | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> ClientList | Problem | None:
-    r"""List clients
+    """List clients
 
-     The environment's clients, oldest first, optionally filtered by the flag or searched.
+     The environment's OAuth clients, oldest first, optionally filtered or searched.
 
-    `?is_default=true` returns exactly one client for a provisioned
-    environment — which is how the console overview reads the quickstart's
-    `client_id` in one call — and `?is_default=false` returns the rest.
-
-    `q` is a case-insensitive substring of `name` or `client_id`
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint: a cursor issued for one cannot be presented
-    against the unfiltered listing and seek at a position that means something
-    else there.
+    `?is_default=true` returns the environment's default client, and `?is_default=false` the rest.
+    `q` is a case-insensitive substring of `name` or `client_id`. A cursor is only valid with the
+    filters it was issued for.
 
     Args:
         environment_id (str):

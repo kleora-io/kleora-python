@@ -107,19 +107,17 @@ def sync_detailed(
 ) -> Response[PermissionOut | Problem]:
     """Create a permission
 
-     A customer permission. The reserved namespace is refused, not shared.
+     Create a permission.
 
-    A name whose resource half is one of the eighteen reserved resources is 422
-    `reserved-permission` — `users:export` as much as `users:read` — so nothing
-    a customer writes can ever mean what a management permission means
-    (rbac.md §Permissions).
+    A name whose resource part is one of the reserved resources (for example `users:export`) is `422
+    reserved-permission`.
 
     Args:
         environment_id (str):
-        body (PermissionIn): `POST /api/v1/environments/{environment_id}/permissions`.
+        body (PermissionIn): The body of `POST /api/v1/environments/{environment_id}/permissions`.
 
-            `is_system` is not an input field: the reserved rows are the platform's and
-            a customer claiming one is 422 `reserved-permission` on the name.
+            `is_system` is not an input field. A name in the reserved namespace is `422
+            reserved-permission`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -149,19 +147,17 @@ def sync(
 ) -> PermissionOut | Problem | None:
     """Create a permission
 
-     A customer permission. The reserved namespace is refused, not shared.
+     Create a permission.
 
-    A name whose resource half is one of the eighteen reserved resources is 422
-    `reserved-permission` — `users:export` as much as `users:read` — so nothing
-    a customer writes can ever mean what a management permission means
-    (rbac.md §Permissions).
+    A name whose resource part is one of the reserved resources (for example `users:export`) is `422
+    reserved-permission`.
 
     Args:
         environment_id (str):
-        body (PermissionIn): `POST /api/v1/environments/{environment_id}/permissions`.
+        body (PermissionIn): The body of `POST /api/v1/environments/{environment_id}/permissions`.
 
-            `is_system` is not an input field: the reserved rows are the platform's and
-            a customer claiming one is 422 `reserved-permission` on the name.
+            `is_system` is not an input field. A name in the reserved namespace is `422
+            reserved-permission`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -186,19 +182,17 @@ async def asyncio_detailed(
 ) -> Response[PermissionOut | Problem]:
     """Create a permission
 
-     A customer permission. The reserved namespace is refused, not shared.
+     Create a permission.
 
-    A name whose resource half is one of the eighteen reserved resources is 422
-    `reserved-permission` — `users:export` as much as `users:read` — so nothing
-    a customer writes can ever mean what a management permission means
-    (rbac.md §Permissions).
+    A name whose resource part is one of the reserved resources (for example `users:export`) is `422
+    reserved-permission`.
 
     Args:
         environment_id (str):
-        body (PermissionIn): `POST /api/v1/environments/{environment_id}/permissions`.
+        body (PermissionIn): The body of `POST /api/v1/environments/{environment_id}/permissions`.
 
-            `is_system` is not an input field: the reserved rows are the platform's and
-            a customer claiming one is 422 `reserved-permission` on the name.
+            `is_system` is not an input field. A name in the reserved namespace is `422
+            reserved-permission`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -226,19 +220,17 @@ async def asyncio(
 ) -> PermissionOut | Problem | None:
     """Create a permission
 
-     A customer permission. The reserved namespace is refused, not shared.
+     Create a permission.
 
-    A name whose resource half is one of the eighteen reserved resources is 422
-    `reserved-permission` — `users:export` as much as `users:read` — so nothing
-    a customer writes can ever mean what a management permission means
-    (rbac.md §Permissions).
+    A name whose resource part is one of the reserved resources (for example `users:export`) is `422
+    reserved-permission`.
 
     Args:
         environment_id (str):
-        body (PermissionIn): `POST /api/v1/environments/{environment_id}/permissions`.
+        body (PermissionIn): The body of `POST /api/v1/environments/{environment_id}/permissions`.
 
-            `is_system` is not an input field: the reserved rows are the platform's and
-            a customer claiming one is 422 `reserved-permission` on the name.
+            `is_system` is not an input field. A name in the reserved namespace is `422
+            reserved-permission`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

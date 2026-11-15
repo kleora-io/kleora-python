@@ -18,10 +18,9 @@ T = TypeVar("T", bound="PromotionIn")
 
 @_attrs_define
 class PromotionIn:
-    """`POST /api/v1/environments/{environment_id}/promote`.
+    """The body of `POST /api/v1/environments/{environment_id}/promote`.
 
-    One field, defaulting to false, and `extra="forbid"` so a caller who
-    mistyped it is told rather than silently promoted.
+    `dry_run` defaults to `false`. Unknown fields are refused.
 
         Attributes:
             dry_run (bool | Unset):  Default: False.

@@ -107,17 +107,13 @@ def sync_detailed(
     client: AuthenticatedClient,
     force: bool | Unset = False,
 ) -> Response[Any | Problem]:
-    r"""Delete an identity provider
+    """Delete an identity provider
 
-     Remove the configuration. The identities it authenticated are **kept**.
+     Remove an identity provider's configuration. The identities it authenticated are kept.
 
-    409 `provider-in-use` while any identity of that provider exists in the
-    environment, naming how many; `?force=1` proceeds. This one asks because the
-    consequence is not ours to absorb: a person whose only credential was that
-    provider stops being able to sign in the moment the button disappears, and
-    `social-login.md` §\"Management API\" says so. Nothing about the identities
-    changes either way — `S9-05`'s unlink is how an identity goes away on purpose,
-    and it is the operation that enforces \"never leave a User unable to sign in\".
+    `409 provider-in-use`, with the number of identities, while any identity of that provider exists
+    in the environment; `?force=1` proceeds anyway. People whose only credential is that provider
+    can no longer sign in once it is removed.
 
     Args:
         environment_id (str):
@@ -152,17 +148,13 @@ def sync(
     client: AuthenticatedClient,
     force: bool | Unset = False,
 ) -> Any | Problem | None:
-    r"""Delete an identity provider
+    """Delete an identity provider
 
-     Remove the configuration. The identities it authenticated are **kept**.
+     Remove an identity provider's configuration. The identities it authenticated are kept.
 
-    409 `provider-in-use` while any identity of that provider exists in the
-    environment, naming how many; `?force=1` proceeds. This one asks because the
-    consequence is not ours to absorb: a person whose only credential was that
-    provider stops being able to sign in the moment the button disappears, and
-    `social-login.md` §\"Management API\" says so. Nothing about the identities
-    changes either way — `S9-05`'s unlink is how an identity goes away on purpose,
-    and it is the operation that enforces \"never leave a User unable to sign in\".
+    `409 provider-in-use`, with the number of identities, while any identity of that provider exists
+    in the environment; `?force=1` proceeds anyway. People whose only credential is that provider
+    can no longer sign in once it is removed.
 
     Args:
         environment_id (str):
@@ -192,17 +184,13 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     force: bool | Unset = False,
 ) -> Response[Any | Problem]:
-    r"""Delete an identity provider
+    """Delete an identity provider
 
-     Remove the configuration. The identities it authenticated are **kept**.
+     Remove an identity provider's configuration. The identities it authenticated are kept.
 
-    409 `provider-in-use` while any identity of that provider exists in the
-    environment, naming how many; `?force=1` proceeds. This one asks because the
-    consequence is not ours to absorb: a person whose only credential was that
-    provider stops being able to sign in the moment the button disappears, and
-    `social-login.md` §\"Management API\" says so. Nothing about the identities
-    changes either way — `S9-05`'s unlink is how an identity goes away on purpose,
-    and it is the operation that enforces \"never leave a User unable to sign in\".
+    `409 provider-in-use`, with the number of identities, while any identity of that provider exists
+    in the environment; `?force=1` proceeds anyway. People whose only credential is that provider
+    can no longer sign in once it is removed.
 
     Args:
         environment_id (str):
@@ -235,17 +223,13 @@ async def asyncio(
     client: AuthenticatedClient,
     force: bool | Unset = False,
 ) -> Any | Problem | None:
-    r"""Delete an identity provider
+    """Delete an identity provider
 
-     Remove the configuration. The identities it authenticated are **kept**.
+     Remove an identity provider's configuration. The identities it authenticated are kept.
 
-    409 `provider-in-use` while any identity of that provider exists in the
-    environment, naming how many; `?force=1` proceeds. This one asks because the
-    consequence is not ours to absorb: a person whose only credential was that
-    provider stops being able to sign in the moment the button disappears, and
-    `social-login.md` §\"Management API\" says so. Nothing about the identities
-    changes either way — `S9-05`'s unlink is how an identity goes away on purpose,
-    and it is the operation that enforces \"never leave a User unable to sign in\".
+    `409 provider-in-use`, with the number of identities, while any identity of that provider exists
+    in the environment; `?force=1` proceeds anyway. People whose only credential is that provider
+    can no longer sign in once it is removed.
 
     Args:
         environment_id (str):

@@ -123,40 +123,21 @@ def sync_detailed(
 ) -> Response[Problem | str]:
     """Tail an environment's webhook events
 
-     A `text/event-stream` tail of this environment's webhook events, as
-    they are written — the transport behind `kleora webhooks forward`.
+     A live `text/event-stream` of this environment's webhook events as they are recorded, used by
+    `kleora webhooks forward`.
 
-    Each message is the frozen envelope every real delivery carries, with the
-    event's `id` as the SSE `id`, and a comment keepalive every fifteen
-    seconds. `event_types` is repeatable and narrows the tail; absent, the
-    stream carries **every** type in the catalogue, which is the opposite
-    default from a registered endpoint and deliberately so — a forwarding
-    session is started by hand and watched by the person who started it.
+    Each message is the same envelope a delivery carries, with the event id as the SSE `id`; a
+    comment is sent every fifteen seconds to keep the connection alive. `event_types` is repeatable
+    and narrows the stream; without it, every event type is included.
 
-    **Resumption is by event id, and loses nothing.** `after=<event id>` on a
-    fresh connection, or the `Last-Event-ID` request header a reconnecting
-    client sends, names the last event already received; the tail resumes
-    strictly after it, from the durable event log rather than from wherever a
-    subscription happens to be. Either spelling of the id works — `evt_…` as
-    the envelope carries it, or the bare UUID. An id this environment does not
-    hold is `400 invalid-cursor`, because it may have passed out of the
-    retention window and silently restarting from now would skip whatever
-    survived it.
+    To resume without losing events, pass the last event received as `after=<event id>` or in the
+    `Last-Event-ID` header; either `evt_…` or the bare UUID is accepted. An id this environment does
+    not hold, for example one past the retention window, is `400 invalid-cursor`.
 
-    This is the one **deviation from management-api.md §Conventions** on the
-    surface, and it says so rather than bending the convention quietly: the
-    list surface beside it is cursor-paginated JSON, this is a stream, and the
-    generated clients cannot consume it — so the CLI hand-writes this one call.
-    Reading it is reading payloads about the environment's users, so it needs
-    `webhooks:read` like every other read of this data and not a lower
-    privilege because it happens to be a stream. Sessions per credential are
-    capped (`429 too-many-streams`) and a session has a maximum lifetime, after
-    which the stream closes and the client reconnects with its cursor.
-
-    Audited as `webhook_forwarding.started` and `.stopped`, naming who watched
-    which environment and which types — never the local URL the CLI forwards
-    to. Forwarding may target production, and this row is the reason that is a
-    safe answer.
+    Unlike the rest of this API, the response is a stream rather than JSON, so generated clients
+    cannot consume it. Requires `webhooks:read`. The number of concurrent streams per credential is
+    limited (`429 too-many-streams`), and a stream closes after a maximum lifetime, after which the
+    client reconnects with its last event id. Starting and stopping a stream is audited.
 
     Args:
         environment_id (str):
@@ -196,40 +177,21 @@ def sync(
 ) -> Problem | str | None:
     """Tail an environment's webhook events
 
-     A `text/event-stream` tail of this environment's webhook events, as
-    they are written — the transport behind `kleora webhooks forward`.
+     A live `text/event-stream` of this environment's webhook events as they are recorded, used by
+    `kleora webhooks forward`.
 
-    Each message is the frozen envelope every real delivery carries, with the
-    event's `id` as the SSE `id`, and a comment keepalive every fifteen
-    seconds. `event_types` is repeatable and narrows the tail; absent, the
-    stream carries **every** type in the catalogue, which is the opposite
-    default from a registered endpoint and deliberately so — a forwarding
-    session is started by hand and watched by the person who started it.
+    Each message is the same envelope a delivery carries, with the event id as the SSE `id`; a
+    comment is sent every fifteen seconds to keep the connection alive. `event_types` is repeatable
+    and narrows the stream; without it, every event type is included.
 
-    **Resumption is by event id, and loses nothing.** `after=<event id>` on a
-    fresh connection, or the `Last-Event-ID` request header a reconnecting
-    client sends, names the last event already received; the tail resumes
-    strictly after it, from the durable event log rather than from wherever a
-    subscription happens to be. Either spelling of the id works — `evt_…` as
-    the envelope carries it, or the bare UUID. An id this environment does not
-    hold is `400 invalid-cursor`, because it may have passed out of the
-    retention window and silently restarting from now would skip whatever
-    survived it.
+    To resume without losing events, pass the last event received as `after=<event id>` or in the
+    `Last-Event-ID` header; either `evt_…` or the bare UUID is accepted. An id this environment does
+    not hold, for example one past the retention window, is `400 invalid-cursor`.
 
-    This is the one **deviation from management-api.md §Conventions** on the
-    surface, and it says so rather than bending the convention quietly: the
-    list surface beside it is cursor-paginated JSON, this is a stream, and the
-    generated clients cannot consume it — so the CLI hand-writes this one call.
-    Reading it is reading payloads about the environment's users, so it needs
-    `webhooks:read` like every other read of this data and not a lower
-    privilege because it happens to be a stream. Sessions per credential are
-    capped (`429 too-many-streams`) and a session has a maximum lifetime, after
-    which the stream closes and the client reconnects with its cursor.
-
-    Audited as `webhook_forwarding.started` and `.stopped`, naming who watched
-    which environment and which types — never the local URL the CLI forwards
-    to. Forwarding may target production, and this row is the reason that is a
-    safe answer.
+    Unlike the rest of this API, the response is a stream rather than JSON, so generated clients
+    cannot consume it. Requires `webhooks:read`. The number of concurrent streams per credential is
+    limited (`429 too-many-streams`), and a stream closes after a maximum lifetime, after which the
+    client reconnects with its last event id. Starting and stopping a stream is audited.
 
     Args:
         environment_id (str):
@@ -264,40 +226,21 @@ async def asyncio_detailed(
 ) -> Response[Problem | str]:
     """Tail an environment's webhook events
 
-     A `text/event-stream` tail of this environment's webhook events, as
-    they are written — the transport behind `kleora webhooks forward`.
+     A live `text/event-stream` of this environment's webhook events as they are recorded, used by
+    `kleora webhooks forward`.
 
-    Each message is the frozen envelope every real delivery carries, with the
-    event's `id` as the SSE `id`, and a comment keepalive every fifteen
-    seconds. `event_types` is repeatable and narrows the tail; absent, the
-    stream carries **every** type in the catalogue, which is the opposite
-    default from a registered endpoint and deliberately so — a forwarding
-    session is started by hand and watched by the person who started it.
+    Each message is the same envelope a delivery carries, with the event id as the SSE `id`; a
+    comment is sent every fifteen seconds to keep the connection alive. `event_types` is repeatable
+    and narrows the stream; without it, every event type is included.
 
-    **Resumption is by event id, and loses nothing.** `after=<event id>` on a
-    fresh connection, or the `Last-Event-ID` request header a reconnecting
-    client sends, names the last event already received; the tail resumes
-    strictly after it, from the durable event log rather than from wherever a
-    subscription happens to be. Either spelling of the id works — `evt_…` as
-    the envelope carries it, or the bare UUID. An id this environment does not
-    hold is `400 invalid-cursor`, because it may have passed out of the
-    retention window and silently restarting from now would skip whatever
-    survived it.
+    To resume without losing events, pass the last event received as `after=<event id>` or in the
+    `Last-Event-ID` header; either `evt_…` or the bare UUID is accepted. An id this environment does
+    not hold, for example one past the retention window, is `400 invalid-cursor`.
 
-    This is the one **deviation from management-api.md §Conventions** on the
-    surface, and it says so rather than bending the convention quietly: the
-    list surface beside it is cursor-paginated JSON, this is a stream, and the
-    generated clients cannot consume it — so the CLI hand-writes this one call.
-    Reading it is reading payloads about the environment's users, so it needs
-    `webhooks:read` like every other read of this data and not a lower
-    privilege because it happens to be a stream. Sessions per credential are
-    capped (`429 too-many-streams`) and a session has a maximum lifetime, after
-    which the stream closes and the client reconnects with its cursor.
-
-    Audited as `webhook_forwarding.started` and `.stopped`, naming who watched
-    which environment and which types — never the local URL the CLI forwards
-    to. Forwarding may target production, and this row is the reason that is a
-    safe answer.
+    Unlike the rest of this API, the response is a stream rather than JSON, so generated clients
+    cannot consume it. Requires `webhooks:read`. The number of concurrent streams per credential is
+    limited (`429 too-many-streams`), and a stream closes after a maximum lifetime, after which the
+    client reconnects with its last event id. Starting and stopping a stream is audited.
 
     Args:
         environment_id (str):
@@ -335,40 +278,21 @@ async def asyncio(
 ) -> Problem | str | None:
     """Tail an environment's webhook events
 
-     A `text/event-stream` tail of this environment's webhook events, as
-    they are written — the transport behind `kleora webhooks forward`.
+     A live `text/event-stream` of this environment's webhook events as they are recorded, used by
+    `kleora webhooks forward`.
 
-    Each message is the frozen envelope every real delivery carries, with the
-    event's `id` as the SSE `id`, and a comment keepalive every fifteen
-    seconds. `event_types` is repeatable and narrows the tail; absent, the
-    stream carries **every** type in the catalogue, which is the opposite
-    default from a registered endpoint and deliberately so — a forwarding
-    session is started by hand and watched by the person who started it.
+    Each message is the same envelope a delivery carries, with the event id as the SSE `id`; a
+    comment is sent every fifteen seconds to keep the connection alive. `event_types` is repeatable
+    and narrows the stream; without it, every event type is included.
 
-    **Resumption is by event id, and loses nothing.** `after=<event id>` on a
-    fresh connection, or the `Last-Event-ID` request header a reconnecting
-    client sends, names the last event already received; the tail resumes
-    strictly after it, from the durable event log rather than from wherever a
-    subscription happens to be. Either spelling of the id works — `evt_…` as
-    the envelope carries it, or the bare UUID. An id this environment does not
-    hold is `400 invalid-cursor`, because it may have passed out of the
-    retention window and silently restarting from now would skip whatever
-    survived it.
+    To resume without losing events, pass the last event received as `after=<event id>` or in the
+    `Last-Event-ID` header; either `evt_…` or the bare UUID is accepted. An id this environment does
+    not hold, for example one past the retention window, is `400 invalid-cursor`.
 
-    This is the one **deviation from management-api.md §Conventions** on the
-    surface, and it says so rather than bending the convention quietly: the
-    list surface beside it is cursor-paginated JSON, this is a stream, and the
-    generated clients cannot consume it — so the CLI hand-writes this one call.
-    Reading it is reading payloads about the environment's users, so it needs
-    `webhooks:read` like every other read of this data and not a lower
-    privilege because it happens to be a stream. Sessions per credential are
-    capped (`429 too-many-streams`) and a session has a maximum lifetime, after
-    which the stream closes and the client reconnects with its cursor.
-
-    Audited as `webhook_forwarding.started` and `.stopped`, naming who watched
-    which environment and which types — never the local URL the CLI forwards
-    to. Forwarding may target production, and this row is the reason that is a
-    safe answer.
+    Unlike the rest of this API, the response is a stream rather than JSON, so generated clients
+    cannot consume it. Requires `webhooks:read`. The number of concurrent streams per credential is
+    limited (`429 too-many-streams`), and a stream closes after a maximum lifetime, after which the
+    client reconnects with its last event id. Starting and stopping a stream is audited.
 
     Args:
         environment_id (str):

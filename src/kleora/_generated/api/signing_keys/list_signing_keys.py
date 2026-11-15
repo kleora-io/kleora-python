@@ -87,14 +87,10 @@ def sync_detailed(
 ) -> Response[Problem | SigningKeyList]:
     """List signing keys
 
-     Every key of the environment, ordered `active`, `next`, `retired`.
+     Every signing key of the environment, ordered `active`, `next`, `retired`.
 
-    Not paginated: the ordering sessions-and-tokens.md §API fixes is by status
-    rather than by a column a keyset seek could resume from, and the row count
-    is bounded by one `active`, one `next` and the retired keys still inside
-    their retention window — `signing_keys.prune` deletes the rest once a
-    minute. `next_cursor` is returned all the same, and always `None`, because
-    management-api.md §OpenAPI gives every list on this surface one shape.
+    Not paginated: there is one `active` key, at most one `next` key, and the retired keys still
+    within their retention window. `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -125,14 +121,10 @@ def sync(
 ) -> Problem | SigningKeyList | None:
     """List signing keys
 
-     Every key of the environment, ordered `active`, `next`, `retired`.
+     Every signing key of the environment, ordered `active`, `next`, `retired`.
 
-    Not paginated: the ordering sessions-and-tokens.md §API fixes is by status
-    rather than by a column a keyset seek could resume from, and the row count
-    is bounded by one `active`, one `next` and the retired keys still inside
-    their retention window — `signing_keys.prune` deletes the rest once a
-    minute. `next_cursor` is returned all the same, and always `None`, because
-    management-api.md §OpenAPI gives every list on this surface one shape.
+    Not paginated: there is one `active` key, at most one `next` key, and the retired keys still
+    within their retention window. `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -158,14 +150,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | SigningKeyList]:
     """List signing keys
 
-     Every key of the environment, ordered `active`, `next`, `retired`.
+     Every signing key of the environment, ordered `active`, `next`, `retired`.
 
-    Not paginated: the ordering sessions-and-tokens.md §API fixes is by status
-    rather than by a column a keyset seek could resume from, and the row count
-    is bounded by one `active`, one `next` and the retired keys still inside
-    their retention window — `signing_keys.prune` deletes the rest once a
-    minute. `next_cursor` is returned all the same, and always `None`, because
-    management-api.md §OpenAPI gives every list on this surface one shape.
+    Not paginated: there is one `active` key, at most one `next` key, and the retired keys still
+    within their retention window. `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -194,14 +182,10 @@ async def asyncio(
 ) -> Problem | SigningKeyList | None:
     """List signing keys
 
-     Every key of the environment, ordered `active`, `next`, `retired`.
+     Every signing key of the environment, ordered `active`, `next`, `retired`.
 
-    Not paginated: the ordering sessions-and-tokens.md §API fixes is by status
-    rather than by a column a keyset seek could resume from, and the row count
-    is bounded by one `active`, one `next` and the retired keys still inside
-    their retention window — `signing_keys.prune` deletes the rest once a
-    minute. `next_cursor` is returned all the same, and always `None`, because
-    management-api.md §OpenAPI gives every list on this surface one shape.
+    Not paginated: there is one `active` key, at most one `next` key, and the retired keys still
+    within their retention window. `next_cursor` is always `null`.
 
     Args:
         environment_id (str):

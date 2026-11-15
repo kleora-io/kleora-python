@@ -19,22 +19,14 @@ T = TypeVar("T", bound="ClientIn")
 
 @_attrs_define
 class ClientIn:
-    """`POST /api/v1/environments/{environment_id}/clients`.
+    """The body of `POST /api/v1/environments/{environment_id}/clients`.
 
-    `extra="forbid"` is the whole of the "not an input field" rule: `client_id`,
-    `client_secret`, `has_secret`, `environment_id` and `is_default` are 422 as
-    unknown fields, and `is_default` in particular is settable only by `PATCH`
-    and only to `true` — a new client is never silently the one the hosted pages
-    fall back to (clients.md §`POST …/clients`).
+    `client_id`, `client_secret`, `has_secret`, `environment_id` and `is_default` are refused as
+    unknown fields; a new client is never the default.
 
-    The one rule about the arrays that does not depend on the environment is
-    here: at most `MAX_URIS` entries each, so the bound reaches the OpenAPI
-    document and a generated client refuses the thirty-third before we do.
-
-    The rest of the URI and scope rules are not here: they depend on the *environment*
-    (`http://localhost` is a sandbox-only value), which a schema cannot see, so
-    the router checks them against the resolved environment and names the array
-    index the caller sent.
+    Each URI array holds at most 32 entries. Whether each URI and scope is allowed depends on the
+    environment (for example, `http://localhost` is only allowed in sandbox), and a refusal names
+    the array index.
 
         Attributes:
             kind (ClientInKind):

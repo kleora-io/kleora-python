@@ -16,14 +16,10 @@ T = TypeVar("T", bound="UserPasswordIn")
 
 @_attrs_define
 class UserPasswordIn:
-    """`POST …/users/{user_id}/password` — one field, and no response body.
+    """The body of `POST .../users/{user_id}/password`: the new password. No response body.
 
-    A schema of its own rather than a bare string, so the document names the
-    property and a generated client sends `{"password": "…"}` rather than a
-    JSON scalar.
-
-        Attributes:
-            password (str):
+    Attributes:
+        password (str):
     """
 
     password: str

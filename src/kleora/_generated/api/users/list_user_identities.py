@@ -95,20 +95,14 @@ def sync_detailed(
 ) -> Response[IdentityList | Problem]:
     """A user's linked accounts
 
-     Which providers this user can sign in with, oldest link first.
+     The user's external provider identities, oldest first.
 
-    The provider identities only. A password is not one of them — `has_password`
-    on the user resource is that fact, and this resource holds exactly the rows
-    the `DELETE` beside it can remove.
+    A password is not listed here; `has_password` on the user says whether there is one.
+    `provider_email` is the address the provider reported, for display only, and is never used to
+    decide who a person is; it is empty for an identity an administrator linked.
 
-    `provider_email` is what the provider claimed about the person, kept for
-    display and for audit and **never** read as an authorisation input: no
-    identity on this platform is ever attached to a user on the strength of an
-    address, however verified a provider says it is. It is blank on a row an
-    administrator linked, because in that case no provider claimed anything.
-
-    Not paginated in effect: a user holds at most one identity per provider, so
-    `next_cursor` is always null.
+    Not paginated, since a user holds at most one identity per provider: `next_cursor` is always
+    `null`.
 
     Args:
         environment_id (str):
@@ -142,20 +136,14 @@ def sync(
 ) -> IdentityList | Problem | None:
     """A user's linked accounts
 
-     Which providers this user can sign in with, oldest link first.
+     The user's external provider identities, oldest first.
 
-    The provider identities only. A password is not one of them — `has_password`
-    on the user resource is that fact, and this resource holds exactly the rows
-    the `DELETE` beside it can remove.
+    A password is not listed here; `has_password` on the user says whether there is one.
+    `provider_email` is the address the provider reported, for display only, and is never used to
+    decide who a person is; it is empty for an identity an administrator linked.
 
-    `provider_email` is what the provider claimed about the person, kept for
-    display and for audit and **never** read as an authorisation input: no
-    identity on this platform is ever attached to a user on the strength of an
-    address, however verified a provider says it is. It is blank on a row an
-    administrator linked, because in that case no provider claimed anything.
-
-    Not paginated in effect: a user holds at most one identity per provider, so
-    `next_cursor` is always null.
+    Not paginated, since a user holds at most one identity per provider: `next_cursor` is always
+    `null`.
 
     Args:
         environment_id (str):
@@ -184,20 +172,14 @@ async def asyncio_detailed(
 ) -> Response[IdentityList | Problem]:
     """A user's linked accounts
 
-     Which providers this user can sign in with, oldest link first.
+     The user's external provider identities, oldest first.
 
-    The provider identities only. A password is not one of them — `has_password`
-    on the user resource is that fact, and this resource holds exactly the rows
-    the `DELETE` beside it can remove.
+    A password is not listed here; `has_password` on the user says whether there is one.
+    `provider_email` is the address the provider reported, for display only, and is never used to
+    decide who a person is; it is empty for an identity an administrator linked.
 
-    `provider_email` is what the provider claimed about the person, kept for
-    display and for audit and **never** read as an authorisation input: no
-    identity on this platform is ever attached to a user on the strength of an
-    address, however verified a provider says it is. It is blank on a row an
-    administrator linked, because in that case no provider claimed anything.
-
-    Not paginated in effect: a user holds at most one identity per provider, so
-    `next_cursor` is always null.
+    Not paginated, since a user holds at most one identity per provider: `next_cursor` is always
+    `null`.
 
     Args:
         environment_id (str):
@@ -229,20 +211,14 @@ async def asyncio(
 ) -> IdentityList | Problem | None:
     """A user's linked accounts
 
-     Which providers this user can sign in with, oldest link first.
+     The user's external provider identities, oldest first.
 
-    The provider identities only. A password is not one of them — `has_password`
-    on the user resource is that fact, and this resource holds exactly the rows
-    the `DELETE` beside it can remove.
+    A password is not listed here; `has_password` on the user says whether there is one.
+    `provider_email` is the address the provider reported, for display only, and is never used to
+    decide who a person is; it is empty for an identity an administrator linked.
 
-    `provider_email` is what the provider claimed about the person, kept for
-    display and for audit and **never** read as an authorisation input: no
-    identity on this platform is ever attached to a user on the strength of an
-    address, however verified a provider says it is. It is blank on a row an
-    administrator linked, because in that case no provider claimed anything.
-
-    Not paginated in effect: a user holds at most one identity per provider, so
-    `next_cursor` is always null.
+    Not paginated, since a user holds at most one identity per provider: `next_cursor` is always
+    `null`.
 
     Args:
         environment_id (str):

@@ -81,11 +81,10 @@ def sync_detailed(
 ) -> Response[Problem | UsageOut]:
     """Account usage
 
-     Users per App and per environment, and the App count against the limit.
+     Users per App and per environment, and the App count against the plan's limit.
 
-    Sandbox is reported and never counted toward anything (environments.md
-    §Sandbox). Unlike `GET /account` this is not `allow_suspended`: usage is not
-    what the console needs in order to explain a suspension.
+    Sandbox environments are reported but never counted toward a limit. Not available while the
+    Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,11 +109,10 @@ def sync(
 ) -> Problem | UsageOut | None:
     """Account usage
 
-     Users per App and per environment, and the App count against the limit.
+     Users per App and per environment, and the App count against the plan's limit.
 
-    Sandbox is reported and never counted toward anything (environments.md
-    §Sandbox). Unlike `GET /account` this is not `allow_suspended`: usage is not
-    what the console needs in order to explain a suspension.
+    Sandbox environments are reported but never counted toward a limit. Not available while the
+    Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,11 +133,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | UsageOut]:
     """Account usage
 
-     Users per App and per environment, and the App count against the limit.
+     Users per App and per environment, and the App count against the plan's limit.
 
-    Sandbox is reported and never counted toward anything (environments.md
-    §Sandbox). Unlike `GET /account` this is not `allow_suspended`: usage is not
-    what the console needs in order to explain a suspension.
+    Sandbox environments are reported but never counted toward a limit. Not available while the
+    Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -162,11 +159,10 @@ async def asyncio(
 ) -> Problem | UsageOut | None:
     """Account usage
 
-     Users per App and per environment, and the App count against the limit.
+     Users per App and per environment, and the App count against the plan's limit.
 
-    Sandbox is reported and never counted toward anything (environments.md
-    §Sandbox). Unlike `GET /account` this is not `allow_suspended`: usage is not
-    what the console needs in order to explain a suspension.
+    Sandbox environments are reported but never counted toward a limit. Not available while the
+    Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

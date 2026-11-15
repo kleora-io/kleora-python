@@ -95,14 +95,10 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Delete a tenant
 
-     The tenant, its members, its own roles and its invitations, in one transaction.
+     Delete a tenant, its members, its own roles and its invitations, in one transaction.
 
-    Sessions bound to it are revoked and unbound rather than deleted. Two
-    refusals: the environment's default tenant (409 `default-tenant`) and a
-    tenant an Account is linked to, the Kleora Account's own included (409
-    `account-tenant`). `platform-protected` is a different rule and does not
-    reach here — it covers structural changes to the `id` App and its
-    environments, not the tenants inside them.
+    Sessions bound to the tenant are revoked. The environment's default tenant cannot be deleted
+    (`409 default-tenant`), nor can a tenant linked to an Account (`409 account-tenant`).
 
     Args:
         tenant_id (str):
@@ -133,14 +129,10 @@ def sync(
 ) -> Any | Problem | None:
     """Delete a tenant
 
-     The tenant, its members, its own roles and its invitations, in one transaction.
+     Delete a tenant, its members, its own roles and its invitations, in one transaction.
 
-    Sessions bound to it are revoked and unbound rather than deleted. Two
-    refusals: the environment's default tenant (409 `default-tenant`) and a
-    tenant an Account is linked to, the Kleora Account's own included (409
-    `account-tenant`). `platform-protected` is a different rule and does not
-    reach here — it covers structural changes to the `id` App and its
-    environments, not the tenants inside them.
+    Sessions bound to the tenant are revoked. The environment's default tenant cannot be deleted
+    (`409 default-tenant`), nor can a tenant linked to an Account (`409 account-tenant`).
 
     Args:
         tenant_id (str):
@@ -166,14 +158,10 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Delete a tenant
 
-     The tenant, its members, its own roles and its invitations, in one transaction.
+     Delete a tenant, its members, its own roles and its invitations, in one transaction.
 
-    Sessions bound to it are revoked and unbound rather than deleted. Two
-    refusals: the environment's default tenant (409 `default-tenant`) and a
-    tenant an Account is linked to, the Kleora Account's own included (409
-    `account-tenant`). `platform-protected` is a different rule and does not
-    reach here — it covers structural changes to the `id` App and its
-    environments, not the tenants inside them.
+    Sessions bound to the tenant are revoked. The environment's default tenant cannot be deleted
+    (`409 default-tenant`), nor can a tenant linked to an Account (`409 account-tenant`).
 
     Args:
         tenant_id (str):
@@ -202,14 +190,10 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Delete a tenant
 
-     The tenant, its members, its own roles and its invitations, in one transaction.
+     Delete a tenant, its members, its own roles and its invitations, in one transaction.
 
-    Sessions bound to it are revoked and unbound rather than deleted. Two
-    refusals: the environment's default tenant (409 `default-tenant`) and a
-    tenant an Account is linked to, the Kleora Account's own included (409
-    `account-tenant`). `platform-protected` is a different rule and does not
-    reach here — it covers structural changes to the `id` App and its
-    environments, not the tenants inside them.
+    Sessions bound to the tenant are revoked. The environment's default tenant cannot be deleted
+    (`409 default-tenant`), nor can a tenant linked to an Account (`409 account-tenant`).
 
     Args:
         tenant_id (str):

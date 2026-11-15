@@ -23,17 +23,9 @@ T = TypeVar("T", bound="MfaFactorList")
 
 @_attrs_define
 class MfaFactorList:
-    """`GET …/users/{uid}/mfa` — every factor of the user's, confirmed or not.
+    """The body of `GET .../users/{user_id}/mfa`: every MFA factor of the user, confirmed or not.
 
-    `items`/`next_cursor`, not `mfa.md` §API's literal `{factors: […]}`: every
-    list envelope on this surface shares one shape for the generated clients
-    (`SigningKeyList`'s own precedent — "It carries the field anyway so every
-    list on the surface has one shape"), enforced by
-    `tests/test_openapi_documents.py::test_every_list_envelope_is_a_named_schema`.
-    `next_cursor` is always `null` — this platform never holds more than two
-    rows per user (one `totp`, one `recovery`), the same reason the
-    signing-key list gives. Noted in the P5-06 Log as a deviation from the
-    spec's literal member name.
+    Not paginated, since a user holds at most a few factors: `next_cursor` is always `null`.
 
         Attributes:
             items (list[MfaFactorOut]):

@@ -105,36 +105,26 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> Response[BrandingPreviewOut | Problem]:
-    r"""Create a branding preview draft
+    """Create a branding preview draft
 
-     A draft in Redis for 600 s, and the URL that renders it.
+     Store a draft branding record for 600 seconds, and return a URL that renders it.
 
-    Nothing is written to the environment: the console saves by calling `PUT`
-    with the same body. An invalid draft is the same 422 a `PUT` of it would be
-    and nothing reaches Redis, because validation happens first.
+    Nothing is saved to the environment; to save the draft, `PUT` the same body. An invalid draft is
+    the same `422` a `PUT` of it would be. The response is never cached, since `preview_url` grants
+    access to the draft.
 
-    `no_store` on the answer: the `preview_url` carries a token that reads a
-    draft, and a shared cache holding it would hand the next caller somebody
-    else's unsaved work.
-
-    **The budget is spent before the draft is parsed.** Validation tokenizes up
-    to 8 KiB of customer CSS, and an over-budget caller that still paid for
-    that parse would have a cheap way to buy work at thirty-one requests a
-    minute. The precedence this fixes is 429-over-422, which is the right way
-    round: \"you are sending too many\" is true of a request whether or not its
-    body is also wrong, and a client that is being told to slow down does not
-    need its body reviewed first. Authorisation still comes first — `@requires`
-    is outside this — so a caller with no permission never spends a budget.
+    The rate limit is checked before the draft is validated, so a rate-limited request is `429` even
+    when its body is also invalid.
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -162,36 +152,26 @@ def sync(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> BrandingPreviewOut | Problem | None:
-    r"""Create a branding preview draft
+    """Create a branding preview draft
 
-     A draft in Redis for 600 s, and the URL that renders it.
+     Store a draft branding record for 600 seconds, and return a URL that renders it.
 
-    Nothing is written to the environment: the console saves by calling `PUT`
-    with the same body. An invalid draft is the same 422 a `PUT` of it would be
-    and nothing reaches Redis, because validation happens first.
+    Nothing is saved to the environment; to save the draft, `PUT` the same body. An invalid draft is
+    the same `422` a `PUT` of it would be. The response is never cached, since `preview_url` grants
+    access to the draft.
 
-    `no_store` on the answer: the `preview_url` carries a token that reads a
-    draft, and a shared cache holding it would hand the next caller somebody
-    else's unsaved work.
-
-    **The budget is spent before the draft is parsed.** Validation tokenizes up
-    to 8 KiB of customer CSS, and an over-budget caller that still paid for
-    that parse would have a cheap way to buy work at thirty-one requests a
-    minute. The precedence this fixes is 429-over-422, which is the right way
-    round: \"you are sending too many\" is true of a request whether or not its
-    body is also wrong, and a client that is being told to slow down does not
-    need its body reviewed first. Authorisation still comes first — `@requires`
-    is outside this — so a caller with no permission never spends a budget.
+    The rate limit is checked before the draft is validated, so a rate-limited request is `429` even
+    when its body is also invalid.
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -214,36 +194,26 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> Response[BrandingPreviewOut | Problem]:
-    r"""Create a branding preview draft
+    """Create a branding preview draft
 
-     A draft in Redis for 600 s, and the URL that renders it.
+     Store a draft branding record for 600 seconds, and return a URL that renders it.
 
-    Nothing is written to the environment: the console saves by calling `PUT`
-    with the same body. An invalid draft is the same 422 a `PUT` of it would be
-    and nothing reaches Redis, because validation happens first.
+    Nothing is saved to the environment; to save the draft, `PUT` the same body. An invalid draft is
+    the same `422` a `PUT` of it would be. The response is never cached, since `preview_url` grants
+    access to the draft.
 
-    `no_store` on the answer: the `preview_url` carries a token that reads a
-    draft, and a shared cache holding it would hand the next caller somebody
-    else's unsaved work.
-
-    **The budget is spent before the draft is parsed.** Validation tokenizes up
-    to 8 KiB of customer CSS, and an over-budget caller that still paid for
-    that parse would have a cheap way to buy work at thirty-one requests a
-    minute. The precedence this fixes is 429-over-422, which is the right way
-    round: \"you are sending too many\" is true of a request whether or not its
-    body is also wrong, and a client that is being told to slow down does not
-    need its body reviewed first. Authorisation still comes first — `@requires`
-    is outside this — so a caller with no permission never spends a budget.
+    The rate limit is checked before the draft is validated, so a rate-limited request is `429` even
+    when its body is also invalid.
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -269,36 +239,26 @@ async def asyncio(
     client: AuthenticatedClient,
     body: BrandingIn,
 ) -> BrandingPreviewOut | Problem | None:
-    r"""Create a branding preview draft
+    """Create a branding preview draft
 
-     A draft in Redis for 600 s, and the URL that renders it.
+     Store a draft branding record for 600 seconds, and return a URL that renders it.
 
-    Nothing is written to the environment: the console saves by calling `PUT`
-    with the same body. An invalid draft is the same 422 a `PUT` of it would be
-    and nothing reaches Redis, because validation happens first.
+    Nothing is saved to the environment; to save the draft, `PUT` the same body. An invalid draft is
+    the same `422` a `PUT` of it would be. The response is never cached, since `preview_url` grants
+    access to the draft.
 
-    `no_store` on the answer: the `preview_url` carries a token that reads a
-    draft, and a shared cache holding it would hand the next caller somebody
-    else's unsaved work.
-
-    **The budget is spent before the draft is parsed.** Validation tokenizes up
-    to 8 KiB of customer CSS, and an over-budget caller that still paid for
-    that parse would have a cheap way to buy work at thirty-one requests a
-    minute. The precedence this fixes is 429-over-422, which is the right way
-    round: \"you are sending too many\" is true of a request whether or not its
-    body is also wrong, and a client that is being told to slow down does not
-    need its body reviewed first. Authorisation still comes first — `@requires`
-    is outside this — so a caller with no permission never spends a budget.
+    The rate limit is checked before the draft is validated, so a rate-limited request is `429` even
+    when its body is also invalid.
 
     Args:
         environment_id (str):
-        body (BrandingIn): `PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+        body (BrandingIn): The body of `PUT /api/v1/environments/{environment_id}/branding` and
+            `POST
+            .../branding/preview`: the whole branding record.
 
-            Every top-level key that existed on 2026-09-18 is required — this is a
-            whole-record replacement and branding.md says partial updates are not
-            offered — and a key added since may be left out and is stored as its
-            default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-            value silently dropped on the way to storage.
+            Partial updates are not offered. A few recently added keys may be left out, and are stored
+            as
+            their defaults. Unknown keys are `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -108,30 +108,22 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: WebhookEventReplayIn,
 ) -> Response[Problem | WebhookEventReplayOut]:
-    r"""Replay a webhook event to one of its endpoints
+    """Replay a webhook event to one of its endpoints
 
-     Re-deliver the event's frozen payload, unchanged, to `body.endpoint_id`.
+     Deliver the event's original payload again, unchanged, to `endpoint_id`.
 
-    **The same event id is sent — never a new one** (webhooks.md
-    §\"Trackable and debuggable\": \"a replay that minted a new id would defeat
-    the consumer's deduplication at exactly the moment they most need it\").
-    `202`, not `200`: this schedules the delivery, it is not the delivery
-    itself — the same reason the test-send operation above answers `202`.
-    Audited as `webhook_event.replayed`. A disabled endpoint is 409
-    `webhook-endpoint-disabled`: scheduling the task anyway would have
-    `deliver_webhook_event` silently drop it, which would read as nothing
-    having happened rather than as a clear refusal.
+    The same event id is sent, so a consumer's deduplication still works. Answers `202`: the
+    delivery is scheduled. Audited as `webhook_event.replayed`. `409 webhook-endpoint-disabled` when
+    the endpoint is disabled.
 
     Args:
         environment_id (str):
         webhook_event_id (str):
-        body (WebhookEventReplayIn): `POST …/webhook-events/{id}/replay`.
+        body (WebhookEventReplayIn): The body of `POST .../webhook-
+            events/{webhook_event_id}/replay`.
 
-            `endpoint_id` is required rather than inferred: webhooks.md's own phrase
-            is "re-deliver a past event to *its* endpoint", but a fan-out event can
-            have reached more than one, and only the console — standing on one
-            endpoint's own row of the attempts table — knows which one a person means
-            to retry.
+            `endpoint_id` is required, because an event may have been delivered to more than one
+            endpoint.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,30 +153,22 @@ def sync(
     client: AuthenticatedClient,
     body: WebhookEventReplayIn,
 ) -> Problem | WebhookEventReplayOut | None:
-    r"""Replay a webhook event to one of its endpoints
+    """Replay a webhook event to one of its endpoints
 
-     Re-deliver the event's frozen payload, unchanged, to `body.endpoint_id`.
+     Deliver the event's original payload again, unchanged, to `endpoint_id`.
 
-    **The same event id is sent — never a new one** (webhooks.md
-    §\"Trackable and debuggable\": \"a replay that minted a new id would defeat
-    the consumer's deduplication at exactly the moment they most need it\").
-    `202`, not `200`: this schedules the delivery, it is not the delivery
-    itself — the same reason the test-send operation above answers `202`.
-    Audited as `webhook_event.replayed`. A disabled endpoint is 409
-    `webhook-endpoint-disabled`: scheduling the task anyway would have
-    `deliver_webhook_event` silently drop it, which would read as nothing
-    having happened rather than as a clear refusal.
+    The same event id is sent, so a consumer's deduplication still works. Answers `202`: the
+    delivery is scheduled. Audited as `webhook_event.replayed`. `409 webhook-endpoint-disabled` when
+    the endpoint is disabled.
 
     Args:
         environment_id (str):
         webhook_event_id (str):
-        body (WebhookEventReplayIn): `POST …/webhook-events/{id}/replay`.
+        body (WebhookEventReplayIn): The body of `POST .../webhook-
+            events/{webhook_event_id}/replay`.
 
-            `endpoint_id` is required rather than inferred: webhooks.md's own phrase
-            is "re-deliver a past event to *its* endpoint", but a fan-out event can
-            have reached more than one, and only the console — standing on one
-            endpoint's own row of the attempts table — knows which one a person means
-            to retry.
+            `endpoint_id` is required, because an event may have been delivered to more than one
+            endpoint.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -209,30 +193,22 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: WebhookEventReplayIn,
 ) -> Response[Problem | WebhookEventReplayOut]:
-    r"""Replay a webhook event to one of its endpoints
+    """Replay a webhook event to one of its endpoints
 
-     Re-deliver the event's frozen payload, unchanged, to `body.endpoint_id`.
+     Deliver the event's original payload again, unchanged, to `endpoint_id`.
 
-    **The same event id is sent — never a new one** (webhooks.md
-    §\"Trackable and debuggable\": \"a replay that minted a new id would defeat
-    the consumer's deduplication at exactly the moment they most need it\").
-    `202`, not `200`: this schedules the delivery, it is not the delivery
-    itself — the same reason the test-send operation above answers `202`.
-    Audited as `webhook_event.replayed`. A disabled endpoint is 409
-    `webhook-endpoint-disabled`: scheduling the task anyway would have
-    `deliver_webhook_event` silently drop it, which would read as nothing
-    having happened rather than as a clear refusal.
+    The same event id is sent, so a consumer's deduplication still works. Answers `202`: the
+    delivery is scheduled. Audited as `webhook_event.replayed`. `409 webhook-endpoint-disabled` when
+    the endpoint is disabled.
 
     Args:
         environment_id (str):
         webhook_event_id (str):
-        body (WebhookEventReplayIn): `POST …/webhook-events/{id}/replay`.
+        body (WebhookEventReplayIn): The body of `POST .../webhook-
+            events/{webhook_event_id}/replay`.
 
-            `endpoint_id` is required rather than inferred: webhooks.md's own phrase
-            is "re-deliver a past event to *its* endpoint", but a fan-out event can
-            have reached more than one, and only the console — standing on one
-            endpoint's own row of the attempts table — knows which one a person means
-            to retry.
+            `endpoint_id` is required, because an event may have been delivered to more than one
+            endpoint.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -260,30 +236,22 @@ async def asyncio(
     client: AuthenticatedClient,
     body: WebhookEventReplayIn,
 ) -> Problem | WebhookEventReplayOut | None:
-    r"""Replay a webhook event to one of its endpoints
+    """Replay a webhook event to one of its endpoints
 
-     Re-deliver the event's frozen payload, unchanged, to `body.endpoint_id`.
+     Deliver the event's original payload again, unchanged, to `endpoint_id`.
 
-    **The same event id is sent — never a new one** (webhooks.md
-    §\"Trackable and debuggable\": \"a replay that minted a new id would defeat
-    the consumer's deduplication at exactly the moment they most need it\").
-    `202`, not `200`: this schedules the delivery, it is not the delivery
-    itself — the same reason the test-send operation above answers `202`.
-    Audited as `webhook_event.replayed`. A disabled endpoint is 409
-    `webhook-endpoint-disabled`: scheduling the task anyway would have
-    `deliver_webhook_event` silently drop it, which would read as nothing
-    having happened rather than as a clear refusal.
+    The same event id is sent, so a consumer's deduplication still works. Answers `202`: the
+    delivery is scheduled. Audited as `webhook_event.replayed`. `409 webhook-endpoint-disabled` when
+    the endpoint is disabled.
 
     Args:
         environment_id (str):
         webhook_event_id (str):
-        body (WebhookEventReplayIn): `POST …/webhook-events/{id}/replay`.
+        body (WebhookEventReplayIn): The body of `POST .../webhook-
+            events/{webhook_event_id}/replay`.
 
-            `endpoint_id` is required rather than inferred: webhooks.md's own phrase
-            is "re-deliver a past event to *its* endpoint", but a fan-out event can
-            have reached more than one, and only the console — standing on one
-            endpoint's own row of the attempts table — knows which one a person means
-            to retry.
+            `endpoint_id` is required, because an event may have been delivered to more than one
+            endpoint.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -18,10 +18,9 @@ T = TypeVar("T", bound="AppEnvironment")
 
 @_attrs_define
 class AppEnvironment:
-    """One of an App's two Environments, as the App resource embeds it.
+    """One of an App's two environments, as embedded in the App.
 
-    `{id, kind, issuer}` and nothing more — the settings resource is
-    `GET /environments/{environment_id}` (environments.md §API).
+    The environment's settings are at `GET /environments/{environment_id}`.
 
         Attributes:
             id (UUID):

@@ -21,10 +21,10 @@ T = TypeVar("T", bound="EmailTemplateOut")
 
 @_attrs_define
 class EmailTemplateOut:
-    """One `(kind, locale)` row, with its source rather than its rendering.
+    """One email template, for one kind and locale, as source rather than rendered.
 
-    `is_default` is what the console's "reset" action keys off: true while the
-    row is byte-for-byte the shipped file, false from the first edit.
+    `is_default` is `true` while the template is identical to the shipped default, and `false` from
+    the first edit.
 
         Attributes:
             body_html (str):

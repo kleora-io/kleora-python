@@ -17,18 +17,11 @@ T = TypeVar("T", bound="EmailOut")
 
 @_attrs_define
 class EmailOut:
-    """§API `GET /email`: `{email, email_verified, change_pending}`.
+    """The person's email address, whether it is verified, and whether a change of address is
+    waiting for confirmation.
 
-    `change_pending` is read from the existence of an unspent `change_email`
-    `ActionToken` and from nowhere else — §"Changing an email address": "A pending
-    change lives only on the `ActionToken`, and there is no `pending_email`
-    column", so there is exactly one place the pending address is written and no
-    second place for it to be wrong.
-
-    It is declared here, and in this pull request it is always `false`: the
-    operation that creates such a token (`POST /email`) is deferred with the rest
-    of the email change — see `U10-03`'s Log. Declaring it now rather than adding
-    it later keeps the member off the list of things that break a generated client.
+    `change_pending` is `true` while a confirmation link sent by `POST /email` is outstanding. The
+    pending address itself is never returned.
 
         Attributes:
             change_pending (bool):

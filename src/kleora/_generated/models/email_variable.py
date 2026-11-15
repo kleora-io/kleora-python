@@ -17,12 +17,10 @@ T = TypeVar("T", bound="EmailVariable")
 
 @_attrs_define
 class EmailVariable:
-    """One row of email.md §Variables, as the console's editor renders it.
+    """One variable an email template may use.
 
-    `sample` is the value a render substitutes, so an editor can show the
-    preview's own value beside the name; `optional` marks the ones that render
-    empty when the setting behind them is unset, which are exactly the ones a
-    template should guard with `{% if %}`.
+    `sample` is the value a preview substitutes. `optional` marks the variables that are empty when
+    the setting behind them is unset; a template should guard them with `{% if %}`.
 
         Attributes:
             description (str):

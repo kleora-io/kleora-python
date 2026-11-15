@@ -23,7 +23,7 @@ T = TypeVar("T", bound="TenantOut")
 
 @_attrs_define
 class TenantOut:
-    """A Tenant as every read of it reports it (tenants-and-membership.md §API).
+    """A tenant.
 
     Attributes:
         belongs_to_another_account (bool):

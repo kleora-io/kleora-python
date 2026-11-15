@@ -107,26 +107,19 @@ def sync_detailed(
 ) -> Response[MemberOut | Problem]:
     """Add a member
 
-     Link an existing User to this tenant, with the roles the body names.
+     Add an existing user to the tenant, with the roles the body names.
 
-    Exactly one of `user_id` and `email`; both or neither is 422. The address is
-    normalised the way `users-and-credentials.md` normalises one, so the caller
-    does not have to know the casing the row was written with — and a user who
-    is not in this environment, or is erased, is 404 `user-not-found` rather
-    than an invitation this endpoint does not send (that is Phase 3).
+    Give exactly one of `user_id` and `email`; both or neither is `422`. The email is normalised
+    before lookup, so its case does not matter. A user who is not in this environment, or has been
+    erased, is `404 user-not-found`; this operation sends no invitation.
 
     Args:
         tenant_id (str):
-        body (MemberIn): `POST /api/v1/tenants/{tenant_id}/members`.
+        body (MemberIn): The body of `POST /api/v1/tenants/{tenant_id}/members`.
 
-            Exactly one of `user_id` and `email`; both or neither is 422
-            (tenants-and-membership.md §"Failure modes"). It is checked by the resource
-            rather than declared here because JSON Schema cannot say "exactly one of",
-            so a rule expressed only in the document would be one a generated client
-            could not enforce and we would still have to make.
-
-            `roles` is a list of Role ids and defaults to none — a member with no roles
-            is a member, and `roles: []` is what the token then carries.
+            Give exactly one of `user_id` and `email`; both or neither is `422`. `roles` is a list of
+            role
+            ids, empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -156,26 +149,19 @@ def sync(
 ) -> MemberOut | Problem | None:
     """Add a member
 
-     Link an existing User to this tenant, with the roles the body names.
+     Add an existing user to the tenant, with the roles the body names.
 
-    Exactly one of `user_id` and `email`; both or neither is 422. The address is
-    normalised the way `users-and-credentials.md` normalises one, so the caller
-    does not have to know the casing the row was written with — and a user who
-    is not in this environment, or is erased, is 404 `user-not-found` rather
-    than an invitation this endpoint does not send (that is Phase 3).
+    Give exactly one of `user_id` and `email`; both or neither is `422`. The email is normalised
+    before lookup, so its case does not matter. A user who is not in this environment, or has been
+    erased, is `404 user-not-found`; this operation sends no invitation.
 
     Args:
         tenant_id (str):
-        body (MemberIn): `POST /api/v1/tenants/{tenant_id}/members`.
+        body (MemberIn): The body of `POST /api/v1/tenants/{tenant_id}/members`.
 
-            Exactly one of `user_id` and `email`; both or neither is 422
-            (tenants-and-membership.md §"Failure modes"). It is checked by the resource
-            rather than declared here because JSON Schema cannot say "exactly one of",
-            so a rule expressed only in the document would be one a generated client
-            could not enforce and we would still have to make.
-
-            `roles` is a list of Role ids and defaults to none — a member with no roles
-            is a member, and `roles: []` is what the token then carries.
+            Give exactly one of `user_id` and `email`; both or neither is `422`. `roles` is a list of
+            role
+            ids, empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -200,26 +186,19 @@ async def asyncio_detailed(
 ) -> Response[MemberOut | Problem]:
     """Add a member
 
-     Link an existing User to this tenant, with the roles the body names.
+     Add an existing user to the tenant, with the roles the body names.
 
-    Exactly one of `user_id` and `email`; both or neither is 422. The address is
-    normalised the way `users-and-credentials.md` normalises one, so the caller
-    does not have to know the casing the row was written with — and a user who
-    is not in this environment, or is erased, is 404 `user-not-found` rather
-    than an invitation this endpoint does not send (that is Phase 3).
+    Give exactly one of `user_id` and `email`; both or neither is `422`. The email is normalised
+    before lookup, so its case does not matter. A user who is not in this environment, or has been
+    erased, is `404 user-not-found`; this operation sends no invitation.
 
     Args:
         tenant_id (str):
-        body (MemberIn): `POST /api/v1/tenants/{tenant_id}/members`.
+        body (MemberIn): The body of `POST /api/v1/tenants/{tenant_id}/members`.
 
-            Exactly one of `user_id` and `email`; both or neither is 422
-            (tenants-and-membership.md §"Failure modes"). It is checked by the resource
-            rather than declared here because JSON Schema cannot say "exactly one of",
-            so a rule expressed only in the document would be one a generated client
-            could not enforce and we would still have to make.
-
-            `roles` is a list of Role ids and defaults to none — a member with no roles
-            is a member, and `roles: []` is what the token then carries.
+            Give exactly one of `user_id` and `email`; both or neither is `422`. `roles` is a list of
+            role
+            ids, empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -247,26 +226,19 @@ async def asyncio(
 ) -> MemberOut | Problem | None:
     """Add a member
 
-     Link an existing User to this tenant, with the roles the body names.
+     Add an existing user to the tenant, with the roles the body names.
 
-    Exactly one of `user_id` and `email`; both or neither is 422. The address is
-    normalised the way `users-and-credentials.md` normalises one, so the caller
-    does not have to know the casing the row was written with — and a user who
-    is not in this environment, or is erased, is 404 `user-not-found` rather
-    than an invitation this endpoint does not send (that is Phase 3).
+    Give exactly one of `user_id` and `email`; both or neither is `422`. The email is normalised
+    before lookup, so its case does not matter. A user who is not in this environment, or has been
+    erased, is `404 user-not-found`; this operation sends no invitation.
 
     Args:
         tenant_id (str):
-        body (MemberIn): `POST /api/v1/tenants/{tenant_id}/members`.
+        body (MemberIn): The body of `POST /api/v1/tenants/{tenant_id}/members`.
 
-            Exactly one of `user_id` and `email`; both or neither is 422
-            (tenants-and-membership.md §"Failure modes"). It is checked by the resource
-            rather than declared here because JSON Schema cannot say "exactly one of",
-            so a rule expressed only in the document would be one a generated client
-            could not enforce and we would still have to make.
-
-            `roles` is a list of Role ids and defaults to none — a member with no roles
-            is a member, and `roles: []` is what the token then carries.
+            Give exactly one of `user_id` and `email`; both or neither is `422`. `roles` is a list of
+            role
+            ids, empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

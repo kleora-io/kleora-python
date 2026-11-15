@@ -22,12 +22,11 @@ T = TypeVar("T", bound="AppMauOut")
 
 @_attrs_define
 class AppMauOut:
-    """One App: the plan it is held to, and what it has used this period.
+    """One App: the plan that applies to it, and its usage this period.
 
-    `mau` sums the App's production Environments — its own figure, which is what
-    a `pro` allowance is measured against (billing.md §Plans). `plan` is
-    `effective_plan`'s answer rather than the `plan` column, so a `scale`
-    Account's `free` App reads `scale`.
+    `mau` is the sum over the App's production environments, which is what a `pro` allowance is
+    measured against. `plan` is the plan actually applied, so a `free` App of a `scale` Account
+    reads `scale`.
 
         Attributes:
             app_id (UUID):

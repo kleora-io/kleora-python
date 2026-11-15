@@ -17,22 +17,10 @@ T = TypeVar("T", bound="SentOut")
 
 @_attrs_define
 class SentOut:
-    """The `200` of the two send actions: `{"sent": true | false}`.
+    """Whether an email was sent: `{"sent": true | false}`.
 
-    `false` for the one case that succeeds without sending anything — a
-    verification resend to an address that is already verified, which
-    users-and-credentials.md §"Email verification" calls "a no-op that still
-    reports success". A send the throttle refused is a 429 and never reaches
-    this shape.
-
-    One status and one shape rather than a 200 and a bodiless 204, so a
-    generated client has a single response type to unwrap and the difference
-    lives in a field it can branch on. (Ruled in review of P2-10.)
-
-    Required rather than defaulted: a default would make `sent` optional in the
-    generated document, and a client that read a missing key as `false` — or as
-    `true` — would be guessing at the one thing this response exists to say.
-    Both call sites construct it explicitly.
+    `false` when there was nothing to send: a verification email for an address that is already
+    verified. A send refused by rate limiting is a `429` instead.
 
         Attributes:
             sent (bool):

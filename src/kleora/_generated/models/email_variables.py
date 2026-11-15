@@ -21,15 +21,9 @@ T = TypeVar("T", bound="EmailVariables")
 
 @_attrs_define
 class EmailVariables:
-    """`GET …/email-templates/variables` — a singleton document, not a list.
+    """The body of `GET .../email-templates/variables`: the variables each kind of email may use.
 
-    Named as such by management-api.md §OpenAPI: there is nothing to paginate
-    and nothing to seek, so wrapping the description of a variable table in an
-    `items`/`next_cursor` envelope would be a pagination shape with no
-    pagination in it. Environment-scoped because two of the samples are the
-    environment's own — `app_name` is its App's name and `link` is built on its
-    issuer — and served from the same table the validator and the renderer
-    read, never a copy (email.md §API).
+    Samples use the environment's own App name and issuer.
 
         Attributes:
             kinds (list[EmailKindVariables]):

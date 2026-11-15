@@ -17,11 +17,8 @@ T = TypeVar("T", bound="PromotionBranding")
 
 @_attrs_define
 class PromotionBranding:
-    """`branding: {"changed": true}` — that the record moved, never what it says.
-
-    The values are a customer's stylesheet and their copy; the diff reports the
-    fact and nothing else, for the reason `branding.updated` records key names
-    rather than values (audit-log.md §Taxonomy).
+    """`{"changed": true}` when the branding record differs. The diff never includes the values
+    themselves.
 
         Attributes:
             changed (bool):

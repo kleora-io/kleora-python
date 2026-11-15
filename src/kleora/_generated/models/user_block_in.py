@@ -19,11 +19,9 @@ T = TypeVar("T", bound="UserBlockIn")
 
 @_attrs_define
 class UserBlockIn:
-    """`POST …/users/{user_id}/block`'s optional body (C8-42).
+    """The optional body of `POST .../users/{user_id}/block`.
 
-    One field, and the body as a whole is optional: a plain `POST` with nothing
-    in it is still the ordinary block, exactly as it was before this field
-    existed, so no caller had to change.
+    A `POST` with no body blocks the user without a reason.
 
         Attributes:
             reason (str | Unset):  Default: ''.

@@ -18,7 +18,7 @@ T = TypeVar("T", bound="BrandingInIcons")
 @_attrs_define
 class BrandingInIcons:
     """`enabled` (default true), `button` (an icon name or null) and `panel_features` (up to three names). Names come from
-    the curated set in branding.md §Icons. A non-empty `panel_features` needs a split layout with the brand panel.
+    the curated icon set. A non-empty `panel_features` needs a split layout with the brand panel.
 
     """
 

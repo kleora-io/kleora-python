@@ -101,21 +101,9 @@ def sync_detailed(
 ) -> Response[FlowProblem | SessionPage]:
     """The signed-in person's own live sessions
 
-     Newest first, cursor paginated like every other list.
+     The person's live sessions, newest first, with cursor pagination.
 
-    The cursor is `api.management.pagination`'s and not a second implementation:
-    it is a *position* rather than an offset, it is HMAC-tagged so a client cannot
-    mint one, and it names its own query so a cursor issued for one listing cannot
-    seek in another. A person with two devices will never see the difference; a
-    person with two hundred would, and writing a second cursor to find that out
-    would be the mistake this codebase keeps a single `paginate` to avoid.
-
-    `ManagementProblem` is caught rather than raised: that module answers an
-    unusable cursor with `400 invalid-cursor`, which is the right decision in the
-    wrong surface's shape — this surface's problems carry a `code`. The slug is
-    the same one, for the reason every shared slug here is shared.
-    **`account-portal.md` declares no row for it**; the amendment is drafted in
-    `U10-03`'s Log.
+    An unusable cursor is `400 invalid-cursor`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -149,21 +137,9 @@ def sync(
 ) -> FlowProblem | SessionPage | None:
     """The signed-in person's own live sessions
 
-     Newest first, cursor paginated like every other list.
+     The person's live sessions, newest first, with cursor pagination.
 
-    The cursor is `api.management.pagination`'s and not a second implementation:
-    it is a *position* rather than an offset, it is HMAC-tagged so a client cannot
-    mint one, and it names its own query so a cursor issued for one listing cannot
-    seek in another. A person with two devices will never see the difference; a
-    person with two hundred would, and writing a second cursor to find that out
-    would be the mistake this codebase keeps a single `paginate` to avoid.
-
-    `ManagementProblem` is caught rather than raised: that module answers an
-    unusable cursor with `400 invalid-cursor`, which is the right decision in the
-    wrong surface's shape — this surface's problems carry a `code`. The slug is
-    the same one, for the reason every shared slug here is shared.
-    **`account-portal.md` declares no row for it**; the amendment is drafted in
-    `U10-03`'s Log.
+    An unusable cursor is `400 invalid-cursor`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -192,21 +168,9 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | SessionPage]:
     """The signed-in person's own live sessions
 
-     Newest first, cursor paginated like every other list.
+     The person's live sessions, newest first, with cursor pagination.
 
-    The cursor is `api.management.pagination`'s and not a second implementation:
-    it is a *position* rather than an offset, it is HMAC-tagged so a client cannot
-    mint one, and it names its own query so a cursor issued for one listing cannot
-    seek in another. A person with two devices will never see the difference; a
-    person with two hundred would, and writing a second cursor to find that out
-    would be the mistake this codebase keeps a single `paginate` to avoid.
-
-    `ManagementProblem` is caught rather than raised: that module answers an
-    unusable cursor with `400 invalid-cursor`, which is the right decision in the
-    wrong surface's shape — this surface's problems carry a `code`. The slug is
-    the same one, for the reason every shared slug here is shared.
-    **`account-portal.md` declares no row for it**; the amendment is drafted in
-    `U10-03`'s Log.
+    An unusable cursor is `400 invalid-cursor`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -238,21 +202,9 @@ async def asyncio(
 ) -> FlowProblem | SessionPage | None:
     """The signed-in person's own live sessions
 
-     Newest first, cursor paginated like every other list.
+     The person's live sessions, newest first, with cursor pagination.
 
-    The cursor is `api.management.pagination`'s and not a second implementation:
-    it is a *position* rather than an offset, it is HMAC-tagged so a client cannot
-    mint one, and it names its own query so a cursor issued for one listing cannot
-    seek in another. A person with two devices will never see the difference; a
-    person with two hundred would, and writing a second cursor to find that out
-    would be the mistake this codebase keeps a single `paginate` to avoid.
-
-    `ManagementProblem` is caught rather than raised: that module answers an
-    unusable cursor with `400 invalid-cursor`, which is the right decision in the
-    wrong surface's shape — this surface's problems carry a `code`. The slug is
-    the same one, for the reason every shared slug here is shared.
-    **`account-portal.md` declares no row for it**; the amendment is drafted in
-    `U10-03`'s Log.
+    An unusable cursor is `400 invalid-cursor`.
 
     Args:
         limit (int | Unset):  Default: 50.

@@ -19,11 +19,9 @@ T = TypeVar("T", bound="ProfilePatch")
 
 @_attrs_define
 class ProfilePatch:
-    """Name, language and picture. Every member optional, and `None` clears it.
+    """Name, language and picture. Every member is optional, and `null` clears it.
 
-    The address is **not** here: it is the login identity and cannot change on one
-    request (§"Changing an email address"), so it has its own two-step operation
-    and a `PATCH` that accepted it would be a way round the confirmation.
+    The email address cannot be changed here; use `POST /email` and `POST /email/confirm`.
 
         Attributes:
             locale (None | str | Unset):

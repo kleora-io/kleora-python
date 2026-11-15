@@ -74,25 +74,15 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | ReauthOut]:
-    r"""What the signed-in person can re-authenticate with
+    """What the signed-in person can re-authenticate with
 
-     `{has_password, reauth_providers[], passkey_available, reauthenticated_until}`.
+     What the person can re-authenticate with, and until when their current re-authentication
+    lasts.
 
-    The same three facts `GET /flow/identities` already carries for the same
-    reason, from the same two services — `identities.has_password` and
-    `reauth_buttons`, which is the **intersection** of the providers this person
-    holds and the providers this Environment still offers. A kind the person holds
-    but the Environment has since disabled is left out, because a control that can
-    only produce a refusal is worse than no control (`S9-12`).
-
-    `passkey_available` is \"this person holds a confirmed passkey\", which is a
-    fact about them and not about what this API can accept — a customer's screen
-    uses it to decide whether linking to the hosted `/account/reauth` is worth
-    offering, since that page accepts an assertion and this endpoint cannot.
-
-    `reauthenticated_until` is `null` when there is no live mark, so a screen can
-    skip the gate it does not need rather than discovering that from a `401`
-    after somebody has filled a form in.
+    `reauth_providers` lists the providers the person has linked that the environment still offers.
+    `passkey_available` says the person holds a confirmed passkey; passkeys can only be used on the
+    hosted `/account/reauth` page, not through this API. `reauthenticated_until` is `null` when the
+    session has no current re-authentication.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,25 +105,15 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | ReauthOut | None:
-    r"""What the signed-in person can re-authenticate with
+    """What the signed-in person can re-authenticate with
 
-     `{has_password, reauth_providers[], passkey_available, reauthenticated_until}`.
+     What the person can re-authenticate with, and until when their current re-authentication
+    lasts.
 
-    The same three facts `GET /flow/identities` already carries for the same
-    reason, from the same two services — `identities.has_password` and
-    `reauth_buttons`, which is the **intersection** of the providers this person
-    holds and the providers this Environment still offers. A kind the person holds
-    but the Environment has since disabled is left out, because a control that can
-    only produce a refusal is worse than no control (`S9-12`).
-
-    `passkey_available` is \"this person holds a confirmed passkey\", which is a
-    fact about them and not about what this API can accept — a customer's screen
-    uses it to decide whether linking to the hosted `/account/reauth` is worth
-    offering, since that page accepts an assertion and this endpoint cannot.
-
-    `reauthenticated_until` is `null` when there is no live mark, so a screen can
-    skip the gate it does not need rather than discovering that from a `401`
-    after somebody has filled a form in.
+    `reauth_providers` lists the providers the person has linked that the environment still offers.
+    `passkey_available` says the person holds a confirmed passkey; passkeys can only be used on the
+    hosted `/account/reauth` page, not through this API. `reauthenticated_until` is `null` when the
+    session has no current re-authentication.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,25 +132,15 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | ReauthOut]:
-    r"""What the signed-in person can re-authenticate with
+    """What the signed-in person can re-authenticate with
 
-     `{has_password, reauth_providers[], passkey_available, reauthenticated_until}`.
+     What the person can re-authenticate with, and until when their current re-authentication
+    lasts.
 
-    The same three facts `GET /flow/identities` already carries for the same
-    reason, from the same two services — `identities.has_password` and
-    `reauth_buttons`, which is the **intersection** of the providers this person
-    holds and the providers this Environment still offers. A kind the person holds
-    but the Environment has since disabled is left out, because a control that can
-    only produce a refusal is worse than no control (`S9-12`).
-
-    `passkey_available` is \"this person holds a confirmed passkey\", which is a
-    fact about them and not about what this API can accept — a customer's screen
-    uses it to decide whether linking to the hosted `/account/reauth` is worth
-    offering, since that page accepts an assertion and this endpoint cannot.
-
-    `reauthenticated_until` is `null` when there is no live mark, so a screen can
-    skip the gate it does not need rather than discovering that from a `401`
-    after somebody has filled a form in.
+    `reauth_providers` lists the providers the person has linked that the environment still offers.
+    `passkey_available` says the person holds a confirmed passkey; passkeys can only be used on the
+    hosted `/account/reauth` page, not through this API. `reauthenticated_until` is `null` when the
+    session has no current re-authentication.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -191,25 +161,15 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | ReauthOut | None:
-    r"""What the signed-in person can re-authenticate with
+    """What the signed-in person can re-authenticate with
 
-     `{has_password, reauth_providers[], passkey_available, reauthenticated_until}`.
+     What the person can re-authenticate with, and until when their current re-authentication
+    lasts.
 
-    The same three facts `GET /flow/identities` already carries for the same
-    reason, from the same two services — `identities.has_password` and
-    `reauth_buttons`, which is the **intersection** of the providers this person
-    holds and the providers this Environment still offers. A kind the person holds
-    but the Environment has since disabled is left out, because a control that can
-    only produce a refusal is worse than no control (`S9-12`).
-
-    `passkey_available` is \"this person holds a confirmed passkey\", which is a
-    fact about them and not about what this API can accept — a customer's screen
-    uses it to decide whether linking to the hosted `/account/reauth` is worth
-    offering, since that page accepts an assertion and this endpoint cannot.
-
-    `reauthenticated_until` is `null` when there is no live mark, so a screen can
-    skip the gate it does not need rather than discovering that from a `401`
-    after somebody has filled a form in.
+    `reauth_providers` lists the providers the person has linked that the environment still offers.
+    `passkey_available` says the person holds a confirmed passkey; passkeys can only be used on the
+    hosted `/account/reauth` page, not through this API. `reauthenticated_until` is `null` when the
+    session has no current re-authentication.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

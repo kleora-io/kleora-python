@@ -19,23 +19,15 @@ T = TypeVar("T", bound="ClientPatch")
 
 @_attrs_define
 class ClientPatch:
-    """`PATCH /api/v1/environments/{environment_id}/clients/{client_id}`.
+    """The body of `PATCH /api/v1/environments/{environment_id}/clients/{client_id}`.
 
-    `initiate_login_uri` is the one clearable field: `null` means "this client
-    names no landing", and the hosted pages then carry no link at all. The two
-    URI arrays are replaced whole by a merge patch, and `[]` is a valid value
-    distinct from the `null` neither of them accepts.
+    `initiate_login_uri` can be cleared with `null`; the hosted pages then show no link back. The
+    URI arrays are replaced whole, and `[]` is valid, but `null` is not.
 
-    `is_default` is a plain `bool`, which is what makes `{"is_default": null}`
-    answer 422 `field-not-nullable` rather than a type error: the field has no
-    null state, and a merge patch's `null` would mean the same impossible thing
-    `false` does. `false` itself passes the schema and is refused by the
-    resource, as 409 `client-default`.
+    `is_default` can only be set to `true`: `null` is `422 field-not-nullable`, and `false` is `409
+    client-default`.
 
-    `client_id`, `client_secret`, `has_secret` and `environment_id` are unknown
-    fields rather than immutable ones, because the spec answers them that way:
-    the identifier is not a property a caller addresses at all
-    (clients.md §"Failure modes").
+    `client_id`, `client_secret`, `has_secret` and `environment_id` are refused as unknown fields.
 
         Attributes:
             allowed_scopes (list[str] | Unset):

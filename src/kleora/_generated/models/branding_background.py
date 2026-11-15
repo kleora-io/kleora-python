@@ -18,18 +18,10 @@ T = TypeVar("T", bound="BrandingBackground")
 
 @_attrs_define
 class BrandingBackground:
-    """One of the three `background.kind` shapes.
+    """The page background: one of three `kind`s.
 
-    Declared as one model with optional members rather than as a discriminated
-    union, because the union would put three schemas in the document for a
-    three-key object and generated clients would name them
-    `BrandingBackgroundType0`. Which keys each `kind` may carry is a validation
-    rule, enforced in `branding_validation` and stated in `branding.md`
-    §Validation — a `solid` background carrying `angle` is a 422 naming
-    `background.angle` as an unknown field, not a type error.
-
-    `from` is a Python keyword, so the field is `from_` with the alias the wire
-    uses; `populate_by_name` keeps both readable from Python.
+    Each `kind` allows only its own members; for example, `angle` on a `solid` background is `422`
+    naming `background.angle` as an unknown field. `from` is a gradient's starting colour.
 
         Attributes:
             kind (str):

@@ -98,14 +98,12 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Delete a client
 
-     The client, its authorization codes, its auth requests and its refresh tokens.
+     Delete an OAuth client, with its authorization codes, pending authorization requests and
+    refresh tokens.
 
-    Sessions are untouched: a Session has no client and is shared across the
-    environment's clients, so the person stays signed in at the hosted pages
-    while nothing minted through this client can be refreshed again.
-
-    409 `client-default` for the environment's default client, which the console
-    renders as a disabled delete action rather than as a failed request.
+    Browser sessions are not affected, since they are shared by the environment's clients; tokens
+    issued through this client can no longer be refreshed. `409 client-default` for the
+    environment's default client.
 
     Args:
         environment_id (str):
@@ -139,14 +137,12 @@ def sync(
 ) -> Any | Problem | None:
     """Delete a client
 
-     The client, its authorization codes, its auth requests and its refresh tokens.
+     Delete an OAuth client, with its authorization codes, pending authorization requests and
+    refresh tokens.
 
-    Sessions are untouched: a Session has no client and is shared across the
-    environment's clients, so the person stays signed in at the hosted pages
-    while nothing minted through this client can be refreshed again.
-
-    409 `client-default` for the environment's default client, which the console
-    renders as a disabled delete action rather than as a failed request.
+    Browser sessions are not affected, since they are shared by the environment's clients; tokens
+    issued through this client can no longer be refreshed. `409 client-default` for the
+    environment's default client.
 
     Args:
         environment_id (str):
@@ -175,14 +171,12 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Delete a client
 
-     The client, its authorization codes, its auth requests and its refresh tokens.
+     Delete an OAuth client, with its authorization codes, pending authorization requests and
+    refresh tokens.
 
-    Sessions are untouched: a Session has no client and is shared across the
-    environment's clients, so the person stays signed in at the hosted pages
-    while nothing minted through this client can be refreshed again.
-
-    409 `client-default` for the environment's default client, which the console
-    renders as a disabled delete action rather than as a failed request.
+    Browser sessions are not affected, since they are shared by the environment's clients; tokens
+    issued through this client can no longer be refreshed. `409 client-default` for the
+    environment's default client.
 
     Args:
         environment_id (str):
@@ -214,14 +208,12 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Delete a client
 
-     The client, its authorization codes, its auth requests and its refresh tokens.
+     Delete an OAuth client, with its authorization codes, pending authorization requests and
+    refresh tokens.
 
-    Sessions are untouched: a Session has no client and is shared across the
-    environment's clients, so the person stays signed in at the hosted pages
-    while nothing minted through this client can be refreshed again.
-
-    409 `client-default` for the environment's default client, which the console
-    renders as a disabled delete action rather than as a failed request.
+    Browser sessions are not affected, since they are shared by the environment's clients; tokens
+    issued through this client can no longer be refreshed. `409 client-default` for the
+    environment's default client.
 
     Args:
         environment_id (str):

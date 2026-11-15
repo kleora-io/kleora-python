@@ -22,17 +22,11 @@ T = TypeVar("T", bound="TenantPatch")
 
 @_attrs_define
 class TenantPatch:
-    """`PATCH /api/v1/tenants/{tenant_id}` — `name`, `slug` and `metadata`.
+    """The body of `PATCH /api/v1/tenants/{tenant_id}`: `name`, `slug` and `metadata`.
 
-    `metadata` is replaced whole, which is what a merge patch does with an
-    object unless a spec says it merges, and no spec says this one does.
-
-    `is_default`, `status`, `member_count` and `environment_id` are unknown
-    fields on purpose: the first is what the environment's own tenant is, the
-    second moves through `suspend`/`unsuspend`, and the last two are
-    projections rather than properties. The default tenant's `slug` is refused
-    by the resource rather than by the schema — 422 with `code: "immutable"` —
-    because which tenant it is is a row this schema cannot see.
+    `metadata` is replaced whole. `is_default`, `status`, `member_count` and `environment_id` are
+    refused as unknown fields; use `suspend` and `unsuspend` to change the status. The default
+    tenant's `slug` cannot be changed (`422` with `code: "immutable"`).
 
         Attributes:
             metadata (TenantPatchMetadata | Unset):

@@ -88,20 +88,14 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | UserExport]:
-    r"""Export a user
+    """Export a user
 
-     Everything Kleora holds about one person, as one document.
+     Everything Kleora holds about one user, as one document.
 
-    users-and-credentials.md §Export and security-baseline.md §\"Data
-    protection\": the user record, the identities without their secrets, the
-    factors without their seeds, the memberships, the sessions and the audit
-    events where this user is actor or target — newest first, capped at
-    `EXPORT_AUDIT_CAP` with `audit_events_truncated` saying so rather than the
-    cap being applied silently.
-
-    `no_store` because this is a subject access request rendered as JSON: not a
-    shown-once secret, but not a document any intermediary should be keeping a
-    copy of either.
+    The user record, identities without their secrets, MFA factors without their seeds, memberships,
+    sessions, and the audit events where the user is actor or target, newest first. The audit events
+    are capped, and `audit_events_truncated` says when the cap applied. The response is never
+    cached.
 
     Args:
         environment_id (str):
@@ -133,20 +127,14 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Problem | UserExport | None:
-    r"""Export a user
+    """Export a user
 
-     Everything Kleora holds about one person, as one document.
+     Everything Kleora holds about one user, as one document.
 
-    users-and-credentials.md §Export and security-baseline.md §\"Data
-    protection\": the user record, the identities without their secrets, the
-    factors without their seeds, the memberships, the sessions and the audit
-    events where this user is actor or target — newest first, capped at
-    `EXPORT_AUDIT_CAP` with `audit_events_truncated` saying so rather than the
-    cap being applied silently.
-
-    `no_store` because this is a subject access request rendered as JSON: not a
-    shown-once secret, but not a document any intermediary should be keeping a
-    copy of either.
+    The user record, identities without their secrets, MFA factors without their seeds, memberships,
+    sessions, and the audit events where the user is actor or target, newest first. The audit events
+    are capped, and `audit_events_truncated` says when the cap applied. The response is never
+    cached.
 
     Args:
         environment_id (str):
@@ -173,20 +161,14 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | UserExport]:
-    r"""Export a user
+    """Export a user
 
-     Everything Kleora holds about one person, as one document.
+     Everything Kleora holds about one user, as one document.
 
-    users-and-credentials.md §Export and security-baseline.md §\"Data
-    protection\": the user record, the identities without their secrets, the
-    factors without their seeds, the memberships, the sessions and the audit
-    events where this user is actor or target — newest first, capped at
-    `EXPORT_AUDIT_CAP` with `audit_events_truncated` saying so rather than the
-    cap being applied silently.
-
-    `no_store` because this is a subject access request rendered as JSON: not a
-    shown-once secret, but not a document any intermediary should be keeping a
-    copy of either.
+    The user record, identities without their secrets, MFA factors without their seeds, memberships,
+    sessions, and the audit events where the user is actor or target, newest first. The audit events
+    are capped, and `audit_events_truncated` says when the cap applied. The response is never
+    cached.
 
     Args:
         environment_id (str):
@@ -216,20 +198,14 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Problem | UserExport | None:
-    r"""Export a user
+    """Export a user
 
-     Everything Kleora holds about one person, as one document.
+     Everything Kleora holds about one user, as one document.
 
-    users-and-credentials.md §Export and security-baseline.md §\"Data
-    protection\": the user record, the identities without their secrets, the
-    factors without their seeds, the memberships, the sessions and the audit
-    events where this user is actor or target — newest first, capped at
-    `EXPORT_AUDIT_CAP` with `audit_events_truncated` saying so rather than the
-    cap being applied silently.
-
-    `no_store` because this is a subject access request rendered as JSON: not a
-    shown-once secret, but not a document any intermediary should be keeping a
-    copy of either.
+    The user record, identities without their secrets, MFA factors without their seeds, memberships,
+    sessions, and the audit events where the user is actor or target, newest first. The audit events
+    are capped, and `audit_events_truncated` says when the cap applied. The response is never
+    cached.
 
     Args:
         environment_id (str):

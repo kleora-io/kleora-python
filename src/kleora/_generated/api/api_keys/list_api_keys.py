@@ -130,28 +130,13 @@ def sync_detailed(
     status: ListApiKeysStatusType0 | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[ApiKeyList | Problem]:
-    r"""List API keys
+    """List API keys
 
-     The environment's keys, newest first, optionally filtered by `status` or searched.
+     The environment's API keys, newest first, optionally filtered by `status` or searched.
 
-    Newest first because that is the order the console reads them in: the key
-    somebody just made is the one they are looking for, and a key list is a
-    thing people scroll rather than page through. It is the second descending
-    listing in the surface, after audit events.
-
-    `status` is derived rather than stored, so the filter is three predicates
-    over `revoked_at` and `expires_at` rather than an equality — and the clock
-    is read once for the whole page, so a key cannot be `active` in the filter
-    and `expired` in the body of the same response.
-
-    `q` is a case-insensitive substring of `name` — the credential itself is
-    never a searchable field, only ever shown once (management-api.md
-    §Conventions \"Search\"; Q3-59).
-
-    Every filter is named to `paginate` as well as applied, so it is part of
-    the cursor's fingerprint: a cursor issued for `?status=revoked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there.
+    `status` is computed from the revocation and expiry times, evaluated once for the whole page.
+    `q` is a case-insensitive substring of `name`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -192,28 +177,13 @@ def sync(
     status: ListApiKeysStatusType0 | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> ApiKeyList | Problem | None:
-    r"""List API keys
+    """List API keys
 
-     The environment's keys, newest first, optionally filtered by `status` or searched.
+     The environment's API keys, newest first, optionally filtered by `status` or searched.
 
-    Newest first because that is the order the console reads them in: the key
-    somebody just made is the one they are looking for, and a key list is a
-    thing people scroll rather than page through. It is the second descending
-    listing in the surface, after audit events.
-
-    `status` is derived rather than stored, so the filter is three predicates
-    over `revoked_at` and `expires_at` rather than an equality — and the clock
-    is read once for the whole page, so a key cannot be `active` in the filter
-    and `expired` in the body of the same response.
-
-    `q` is a case-insensitive substring of `name` — the credential itself is
-    never a searchable field, only ever shown once (management-api.md
-    §Conventions \"Search\"; Q3-59).
-
-    Every filter is named to `paginate` as well as applied, so it is part of
-    the cursor's fingerprint: a cursor issued for `?status=revoked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there.
+    `status` is computed from the revocation and expiry times, evaluated once for the whole page.
+    `q` is a case-insensitive substring of `name`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -249,28 +219,13 @@ async def asyncio_detailed(
     status: ListApiKeysStatusType0 | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[ApiKeyList | Problem]:
-    r"""List API keys
+    """List API keys
 
-     The environment's keys, newest first, optionally filtered by `status` or searched.
+     The environment's API keys, newest first, optionally filtered by `status` or searched.
 
-    Newest first because that is the order the console reads them in: the key
-    somebody just made is the one they are looking for, and a key list is a
-    thing people scroll rather than page through. It is the second descending
-    listing in the surface, after audit events.
-
-    `status` is derived rather than stored, so the filter is three predicates
-    over `revoked_at` and `expires_at` rather than an equality — and the clock
-    is read once for the whole page, so a key cannot be `active` in the filter
-    and `expired` in the body of the same response.
-
-    `q` is a case-insensitive substring of `name` — the credential itself is
-    never a searchable field, only ever shown once (management-api.md
-    §Conventions \"Search\"; Q3-59).
-
-    Every filter is named to `paginate` as well as applied, so it is part of
-    the cursor's fingerprint: a cursor issued for `?status=revoked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there.
+    `status` is computed from the revocation and expiry times, evaluated once for the whole page.
+    `q` is a case-insensitive substring of `name`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -309,28 +264,13 @@ async def asyncio(
     status: ListApiKeysStatusType0 | None | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> ApiKeyList | Problem | None:
-    r"""List API keys
+    """List API keys
 
-     The environment's keys, newest first, optionally filtered by `status` or searched.
+     The environment's API keys, newest first, optionally filtered by `status` or searched.
 
-    Newest first because that is the order the console reads them in: the key
-    somebody just made is the one they are looking for, and a key list is a
-    thing people scroll rather than page through. It is the second descending
-    listing in the surface, after audit events.
-
-    `status` is derived rather than stored, so the filter is three predicates
-    over `revoked_at` and `expires_at` rather than an equality — and the clock
-    is read once for the whole page, so a key cannot be `active` in the filter
-    and `expired` in the body of the same response.
-
-    `q` is a case-insensitive substring of `name` — the credential itself is
-    never a searchable field, only ever shown once (management-api.md
-    §Conventions \"Search\"; Q3-59).
-
-    Every filter is named to `paginate` as well as applied, so it is part of
-    the cursor's fingerprint: a cursor issued for `?status=revoked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there.
+    `status` is computed from the revocation and expiry times, evaluated once for the whole page.
+    `q` is a case-insensitive substring of `name`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):

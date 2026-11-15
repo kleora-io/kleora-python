@@ -26,16 +26,11 @@ T = TypeVar("T", bound="WebhookEventDetailOut")
 
 @_attrs_define
 class WebhookEventDetailOut:
-    """`GET …/webhook-events/{id}`: the frozen envelope and every attempt.
+    """The body of `GET .../webhook-events/{webhook_event_id}`: the event's envelope and every
+    delivery attempt.
 
-    `payload` is the exact envelope every delivery sent — `data` reads `{}`
-    for an event about a user who has since been erased
-    (`apps.webhooks.services.blank_erased_user_events`; webhooks.md
-    §"Retention, and erasure": "the envelope and the delivery outcomes"
-    survive erasure, `data` alone is blanked). `deliveries` is every attempt,
-    to every endpoint that ever received this event, newest first — "every
-    attempt is recorded, not just the last" (webhooks.md
-    §"Trackable and debuggable").
+    `payload` is exactly the envelope every delivery sent; its `data` is `{}` for an event about a
+    user who has since been erased. `deliveries` is every attempt, to every endpoint, newest first.
 
         Attributes:
             deliveries (list[WebhookDeliveryOut]):

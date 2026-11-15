@@ -16,12 +16,8 @@ T = TypeVar("T", bound="EmailTemplateIn")
 
 @_attrs_define
 class EmailTemplateIn:
-    """`PUT …/email-templates/{kind}/{locale}` — the whole resource, at once.
-
-    Not a merge patch, which is why it is a plain `Schema`: a subject and the
-    body it belongs to are one edit (email.md §API names all three fields
-    required), and a template half-written by one request and half by another
-    is a message no one composed.
+    """The body of `PUT .../email-templates/{kind}/{locale}`: the whole template. Every field is
+    required.
 
         Attributes:
             body_html (str):

@@ -81,11 +81,9 @@ def sync_detailed(
 ) -> Response[FlowProblem | PasskeysOut]:
     """The signed-in person's own passkeys, and where one can be added
 
-     The credentials, and the hosted URL that can register another.
+     The person's passkeys, and the hosted page where they can register another.
 
-    `fail_open` like every `GET` on the catch-all row: making a person's security
-    list unreachable because Redis is unreachable is a worse outage than serving
-    it unbounded for a few minutes.
+    Stays available when the rate-limit store is unavailable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,11 +108,9 @@ def sync(
 ) -> FlowProblem | PasskeysOut | None:
     """The signed-in person's own passkeys, and where one can be added
 
-     The credentials, and the hosted URL that can register another.
+     The person's passkeys, and the hosted page where they can register another.
 
-    `fail_open` like every `GET` on the catch-all row: making a person's security
-    list unreachable because Redis is unreachable is a worse outage than serving
-    it unbounded for a few minutes.
+    Stays available when the rate-limit store is unavailable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,11 +131,9 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | PasskeysOut]:
     """The signed-in person's own passkeys, and where one can be added
 
-     The credentials, and the hosted URL that can register another.
+     The person's passkeys, and the hosted page where they can register another.
 
-    `fail_open` like every `GET` on the catch-all row: making a person's security
-    list unreachable because Redis is unreachable is a worse outage than serving
-    it unbounded for a few minutes.
+    Stays available when the rate-limit store is unavailable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -162,11 +156,9 @@ async def asyncio(
 ) -> FlowProblem | PasskeysOut | None:
     """The signed-in person's own passkeys, and where one can be added
 
-     The credentials, and the hosted URL that can register another.
+     The person's passkeys, and the hosted page where they can register another.
 
-    `fail_open` like every `GET` on the catch-all row: making a person's security
-    list unreachable because Redis is unreachable is a worse outage than serving
-    it unbounded for a few minutes.
+    Stays available when the rate-limit store is unavailable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

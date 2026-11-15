@@ -22,21 +22,16 @@ T = TypeVar("T", bound="AppPlanOut")
 
 @_attrs_define
 class AppPlanOut:
-    """One App, the plan it is actually held to, and that plan's limits.
+    """One App, the plan that applies to it, and that plan's limits.
 
-    The plan is `effective_plan`'s answer, not the `plan` column: an Account on
-    `scale` holds every one of its Apps to `scale` regardless of what its own
-    row says (billing.md §"How this looks in the data"), and a response that
-    reported the column would be telling half of it.
+    The plan is the one actually applied, which can differ from the App's own plan: an Account on
+    `scale` holds every App to `scale`.
 
         Attributes:
             app_id (UUID):
-            limits (PlanLimitsOut): The numbers a plan is held to — `apps.accounts.plan_limits`, verbatim.
+            limits (PlanLimitsOut): The limits a plan sets.
 
-                `AccountOut` deliberately carries no limits, so this is where a caller
-                reads them (P6-13 scope). `tenant_limit` is the derived ceiling
-                `effective_tenant_limit` returns, override included: what actually applies
-                to this App right now, not what its plan implies.
+                `tenant_limit` is the limit that applies to this App now, including any override.
             plan (str):
             slug (str):
     """

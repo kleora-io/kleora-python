@@ -25,16 +25,10 @@ T = TypeVar("T", bound="BlockedBy")
 
 @_attrs_define
 class BlockedBy:
-    """The principal that blocked a user: `{"kind": …, "id": …}` plus a display.
+    """Who blocked the user: `{"kind": ..., "id": ...}`, and a display name.
 
-    `display` is `null`, not absent, when there is nobody to name — an
-    `api_key` blocker (a key is not a person and must not be given a
-    placeholder name, audit-log.md's rule) or an id that no longer resolves.
-    That is a deliberate divergence from `AuditActor`, which omits the key
-    entirely: the audit endpoints can do that because they serialise with
-    `exclude_unset=True`, and turning that on for `UserOut` would change how
-    every *other* field of the busiest resource on this surface is serialised.
-    A `null` here is readable and costs nothing, where that would.
+    `display` is `null`, not absent, when there is nobody to name: when an API key blocked the user,
+    or the id no longer resolves.
 
         Attributes:
             id (UUID):

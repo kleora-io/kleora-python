@@ -23,7 +23,7 @@ T = TypeVar("T", bound="ExportAuditEvent")
 
 @_attrs_define
 class ExportAuditEvent:
-    """One audit event in the export, in the shape `audit-log.md` reports it.
+    """One audit event in a user export, in the same shape as the audit event API.
 
     Attributes:
         action (str):

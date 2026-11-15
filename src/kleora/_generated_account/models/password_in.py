@@ -19,20 +19,11 @@ T = TypeVar("T", bound="PasswordIn")
 
 @_attrs_define
 class PasswordIn:
-    """`current_password` and `new_password`, the second required.
+    """The body of `POST /password`.
 
-    `current_password` is optional **only** because a person who has none has none
-    to send (§"The operations": "Set a password (person has none) … No
-    `current_password` to supply"). It is not a way to skip the check: a person who
-    *does* have a password and omits it gets `401 invalid-credentials` and not a
-    `422`, because "naming the missing field would distinguish 'you have a
-    password' from 'you do not' to a caller holding somebody's token"
-    (§"Failure modes").
-
-    Neither field carries a `min_length`. The policy is the Environment's and its
-    refusal is `422 password-policy` with `errors[].field = "password"`; a schema
-    bound would answer first, in django-ninja's shape, for the one input whose
-    refusal §"Failure modes" writes out.
+    `current_password` is required when the person has a password, and omitted when they have none;
+    a missing or wrong one is `401 invalid-credentials`. Length is checked by the environment's
+    password policy, which answers `422 password-policy` with `errors[].field = "password"`.
 
         Attributes:
             new_password (str):

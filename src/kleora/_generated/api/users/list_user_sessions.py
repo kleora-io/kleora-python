@@ -116,21 +116,12 @@ def sync_detailed(
     cursor: None | str | Unset = UNSET,
     include_expired: bool | Unset = False,
 ) -> Response[Problem | SessionList]:
-    r"""A user's sessions
+    """A user's sessions
 
-     The user's browser sessions, newest first, live ones only by default.
+     The user's browser sessions, newest first; only live ones unless `include_expired` is set.
 
-    \"Live\" is the four conditions of sessions-and-tokens.md §\"Browser session\"
-    read as a query: not revoked, before `expires_at`, and inside
-    `session_idle_ttl` of `last_seen_at`. The fourth — the User is active — is
-    fixed for this listing, and a blocked user has no live session left anyway,
-    since blocking revokes them all. The three that are columns are
-    `sessions.live_sessions`, shared with the overview's `active_sessions` count
-    and with the Users list's `?session=active` so the three cannot drift apart.
-
-    `include_expired` is in the cursor's fingerprint, so a cursor issued for the
-    live listing cannot be presented against the full one and seek at a position
-    that means something else there.
+    A live session is not revoked, has not expired, and has been used within the environment's
+    `session_idle_ttl`. A cursor is only valid with the `include_expired` value it was issued for.
 
     Args:
         environment_id (str):
@@ -171,21 +162,12 @@ def sync(
     cursor: None | str | Unset = UNSET,
     include_expired: bool | Unset = False,
 ) -> Problem | SessionList | None:
-    r"""A user's sessions
+    """A user's sessions
 
-     The user's browser sessions, newest first, live ones only by default.
+     The user's browser sessions, newest first; only live ones unless `include_expired` is set.
 
-    \"Live\" is the four conditions of sessions-and-tokens.md §\"Browser session\"
-    read as a query: not revoked, before `expires_at`, and inside
-    `session_idle_ttl` of `last_seen_at`. The fourth — the User is active — is
-    fixed for this listing, and a blocked user has no live session left anyway,
-    since blocking revokes them all. The three that are columns are
-    `sessions.live_sessions`, shared with the overview's `active_sessions` count
-    and with the Users list's `?session=active` so the three cannot drift apart.
-
-    `include_expired` is in the cursor's fingerprint, so a cursor issued for the
-    live listing cannot be presented against the full one and seek at a position
-    that means something else there.
+    A live session is not revoked, has not expired, and has been used within the environment's
+    `session_idle_ttl`. A cursor is only valid with the `include_expired` value it was issued for.
 
     Args:
         environment_id (str):
@@ -221,21 +203,12 @@ async def asyncio_detailed(
     cursor: None | str | Unset = UNSET,
     include_expired: bool | Unset = False,
 ) -> Response[Problem | SessionList]:
-    r"""A user's sessions
+    """A user's sessions
 
-     The user's browser sessions, newest first, live ones only by default.
+     The user's browser sessions, newest first; only live ones unless `include_expired` is set.
 
-    \"Live\" is the four conditions of sessions-and-tokens.md §\"Browser session\"
-    read as a query: not revoked, before `expires_at`, and inside
-    `session_idle_ttl` of `last_seen_at`. The fourth — the User is active — is
-    fixed for this listing, and a blocked user has no live session left anyway,
-    since blocking revokes them all. The three that are columns are
-    `sessions.live_sessions`, shared with the overview's `active_sessions` count
-    and with the Users list's `?session=active` so the three cannot drift apart.
-
-    `include_expired` is in the cursor's fingerprint, so a cursor issued for the
-    live listing cannot be presented against the full one and seek at a position
-    that means something else there.
+    A live session is not revoked, has not expired, and has been used within the environment's
+    `session_idle_ttl`. A cursor is only valid with the `include_expired` value it was issued for.
 
     Args:
         environment_id (str):
@@ -274,21 +247,12 @@ async def asyncio(
     cursor: None | str | Unset = UNSET,
     include_expired: bool | Unset = False,
 ) -> Problem | SessionList | None:
-    r"""A user's sessions
+    """A user's sessions
 
-     The user's browser sessions, newest first, live ones only by default.
+     The user's browser sessions, newest first; only live ones unless `include_expired` is set.
 
-    \"Live\" is the four conditions of sessions-and-tokens.md §\"Browser session\"
-    read as a query: not revoked, before `expires_at`, and inside
-    `session_idle_ttl` of `last_seen_at`. The fourth — the User is active — is
-    fixed for this listing, and a blocked user has no live session left anyway,
-    since blocking revokes them all. The three that are columns are
-    `sessions.live_sessions`, shared with the overview's `active_sessions` count
-    and with the Users list's `?session=active` so the three cannot drift apart.
-
-    `include_expired` is in the cursor's fingerprint, so a cursor issued for the
-    live listing cannot be presented against the full one and seek at a position
-    that means something else there.
+    A live session is not revoked, has not expired, and has been used within the environment's
+    `session_idle_ttl`. A cursor is only valid with the `include_expired` value it was issued for.
 
     Args:
         environment_id (str):

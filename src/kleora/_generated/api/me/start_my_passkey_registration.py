@@ -89,17 +89,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[MePasskeyOptionsOut | Problem]:
-    r"""Begin registering one of the caller's own passkeys
+    """Begin registering one of the caller's own passkeys
 
-     `402` on a plan without passkeys — mfa.md §\"What a plan gates\" names
-    this route beside `/flow/passkeys/register/start`.
+     Start registering a passkey for yourself.
 
-    `allow_unpaid=True` and a 402 are not in tension: the annotation exempts
-    this route from billing.md's day-15 **write block**, which exists to
-    collect a debt and must never reach somebody's second factor, while this
-    refusal is the plan not carrying passkeys at all. TOTP and recovery codes
-    on this surface stay reachable in every billing state and on every plan,
-    which is the promise that made the exemption necessary in the first place.
+    `402` on a plan without passkeys. TOTP and recovery codes remain available on every plan and in
+    every billing state.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -122,17 +117,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> MePasskeyOptionsOut | Problem | None:
-    r"""Begin registering one of the caller's own passkeys
+    """Begin registering one of the caller's own passkeys
 
-     `402` on a plan without passkeys — mfa.md §\"What a plan gates\" names
-    this route beside `/flow/passkeys/register/start`.
+     Start registering a passkey for yourself.
 
-    `allow_unpaid=True` and a 402 are not in tension: the annotation exempts
-    this route from billing.md's day-15 **write block**, which exists to
-    collect a debt and must never reach somebody's second factor, while this
-    refusal is the plan not carrying passkeys at all. TOTP and recovery codes
-    on this surface stay reachable in every billing state and on every plan,
-    which is the promise that made the exemption necessary in the first place.
+    `402` on a plan without passkeys. TOTP and recovery codes remain available on every plan and in
+    every billing state.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,17 +141,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[MePasskeyOptionsOut | Problem]:
-    r"""Begin registering one of the caller's own passkeys
+    """Begin registering one of the caller's own passkeys
 
-     `402` on a plan without passkeys — mfa.md §\"What a plan gates\" names
-    this route beside `/flow/passkeys/register/start`.
+     Start registering a passkey for yourself.
 
-    `allow_unpaid=True` and a 402 are not in tension: the annotation exempts
-    this route from billing.md's day-15 **write block**, which exists to
-    collect a debt and must never reach somebody's second factor, while this
-    refusal is the plan not carrying passkeys at all. TOTP and recovery codes
-    on this surface stay reachable in every billing state and on every plan,
-    which is the promise that made the exemption necessary in the first place.
+    `402` on a plan without passkeys. TOTP and recovery codes remain available on every plan and in
+    every billing state.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,17 +167,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> MePasskeyOptionsOut | Problem | None:
-    r"""Begin registering one of the caller's own passkeys
+    """Begin registering one of the caller's own passkeys
 
-     `402` on a plan without passkeys — mfa.md §\"What a plan gates\" names
-    this route beside `/flow/passkeys/register/start`.
+     Start registering a passkey for yourself.
 
-    `allow_unpaid=True` and a 402 are not in tension: the annotation exempts
-    this route from billing.md's day-15 **write block**, which exists to
-    collect a debt and must never reach somebody's second factor, while this
-    refusal is the plan not carrying passkeys at all. TOTP and recovery codes
-    on this surface stay reachable in every billing state and on every plan,
-    which is the promise that made the exemption necessary in the first place.
+    `402` on a plan without passkeys. TOTP and recovery codes remain available on every plan and in
+    every billing state.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

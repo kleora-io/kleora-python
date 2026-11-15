@@ -90,28 +90,18 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: ProfilePatch,
 ) -> Response[FlowProblem | ProfileOut]:
-    r"""Change the signed-in person's own name, language or picture
+    """Change the signed-in person's own name, language or picture
 
-     Not sensitive, and §\"The operations\" says so by leaving the column empty.
+     Update the person's name, language or picture.
 
-    Nothing here is a credential: a name, a language and a picture are how a
-    person is addressed, and putting a password prompt in front of correcting the
-    spelling of your own name would teach people to type their password at
-    prompts that did not need it — which is the habit every phishing page relies
-    on.
-
-    Only the members the caller actually sent are written, which is what makes
-    \"a key present and already equal to the stored value changed nothing\" true:
-    `Schema.dict(exclude_unset=True)` is the same `api.management.patching`
-    distinction between \"set this to null\" and \"do not touch this\".
+    Does not require re-authentication. Only the members present in the body are written: a member
+    set to `null` is cleared, and an absent one is left alone.
 
     Args:
-        body (ProfilePatch): Name, language and picture. Every member optional, and `None` clears
-            it.
+        body (ProfilePatch): Name, language and picture. Every member is optional, and `null`
+            clears it.
 
-            The address is **not** here: it is the login identity and cannot change on one
-            request (§"Changing an email address"), so it has its own two-step operation
-            and a `PATCH` that accepted it would be a way round the confirmation.
+            The email address cannot be changed here; use `POST /email` and `POST /email/confirm`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,28 +127,18 @@ def sync(
     client: AuthenticatedClient,
     body: ProfilePatch,
 ) -> FlowProblem | ProfileOut | None:
-    r"""Change the signed-in person's own name, language or picture
+    """Change the signed-in person's own name, language or picture
 
-     Not sensitive, and §\"The operations\" says so by leaving the column empty.
+     Update the person's name, language or picture.
 
-    Nothing here is a credential: a name, a language and a picture are how a
-    person is addressed, and putting a password prompt in front of correcting the
-    spelling of your own name would teach people to type their password at
-    prompts that did not need it — which is the habit every phishing page relies
-    on.
-
-    Only the members the caller actually sent are written, which is what makes
-    \"a key present and already equal to the stored value changed nothing\" true:
-    `Schema.dict(exclude_unset=True)` is the same `api.management.patching`
-    distinction between \"set this to null\" and \"do not touch this\".
+    Does not require re-authentication. Only the members present in the body are written: a member
+    set to `null` is cleared, and an absent one is left alone.
 
     Args:
-        body (ProfilePatch): Name, language and picture. Every member optional, and `None` clears
-            it.
+        body (ProfilePatch): Name, language and picture. Every member is optional, and `null`
+            clears it.
 
-            The address is **not** here: it is the login identity and cannot change on one
-            request (§"Changing an email address"), so it has its own two-step operation
-            and a `PATCH` that accepted it would be a way round the confirmation.
+            The email address cannot be changed here; use `POST /email` and `POST /email/confirm`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -179,28 +159,18 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: ProfilePatch,
 ) -> Response[FlowProblem | ProfileOut]:
-    r"""Change the signed-in person's own name, language or picture
+    """Change the signed-in person's own name, language or picture
 
-     Not sensitive, and §\"The operations\" says so by leaving the column empty.
+     Update the person's name, language or picture.
 
-    Nothing here is a credential: a name, a language and a picture are how a
-    person is addressed, and putting a password prompt in front of correcting the
-    spelling of your own name would teach people to type their password at
-    prompts that did not need it — which is the habit every phishing page relies
-    on.
-
-    Only the members the caller actually sent are written, which is what makes
-    \"a key present and already equal to the stored value changed nothing\" true:
-    `Schema.dict(exclude_unset=True)` is the same `api.management.patching`
-    distinction between \"set this to null\" and \"do not touch this\".
+    Does not require re-authentication. Only the members present in the body are written: a member
+    set to `null` is cleared, and an absent one is left alone.
 
     Args:
-        body (ProfilePatch): Name, language and picture. Every member optional, and `None` clears
-            it.
+        body (ProfilePatch): Name, language and picture. Every member is optional, and `null`
+            clears it.
 
-            The address is **not** here: it is the login identity and cannot change on one
-            request (§"Changing an email address"), so it has its own two-step operation
-            and a `PATCH` that accepted it would be a way round the confirmation.
+            The email address cannot be changed here; use `POST /email` and `POST /email/confirm`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -224,28 +194,18 @@ async def asyncio(
     client: AuthenticatedClient,
     body: ProfilePatch,
 ) -> FlowProblem | ProfileOut | None:
-    r"""Change the signed-in person's own name, language or picture
+    """Change the signed-in person's own name, language or picture
 
-     Not sensitive, and §\"The operations\" says so by leaving the column empty.
+     Update the person's name, language or picture.
 
-    Nothing here is a credential: a name, a language and a picture are how a
-    person is addressed, and putting a password prompt in front of correcting the
-    spelling of your own name would teach people to type their password at
-    prompts that did not need it — which is the habit every phishing page relies
-    on.
-
-    Only the members the caller actually sent are written, which is what makes
-    \"a key present and already equal to the stored value changed nothing\" true:
-    `Schema.dict(exclude_unset=True)` is the same `api.management.patching`
-    distinction between \"set this to null\" and \"do not touch this\".
+    Does not require re-authentication. Only the members present in the body are written: a member
+    set to `null` is cleared, and an absent one is left alone.
 
     Args:
-        body (ProfilePatch): Name, language and picture. Every member optional, and `None` clears
-            it.
+        body (ProfilePatch): Name, language and picture. Every member is optional, and `null`
+            clears it.
 
-            The address is **not** here: it is the login identity and cannot change on one
-            request (§"Changing an email address"), so it has its own two-step operation
-            and a `PATCH` that accepted it would be a way round the confirmation.
+            The email address cannot be changed here; use `POST /email` and `POST /email/confirm`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

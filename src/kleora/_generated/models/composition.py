@@ -20,14 +20,9 @@ T = TypeVar("T", bound="Composition")
 
 @_attrs_define
 class Composition:
-    """`composition`: the layout document a record may carry.
+    """`composition`: which blocks each region of each page shows, and in what order.
 
-    Typed rather than the free-form object `icons` is, because the block names
-    *are* the vocabulary a customer writes against and the generated clients
-    should name them (ADR 0003). `pages` is a map rather than a model per page
-    so that a later phase's page arrives without a schema edit; which pages and
-    regions exist is a validation rule, in `branding_validation` against
-    `COMPOSITION_REGIONS`, exactly as `layout`'s per-`kind` keys are.
+    `pages` is a map keyed by page name.
 
         Attributes:
             pages (CompositionPages):

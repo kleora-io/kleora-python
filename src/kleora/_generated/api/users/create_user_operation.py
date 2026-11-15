@@ -105,34 +105,25 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UserIn,
 ) -> Response[Problem | UserOut]:
-    r"""Create a user
+    """Create a user
 
-     A user an administrator made, rather than one who signed up.
+     Create a user as an administrator.
 
-    The difference from `/signup` is the one `security-baseline.md` §\"No
-    enumeration\" draws: this surface is not the hosted one, the caller already
-    holds `users:write` over the environment, and an address that is taken is
-    answered as 409 `email-taken` rather than as a page that looks like a
-    success.
-
-    `password` is optional — omitted, the user has no password identity until a
-    reset creates one, and `has_password` says so. It is never echoed: the 201
-    is the User resource and nothing else.
+    An address already registered in the environment is `409 email-taken`. `password` is optional:
+    without one the user has no password until a reset sets one, and `has_password` says so. The
+    password is never returned.
 
     Args:
         environment_id (str):
-        body (UserIn): `POST /api/v1/environments/{environment_id}/users`.
+        body (UserIn): The body of `POST /api/v1/environments/{environment_id}/users`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `id`,
-            `status`, `has_password`, `email_verified_at`, `last_login_at` and
-            `locked_until` are 422 as unknown fields. `email_verified` and
-            `send_verification` are *instructions* rather than properties — the first
-            resolves into `email_verified_at`, the second sends a message — which is
-            why neither appears in `UserOut`.
+            `id`, `status`, `has_password`, `email_verified_at`, `last_login_at` and `locked_until`
+            are
+            refused as unknown fields. `email_verified` marks the address verified, and
+            `send_verification`
+            emails a verification link; neither is a field of the user.
 
-            `password` is optional and, when given, never echoed anywhere: it is not a
-            field of any response shape, and the audit event for the creation carries
-            only whether the breach check ran.
+            `password` is optional, and is never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,34 +151,25 @@ def sync(
     client: AuthenticatedClient,
     body: UserIn,
 ) -> Problem | UserOut | None:
-    r"""Create a user
+    """Create a user
 
-     A user an administrator made, rather than one who signed up.
+     Create a user as an administrator.
 
-    The difference from `/signup` is the one `security-baseline.md` §\"No
-    enumeration\" draws: this surface is not the hosted one, the caller already
-    holds `users:write` over the environment, and an address that is taken is
-    answered as 409 `email-taken` rather than as a page that looks like a
-    success.
-
-    `password` is optional — omitted, the user has no password identity until a
-    reset creates one, and `has_password` says so. It is never echoed: the 201
-    is the User resource and nothing else.
+    An address already registered in the environment is `409 email-taken`. `password` is optional:
+    without one the user has no password until a reset sets one, and `has_password` says so. The
+    password is never returned.
 
     Args:
         environment_id (str):
-        body (UserIn): `POST /api/v1/environments/{environment_id}/users`.
+        body (UserIn): The body of `POST /api/v1/environments/{environment_id}/users`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `id`,
-            `status`, `has_password`, `email_verified_at`, `last_login_at` and
-            `locked_until` are 422 as unknown fields. `email_verified` and
-            `send_verification` are *instructions* rather than properties — the first
-            resolves into `email_verified_at`, the second sends a message — which is
-            why neither appears in `UserOut`.
+            `id`, `status`, `has_password`, `email_verified_at`, `last_login_at` and `locked_until`
+            are
+            refused as unknown fields. `email_verified` marks the address verified, and
+            `send_verification`
+            emails a verification link; neither is a field of the user.
 
-            `password` is optional and, when given, never echoed anywhere: it is not a
-            field of any response shape, and the audit event for the creation carries
-            only whether the breach check ran.
+            `password` is optional, and is never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -210,34 +192,25 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UserIn,
 ) -> Response[Problem | UserOut]:
-    r"""Create a user
+    """Create a user
 
-     A user an administrator made, rather than one who signed up.
+     Create a user as an administrator.
 
-    The difference from `/signup` is the one `security-baseline.md` §\"No
-    enumeration\" draws: this surface is not the hosted one, the caller already
-    holds `users:write` over the environment, and an address that is taken is
-    answered as 409 `email-taken` rather than as a page that looks like a
-    success.
-
-    `password` is optional — omitted, the user has no password identity until a
-    reset creates one, and `has_password` says so. It is never echoed: the 201
-    is the User resource and nothing else.
+    An address already registered in the environment is `409 email-taken`. `password` is optional:
+    without one the user has no password until a reset sets one, and `has_password` says so. The
+    password is never returned.
 
     Args:
         environment_id (str):
-        body (UserIn): `POST /api/v1/environments/{environment_id}/users`.
+        body (UserIn): The body of `POST /api/v1/environments/{environment_id}/users`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `id`,
-            `status`, `has_password`, `email_verified_at`, `last_login_at` and
-            `locked_until` are 422 as unknown fields. `email_verified` and
-            `send_verification` are *instructions* rather than properties — the first
-            resolves into `email_verified_at`, the second sends a message — which is
-            why neither appears in `UserOut`.
+            `id`, `status`, `has_password`, `email_verified_at`, `last_login_at` and `locked_until`
+            are
+            refused as unknown fields. `email_verified` marks the address verified, and
+            `send_verification`
+            emails a verification link; neither is a field of the user.
 
-            `password` is optional and, when given, never echoed anywhere: it is not a
-            field of any response shape, and the audit event for the creation carries
-            only whether the breach check ran.
+            `password` is optional, and is never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -263,34 +236,25 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UserIn,
 ) -> Problem | UserOut | None:
-    r"""Create a user
+    """Create a user
 
-     A user an administrator made, rather than one who signed up.
+     Create a user as an administrator.
 
-    The difference from `/signup` is the one `security-baseline.md` §\"No
-    enumeration\" draws: this surface is not the hosted one, the caller already
-    holds `users:write` over the environment, and an address that is taken is
-    answered as 409 `email-taken` rather than as a page that looks like a
-    success.
-
-    `password` is optional — omitted, the user has no password identity until a
-    reset creates one, and `has_password` says so. It is never echoed: the 201
-    is the User resource and nothing else.
+    An address already registered in the environment is `409 email-taken`. `password` is optional:
+    without one the user has no password until a reset sets one, and `has_password` says so. The
+    password is never returned.
 
     Args:
         environment_id (str):
-        body (UserIn): `POST /api/v1/environments/{environment_id}/users`.
+        body (UserIn): The body of `POST /api/v1/environments/{environment_id}/users`.
 
-            `extra="forbid"` is the whole of the "not an input field" rule: `id`,
-            `status`, `has_password`, `email_verified_at`, `last_login_at` and
-            `locked_until` are 422 as unknown fields. `email_verified` and
-            `send_verification` are *instructions* rather than properties — the first
-            resolves into `email_verified_at`, the second sends a message — which is
-            why neither appears in `UserOut`.
+            `id`, `status`, `has_password`, `email_verified_at`, `last_login_at` and `locked_until`
+            are
+            refused as unknown fields. `email_verified` marks the address verified, and
+            `send_verification`
+            emails a verification link; neither is a field of the user.
 
-            `password` is optional and, when given, never echoed anywhere: it is not a
-            field of any response shape, and the audit event for the creation carries
-            only whether the breach check ran.
+            `password` is optional, and is never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

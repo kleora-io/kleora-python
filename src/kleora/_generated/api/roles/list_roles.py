@@ -118,15 +118,12 @@ def sync_detailed(
     cursor: None | str | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[Problem | RoleList]:
-    r"""List app-scoped roles
+    """List app-scoped roles
 
-     The environment's **app-scoped** roles by slug (rbac.md §API).
+     The environment's app-scoped roles by slug.
 
-    Tenant-scoped roles are listed under the tenant that defines them, at
-    `GET T/roles`, because that is the only place they are assignable.
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    Tenant-scoped roles are listed under the tenant that defines them, at `GET
+    /tenants/{tenant_id}/roles`. `q` is a case-insensitive substring of the slug or the name.
 
     Args:
         environment_id (str):
@@ -164,15 +161,12 @@ def sync(
     cursor: None | str | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Problem | RoleList | None:
-    r"""List app-scoped roles
+    """List app-scoped roles
 
-     The environment's **app-scoped** roles by slug (rbac.md §API).
+     The environment's app-scoped roles by slug.
 
-    Tenant-scoped roles are listed under the tenant that defines them, at
-    `GET T/roles`, because that is the only place they are assignable.
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    Tenant-scoped roles are listed under the tenant that defines them, at `GET
+    /tenants/{tenant_id}/roles`. `q` is a case-insensitive substring of the slug or the name.
 
     Args:
         environment_id (str):
@@ -205,15 +199,12 @@ async def asyncio_detailed(
     cursor: None | str | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Response[Problem | RoleList]:
-    r"""List app-scoped roles
+    """List app-scoped roles
 
-     The environment's **app-scoped** roles by slug (rbac.md §API).
+     The environment's app-scoped roles by slug.
 
-    Tenant-scoped roles are listed under the tenant that defines them, at
-    `GET T/roles`, because that is the only place they are assignable.
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    Tenant-scoped roles are listed under the tenant that defines them, at `GET
+    /tenants/{tenant_id}/roles`. `q` is a case-insensitive substring of the slug or the name.
 
     Args:
         environment_id (str):
@@ -249,15 +240,12 @@ async def asyncio(
     cursor: None | str | Unset = UNSET,
     q: None | str | Unset = UNSET,
 ) -> Problem | RoleList | None:
-    r"""List app-scoped roles
+    """List app-scoped roles
 
-     The environment's **app-scoped** roles by slug (rbac.md §API).
+     The environment's app-scoped roles by slug.
 
-    Tenant-scoped roles are listed under the tenant that defines them, at
-    `GET T/roles`, because that is the only place they are assignable.
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    Tenant-scoped roles are listed under the tenant that defines them, at `GET
+    /tenants/{tenant_id}/roles`. `q` is a case-insensitive substring of the slug or the name.
 
     Args:
         environment_id (str):

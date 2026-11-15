@@ -91,11 +91,10 @@ def sync_detailed(
 ) -> Response[IdentityProviderOut | Problem]:
     """An identity provider
 
-     One provider's configuration, without its client secret — absent from this shape, not null.
+     One identity provider's configuration. The client secret is never returned.
 
-    404 when this environment has not configured that kind. `client_secret_set`
-    and `client_secret_updated_at` are everything this API will ever say about
-    the value, including immediately after the `PUT` that wrote it.
+    `404` when this environment has not configured that kind. `client_secret_set` and
+    `client_secret_updated_at` say whether a secret is stored and when it last changed.
 
     Args:
         environment_id (str):
@@ -129,11 +128,10 @@ def sync(
 ) -> IdentityProviderOut | Problem | None:
     """An identity provider
 
-     One provider's configuration, without its client secret — absent from this shape, not null.
+     One identity provider's configuration. The client secret is never returned.
 
-    404 when this environment has not configured that kind. `client_secret_set`
-    and `client_secret_updated_at` are everything this API will ever say about
-    the value, including immediately after the `PUT` that wrote it.
+    `404` when this environment has not configured that kind. `client_secret_set` and
+    `client_secret_updated_at` say whether a secret is stored and when it last changed.
 
     Args:
         environment_id (str):
@@ -162,11 +160,10 @@ async def asyncio_detailed(
 ) -> Response[IdentityProviderOut | Problem]:
     """An identity provider
 
-     One provider's configuration, without its client secret — absent from this shape, not null.
+     One identity provider's configuration. The client secret is never returned.
 
-    404 when this environment has not configured that kind. `client_secret_set`
-    and `client_secret_updated_at` are everything this API will ever say about
-    the value, including immediately after the `PUT` that wrote it.
+    `404` when this environment has not configured that kind. `client_secret_set` and
+    `client_secret_updated_at` say whether a secret is stored and when it last changed.
 
     Args:
         environment_id (str):
@@ -198,11 +195,10 @@ async def asyncio(
 ) -> IdentityProviderOut | Problem | None:
     """An identity provider
 
-     One provider's configuration, without its client secret — absent from this shape, not null.
+     One identity provider's configuration. The client secret is never returned.
 
-    404 when this environment has not configured that kind. `client_secret_set`
-    and `client_secret_updated_at` are everything this API will ever say about
-    the value, including immediately after the `PUT` that wrote it.
+    `404` when this environment has not configured that kind. `client_secret_set` and
+    `client_secret_updated_at` say whether a secret is stored and when it last changed.
 
     Args:
         environment_id (str):

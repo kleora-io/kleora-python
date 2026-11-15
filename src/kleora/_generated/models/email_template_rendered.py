@@ -17,15 +17,12 @@ T = TypeVar("T", bound="EmailTemplateRendered")
 
 @_attrs_define
 class EmailTemplateRendered:
-    """What a render answers: the message, and nothing about sending it.
+    """A rendered message: its subject, text and HTML.
 
-    `text` and `html` rather than `body_text` and `body_html` — these are the
-    parts of a rendered message, not the columns of a row (email.md §API).
-
-        Attributes:
-            html (str):
-            subject (str):
-            text (str):
+    Attributes:
+        html (str):
+        subject (str):
+        text (str):
     """
 
     html: str

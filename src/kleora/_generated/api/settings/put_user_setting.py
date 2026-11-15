@@ -113,24 +113,20 @@ def sync_detailed(
 ) -> Response[Problem | UserSettingOut]:
     """Write one user's setting
 
-     One value, validated against the definition at this write — every write is.
+     Write one value for this user, validated against the setting's definition.
 
-    `hidden` and `user_visible` are as writable here as `user_editable`: the
-    access level says what the user may do on the public surface, and the
-    operator surface is the one place an operator-only setting can be written
-    at all. A value the constraints refuse is 422 `validation-error` naming
-    `value`, including a value over the 1 KB serialized cap (§Limits) and a
-    value refused by constraints narrowed after it was first written.
+    Settings of every access level can be written here, including `hidden` and `user_visible` ones.
+    A value the constraints refuse, including one over the 1 KB size limit, is `422
+    validation-error` naming `value`.
 
     Args:
         environment_id (str):
         user_id (str):
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,24 +160,20 @@ def sync(
 ) -> Problem | UserSettingOut | None:
     """Write one user's setting
 
-     One value, validated against the definition at this write — every write is.
+     Write one value for this user, validated against the setting's definition.
 
-    `hidden` and `user_visible` are as writable here as `user_editable`: the
-    access level says what the user may do on the public surface, and the
-    operator surface is the one place an operator-only setting can be written
-    at all. A value the constraints refuse is 422 `validation-error` naming
-    `value`, including a value over the 1 KB serialized cap (§Limits) and a
-    value refused by constraints narrowed after it was first written.
+    Settings of every access level can be written here, including `hidden` and `user_visible` ones.
+    A value the constraints refuse, including one over the 1 KB size limit, is `422
+    validation-error` naming `value`.
 
     Args:
         environment_id (str):
         user_id (str):
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -210,24 +202,20 @@ async def asyncio_detailed(
 ) -> Response[Problem | UserSettingOut]:
     """Write one user's setting
 
-     One value, validated against the definition at this write — every write is.
+     Write one value for this user, validated against the setting's definition.
 
-    `hidden` and `user_visible` are as writable here as `user_editable`: the
-    access level says what the user may do on the public surface, and the
-    operator surface is the one place an operator-only setting can be written
-    at all. A value the constraints refuse is 422 `validation-error` naming
-    `value`, including a value over the 1 KB serialized cap (§Limits) and a
-    value refused by constraints narrowed after it was first written.
+    Settings of every access level can be written here, including `hidden` and `user_visible` ones.
+    A value the constraints refuse, including one over the 1 KB size limit, is `422
+    validation-error` naming `value`.
 
     Args:
         environment_id (str):
         user_id (str):
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -259,24 +247,20 @@ async def asyncio(
 ) -> Problem | UserSettingOut | None:
     """Write one user's setting
 
-     One value, validated against the definition at this write — every write is.
+     Write one value for this user, validated against the setting's definition.
 
-    `hidden` and `user_visible` are as writable here as `user_editable`: the
-    access level says what the user may do on the public surface, and the
-    operator surface is the one place an operator-only setting can be written
-    at all. A value the constraints refuse is 422 `validation-error` naming
-    `value`, including a value over the 1 KB serialized cap (§Limits) and a
-    value refused by constraints narrowed after it was first written.
+    Settings of every access level can be written here, including `hidden` and `user_visible` ones.
+    A value the constraints refuse, including one over the 1 KB size limit, is `422
+    validation-error` naming `value`.
 
     Args:
         environment_id (str):
         user_id (str):
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

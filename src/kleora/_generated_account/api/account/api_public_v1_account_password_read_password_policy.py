@@ -76,11 +76,11 @@ def sync_detailed(
 ) -> Response[FlowProblem | PasswordPolicyOut]:
     """Whether the signed-in person has a password, and the rules for a new one
 
-     `{has_password, min_length, breach_check}` — the form, before anybody types.
+     What a password form needs before anything is typed: whether the person has a password, the
+    minimum length, and whether new passwords are checked against known breaches.
 
-    All three are the Environment's, so a customer's own screen shows the same
-    rules the portal does and neither has to hard-code a number of ours.
-    `has_password` is what decides whether to ask for a current password at all.
+    All three come from the environment's settings. `has_password` decides whether to ask for the
+    current password.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -105,11 +105,11 @@ def sync(
 ) -> FlowProblem | PasswordPolicyOut | None:
     """Whether the signed-in person has a password, and the rules for a new one
 
-     `{has_password, min_length, breach_check}` — the form, before anybody types.
+     What a password form needs before anything is typed: whether the person has a password, the
+    minimum length, and whether new passwords are checked against known breaches.
 
-    All three are the Environment's, so a customer's own screen shows the same
-    rules the portal does and neither has to hard-code a number of ours.
-    `has_password` is what decides whether to ask for a current password at all.
+    All three come from the environment's settings. `has_password` decides whether to ask for the
+    current password.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -130,11 +130,11 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | PasswordPolicyOut]:
     """Whether the signed-in person has a password, and the rules for a new one
 
-     `{has_password, min_length, breach_check}` — the form, before anybody types.
+     What a password form needs before anything is typed: whether the person has a password, the
+    minimum length, and whether new passwords are checked against known breaches.
 
-    All three are the Environment's, so a customer's own screen shows the same
-    rules the portal does and neither has to hard-code a number of ours.
-    `has_password` is what decides whether to ask for a current password at all.
+    All three come from the environment's settings. `has_password` decides whether to ask for the
+    current password.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,11 +157,11 @@ async def asyncio(
 ) -> FlowProblem | PasswordPolicyOut | None:
     """Whether the signed-in person has a password, and the rules for a new one
 
-     `{has_password, min_length, breach_check}` — the form, before anybody types.
+     What a password form needs before anything is typed: whether the person has a password, the
+    minimum length, and whether new passwords are checked against known breaches.
 
-    All three are the Environment's, so a customer's own screen shows the same
-    rules the portal does and neither has to hard-code a number of ours.
-    `has_password` is what decides whether to ask for a current password at all.
+    All three come from the environment's settings. `has_password` decides whether to ask for the
+    current password.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -23,7 +23,7 @@ T = TypeVar("T", bound="EmailKindVariables")
 
 @_attrs_define
 class EmailKindVariables:
-    """The variables one kind declares, in the order §Variables lists them.
+    """The variables one kind of email may use.
 
     Attributes:
         kind (EmailKindVariablesKind):

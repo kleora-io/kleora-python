@@ -111,31 +111,21 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EmailTemplateIn,
 ) -> Response[EmailTemplateOut | Problem]:
-    r"""Replace an email template
+    """Replace an email template
 
-     The whole template, validated by the engine that renders it.
+     Replace an email template: subject and body together.
 
-    A `PUT` rather than a merge patch because a subject and the body it belongs
-    to are one edit: a message half-written by one request and half by another
-    is one nobody composed. The row stops being a default, which is what makes
-    `reset` meaningful and what promotion (`environments.md`) keys off.
-
-    Everything email.md §\"Template language\" refuses is a `422` naming the
-    construct and the line it sits on — the console renders it in the editor at
-    that line — and all of the problems at once, so fixing a template is not one
-    round trip per mistake.
+    The template stops being the default, so `reset` restores the shipped version. Everything the
+    template language does not allow is a `422` naming each problem and the line it is on, all at
+    once.
 
     Args:
         environment_id (str):
         kind (str):
         locale (str):
-        body (EmailTemplateIn): `PUT …/email-templates/{kind}/{locale}` — the whole resource, at
-            once.
-
-            Not a merge patch, which is why it is a plain `Schema`: a subject and the
-            body it belongs to are one edit (email.md §API names all three fields
-            required), and a template half-written by one request and half by another
-            is a message no one composed.
+        body (EmailTemplateIn): The body of `PUT .../email-templates/{kind}/{locale}`: the whole
+            template. Every field is
+            required.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,31 +157,21 @@ def sync(
     client: AuthenticatedClient,
     body: EmailTemplateIn,
 ) -> EmailTemplateOut | Problem | None:
-    r"""Replace an email template
+    """Replace an email template
 
-     The whole template, validated by the engine that renders it.
+     Replace an email template: subject and body together.
 
-    A `PUT` rather than a merge patch because a subject and the body it belongs
-    to are one edit: a message half-written by one request and half by another
-    is one nobody composed. The row stops being a default, which is what makes
-    `reset` meaningful and what promotion (`environments.md`) keys off.
-
-    Everything email.md §\"Template language\" refuses is a `422` naming the
-    construct and the line it sits on — the console renders it in the editor at
-    that line — and all of the problems at once, so fixing a template is not one
-    round trip per mistake.
+    The template stops being the default, so `reset` restores the shipped version. Everything the
+    template language does not allow is a `422` naming each problem and the line it is on, all at
+    once.
 
     Args:
         environment_id (str):
         kind (str):
         locale (str):
-        body (EmailTemplateIn): `PUT …/email-templates/{kind}/{locale}` — the whole resource, at
-            once.
-
-            Not a merge patch, which is why it is a plain `Schema`: a subject and the
-            body it belongs to are one edit (email.md §API names all three fields
-            required), and a template half-written by one request and half by another
-            is a message no one composed.
+        body (EmailTemplateIn): The body of `PUT .../email-templates/{kind}/{locale}`: the whole
+            template. Every field is
+            required.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -218,31 +198,21 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EmailTemplateIn,
 ) -> Response[EmailTemplateOut | Problem]:
-    r"""Replace an email template
+    """Replace an email template
 
-     The whole template, validated by the engine that renders it.
+     Replace an email template: subject and body together.
 
-    A `PUT` rather than a merge patch because a subject and the body it belongs
-    to are one edit: a message half-written by one request and half by another
-    is one nobody composed. The row stops being a default, which is what makes
-    `reset` meaningful and what promotion (`environments.md`) keys off.
-
-    Everything email.md §\"Template language\" refuses is a `422` naming the
-    construct and the line it sits on — the console renders it in the editor at
-    that line — and all of the problems at once, so fixing a template is not one
-    round trip per mistake.
+    The template stops being the default, so `reset` restores the shipped version. Everything the
+    template language does not allow is a `422` naming each problem and the line it is on, all at
+    once.
 
     Args:
         environment_id (str):
         kind (str):
         locale (str):
-        body (EmailTemplateIn): `PUT …/email-templates/{kind}/{locale}` — the whole resource, at
-            once.
-
-            Not a merge patch, which is why it is a plain `Schema`: a subject and the
-            body it belongs to are one edit (email.md §API names all three fields
-            required), and a template half-written by one request and half by another
-            is a message no one composed.
+        body (EmailTemplateIn): The body of `PUT .../email-templates/{kind}/{locale}`: the whole
+            template. Every field is
+            required.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -272,31 +242,21 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EmailTemplateIn,
 ) -> EmailTemplateOut | Problem | None:
-    r"""Replace an email template
+    """Replace an email template
 
-     The whole template, validated by the engine that renders it.
+     Replace an email template: subject and body together.
 
-    A `PUT` rather than a merge patch because a subject and the body it belongs
-    to are one edit: a message half-written by one request and half by another
-    is one nobody composed. The row stops being a default, which is what makes
-    `reset` meaningful and what promotion (`environments.md`) keys off.
-
-    Everything email.md §\"Template language\" refuses is a `422` naming the
-    construct and the line it sits on — the console renders it in the editor at
-    that line — and all of the problems at once, so fixing a template is not one
-    round trip per mistake.
+    The template stops being the default, so `reset` restores the shipped version. Everything the
+    template language does not allow is a `422` naming each problem and the line it is on, all at
+    once.
 
     Args:
         environment_id (str):
         kind (str):
         locale (str):
-        body (EmailTemplateIn): `PUT …/email-templates/{kind}/{locale}` — the whole resource, at
-            once.
-
-            Not a merge patch, which is why it is a plain `Schema`: a subject and the
-            body it belongs to are one edit (email.md §API names all three fields
-            required), and a template half-written by one request and half by another
-            is a message no one composed.
+        body (EmailTemplateIn): The body of `PUT .../email-templates/{kind}/{locale}`: the whole
+            template. Every field is
+            required.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

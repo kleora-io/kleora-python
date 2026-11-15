@@ -102,15 +102,12 @@ def sync_detailed(
 ) -> Response[FlowProblem | UserSettingDocument]:
     """Write one of the signed-in person's own settings
 
-     One value, validated against the definition by the shared validator.
+     Write the person's value for one setting, validated against its definition.
 
-    `404 setting-not-found` for a key this environment does not define *and* for a
-    `hidden` one — byte-identical but for `instance` and `request_id`, so probing
-    writes cannot enumerate hidden keys. `403 setting-not-editable` for
-    `user_visible`: readable in the listing, operator-writable only. `422` names
-    `value` for anything the constraints refuse —
-    `apps.settings.validation.validate_value` is the one validator every writer
-    takes (`P5-02`), non-finite numbers included.
+    `404 setting-not-found` for a key this environment does not define and for a hidden setting
+    alike. `403 setting-not-editable` for a setting the person can read but only an administrator
+    can write. `422` naming `value` when the value does not satisfy the setting's constraints,
+    including non-finite numbers.
 
     Args:
         key (str):
@@ -144,15 +141,12 @@ def sync(
 ) -> FlowProblem | UserSettingDocument | None:
     """Write one of the signed-in person's own settings
 
-     One value, validated against the definition by the shared validator.
+     Write the person's value for one setting, validated against its definition.
 
-    `404 setting-not-found` for a key this environment does not define *and* for a
-    `hidden` one — byte-identical but for `instance` and `request_id`, so probing
-    writes cannot enumerate hidden keys. `403 setting-not-editable` for
-    `user_visible`: readable in the listing, operator-writable only. `422` names
-    `value` for anything the constraints refuse —
-    `apps.settings.validation.validate_value` is the one validator every writer
-    takes (`P5-02`), non-finite numbers included.
+    `404 setting-not-found` for a key this environment does not define and for a hidden setting
+    alike. `403 setting-not-editable` for a setting the person can read but only an administrator
+    can write. `422` naming `value` when the value does not satisfy the setting's constraints,
+    including non-finite numbers.
 
     Args:
         key (str):
@@ -181,15 +175,12 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | UserSettingDocument]:
     """Write one of the signed-in person's own settings
 
-     One value, validated against the definition by the shared validator.
+     Write the person's value for one setting, validated against its definition.
 
-    `404 setting-not-found` for a key this environment does not define *and* for a
-    `hidden` one — byte-identical but for `instance` and `request_id`, so probing
-    writes cannot enumerate hidden keys. `403 setting-not-editable` for
-    `user_visible`: readable in the listing, operator-writable only. `422` names
-    `value` for anything the constraints refuse —
-    `apps.settings.validation.validate_value` is the one validator every writer
-    takes (`P5-02`), non-finite numbers included.
+    `404 setting-not-found` for a key this environment does not define and for a hidden setting
+    alike. `403 setting-not-editable` for a setting the person can read but only an administrator
+    can write. `422` naming `value` when the value does not satisfy the setting's constraints,
+    including non-finite numbers.
 
     Args:
         key (str):
@@ -221,15 +212,12 @@ async def asyncio(
 ) -> FlowProblem | UserSettingDocument | None:
     """Write one of the signed-in person's own settings
 
-     One value, validated against the definition by the shared validator.
+     Write the person's value for one setting, validated against its definition.
 
-    `404 setting-not-found` for a key this environment does not define *and* for a
-    `hidden` one — byte-identical but for `instance` and `request_id`, so probing
-    writes cannot enumerate hidden keys. `403 setting-not-editable` for
-    `user_visible`: readable in the listing, operator-writable only. `422` names
-    `value` for anything the constraints refuse —
-    `apps.settings.validation.validate_value` is the one validator every writer
-    takes (`P5-02`), non-finite numbers included.
+    `404 setting-not-found` for a key this environment does not define and for a hidden setting
+    alike. `403 setting-not-editable` for a setting the person can read but only an administrator
+    can write. `422` naming `value` when the value does not satisfy the setting's constraints,
+    including non-finite numbers.
 
     Args:
         key (str):

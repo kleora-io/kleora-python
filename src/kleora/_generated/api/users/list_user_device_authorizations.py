@@ -112,20 +112,12 @@ def sync_detailed(
     limit: int | Unset = 50,
     cursor: None | str | Unset = UNSET,
 ) -> Response[DeviceAuthorizationList | Problem]:
-    r"""A user's device authorizations
+    """A user's device authorizations
 
-     What this user has approved a device or agent to do as them, newest first.
+     What the user has authorized a device or agent to do on their behalf, newest first.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Every approval creates
-    a named authorization the user can see: the client's name, when it was
-    approved, when it was last used, and from where.\" A credential that runs
-    where the person is not looking is acceptable only because of this list and
-    the `DELETE` beside it.
-
-    Ended rows are **not** hidden. Somebody who did not approve a thing has to be
-    able to discover that it happened, so an authorization that was revoked or
-    that expired stays here saying which — what the list must not do is show one
-    of those as live.
+    Each entry names the client, and says when it was approved, when it was last used and from
+    where. Revoked and expired authorizations are listed too, marked as such.
 
     Args:
         environment_id (str):
@@ -163,20 +155,12 @@ def sync(
     limit: int | Unset = 50,
     cursor: None | str | Unset = UNSET,
 ) -> DeviceAuthorizationList | Problem | None:
-    r"""A user's device authorizations
+    """A user's device authorizations
 
-     What this user has approved a device or agent to do as them, newest first.
+     What the user has authorized a device or agent to do on their behalf, newest first.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Every approval creates
-    a named authorization the user can see: the client's name, when it was
-    approved, when it was last used, and from where.\" A credential that runs
-    where the person is not looking is acceptable only because of this list and
-    the `DELETE` beside it.
-
-    Ended rows are **not** hidden. Somebody who did not approve a thing has to be
-    able to discover that it happened, so an authorization that was revoked or
-    that expired stays here saying which — what the list must not do is show one
-    of those as live.
+    Each entry names the client, and says when it was approved, when it was last used and from
+    where. Revoked and expired authorizations are listed too, marked as such.
 
     Args:
         environment_id (str):
@@ -209,20 +193,12 @@ async def asyncio_detailed(
     limit: int | Unset = 50,
     cursor: None | str | Unset = UNSET,
 ) -> Response[DeviceAuthorizationList | Problem]:
-    r"""A user's device authorizations
+    """A user's device authorizations
 
-     What this user has approved a device or agent to do as them, newest first.
+     What the user has authorized a device or agent to do on their behalf, newest first.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Every approval creates
-    a named authorization the user can see: the client's name, when it was
-    approved, when it was last used, and from where.\" A credential that runs
-    where the person is not looking is acceptable only because of this list and
-    the `DELETE` beside it.
-
-    Ended rows are **not** hidden. Somebody who did not approve a thing has to be
-    able to discover that it happened, so an authorization that was revoked or
-    that expired stays here saying which — what the list must not do is show one
-    of those as live.
+    Each entry names the client, and says when it was approved, when it was last used and from
+    where. Revoked and expired authorizations are listed too, marked as such.
 
     Args:
         environment_id (str):
@@ -258,20 +234,12 @@ async def asyncio(
     limit: int | Unset = 50,
     cursor: None | str | Unset = UNSET,
 ) -> DeviceAuthorizationList | Problem | None:
-    r"""A user's device authorizations
+    """A user's device authorizations
 
-     What this user has approved a device or agent to do as them, newest first.
+     What the user has authorized a device or agent to do on their behalf, newest first.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Every approval creates
-    a named authorization the user can see: the client's name, when it was
-    approved, when it was last used, and from where.\" A credential that runs
-    where the person is not looking is acceptable only because of this list and
-    the `DELETE` beside it.
-
-    Ended rows are **not** hidden. Somebody who did not approve a thing has to be
-    able to discover that it happened, so an authorization that was revoked or
-    that expired stays here saying which — what the list must not do is show one
-    of those as live.
+    Each entry names the client, and says when it was approved, when it was last used and from
+    where. Revoked and expired authorizations are listed too, marked as such.
 
     Args:
         environment_id (str):

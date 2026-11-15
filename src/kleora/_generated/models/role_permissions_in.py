@@ -17,11 +17,10 @@ T = TypeVar("T", bound="RolePermissionsIn")
 
 @_attrs_define
 class RolePermissionsIn:
-    """`PUT /api/v1/roles/{role_id}/permissions` — the whole set, atomically.
+    """The body of `PUT /api/v1/roles/{role_id}/permissions`: the role's whole permission set,
+    replaced atomically.
 
-    A `PUT` rather than a `PATCH` because there is no add-one or remove-one
-    operation: the body is the set the role will have, and the response is the
-    Role that resulted.
+    The response is the resulting role.
 
         Attributes:
             permissions (list[UUID]):

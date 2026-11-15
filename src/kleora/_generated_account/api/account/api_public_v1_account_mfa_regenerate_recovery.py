@@ -81,12 +81,10 @@ def sync_detailed(
 ) -> Response[FlowProblem | RecoveryCodesOut]:
     """Replace the signed-in person's own recovery-code set
 
-     The ten codes, once, behind the same gate removal is behind.
+     Replace the person's recovery codes with ten new ones, returned once.
 
-    `404` when the person holds no confirmed factor of either kind: recovery codes
-    back one up, and there is nothing here to regenerate a set for.
-    `also_qualifies` is what makes a confirmed passkey count as that factor, which
-    is `passkeys.md`'s rule and is passed rather than re-derived.
+    Requires a recent re-authentication. `404` when the person holds no confirmed second factor (a
+    TOTP factor or a passkey), since recovery codes only back one up.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,12 +109,10 @@ def sync(
 ) -> FlowProblem | RecoveryCodesOut | None:
     """Replace the signed-in person's own recovery-code set
 
-     The ten codes, once, behind the same gate removal is behind.
+     Replace the person's recovery codes with ten new ones, returned once.
 
-    `404` when the person holds no confirmed factor of either kind: recovery codes
-    back one up, and there is nothing here to regenerate a set for.
-    `also_qualifies` is what makes a confirmed passkey count as that factor, which
-    is `passkeys.md`'s rule and is passed rather than re-derived.
+    Requires a recent re-authentication. `404` when the person holds no confirmed second factor (a
+    TOTP factor or a passkey), since recovery codes only back one up.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,12 +133,10 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | RecoveryCodesOut]:
     """Replace the signed-in person's own recovery-code set
 
-     The ten codes, once, behind the same gate removal is behind.
+     Replace the person's recovery codes with ten new ones, returned once.
 
-    `404` when the person holds no confirmed factor of either kind: recovery codes
-    back one up, and there is nothing here to regenerate a set for.
-    `also_qualifies` is what makes a confirmed passkey count as that factor, which
-    is `passkeys.md`'s rule and is passed rather than re-derived.
+    Requires a recent re-authentication. `404` when the person holds no confirmed second factor (a
+    TOTP factor or a passkey), since recovery codes only back one up.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,12 +159,10 @@ async def asyncio(
 ) -> FlowProblem | RecoveryCodesOut | None:
     """Replace the signed-in person's own recovery-code set
 
-     The ten codes, once, behind the same gate removal is behind.
+     Replace the person's recovery codes with ten new ones, returned once.
 
-    `404` when the person holds no confirmed factor of either kind: recovery codes
-    back one up, and there is nothing here to regenerate a set for.
-    `also_qualifies` is what makes a confirmed passkey count as that factor, which
-    is `passkeys.md`'s rule and is passed rather than re-derived.
+    Requires a recent re-authentication. `404` when the person holds no confirmed second factor (a
+    TOTP factor or a passkey), since recovery codes only back one up.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -79,14 +79,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | MfaOut]:
-    r"""The signed-in person's own second factors
+    """The signed-in person's own second factors
 
-     Every factor, confirmed or not, and the policy that governs removal.
+     Every MFA factor the person holds, confirmed or not, and the environment's MFA policy.
 
-    `mfa.md` §API: \"Unconfirmed factors included with `confirmed_at: null`. Never
-    seeds or hashes.\" `policy` is here because a screen cannot render a Remove
-    button honestly without it — under `required` the last factor cannot go, and
-    finding that out from a `403` after the click is worse than not offering it.
+    An unconfirmed factor has `confirmed_at: null`. Secrets and recovery code hashes are never
+    returned. `policy` lets a screen know in advance that, under `required`, the last factor cannot
+    be removed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,14 +108,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | MfaOut | None:
-    r"""The signed-in person's own second factors
+    """The signed-in person's own second factors
 
-     Every factor, confirmed or not, and the policy that governs removal.
+     Every MFA factor the person holds, confirmed or not, and the environment's MFA policy.
 
-    `mfa.md` §API: \"Unconfirmed factors included with `confirmed_at: null`. Never
-    seeds or hashes.\" `policy` is here because a screen cannot render a Remove
-    button honestly without it — under `required` the last factor cannot go, and
-    finding that out from a `403` after the click is worse than not offering it.
+    An unconfirmed factor has `confirmed_at: null`. Secrets and recovery code hashes are never
+    returned. `policy` lets a screen know in advance that, under `required`, the last factor cannot
+    be removed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,14 +133,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | MfaOut]:
-    r"""The signed-in person's own second factors
+    """The signed-in person's own second factors
 
-     Every factor, confirmed or not, and the policy that governs removal.
+     Every MFA factor the person holds, confirmed or not, and the environment's MFA policy.
 
-    `mfa.md` §API: \"Unconfirmed factors included with `confirmed_at: null`. Never
-    seeds or hashes.\" `policy` is here because a screen cannot render a Remove
-    button honestly without it — under `required` the last factor cannot go, and
-    finding that out from a `403` after the click is worse than not offering it.
+    An unconfirmed factor has `confirmed_at: null`. Secrets and recovery code hashes are never
+    returned. `policy` lets a screen know in advance that, under `required`, the last factor cannot
+    be removed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,14 +160,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | MfaOut | None:
-    r"""The signed-in person's own second factors
+    """The signed-in person's own second factors
 
-     Every factor, confirmed or not, and the policy that governs removal.
+     Every MFA factor the person holds, confirmed or not, and the environment's MFA policy.
 
-    `mfa.md` §API: \"Unconfirmed factors included with `confirmed_at: null`. Never
-    seeds or hashes.\" `policy` is here because a screen cannot render a Remove
-    button honestly without it — under `required` the last factor cannot go, and
-    finding that out from a `403` after the click is worse than not offering it.
+    An unconfirmed factor has `confirmed_at: null`. Secrets and recovery code hashes are never
+    returned. `policy` lets a screen know in advance that, under `required`, the last factor cannot
+    be removed.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

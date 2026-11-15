@@ -17,13 +17,9 @@ T = TypeVar("T", bound="WebhookEventReplayIn")
 
 @_attrs_define
 class WebhookEventReplayIn:
-    """`POST …/webhook-events/{id}/replay`.
+    """The body of `POST .../webhook-events/{webhook_event_id}/replay`.
 
-    `endpoint_id` is required rather than inferred: webhooks.md's own phrase
-    is "re-deliver a past event to *its* endpoint", but a fan-out event can
-    have reached more than one, and only the console — standing on one
-    endpoint's own row of the attempts table — knows which one a person means
-    to retry.
+    `endpoint_id` is required, because an event may have been delivered to more than one endpoint.
 
         Attributes:
             endpoint_id (UUID):

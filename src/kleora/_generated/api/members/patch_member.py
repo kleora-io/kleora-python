@@ -110,23 +110,19 @@ def sync_detailed(
 ) -> Response[MemberOut | Problem]:
     """Change a member
 
-     Replace the role set, change the status, or both.
+     Replace a member's roles, change their status, or both.
 
-    `roles` replaces the whole set and emits `member.roles_changed` with `from`
-    and `to` as slugs; a status move emits `member.suspended` or
-    `member.unsuspended`. Either can break the Account tenant's `owner`
-    invariant, and both are refused with 409 `last-owner` when they would.
+    `roles` replaces the whole set and is audited as `member.roles_changed`; a status change is
+    audited as `member.suspended` or `member.unsuspended`. `409 last-owner` when the change would
+    leave an Account's tenant without an active owner.
 
     Args:
         tenant_id (str):
         member_id (str):
-        body (MemberPatch): `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
+        body (MemberPatch): The body of `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
 
-            `roles` replaces the whole set — there is no add-one or remove-one
-            operation on this surface — and `[]` is a valid value distinct from the
-            `null` it does not accept. `user`, `tenant_id` and the timestamps are
-            unknown fields: a membership is not moved from one user or tenant to
-            another, it is removed and another is added.
+            `roles` replaces the whole set; `[]` is valid, `null` is not. `user`, `tenant_id` and the
+            timestamps are refused as unknown fields: to move a membership, remove it and add another.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,23 +154,19 @@ def sync(
 ) -> MemberOut | Problem | None:
     """Change a member
 
-     Replace the role set, change the status, or both.
+     Replace a member's roles, change their status, or both.
 
-    `roles` replaces the whole set and emits `member.roles_changed` with `from`
-    and `to` as slugs; a status move emits `member.suspended` or
-    `member.unsuspended`. Either can break the Account tenant's `owner`
-    invariant, and both are refused with 409 `last-owner` when they would.
+    `roles` replaces the whole set and is audited as `member.roles_changed`; a status change is
+    audited as `member.suspended` or `member.unsuspended`. `409 last-owner` when the change would
+    leave an Account's tenant without an active owner.
 
     Args:
         tenant_id (str):
         member_id (str):
-        body (MemberPatch): `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
+        body (MemberPatch): The body of `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
 
-            `roles` replaces the whole set — there is no add-one or remove-one
-            operation on this surface — and `[]` is a valid value distinct from the
-            `null` it does not accept. `user`, `tenant_id` and the timestamps are
-            unknown fields: a membership is not moved from one user or tenant to
-            another, it is removed and another is added.
+            `roles` replaces the whole set; `[]` is valid, `null` is not. `user`, `tenant_id` and the
+            timestamps are refused as unknown fields: to move a membership, remove it and add another.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -201,23 +193,19 @@ async def asyncio_detailed(
 ) -> Response[MemberOut | Problem]:
     """Change a member
 
-     Replace the role set, change the status, or both.
+     Replace a member's roles, change their status, or both.
 
-    `roles` replaces the whole set and emits `member.roles_changed` with `from`
-    and `to` as slugs; a status move emits `member.suspended` or
-    `member.unsuspended`. Either can break the Account tenant's `owner`
-    invariant, and both are refused with 409 `last-owner` when they would.
+    `roles` replaces the whole set and is audited as `member.roles_changed`; a status change is
+    audited as `member.suspended` or `member.unsuspended`. `409 last-owner` when the change would
+    leave an Account's tenant without an active owner.
 
     Args:
         tenant_id (str):
         member_id (str):
-        body (MemberPatch): `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
+        body (MemberPatch): The body of `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
 
-            `roles` replaces the whole set — there is no add-one or remove-one
-            operation on this surface — and `[]` is a valid value distinct from the
-            `null` it does not accept. `user`, `tenant_id` and the timestamps are
-            unknown fields: a membership is not moved from one user or tenant to
-            another, it is removed and another is added.
+            `roles` replaces the whole set; `[]` is valid, `null` is not. `user`, `tenant_id` and the
+            timestamps are refused as unknown fields: to move a membership, remove it and add another.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -247,23 +235,19 @@ async def asyncio(
 ) -> MemberOut | Problem | None:
     """Change a member
 
-     Replace the role set, change the status, or both.
+     Replace a member's roles, change their status, or both.
 
-    `roles` replaces the whole set and emits `member.roles_changed` with `from`
-    and `to` as slugs; a status move emits `member.suspended` or
-    `member.unsuspended`. Either can break the Account tenant's `owner`
-    invariant, and both are refused with 409 `last-owner` when they would.
+    `roles` replaces the whole set and is audited as `member.roles_changed`; a status change is
+    audited as `member.suspended` or `member.unsuspended`. `409 last-owner` when the change would
+    leave an Account's tenant without an active owner.
 
     Args:
         tenant_id (str):
         member_id (str):
-        body (MemberPatch): `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
+        body (MemberPatch): The body of `PATCH /api/v1/tenants/{tenant_id}/members/{member_id}`.
 
-            `roles` replaces the whole set — there is no add-one or remove-one
-            operation on this surface — and `[]` is a valid value distinct from the
-            `null` it does not accept. `user`, `tenant_id` and the timestamps are
-            unknown fields: a membership is not moved from one user or tenant to
-            another, it is removed and another is added.
+            `roles` replaces the whole set; `[]` is valid, `null` is not. `user`, `tenant_id` and the
+            timestamps are refused as unknown fields: to move a membership, remove it and add another.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

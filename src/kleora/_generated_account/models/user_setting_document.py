@@ -26,19 +26,13 @@ T = TypeVar("T", bound="UserSettingDocument")
 
 @_attrs_define
 class UserSettingDocument:
-    """One definition-with-value row (user-settings.md §API, public surface).
+    """One setting, with the person's value.
 
-    Explicit nulls: a `value` of `null` means "no stored value and no default",
-    which is the answer rather than the absence of one. `value` is otherwise the
-    user's written value where one exists and the definition's default where
-    not — the same resolution the management surface serves an operator.
+    `value` is the person's stored value where there is one, otherwise the setting's default,
+    otherwise `null`.
 
-    `constraints` is the stored, normalised record whose by-type shape
-    user-settings.md §Model fixes: `choices` for `enum`, `max_length` for
-    `string` (always present, the default made explicit), `min`/`max` for
-    `number`, `{}` for `boolean`. The member list is the spec's — key, type,
-    constraints, label, value — and carries no `access`: the listing only ever
-    holds the two visible levels, and "read-only" is the `PUT`'s `403` to give.
+    `constraints` depends on `type`: `choices` for `enum`, `max_length` for `string` (always
+    present), `min` and `max` for `number`, and `{}` for `boolean`.
 
         Attributes:
             constraints (UserSettingDocumentConstraints):

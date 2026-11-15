@@ -17,13 +17,9 @@ T = TypeVar("T", bound="DeletionCancelIn")
 
 @_attrs_define
 class DeletionCancelIn:
-    """`DELETE /deletion` with `{token}` — the one anonymous body on this surface.
+    """The body of `DELETE /deletion`: the token from the emailed cancellation link.
 
-    The person holds no session by construction: the request that produced this token
-    revoked every one of them. So the mailed token is the whole credential, and
-    `TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`
-    carries, for the same reason — one `400 invalid-token` for every way a token can
-    be wrong, and a length bound would make a second answer out of one of them.
+    An unknown, used or expired token is `400 invalid-token`.
 
         Attributes:
             token (str):

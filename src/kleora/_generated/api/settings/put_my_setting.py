@@ -107,21 +107,18 @@ def sync_detailed(
 ) -> Response[Problem | UserSettingOut]:
     """Write one of the calling console user's own settings
 
-     One value, validated exactly as `write_value` validates every write.
+     Write your value for one setting, validated against its definition.
 
-    `404` for a `hidden` or unknown key — indistinguishable, so a write cannot
-    enumerate hidden keys (the same reason `/account/v1/settings` answers this way);
-    `403` `setting-not-editable` for `user_visible`, readable above but
-    operator-written only; `422` `validation-error` for anything the
-    constraints refuse.
+    `404` for hidden and unknown keys alike. `403 setting-not-editable` for `user_visible` settings,
+    which you can read but not write. `422 validation-error` when the value does not satisfy the
+    constraints.
 
     Args:
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,21 +148,18 @@ def sync(
 ) -> Problem | UserSettingOut | None:
     """Write one of the calling console user's own settings
 
-     One value, validated exactly as `write_value` validates every write.
+     Write your value for one setting, validated against its definition.
 
-    `404` for a `hidden` or unknown key — indistinguishable, so a write cannot
-    enumerate hidden keys (the same reason `/account/v1/settings` answers this way);
-    `403` `setting-not-editable` for `user_visible`, readable above but
-    operator-written only; `422` `validation-error` for anything the
-    constraints refuse.
+    `404` for hidden and unknown keys alike. `403 setting-not-editable` for `user_visible` settings,
+    which you can read but not write. `422 validation-error` when the value does not satisfy the
+    constraints.
 
     Args:
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,21 +184,18 @@ async def asyncio_detailed(
 ) -> Response[Problem | UserSettingOut]:
     """Write one of the calling console user's own settings
 
-     One value, validated exactly as `write_value` validates every write.
+     Write your value for one setting, validated against its definition.
 
-    `404` for a `hidden` or unknown key — indistinguishable, so a write cannot
-    enumerate hidden keys (the same reason `/account/v1/settings` answers this way);
-    `403` `setting-not-editable` for `user_visible`, readable above but
-    operator-written only; `422` `validation-error` for anything the
-    constraints refuse.
+    `404` for hidden and unknown keys alike. `403 setting-not-editable` for `user_visible` settings,
+    which you can read but not write. `422 validation-error` when the value does not satisfy the
+    constraints.
 
     Args:
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -232,21 +223,18 @@ async def asyncio(
 ) -> Problem | UserSettingOut | None:
     """Write one of the calling console user's own settings
 
-     One value, validated exactly as `write_value` validates every write.
+     Write your value for one setting, validated against its definition.
 
-    `404` for a `hidden` or unknown key — indistinguishable, so a write cannot
-    enumerate hidden keys (the same reason `/account/v1/settings` answers this way);
-    `403` `setting-not-editable` for `user_visible`, readable above but
-    operator-written only; `422` `validation-error` for anything the
-    constraints refuse.
+    `404` for hidden and unknown keys alike. `403 setting-not-editable` for `user_visible` settings,
+    which you can read but not write. `422 validation-error` when the value does not satisfy the
+    constraints.
 
     Args:
         key (str):
-        body (UserSettingValueIn): `PUT …/settings/users/{user_id}/values/{key}` — one value,
-            whole.
+        body (UserSettingValueIn): The body of `PUT .../settings/users/{user_id}/values/{key}`:
+            the whole value.
 
-            Never `null`: a write writes a value, and the value's legality is the
-            definition's business (`422` from the shared validator), not the schema's.
+            Never `null`. A value the setting's constraints refuse is `422`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -24,62 +24,41 @@ T = TypeVar("T", bound="PromotionOut")
 
 @_attrs_define
 class PromotionOut:
-    """The diff summary environments.md §Promotion prints.
+    """A summary of what a promotion changed, or would change.
 
-    `applied` is false only for a dry run, and the two fields are both present
-    because a client that stored a response needs to know which of the two it
-    is holding without having kept the request.
+    `applied` is `false` only for a dry run.
 
         Attributes:
             applied (bool):
-            branding (PromotionBranding): `branding: {"changed": true}` — that the record moved, never what it says.
-
-                The values are a customer's stylesheet and their copy; the diff reports the
-                fact and nothing else, for the reason `branding.updated` records key names
-                rather than values (audit-log.md §Taxonomy).
+            branding (PromotionBranding): `{"changed": true}` when the branding record differs. The diff never includes the
+                values
+                themselves.
             dry_run (bool):
-            email_templates (PromotionResourceDiff): What happened to one collection matched by key.
+            email_templates (PromotionResourceDiff): What a promotion did to one kind of resource, matched by key.
 
-                `created` and `updated` name the rows by the key they were matched on — a
-                permission by `name`, a role by `slug`, a template by `kind:locale` — and
-                `unchanged` counts the ones that matched and did not move. Rows that exist
-                only on the target appear nowhere: promotion never deletes.
-            identity_providers (PromotionIdentityProviders): Which provider kinds each side has configured. Promotion copies
-                **none** of them.
+                `created` and `updated` name the resources by their key: a permission by `name`, a role by
+                `slug`, a template by `kind:locale`. `unchanged` counts the ones that matched and did not
+                change. Resources that exist only in production are not listed: promotion never deletes.
+            identity_providers (PromotionIdentityProviders): Which identity provider kinds each environment has configured.
 
-                D-7, and this shape is the second half of that decision: a promotion that
-                silently left a difference behind would be a console that cannot explain why
-                the production login page has no Google button. So the diff *names* the
-                difference — `sandbox_only` is what the console turns into "sandbox has
-                Google configured and production does not" — and `promoted` is flat `false`,
-                stated rather than inferred from an empty list, because "nothing differed"
-                and "nothing is ever copied" are different facts and only one of them is
-                permanent.
+                Promotion never copies identity providers, because their credentials belong to one environment.
+                `sandbox_only` names the providers configured in sandbox but not in production, and `promoted`
+                is always `false`.
+            permissions (PromotionResourceDiff): What a promotion did to one kind of resource, matched by key.
 
-                Why nothing is copied: a copied client secret would point production at a
-                sandbox OAuth application, and copying `enabled` without the secret would be
-                worse — an enabled provider with no credentials is a button on the production
-                login page that cannot work. Promotion copies no credential anywhere
-                (environments.md §Promotion: not Clients, not API keys, not webhook
-                endpoints), and this is the same category.
-            permissions (PromotionResourceDiff): What happened to one collection matched by key.
+                `created` and `updated` name the resources by their key: a permission by `name`, a role by
+                `slug`, a template by `kind:locale`. `unchanged` counts the ones that matched and did not
+                change. Resources that exist only in production are not listed: promotion never deletes.
+            roles (PromotionResourceDiff): What a promotion did to one kind of resource, matched by key.
 
-                `created` and `updated` name the rows by the key they were matched on — a
-                permission by `name`, a role by `slug`, a template by `kind:locale` — and
-                `unchanged` counts the ones that matched and did not move. Rows that exist
-                only on the target appear nowhere: promotion never deletes.
-            roles (PromotionResourceDiff): What happened to one collection matched by key.
+                `created` and `updated` name the resources by their key: a permission by `name`, a role by
+                `slug`, a template by `kind:locale`. `unchanged` counts the ones that matched and did not
+                change. Resources that exist only in production are not listed: promotion never deletes.
+            setting_definitions (PromotionResourceDiff): What a promotion did to one kind of resource, matched by key.
 
-                `created` and `updated` name the rows by the key they were matched on — a
-                permission by `name`, a role by `slug`, a template by `kind:locale` — and
-                `unchanged` counts the ones that matched and did not move. Rows that exist
-                only on the target appear nowhere: promotion never deletes.
-            setting_definitions (PromotionResourceDiff): What happened to one collection matched by key.
-
-                `created` and `updated` name the rows by the key they were matched on — a
-                permission by `name`, a role by `slug`, a template by `kind:locale` — and
-                `unchanged` counts the ones that matched and did not move. Rows that exist
-                only on the target appear nowhere: promotion never deletes.
+                `created` and `updated` name the resources by their key: a permission by `name`, a role by
+                `slug`, a template by `kind:locale`. `unchanged` counts the ones that matched and did not
+                change. Resources that exist only in production are not listed: promotion never deletes.
             settings (list[PromotionSettingChange]):
     """
 

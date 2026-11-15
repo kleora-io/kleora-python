@@ -19,16 +19,10 @@ T = TypeVar("T", bound="InvitationIn")
 
 @_attrs_define
 class InvitationIn:
-    """`POST /api/v1/tenants/{tenant_id}/invitations`.
+    """The body of `POST /api/v1/tenants/{tenant_id}/invitations`.
 
-    `email` is a plain string validated by the User model's own address rule at
-    write time rather than by an `EmailStr` here, so an address this surface
-    accepts is exactly an address the platform can hold — one schema-level
-    definition of "an email" that disagreed with the model's would be a 422 for
-    an address a member could have, or a 500 for one it could not.
-
-    `roles` is a list of Role ids, validated exactly as `POST T/members`
-    validates them, and defaults to none.
+    `email` is validated by the same rules as a user's address. `roles` is a list of role ids,
+    validated as `POST /tenants/{tenant_id}/members` validates them, and empty by default.
 
         Attributes:
             email (str):

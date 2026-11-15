@@ -23,21 +23,14 @@ T = TypeVar("T", bound="BillingUsageOut")
 
 @_attrs_define
 class BillingUsageOut:
-    """`GET /api/v1/account/billing/usage` (billing.md §API).
+    """The body of `GET /api/v1/account/billing/usage`: monthly active users and App counts for the
+    current period.
 
-    "MAU and App counts for the current period, so a customer can check our
-    arithmetic" — which is why the period is published as two RFC 3339 UTC
-    instants rather than as a month name: the window is half-open,
-    `[period_start, period_end)`, and a customer reconciling against their own
-    audit log needs the bounds we actually used, not a label they have to guess
-    the edges of.
+    The period is the half-open window `[period_start, period_end)`, as RFC 3339 UTC timestamps, so
+    the figures can be reconciled exactly.
 
-    `mau` is the Account total, and it is the **sum** of its Apps' figures, not
-    a distinct count across them. billing.md §Plans: "a person active in two of
-    a customer's Apps is a user of each, because they are two products" — and a
-    `User` is environment-scoped (ADR 0005), so the same human in two Apps is
-    two rows with two ids and there is nothing to deduplicate that would not
-    mean matching email addresses across Environments.
+    `mau` is the Account total: the sum of its Apps' figures. A person active in two Apps counts in
+    each, because users belong to an environment.
 
         Attributes:
             allowances (list[MauAllowanceOut]):

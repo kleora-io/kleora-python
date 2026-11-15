@@ -18,22 +18,14 @@ T = TypeVar("T", bound="SubscriptionOut")
 
 @_attrs_define
 class SubscriptionOut:
-    """The mirror of Stripe — and it says so.
+    """The subscription, as last synchronised with the payment provider.
 
-    `as_of` is when the mirror last agreed with Stripe, which is the whole
-    reason it is here: billing.md §"Failure modes" says that when Stripe is
-    down "the page renders from our mirror, marked possibly stale", and a
-    console cannot mark staleness it has no way to measure.
+    `as_of` is when it was last synchronised, so a client can show that the information may be
+    stale.
 
-    **`status` alone cannot say whether this Account may currently write**, and
-    that is why the two fields below it exist. billing.md §"When payment fails"
-    makes the day-60 downgrade the moment the write refusal *ends* — "in code
-    the condition is `status == unpaid AND downgraded_at IS NULL`, not `status
-    == unpaid`" — so day 15-59 and day 60-onwards both read `unpaid` while
-    meaning opposite things: pay the invoice and everything resumes, against
-    you are on `free` now and nothing was deleted. A client holding only
-    `status` has to say one of those two sentences to the reader who needs the
-    other.
+    `status` alone does not say whether the Account can currently make changes: an `unpaid` Account
+    is first blocked from writing until the invoice is paid, and is later moved to the `free` plan,
+    after which writes are allowed again. `writes_refused` and `downgraded_at` tell the two apart.
 
         Attributes:
             as_of (datetime.datetime | None):

@@ -16,16 +16,9 @@ T = TypeVar("T", bound="MePasswordIn")
 
 @_attrs_define
 class MePasswordIn:
-    """`POST /me/password` — the person's own password change (`Q3-151`).
+    """The body of `POST /me/password`: the current password and the new one. Both are required.
 
-    Two fields, both required, and the current one is not optional on any path:
-    users-and-credentials.md §"Password change (user-initiated)" asks for it, and
-    it is what makes this a change rather than an administrator's set
-    (`UserPasswordIn` above has no `current_password` precisely because an
-    administrator does not know it).
-
-    `extra="forbid"` for the reason that schema gives. Neither value is ever
-    echoed: the response is `204` with no body.
+    Neither is ever returned; the response is `204` with no body.
 
         Attributes:
             current_password (str):

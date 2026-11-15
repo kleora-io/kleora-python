@@ -95,15 +95,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | TenantOut]:
-    r"""Suspend a tenant
+    """Suspend a tenant
 
-     Stop the tenant being selected at login. Idempotent, and only the first writes.
+     Stop the tenant from being selected at sign-in. Idempotent.
 
-    Nothing is revoked: an access token already minted lives out its `exp`
-    (ADR 0008), and the next token for a session bound to this tenant carries no
-    `tenant` claim (rbac.md §\"Claims at token issuance\"). A tenant an Account is
-    linked to, the Kleora Account's own included, is refused (409
-    `account-tenant`): suspending it would lock every member out of the Account.
+    Nothing is revoked: access tokens already issued remain valid until they expire, and the next
+    token issued for a session bound to this tenant carries no `tenant` claim. A tenant linked to an
+    Account cannot be suspended: `409 account-tenant`.
 
     Args:
         tenant_id (str):
@@ -132,15 +130,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Problem | TenantOut | None:
-    r"""Suspend a tenant
+    """Suspend a tenant
 
-     Stop the tenant being selected at login. Idempotent, and only the first writes.
+     Stop the tenant from being selected at sign-in. Idempotent.
 
-    Nothing is revoked: an access token already minted lives out its `exp`
-    (ADR 0008), and the next token for a session bound to this tenant carries no
-    `tenant` claim (rbac.md §\"Claims at token issuance\"). A tenant an Account is
-    linked to, the Kleora Account's own included, is refused (409
-    `account-tenant`): suspending it would lock every member out of the Account.
+    Nothing is revoked: access tokens already issued remain valid until they expire, and the next
+    token issued for a session bound to this tenant carries no `tenant` claim. A tenant linked to an
+    Account cannot be suspended: `409 account-tenant`.
 
     Args:
         tenant_id (str):
@@ -164,15 +160,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | TenantOut]:
-    r"""Suspend a tenant
+    """Suspend a tenant
 
-     Stop the tenant being selected at login. Idempotent, and only the first writes.
+     Stop the tenant from being selected at sign-in. Idempotent.
 
-    Nothing is revoked: an access token already minted lives out its `exp`
-    (ADR 0008), and the next token for a session bound to this tenant carries no
-    `tenant` claim (rbac.md §\"Claims at token issuance\"). A tenant an Account is
-    linked to, the Kleora Account's own included, is refused (409
-    `account-tenant`): suspending it would lock every member out of the Account.
+    Nothing is revoked: access tokens already issued remain valid until they expire, and the next
+    token issued for a session bound to this tenant carries no `tenant` claim. A tenant linked to an
+    Account cannot be suspended: `409 account-tenant`.
 
     Args:
         tenant_id (str):
@@ -199,15 +193,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Problem | TenantOut | None:
-    r"""Suspend a tenant
+    """Suspend a tenant
 
-     Stop the tenant being selected at login. Idempotent, and only the first writes.
+     Stop the tenant from being selected at sign-in. Idempotent.
 
-    Nothing is revoked: an access token already minted lives out its `exp`
-    (ADR 0008), and the next token for a session bound to this tenant carries no
-    `tenant` claim (rbac.md §\"Claims at token issuance\"). A tenant an Account is
-    linked to, the Kleora Account's own included, is refused (409
-    `account-tenant`): suspending it would lock every member out of the Account.
+    Nothing is revoked: access tokens already issued remain valid until they expire, and the next
+    token issued for a session bound to this tenant carries no `tenant` claim. A tenant linked to an
+    Account cannot be suspended: `409 account-tenant`.
 
     Args:
         tenant_id (str):

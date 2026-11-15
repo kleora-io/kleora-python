@@ -83,9 +83,8 @@ def sync_detailed(
 
      Who the credential belongs to, what it may do, and where it may do it.
 
-    The one operation every principal kind reaches, and the only one — besides
-    `GET /account` — that a suspended Account still gets, so the console can
-    say why nothing else works (management-api.md §`GET /me`).
+    Available to every kind of credential, and one of the two operations (with `GET /account`) still
+    available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -112,9 +111,8 @@ def sync(
 
      Who the credential belongs to, what it may do, and where it may do it.
 
-    The one operation every principal kind reaches, and the only one — besides
-    `GET /account` — that a suspended Account still gets, so the console can
-    say why nothing else works (management-api.md §`GET /me`).
+    Available to every kind of credential, and one of the two operations (with `GET /account`) still
+    available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,9 +135,8 @@ async def asyncio_detailed(
 
      Who the credential belongs to, what it may do, and where it may do it.
 
-    The one operation every principal kind reaches, and the only one — besides
-    `GET /account` — that a suspended Account still gets, so the console can
-    say why nothing else works (management-api.md §`GET /me`).
+    Available to every kind of credential, and one of the two operations (with `GET /account`) still
+    available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,9 +161,8 @@ async def asyncio(
 
      Who the credential belongs to, what it may do, and where it may do it.
 
-    The one operation every principal kind reaches, and the only one — besides
-    `GET /account` — that a suspended Account still gets, so the console can
-    say why nothing else works (management-api.md §`GET /me`).
+    Available to every kind of credential, and one of the two operations (with `GET /account`) still
+    available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

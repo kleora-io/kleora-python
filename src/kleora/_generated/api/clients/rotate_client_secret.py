@@ -100,11 +100,10 @@ def sync_detailed(
 ) -> Response[ClientSecretOut | Problem]:
     """Rotate a client secret
 
-     A new secret for a `web` client, returned once. No body, no overlap window.
+     Issue a new secret for a `web` client, returned once. Takes no body.
 
-    The previous secret stops authenticating at `/oauth/token` immediately. On a
-    `spa` or `native` client it is 409 `client-not-confidential` and nothing is
-    minted — a public client has no secret to lose.
+    The previous secret stops working at `/oauth/token` immediately; there is no overlap. A `spa` or
+    `native` client has no secret: `409 client-not-confidential`.
 
     Args:
         environment_id (str):
@@ -138,11 +137,10 @@ def sync(
 ) -> ClientSecretOut | Problem | None:
     """Rotate a client secret
 
-     A new secret for a `web` client, returned once. No body, no overlap window.
+     Issue a new secret for a `web` client, returned once. Takes no body.
 
-    The previous secret stops authenticating at `/oauth/token` immediately. On a
-    `spa` or `native` client it is 409 `client-not-confidential` and nothing is
-    minted — a public client has no secret to lose.
+    The previous secret stops working at `/oauth/token` immediately; there is no overlap. A `spa` or
+    `native` client has no secret: `409 client-not-confidential`.
 
     Args:
         environment_id (str):
@@ -171,11 +169,10 @@ async def asyncio_detailed(
 ) -> Response[ClientSecretOut | Problem]:
     """Rotate a client secret
 
-     A new secret for a `web` client, returned once. No body, no overlap window.
+     Issue a new secret for a `web` client, returned once. Takes no body.
 
-    The previous secret stops authenticating at `/oauth/token` immediately. On a
-    `spa` or `native` client it is 409 `client-not-confidential` and nothing is
-    minted — a public client has no secret to lose.
+    The previous secret stops working at `/oauth/token` immediately; there is no overlap. A `spa` or
+    `native` client has no secret: `409 client-not-confidential`.
 
     Args:
         environment_id (str):
@@ -207,11 +204,10 @@ async def asyncio(
 ) -> ClientSecretOut | Problem | None:
     """Rotate a client secret
 
-     A new secret for a `web` client, returned once. No body, no overlap window.
+     Issue a new secret for a `web` client, returned once. Takes no body.
 
-    The previous secret stops authenticating at `/oauth/token` immediately. On a
-    `spa` or `native` client it is 409 `client-not-confidential` and nothing is
-    minted — a public client has no secret to lose.
+    The previous secret stops working at `/oauth/token` immediately; there is no overlap. A `spa` or
+    `native` client has no secret: `409 client-not-confidential`.
 
     Args:
         environment_id (str):

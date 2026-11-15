@@ -81,15 +81,10 @@ def sync_detailed(
 ) -> Response[AccountRead | Problem]:
     """The calling principal's account
 
-     The caller's own Account — resolved from the token, never from a path.
+     The Account the credential was issued for.
 
-    `@requires` has already made `request.target.account` the principal's own
-    Account, so a `console_user` who belongs to two Accounts reads each one's
-    own row depending on which `tenant=` context authorised the token: never
-    another Account's data, and never a 404.
-
-    One of the two operations a suspended Account still gets, so the console can
-    say why everything else is 403.
+    A console user who belongs to several Accounts reads the one their token was issued for. One of
+    the two operations (with `GET /me`) still available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -114,15 +109,10 @@ def sync(
 ) -> AccountRead | Problem | None:
     """The calling principal's account
 
-     The caller's own Account — resolved from the token, never from a path.
+     The Account the credential was issued for.
 
-    `@requires` has already made `request.target.account` the principal's own
-    Account, so a `console_user` who belongs to two Accounts reads each one's
-    own row depending on which `tenant=` context authorised the token: never
-    another Account's data, and never a 404.
-
-    One of the two operations a suspended Account still gets, so the console can
-    say why everything else is 403.
+    A console user who belongs to several Accounts reads the one their token was issued for. One of
+    the two operations (with `GET /me`) still available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,15 +133,10 @@ async def asyncio_detailed(
 ) -> Response[AccountRead | Problem]:
     """The calling principal's account
 
-     The caller's own Account — resolved from the token, never from a path.
+     The Account the credential was issued for.
 
-    `@requires` has already made `request.target.account` the principal's own
-    Account, so a `console_user` who belongs to two Accounts reads each one's
-    own row depending on which `tenant=` context authorised the token: never
-    another Account's data, and never a 404.
-
-    One of the two operations a suspended Account still gets, so the console can
-    say why everything else is 403.
+    A console user who belongs to several Accounts reads the one their token was issued for. One of
+    the two operations (with `GET /me`) still available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -174,15 +159,10 @@ async def asyncio(
 ) -> AccountRead | Problem | None:
     """The calling principal's account
 
-     The caller's own Account — resolved from the token, never from a path.
+     The Account the credential was issued for.
 
-    `@requires` has already made `request.target.account` the principal's own
-    Account, so a `console_user` who belongs to two Accounts reads each one's
-    own row depending on which `tenant=` context authorised the token: never
-    another Account's data, and never a 404.
-
-    One of the two operations a suspended Account still gets, so the console can
-    say why everything else is 403.
+    A console user who belongs to several Accounts reads the one their token was issued for. One of
+    the two operations (with `GET /me`) still available while the Account is suspended.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

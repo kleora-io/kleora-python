@@ -107,20 +107,19 @@ def sync_detailed(
 ) -> Response[Problem | RoleOut]:
     """Create an app-scoped role
 
-     A role assignable in every tenant of the environment.
+     Create an app-scoped role, assignable in every tenant of the environment.
 
-    The slug is unique across scopes, so a slug a tenant already defines is 409
-    `role-slug-conflict` — a token's `roles` array names exactly one role, and
-    two roles with one slug would make it mean two things.
+    Role slugs are unique across the environment, including tenants' own roles: a slug a tenant
+    already uses is `409 role-slug-conflict`.
 
     Args:
         environment_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -150,20 +149,19 @@ def sync(
 ) -> Problem | RoleOut | None:
     """Create an app-scoped role
 
-     A role assignable in every tenant of the environment.
+     Create an app-scoped role, assignable in every tenant of the environment.
 
-    The slug is unique across scopes, so a slug a tenant already defines is 409
-    `role-slug-conflict` — a token's `roles` array names exactly one role, and
-    two roles with one slug would make it mean two things.
+    Role slugs are unique across the environment, including tenants' own roles: a slug a tenant
+    already uses is `409 role-slug-conflict`.
 
     Args:
         environment_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -188,20 +186,19 @@ async def asyncio_detailed(
 ) -> Response[Problem | RoleOut]:
     """Create an app-scoped role
 
-     A role assignable in every tenant of the environment.
+     Create an app-scoped role, assignable in every tenant of the environment.
 
-    The slug is unique across scopes, so a slug a tenant already defines is 409
-    `role-slug-conflict` — a token's `roles` array names exactly one role, and
-    two roles with one slug would make it mean two things.
+    Role slugs are unique across the environment, including tenants' own roles: a slug a tenant
+    already uses is `409 role-slug-conflict`.
 
     Args:
         environment_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -229,20 +226,19 @@ async def asyncio(
 ) -> Problem | RoleOut | None:
     """Create an app-scoped role
 
-     A role assignable in every tenant of the environment.
+     Create an app-scoped role, assignable in every tenant of the environment.
 
-    The slug is unique across scopes, so a slug a tenant already defines is 409
-    `role-slug-conflict` — a token's `roles` array names exactly one role, and
-    two roles with one slug would make it mean two things.
+    Role slugs are unique across the environment, including tenants' own roles: a slug a tenant
+    already uses is `409 role-slug-conflict`.
 
     Args:
         environment_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

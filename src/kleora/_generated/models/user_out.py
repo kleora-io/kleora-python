@@ -28,13 +28,10 @@ T = TypeVar("T", bound="UserOut")
 
 @_attrs_define
 class UserOut:
-    """A User as every read of it reports it (users-and-credentials.md §API).
+    """A user.
 
-    Three fields are derived rather than stored. `status` folds `erased_at` in,
-    because `erased` is a state a caller has to be able to see and not a value
-    the column holds; `has_password` is whether a `password` Identity exists,
-    which is the only thing a read ever says about a credential; and
-    `mfa_enrolled` is whether a confirmed factor exists.
+    `status` includes `erased`. `has_password` says whether the user has a password, and
+    `mfa_enrolled` whether they hold a confirmed MFA factor.
 
         Attributes:
             avatar_color (UserOutAvatarColor):

@@ -83,14 +83,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Clear one of the signed-in person's own settings back to its default
+    """Clear one of the signed-in person's own settings back to its default
 
-     Remove the stored value, so the default answers again.
+     Remove the person's stored value for one setting, so the default applies again.
 
-    The same access semantics as the write, and idempotent by the service's
-    design: clearing a value that was never written is the same `204`, because
-    \"unset\" is the state the caller asked for and it holds either way
-    (`user-settings.md` §API).
+    Same access rules as `PUT`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -119,14 +116,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Clear one of the signed-in person's own settings back to its default
+    """Clear one of the signed-in person's own settings back to its default
 
-     Remove the stored value, so the default answers again.
+     Remove the person's stored value for one setting, so the default applies again.
 
-    The same access semantics as the write, and idempotent by the service's
-    design: clearing a value that was never written is the same `204`, because
-    \"unset\" is the state the caller asked for and it holds either way
-    (`user-settings.md` §API).
+    Same access rules as `PUT`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -150,14 +144,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Clear one of the signed-in person's own settings back to its default
+    """Clear one of the signed-in person's own settings back to its default
 
-     Remove the stored value, so the default answers again.
+     Remove the person's stored value for one setting, so the default applies again.
 
-    The same access semantics as the write, and idempotent by the service's
-    design: clearing a value that was never written is the same `204`, because
-    \"unset\" is the state the caller asked for and it holds either way
-    (`user-settings.md` §API).
+    Same access rules as `PUT`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -184,14 +175,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Clear one of the signed-in person's own settings back to its default
+    """Clear one of the signed-in person's own settings back to its default
 
-     Remove the stored value, so the default answers again.
+     Remove the person's stored value for one setting, so the default applies again.
 
-    The same access semantics as the write, and idempotent by the service's
-    design: clearing a value that was never written is the same `204`, because
-    \"unset\" is the state the caller asked for and it holds either way
-    (`user-settings.md` §API).
+    Same access rules as `PUT`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         key (str):

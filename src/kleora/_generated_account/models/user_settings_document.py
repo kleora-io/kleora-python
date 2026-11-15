@@ -21,11 +21,9 @@ T = TypeVar("T", bound="UserSettingsDocument")
 
 @_attrs_define
 class UserSettingsDocument:
-    """`GET /account/v1/settings` — one row per definition the user may see.
+    """The body of `GET /account/v1/settings`: one row per setting the person may see, in key order.
 
-    At most 50 rows (the definitions cap), in key order. `hidden` definitions
-    are absent — not present-but-masked — which is the enumeration property the
-    404s rest on.
+    At most 50 rows. Hidden settings are not included.
 
         Attributes:
             settings (list[UserSettingDocument]):

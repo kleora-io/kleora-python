@@ -18,17 +18,10 @@ T = TypeVar("T", bound="EnvironmentMauOut")
 
 @_attrs_define
 class EnvironmentMauOut:
-    """One Environment's figures for the period.
+    """One environment's figures for the period.
 
-    `mau` is zero for a sandbox Environment always and by construction: nothing
-    is ever written there (billing.md §Plans, "Sandbox never counts — charging
-    for testing teaches customers to test in production").
-
-    `tenants` is the count the Tenant ceiling is actually applied to. billing.md
-    §Plans words the row "Tenants, per App" while the check
-    (`apps.tenancy.services.tenants._check_tenant_limit`) counts per
-    *Environment*; reporting the number the gate reads is the only way this page
-    agrees with the `422` a customer would get. Flagged in the P6-12 task Log.
+    `mau` is always zero for a sandbox environment: sandbox usage is never counted. `tenants` is the
+    count the tenant limit is applied to, per environment.
 
         Attributes:
             environment_id (UUID):

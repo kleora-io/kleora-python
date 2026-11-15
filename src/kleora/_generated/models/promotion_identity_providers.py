@@ -19,23 +19,11 @@ T = TypeVar("T", bound="PromotionIdentityProviders")
 
 @_attrs_define
 class PromotionIdentityProviders:
-    """Which provider kinds each side has configured. Promotion copies **none** of them.
+    """Which identity provider kinds each environment has configured.
 
-    D-7, and this shape is the second half of that decision: a promotion that
-    silently left a difference behind would be a console that cannot explain why
-    the production login page has no Google button. So the diff *names* the
-    difference — `sandbox_only` is what the console turns into "sandbox has
-    Google configured and production does not" — and `promoted` is flat `false`,
-    stated rather than inferred from an empty list, because "nothing differed"
-    and "nothing is ever copied" are different facts and only one of them is
-    permanent.
-
-    Why nothing is copied: a copied client secret would point production at a
-    sandbox OAuth application, and copying `enabled` without the secret would be
-    worse — an enabled provider with no credentials is a button on the production
-    login page that cannot work. Promotion copies no credential anywhere
-    (environments.md §Promotion: not Clients, not API keys, not webhook
-    endpoints), and this is the same category.
+    Promotion never copies identity providers, because their credentials belong to one environment.
+    `sandbox_only` names the providers configured in sandbox but not in production, and `promoted`
+    is always `false`.
 
         Attributes:
             both (list[str]):

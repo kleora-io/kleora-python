@@ -19,17 +19,13 @@ T = TypeVar("T", bound="EmailTemplateRenderIn")
 
 @_attrs_define
 class EmailTemplateRenderIn:
-    """The optional body of `POST …/email-templates/{kind}/{locale}/render`.
+    """The optional body of `POST .../email-templates/{kind}/{locale}/render`.
 
-    Every field is optional and each one that is present replaces that column
-    of the stored row for this render alone: a console that has edited only the
-    HTML previews its draft HTML against the saved subject without having to
-    echo back what it did not touch, and a `POST` with no body at all previews
-    the stored row.
+    Every field is optional; each one present replaces that part of the stored template for this
+    render only, so a draft can be previewed without saving it. With no body, the stored template is
+    rendered.
 
-    `samples` picks the set email.md §Variables fixes — `all`, or
-    `without_optional` with the two optional variables empty, which is the
-    other rendering of a template whose only logic is `{% if support_url %}`.
+    `samples` is `all`, or `without_optional` to render with the optional variables empty.
 
         Attributes:
             body_html (None | str | Unset):

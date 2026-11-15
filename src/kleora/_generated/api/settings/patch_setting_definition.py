@@ -110,26 +110,20 @@ def sync_detailed(
 ) -> Response[Problem | SettingDefinitionOut]:
     """Change a setting definition
 
-     Constraints, default, access, label, description — never key or type.
+     Update a definition's constraints, default, access, label or description. `key` and `type`
+    cannot be changed (`immutable`).
 
-    The immutable pair is refused as `immutable` by the schema. Narrowing a
-    constraint re-validates nothing retroactively: values already written stay
-    readable and fail their *next* write (user-settings.md §Model). The
-    definition's own default is the one value checked now, because it is part
-    of the row this request writes.
+    Narrowing a constraint does not re-validate stored values: they stay readable, and are validated
+    at their next write. The definition's own default is validated now.
 
     Args:
         environment_id (str):
         key (str):
-        body (SettingDefinitionPatch): `PATCH …/settings/definitions/{key}` — the mutable fields
-            only.
+        body (SettingDefinitionPatch): The body of `PATCH .../settings/definitions/{key}`.
 
-            `key` and `type` are refused as `immutable` rather than as unknown keys,
-            because the resource plainly has them (user-settings.md §API: "never key
-            or type"). `constraints` replaces the whole object — the constraints of a
-            setting are one decision, and half of one merged with half of another
-            would be a bound nobody chose; `null` resets them to the type's defaults.
-            Clearing `default` (`null`) is a definition with no default again.
+            `key` and `type` are refused as immutable. `constraints` replaces the whole object, and
+            `null`
+            resets it to the type's defaults. `default: null` removes the default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,26 +155,20 @@ def sync(
 ) -> Problem | SettingDefinitionOut | None:
     """Change a setting definition
 
-     Constraints, default, access, label, description — never key or type.
+     Update a definition's constraints, default, access, label or description. `key` and `type`
+    cannot be changed (`immutable`).
 
-    The immutable pair is refused as `immutable` by the schema. Narrowing a
-    constraint re-validates nothing retroactively: values already written stay
-    readable and fail their *next* write (user-settings.md §Model). The
-    definition's own default is the one value checked now, because it is part
-    of the row this request writes.
+    Narrowing a constraint does not re-validate stored values: they stay readable, and are validated
+    at their next write. The definition's own default is validated now.
 
     Args:
         environment_id (str):
         key (str):
-        body (SettingDefinitionPatch): `PATCH …/settings/definitions/{key}` — the mutable fields
-            only.
+        body (SettingDefinitionPatch): The body of `PATCH .../settings/definitions/{key}`.
 
-            `key` and `type` are refused as `immutable` rather than as unknown keys,
-            because the resource plainly has them (user-settings.md §API: "never key
-            or type"). `constraints` replaces the whole object — the constraints of a
-            setting are one decision, and half of one merged with half of another
-            would be a bound nobody chose; `null` resets them to the type's defaults.
-            Clearing `default` (`null`) is a definition with no default again.
+            `key` and `type` are refused as immutable. `constraints` replaces the whole object, and
+            `null`
+            resets it to the type's defaults. `default: null` removes the default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -207,26 +195,20 @@ async def asyncio_detailed(
 ) -> Response[Problem | SettingDefinitionOut]:
     """Change a setting definition
 
-     Constraints, default, access, label, description — never key or type.
+     Update a definition's constraints, default, access, label or description. `key` and `type`
+    cannot be changed (`immutable`).
 
-    The immutable pair is refused as `immutable` by the schema. Narrowing a
-    constraint re-validates nothing retroactively: values already written stay
-    readable and fail their *next* write (user-settings.md §Model). The
-    definition's own default is the one value checked now, because it is part
-    of the row this request writes.
+    Narrowing a constraint does not re-validate stored values: they stay readable, and are validated
+    at their next write. The definition's own default is validated now.
 
     Args:
         environment_id (str):
         key (str):
-        body (SettingDefinitionPatch): `PATCH …/settings/definitions/{key}` — the mutable fields
-            only.
+        body (SettingDefinitionPatch): The body of `PATCH .../settings/definitions/{key}`.
 
-            `key` and `type` are refused as `immutable` rather than as unknown keys,
-            because the resource plainly has them (user-settings.md §API: "never key
-            or type"). `constraints` replaces the whole object — the constraints of a
-            setting are one decision, and half of one merged with half of another
-            would be a bound nobody chose; `null` resets them to the type's defaults.
-            Clearing `default` (`null`) is a definition with no default again.
+            `key` and `type` are refused as immutable. `constraints` replaces the whole object, and
+            `null`
+            resets it to the type's defaults. `default: null` removes the default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -256,26 +238,20 @@ async def asyncio(
 ) -> Problem | SettingDefinitionOut | None:
     """Change a setting definition
 
-     Constraints, default, access, label, description — never key or type.
+     Update a definition's constraints, default, access, label or description. `key` and `type`
+    cannot be changed (`immutable`).
 
-    The immutable pair is refused as `immutable` by the schema. Narrowing a
-    constraint re-validates nothing retroactively: values already written stay
-    readable and fail their *next* write (user-settings.md §Model). The
-    definition's own default is the one value checked now, because it is part
-    of the row this request writes.
+    Narrowing a constraint does not re-validate stored values: they stay readable, and are validated
+    at their next write. The definition's own default is validated now.
 
     Args:
         environment_id (str):
         key (str):
-        body (SettingDefinitionPatch): `PATCH …/settings/definitions/{key}` — the mutable fields
-            only.
+        body (SettingDefinitionPatch): The body of `PATCH .../settings/definitions/{key}`.
 
-            `key` and `type` are refused as `immutable` rather than as unknown keys,
-            because the resource plainly has them (user-settings.md §API: "never key
-            or type"). `constraints` replaces the whole object — the constraints of a
-            setting are one decision, and half of one merged with half of another
-            would be a bound nobody chose; `null` resets them to the type's defaults.
-            Clearing `default` (`null`) is a definition with no default again.
+            `key` and `type` are refused as immutable. `constraints` replaces the whole object, and
+            `null`
+            resets it to the type's defaults. `default: null` removes the default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

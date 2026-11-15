@@ -21,14 +21,11 @@ T = TypeVar("T", bound="PasskeysOut")
 
 @_attrs_define
 class PasskeysOut:
-    """The credentials, and where a person can add one.
+    """The person's passkeys, and where they can add one.
 
-    `portal_url` is the second half of §"Two ceremonies are origin-bound"'s
-    `Registering a passkey` row — "`GET`/`DELETE` on the list, and a **portal
-    URL** the customer's screen links to, deep-linked at the security page". There
-    is no `POST /passkeys/register/*` on this surface and there never will be: the
-    ceremony's `rp_id` is the issuer host, so `navigator.credentials.create()` on
-    a customer's origin is refused by the browser and not by us.
+    Registering a passkey is not possible through this API: the passkey is bound to the issuer host,
+    so browsers refuse to create it on another origin. `portal_url` is the hosted account portal's
+    security page, which a customer's screen links to instead.
 
         Attributes:
             passkeys (list[PasskeyOut]):

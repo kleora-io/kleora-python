@@ -102,25 +102,16 @@ def sync_detailed(
 ) -> Response[AccountRead | Problem]:
     """Rename the account
 
-     Rename it. `slug`, `plan`, `status` and `tenant_id` are not.
+     Rename the Account. `slug`, `plan`, `status` and `tenant_id` cannot be changed.
 
-    Not `allow_suspended`: reading an Account while it is suspended is how the
-    console explains the suspension, writing to it is not.
+    Not available while the Account is suspended.
 
     Args:
-        body (AccountPatch): `PATCH /api/v1/account` — one property, and one refusal worth
-            explaining.
+        body (AccountPatch): The body of `PATCH /api/v1/account`.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as an unknown key. It is also the Account's tenant slug and the value
-            `tenant=` carries when the console re-authorises, so renaming it would
-            invalidate every bookmarked switch URL and every token in flight
-            (platform-bootstrap.md §"The Account resource").
-
-            `plan`, `status` and `tenant_id` are unknown fields on purpose:
-            they are not properties a caller has any business addressing, and
-            `extra="forbid"` says so.
+            `slug` cannot be changed: sending it is refused as immutable. `plan`, `status` and
+            `tenant_id`
+            are not fields of this resource and are refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -148,25 +139,16 @@ def sync(
 ) -> AccountRead | Problem | None:
     """Rename the account
 
-     Rename it. `slug`, `plan`, `status` and `tenant_id` are not.
+     Rename the Account. `slug`, `plan`, `status` and `tenant_id` cannot be changed.
 
-    Not `allow_suspended`: reading an Account while it is suspended is how the
-    console explains the suspension, writing to it is not.
+    Not available while the Account is suspended.
 
     Args:
-        body (AccountPatch): `PATCH /api/v1/account` — one property, and one refusal worth
-            explaining.
+        body (AccountPatch): The body of `PATCH /api/v1/account`.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as an unknown key. It is also the Account's tenant slug and the value
-            `tenant=` carries when the console re-authorises, so renaming it would
-            invalidate every bookmarked switch URL and every token in flight
-            (platform-bootstrap.md §"The Account resource").
-
-            `plan`, `status` and `tenant_id` are unknown fields on purpose:
-            they are not properties a caller has any business addressing, and
-            `extra="forbid"` says so.
+            `slug` cannot be changed: sending it is refused as immutable. `plan`, `status` and
+            `tenant_id`
+            are not fields of this resource and are refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,25 +171,16 @@ async def asyncio_detailed(
 ) -> Response[AccountRead | Problem]:
     """Rename the account
 
-     Rename it. `slug`, `plan`, `status` and `tenant_id` are not.
+     Rename the Account. `slug`, `plan`, `status` and `tenant_id` cannot be changed.
 
-    Not `allow_suspended`: reading an Account while it is suspended is how the
-    console explains the suspension, writing to it is not.
+    Not available while the Account is suspended.
 
     Args:
-        body (AccountPatch): `PATCH /api/v1/account` — one property, and one refusal worth
-            explaining.
+        body (AccountPatch): The body of `PATCH /api/v1/account`.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as an unknown key. It is also the Account's tenant slug and the value
-            `tenant=` carries when the console re-authorises, so renaming it would
-            invalidate every bookmarked switch URL and every token in flight
-            (platform-bootstrap.md §"The Account resource").
-
-            `plan`, `status` and `tenant_id` are unknown fields on purpose:
-            they are not properties a caller has any business addressing, and
-            `extra="forbid"` says so.
+            `slug` cannot be changed: sending it is refused as immutable. `plan`, `status` and
+            `tenant_id`
+            are not fields of this resource and are refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -233,25 +206,16 @@ async def asyncio(
 ) -> AccountRead | Problem | None:
     """Rename the account
 
-     Rename it. `slug`, `plan`, `status` and `tenant_id` are not.
+     Rename the Account. `slug`, `plan`, `status` and `tenant_id` cannot be changed.
 
-    Not `allow_suspended`: reading an Account while it is suspended is how the
-    console explains the suspension, writing to it is not.
+    Not available while the Account is suspended.
 
     Args:
-        body (AccountPatch): `PATCH /api/v1/account` — one property, and one refusal worth
-            explaining.
+        body (AccountPatch): The body of `PATCH /api/v1/account`.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as an unknown key. It is also the Account's tenant slug and the value
-            `tenant=` carries when the console re-authorises, so renaming it would
-            invalidate every bookmarked switch URL and every token in flight
-            (platform-bootstrap.md §"The Account resource").
-
-            `plan`, `status` and `tenant_id` are unknown fields on purpose:
-            they are not properties a caller has any business addressing, and
-            `extra="forbid"` says so.
+            `slug` cannot be changed: sending it is refused as immutable. `plan`, `status` and
+            `tenant_id`
+            are not fields of this resource and are refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

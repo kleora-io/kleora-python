@@ -81,12 +81,9 @@ def sync_detailed(
 ) -> Response[Problem | UserSettingList]:
     """The calling console user's own settings
 
-     Every `user_editable`/`user_visible` definition, with this user's value or the default.
+     Every `user_editable` and `user_visible` setting, with your value or the default.
 
-    The console-adoption counterpart of `GET /account/v1/settings` (user-settings.md
-    §API): same filtering, same value resolution, no `next_cursor` paging
-    because the definitions cap already bounds it (`UserSettingList` elsewhere
-    on this surface answers the same way).
+    Not paginated: an environment has at most 50 setting definitions.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,12 +108,9 @@ def sync(
 ) -> Problem | UserSettingList | None:
     """The calling console user's own settings
 
-     Every `user_editable`/`user_visible` definition, with this user's value or the default.
+     Every `user_editable` and `user_visible` setting, with your value or the default.
 
-    The console-adoption counterpart of `GET /account/v1/settings` (user-settings.md
-    §API): same filtering, same value resolution, no `next_cursor` paging
-    because the definitions cap already bounds it (`UserSettingList` elsewhere
-    on this surface answers the same way).
+    Not paginated: an environment has at most 50 setting definitions.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,12 +131,9 @@ async def asyncio_detailed(
 ) -> Response[Problem | UserSettingList]:
     """The calling console user's own settings
 
-     Every `user_editable`/`user_visible` definition, with this user's value or the default.
+     Every `user_editable` and `user_visible` setting, with your value or the default.
 
-    The console-adoption counterpart of `GET /account/v1/settings` (user-settings.md
-    §API): same filtering, same value resolution, no `next_cursor` paging
-    because the definitions cap already bounds it (`UserSettingList` elsewhere
-    on this surface answers the same way).
+    Not paginated: an environment has at most 50 setting definitions.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,12 +156,9 @@ async def asyncio(
 ) -> Problem | UserSettingList | None:
     """The calling console user's own settings
 
-     Every `user_editable`/`user_visible` definition, with this user's value or the default.
+     Every `user_editable` and `user_visible` setting, with your value or the default.
 
-    The console-adoption counterpart of `GET /account/v1/settings` (user-settings.md
-    §API): same filtering, same value resolution, no `next_cursor` paging
-    because the definitions cap already bounds it (`UserSettingList` elsewhere
-    on this surface answers the same way).
+    Not paginated: an environment has at most 50 setting definitions.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

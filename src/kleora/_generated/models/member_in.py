@@ -19,16 +19,10 @@ T = TypeVar("T", bound="MemberIn")
 
 @_attrs_define
 class MemberIn:
-    """`POST /api/v1/tenants/{tenant_id}/members`.
+    """The body of `POST /api/v1/tenants/{tenant_id}/members`.
 
-    Exactly one of `user_id` and `email`; both or neither is 422
-    (tenants-and-membership.md §"Failure modes"). It is checked by the resource
-    rather than declared here because JSON Schema cannot say "exactly one of",
-    so a rule expressed only in the document would be one a generated client
-    could not enforce and we would still have to make.
-
-    `roles` is a list of Role ids and defaults to none — a member with no roles
-    is a member, and `roles: []` is what the token then carries.
+    Give exactly one of `user_id` and `email`; both or neither is `422`. `roles` is a list of role
+    ids, empty by default.
 
         Attributes:
             email (None | str | Unset):

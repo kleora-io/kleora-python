@@ -79,15 +79,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | UserSettingsDocument]:
-    r"""The signed-in person's own settings
+    """The signed-in person's own settings
 
-     Every definition the person may see, each with their value or the default.
+     Every setting the person may see, each with their value or the default.
 
-    `value` is the written value where one exists, the definition's default where
-    not, and `null` where there is neither — `user-settings.md` §Model calls that
-    \"what a user has before any write\". `.get`'s fallback fires only on a missing
-    key, so a written value — which a write can never make `None` — always
-    outranks the default.
+    `value` is the person's own value where one is stored, otherwise the setting's default,
+    otherwise `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,15 +107,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | UserSettingsDocument | None:
-    r"""The signed-in person's own settings
+    """The signed-in person's own settings
 
-     Every definition the person may see, each with their value or the default.
+     Every setting the person may see, each with their value or the default.
 
-    `value` is the written value where one exists, the definition's default where
-    not, and `null` where there is neither — `user-settings.md` §Model calls that
-    \"what a user has before any write\". `.get`'s fallback fires only on a missing
-    key, so a written value — which a write can never make `None` — always
-    outranks the default.
+    `value` is the person's own value where one is stored, otherwise the setting's default,
+    otherwise `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,15 +131,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | UserSettingsDocument]:
-    r"""The signed-in person's own settings
+    """The signed-in person's own settings
 
-     Every definition the person may see, each with their value or the default.
+     Every setting the person may see, each with their value or the default.
 
-    `value` is the written value where one exists, the definition's default where
-    not, and `null` where there is neither — `user-settings.md` §Model calls that
-    \"what a user has before any write\". `.get`'s fallback fires only on a missing
-    key, so a written value — which a write can never make `None` — always
-    outranks the default.
+    `value` is the person's own value where one is stored, otherwise the setting's default,
+    otherwise `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -166,15 +157,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | UserSettingsDocument | None:
-    r"""The signed-in person's own settings
+    """The signed-in person's own settings
 
-     Every definition the person may see, each with their value or the default.
+     Every setting the person may see, each with their value or the default.
 
-    `value` is the written value where one exists, the definition's default where
-    not, and `null` where there is neither — `user-settings.md` §Model calls that
-    \"what a user has before any write\". `.get`'s fallback fires only on a missing
-    key, so a written value — which a write can never make `None` — always
-    outranks the default.
+    `value` is the person's own value where one is stored, otherwise the setting's default,
+    otherwise `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
