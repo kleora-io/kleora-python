@@ -127,22 +127,13 @@ def sync_detailed(
     status: ListInvitationsStatus | Unset = ListInvitationsStatus.OPEN,
     q: None | str | Unset = UNSET,
 ) -> Response[InvitationList | Problem]:
-    r"""List invitations
+    """List invitations
 
-     The tenant's invitations in one derived state, newest first.
+     The tenant's invitations in one state, newest first.
 
-    `status` defaults to `open` (tenants-and-membership.md §API) — the answer to
-    \"who is still waiting\", which is what a console panel opens on — and it is
-    named to `paginate` as well as applied, so a cursor is bound to the filter
-    it was issued under and cannot be replayed against another one.
-
-    `q` is a case-insensitive substring of the invited `email` — the one field
-    an invitation carries that a support operator would search by
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    The status filter is a query rather than a Python pass, because the status
-    is derived from three timestamps and a page filtered after the fact is a
-    page of whatever survived rather than a page.
+    `status` defaults to `open`: the invitations still waiting for an answer. `q` is a
+    case-insensitive substring of the invited email. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         tenant_id (str):
@@ -183,22 +174,13 @@ def sync(
     status: ListInvitationsStatus | Unset = ListInvitationsStatus.OPEN,
     q: None | str | Unset = UNSET,
 ) -> InvitationList | Problem | None:
-    r"""List invitations
+    """List invitations
 
-     The tenant's invitations in one derived state, newest first.
+     The tenant's invitations in one state, newest first.
 
-    `status` defaults to `open` (tenants-and-membership.md §API) — the answer to
-    \"who is still waiting\", which is what a console panel opens on — and it is
-    named to `paginate` as well as applied, so a cursor is bound to the filter
-    it was issued under and cannot be replayed against another one.
-
-    `q` is a case-insensitive substring of the invited `email` — the one field
-    an invitation carries that a support operator would search by
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    The status filter is a query rather than a Python pass, because the status
-    is derived from three timestamps and a page filtered after the fact is a
-    page of whatever survived rather than a page.
+    `status` defaults to `open`: the invitations still waiting for an answer. `q` is a
+    case-insensitive substring of the invited email. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         tenant_id (str):
@@ -234,22 +216,13 @@ async def asyncio_detailed(
     status: ListInvitationsStatus | Unset = ListInvitationsStatus.OPEN,
     q: None | str | Unset = UNSET,
 ) -> Response[InvitationList | Problem]:
-    r"""List invitations
+    """List invitations
 
-     The tenant's invitations in one derived state, newest first.
+     The tenant's invitations in one state, newest first.
 
-    `status` defaults to `open` (tenants-and-membership.md §API) — the answer to
-    \"who is still waiting\", which is what a console panel opens on — and it is
-    named to `paginate` as well as applied, so a cursor is bound to the filter
-    it was issued under and cannot be replayed against another one.
-
-    `q` is a case-insensitive substring of the invited `email` — the one field
-    an invitation carries that a support operator would search by
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    The status filter is a query rather than a Python pass, because the status
-    is derived from three timestamps and a page filtered after the fact is a
-    page of whatever survived rather than a page.
+    `status` defaults to `open`: the invitations still waiting for an answer. `q` is a
+    case-insensitive substring of the invited email. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         tenant_id (str):
@@ -288,22 +261,13 @@ async def asyncio(
     status: ListInvitationsStatus | Unset = ListInvitationsStatus.OPEN,
     q: None | str | Unset = UNSET,
 ) -> InvitationList | Problem | None:
-    r"""List invitations
+    """List invitations
 
-     The tenant's invitations in one derived state, newest first.
+     The tenant's invitations in one state, newest first.
 
-    `status` defaults to `open` (tenants-and-membership.md §API) — the answer to
-    \"who is still waiting\", which is what a console panel opens on — and it is
-    named to `paginate` as well as applied, so a cursor is bound to the filter
-    it was issued under and cannot be replayed against another one.
-
-    `q` is a case-insensitive substring of the invited `email` — the one field
-    an invitation carries that a support operator would search by
-    (management-api.md §Conventions \"Search\"; Q3-59).
-
-    The status filter is a query rather than a Python pass, because the status
-    is derived from three timestamps and a page filtered after the fact is a
-    page of whatever survived rather than a page.
+    `status` defaults to `open`: the invitations still waiting for an answer. `q` is a
+    case-insensitive substring of the invited email. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         tenant_id (str):

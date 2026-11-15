@@ -21,25 +21,20 @@ T = TypeVar("T", bound="SigningKeyRotated")
 
 @_attrs_define
 class SigningKeyRotated:
-    """The `200` of a rotation: the three states, after the fact.
+    """The `200` of a signing key rotation: the keys' state afterwards.
 
-    `next` is never null — App creation writes one and every rotation
-    pre-announces the following one — so the field is required rather than
-    optional. `retired` is a list because more than one key can still be inside
-    its retention window, and it is empty after a `retire_immediately` rotation
-    of an environment that had none before.
+    `next` is always present. `retired` lists every retired key still within its retention window,
+    and may be empty after a `retire_immediately` rotation.
 
         Attributes:
-            active (SigningKeyOut): One signing key as every read reports it (sessions-and-tokens.md §API).
+            active (SigningKeyOut): One signing key.
 
-                `public_jwk` is RFC 7517's public JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg`,
-                `use`. Typed `dict[str, str]` rather than a model of its own because it is
-                published verbatim and a JWK's membership is the RFC's to decide, not ours.
-            next_ (SigningKeyOut): One signing key as every read reports it (sessions-and-tokens.md §API).
+                `public_jwk` is the public key as an RFC 7517 JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg` and
+                `use`.
+            next_ (SigningKeyOut): One signing key.
 
-                `public_jwk` is RFC 7517's public JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg`,
-                `use`. Typed `dict[str, str]` rather than a model of its own because it is
-                published verbatim and a JWK's membership is the RFC's to decide, not ours.
+                `public_jwk` is the public key as an RFC 7517 JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg` and
+                `use`.
             retired (list[SigningKeyOut]):
     """
 

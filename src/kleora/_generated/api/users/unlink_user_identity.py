@@ -101,24 +101,13 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Unlink a provider account
 
-     Remove one linked provider account. **Never the user's last way in.**
+     Unlink one of the user's external provider accounts.
 
-    409 `last-credential` when, after the removal, the user would hold neither a
-    password, nor another linked provider, nor a confirmed passkey. A passkey
-    counts because it can start a sign-in; an authenticator app does **not** —
-    a second factor cannot begin one, so a user left holding only that is locked
-    out of their own account with a working authenticator in their hand. The
-    remedy the refusal names is to set a password first, the same wording an
-    administrative password set uses.
+    `409 last-credential` when the user would be left with no password, no other linked provider and
+    no confirmed passkey: no way to start a sign-in. An authenticator app does not count, since it
+    is a second factor. Nothing changes on a refusal.
 
-    **The sessions that provider opened are ended, and no others.** Somebody
-    tidying up a link they no longer use is not signed out of everything; somebody
-    removing a link because that provider account was compromised has every
-    session it authenticated cut off. A session's `amr` is what tells those two
-    apart, which is why it records the provider rather than a generic value.
-
-    Refused with 409 `last-credential` before anything is written, so nothing about
-    the user changes on the refusal.
+    The sessions that were authenticated through this provider are revoked, and no others.
 
     Args:
         environment_id (str):
@@ -155,24 +144,13 @@ def sync(
 ) -> Any | Problem | None:
     """Unlink a provider account
 
-     Remove one linked provider account. **Never the user's last way in.**
+     Unlink one of the user's external provider accounts.
 
-    409 `last-credential` when, after the removal, the user would hold neither a
-    password, nor another linked provider, nor a confirmed passkey. A passkey
-    counts because it can start a sign-in; an authenticator app does **not** —
-    a second factor cannot begin one, so a user left holding only that is locked
-    out of their own account with a working authenticator in their hand. The
-    remedy the refusal names is to set a password first, the same wording an
-    administrative password set uses.
+    `409 last-credential` when the user would be left with no password, no other linked provider and
+    no confirmed passkey: no way to start a sign-in. An authenticator app does not count, since it
+    is a second factor. Nothing changes on a refusal.
 
-    **The sessions that provider opened are ended, and no others.** Somebody
-    tidying up a link they no longer use is not signed out of everything; somebody
-    removing a link because that provider account was compromised has every
-    session it authenticated cut off. A session's `amr` is what tells those two
-    apart, which is why it records the provider rather than a generic value.
-
-    Refused with 409 `last-credential` before anything is written, so nothing about
-    the user changes on the refusal.
+    The sessions that were authenticated through this provider are revoked, and no others.
 
     Args:
         environment_id (str):
@@ -204,24 +182,13 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Unlink a provider account
 
-     Remove one linked provider account. **Never the user's last way in.**
+     Unlink one of the user's external provider accounts.
 
-    409 `last-credential` when, after the removal, the user would hold neither a
-    password, nor another linked provider, nor a confirmed passkey. A passkey
-    counts because it can start a sign-in; an authenticator app does **not** —
-    a second factor cannot begin one, so a user left holding only that is locked
-    out of their own account with a working authenticator in their hand. The
-    remedy the refusal names is to set a password first, the same wording an
-    administrative password set uses.
+    `409 last-credential` when the user would be left with no password, no other linked provider and
+    no confirmed passkey: no way to start a sign-in. An authenticator app does not count, since it
+    is a second factor. Nothing changes on a refusal.
 
-    **The sessions that provider opened are ended, and no others.** Somebody
-    tidying up a link they no longer use is not signed out of everything; somebody
-    removing a link because that provider account was compromised has every
-    session it authenticated cut off. A session's `amr` is what tells those two
-    apart, which is why it records the provider rather than a generic value.
-
-    Refused with 409 `last-credential` before anything is written, so nothing about
-    the user changes on the refusal.
+    The sessions that were authenticated through this provider are revoked, and no others.
 
     Args:
         environment_id (str):
@@ -256,24 +223,13 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Unlink a provider account
 
-     Remove one linked provider account. **Never the user's last way in.**
+     Unlink one of the user's external provider accounts.
 
-    409 `last-credential` when, after the removal, the user would hold neither a
-    password, nor another linked provider, nor a confirmed passkey. A passkey
-    counts because it can start a sign-in; an authenticator app does **not** —
-    a second factor cannot begin one, so a user left holding only that is locked
-    out of their own account with a working authenticator in their hand. The
-    remedy the refusal names is to set a password first, the same wording an
-    administrative password set uses.
+    `409 last-credential` when the user would be left with no password, no other linked provider and
+    no confirmed passkey: no way to start a sign-in. An authenticator app does not count, since it
+    is a second factor. Nothing changes on a refusal.
 
-    **The sessions that provider opened are ended, and no others.** Somebody
-    tidying up a link they no longer use is not signed out of everything; somebody
-    removing a link because that provider account was compromised has every
-    session it authenticated cut off. A session's `amr` is what tells those two
-    apart, which is why it records the provider rather than a generic value.
-
-    Refused with 409 `last-credential` before anything is written, so nothing about
-    the user changes on the refusal.
+    The sessions that were authenticated through this provider are revoked, and no others.
 
     Args:
         environment_id (str):

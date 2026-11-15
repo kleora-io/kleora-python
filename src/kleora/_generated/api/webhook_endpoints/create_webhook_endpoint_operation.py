@@ -107,34 +107,29 @@ def sync_detailed(
 ) -> Response[Problem | WebhookEndpointCreated]:
     """Create a webhook endpoint
 
-     An endpoint subscribed to `event_types` — empty by default, never a wildcard.
+     Create a webhook endpoint subscribed to `event_types`. The list is empty by default; there is
+    no wildcard.
 
-    The `201` carries the full secret, once, under the shown-once rules —
-    `no_store` on the response and nothing that could show it again. A URL
-    that is not `https://`, does not resolve, or resolves to a private or
-    reserved address is 422 `webhook-url-rejected`, naming why
-    (webhooks.md §SSRF). An `event_types` entry outside the published
-    catalogue is 422 `invalid-event-type`, naming every offending one. And an
-    Environment already holding as many endpoints as the App's plan allows is
-    422 `limit-exceeded` naming the number (billing.md §Plans) — a *creation*
-    refusal only: endpoints already registered keep delivering after a
-    downgrade, exactly as tenants over the limit keep serving.
+    The `201` carries the signing secret in full, once, and is never cached.
+
+    - A URL that is not `https://`, does not resolve, or resolves to a private or reserved address:
+      `422 webhook-url-rejected`, saying why.
+    - An event type that is not in the published catalogue: `422 invalid-event-type`, naming each.
+    - An environment that already has as many endpoints as the plan allows: `422 limit-exceeded`.
+      Existing endpoints keep delivering after a downgrade.
 
     Args:
         environment_id (str):
-        body (WebhookEndpointIn): `POST /api/v1/environments/{environment_id}/webhook-endpoints`.
+        body (WebhookEndpointIn): The body of `POST /api/v1/environments/{environment_id}/webhook-
+            endpoints`.
 
-            `event_types` defaults to empty — webhooks.md §"Volume, and why
-            subscription is explicit": "a new endpoint starts subscribed to nothing".
-            There is no "all events" value this field accepts; every entry is checked
-            against `apps.webhooks.catalogue.EVENT_TYPES` by the resource, which
-            answers 422 `invalid-event-type` rather than `validation-error` for one
-            that is not — a slug this schema cannot produce, the same reason
-            `ApiKeyIn.scopes`'s catalogue check is not here either.
+            `event_types` is empty by default: a new endpoint receives nothing until it subscribes.
+            There is
+            no "all events" value; an event type outside the catalogue is `422 invalid-event-type`.
 
-            `extra="forbid"`: `id`, `secret`, `enabled`, `disabled_at`,
-            `disabled_reason`, `environment_id` are 422 as unknown fields. A new
-            endpoint is always `enabled: true`; there is no way to create one disabled.
+            `id`, `secret`, `enabled`, `disabled_at`, `disabled_reason` and `environment_id` are
+            refused as
+            unknown fields. A new endpoint is always enabled.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,34 +159,29 @@ def sync(
 ) -> Problem | WebhookEndpointCreated | None:
     """Create a webhook endpoint
 
-     An endpoint subscribed to `event_types` — empty by default, never a wildcard.
+     Create a webhook endpoint subscribed to `event_types`. The list is empty by default; there is
+    no wildcard.
 
-    The `201` carries the full secret, once, under the shown-once rules —
-    `no_store` on the response and nothing that could show it again. A URL
-    that is not `https://`, does not resolve, or resolves to a private or
-    reserved address is 422 `webhook-url-rejected`, naming why
-    (webhooks.md §SSRF). An `event_types` entry outside the published
-    catalogue is 422 `invalid-event-type`, naming every offending one. And an
-    Environment already holding as many endpoints as the App's plan allows is
-    422 `limit-exceeded` naming the number (billing.md §Plans) — a *creation*
-    refusal only: endpoints already registered keep delivering after a
-    downgrade, exactly as tenants over the limit keep serving.
+    The `201` carries the signing secret in full, once, and is never cached.
+
+    - A URL that is not `https://`, does not resolve, or resolves to a private or reserved address:
+      `422 webhook-url-rejected`, saying why.
+    - An event type that is not in the published catalogue: `422 invalid-event-type`, naming each.
+    - An environment that already has as many endpoints as the plan allows: `422 limit-exceeded`.
+      Existing endpoints keep delivering after a downgrade.
 
     Args:
         environment_id (str):
-        body (WebhookEndpointIn): `POST /api/v1/environments/{environment_id}/webhook-endpoints`.
+        body (WebhookEndpointIn): The body of `POST /api/v1/environments/{environment_id}/webhook-
+            endpoints`.
 
-            `event_types` defaults to empty — webhooks.md §"Volume, and why
-            subscription is explicit": "a new endpoint starts subscribed to nothing".
-            There is no "all events" value this field accepts; every entry is checked
-            against `apps.webhooks.catalogue.EVENT_TYPES` by the resource, which
-            answers 422 `invalid-event-type` rather than `validation-error` for one
-            that is not — a slug this schema cannot produce, the same reason
-            `ApiKeyIn.scopes`'s catalogue check is not here either.
+            `event_types` is empty by default: a new endpoint receives nothing until it subscribes.
+            There is
+            no "all events" value; an event type outside the catalogue is `422 invalid-event-type`.
 
-            `extra="forbid"`: `id`, `secret`, `enabled`, `disabled_at`,
-            `disabled_reason`, `environment_id` are 422 as unknown fields. A new
-            endpoint is always `enabled: true`; there is no way to create one disabled.
+            `id`, `secret`, `enabled`, `disabled_at`, `disabled_reason` and `environment_id` are
+            refused as
+            unknown fields. A new endpoint is always enabled.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -216,34 +206,29 @@ async def asyncio_detailed(
 ) -> Response[Problem | WebhookEndpointCreated]:
     """Create a webhook endpoint
 
-     An endpoint subscribed to `event_types` — empty by default, never a wildcard.
+     Create a webhook endpoint subscribed to `event_types`. The list is empty by default; there is
+    no wildcard.
 
-    The `201` carries the full secret, once, under the shown-once rules —
-    `no_store` on the response and nothing that could show it again. A URL
-    that is not `https://`, does not resolve, or resolves to a private or
-    reserved address is 422 `webhook-url-rejected`, naming why
-    (webhooks.md §SSRF). An `event_types` entry outside the published
-    catalogue is 422 `invalid-event-type`, naming every offending one. And an
-    Environment already holding as many endpoints as the App's plan allows is
-    422 `limit-exceeded` naming the number (billing.md §Plans) — a *creation*
-    refusal only: endpoints already registered keep delivering after a
-    downgrade, exactly as tenants over the limit keep serving.
+    The `201` carries the signing secret in full, once, and is never cached.
+
+    - A URL that is not `https://`, does not resolve, or resolves to a private or reserved address:
+      `422 webhook-url-rejected`, saying why.
+    - An event type that is not in the published catalogue: `422 invalid-event-type`, naming each.
+    - An environment that already has as many endpoints as the plan allows: `422 limit-exceeded`.
+      Existing endpoints keep delivering after a downgrade.
 
     Args:
         environment_id (str):
-        body (WebhookEndpointIn): `POST /api/v1/environments/{environment_id}/webhook-endpoints`.
+        body (WebhookEndpointIn): The body of `POST /api/v1/environments/{environment_id}/webhook-
+            endpoints`.
 
-            `event_types` defaults to empty — webhooks.md §"Volume, and why
-            subscription is explicit": "a new endpoint starts subscribed to nothing".
-            There is no "all events" value this field accepts; every entry is checked
-            against `apps.webhooks.catalogue.EVENT_TYPES` by the resource, which
-            answers 422 `invalid-event-type` rather than `validation-error` for one
-            that is not — a slug this schema cannot produce, the same reason
-            `ApiKeyIn.scopes`'s catalogue check is not here either.
+            `event_types` is empty by default: a new endpoint receives nothing until it subscribes.
+            There is
+            no "all events" value; an event type outside the catalogue is `422 invalid-event-type`.
 
-            `extra="forbid"`: `id`, `secret`, `enabled`, `disabled_at`,
-            `disabled_reason`, `environment_id` are 422 as unknown fields. A new
-            endpoint is always `enabled: true`; there is no way to create one disabled.
+            `id`, `secret`, `enabled`, `disabled_at`, `disabled_reason` and `environment_id` are
+            refused as
+            unknown fields. A new endpoint is always enabled.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -271,34 +256,29 @@ async def asyncio(
 ) -> Problem | WebhookEndpointCreated | None:
     """Create a webhook endpoint
 
-     An endpoint subscribed to `event_types` — empty by default, never a wildcard.
+     Create a webhook endpoint subscribed to `event_types`. The list is empty by default; there is
+    no wildcard.
 
-    The `201` carries the full secret, once, under the shown-once rules —
-    `no_store` on the response and nothing that could show it again. A URL
-    that is not `https://`, does not resolve, or resolves to a private or
-    reserved address is 422 `webhook-url-rejected`, naming why
-    (webhooks.md §SSRF). An `event_types` entry outside the published
-    catalogue is 422 `invalid-event-type`, naming every offending one. And an
-    Environment already holding as many endpoints as the App's plan allows is
-    422 `limit-exceeded` naming the number (billing.md §Plans) — a *creation*
-    refusal only: endpoints already registered keep delivering after a
-    downgrade, exactly as tenants over the limit keep serving.
+    The `201` carries the signing secret in full, once, and is never cached.
+
+    - A URL that is not `https://`, does not resolve, or resolves to a private or reserved address:
+      `422 webhook-url-rejected`, saying why.
+    - An event type that is not in the published catalogue: `422 invalid-event-type`, naming each.
+    - An environment that already has as many endpoints as the plan allows: `422 limit-exceeded`.
+      Existing endpoints keep delivering after a downgrade.
 
     Args:
         environment_id (str):
-        body (WebhookEndpointIn): `POST /api/v1/environments/{environment_id}/webhook-endpoints`.
+        body (WebhookEndpointIn): The body of `POST /api/v1/environments/{environment_id}/webhook-
+            endpoints`.
 
-            `event_types` defaults to empty — webhooks.md §"Volume, and why
-            subscription is explicit": "a new endpoint starts subscribed to nothing".
-            There is no "all events" value this field accepts; every entry is checked
-            against `apps.webhooks.catalogue.EVENT_TYPES` by the resource, which
-            answers 422 `invalid-event-type` rather than `validation-error` for one
-            that is not — a slug this schema cannot produce, the same reason
-            `ApiKeyIn.scopes`'s catalogue check is not here either.
+            `event_types` is empty by default: a new endpoint receives nothing until it subscribes.
+            There is
+            no "all events" value; an event type outside the catalogue is `422 invalid-event-type`.
 
-            `extra="forbid"`: `id`, `secret`, `enabled`, `disabled_at`,
-            `disabled_reason`, `environment_id` are 422 as unknown fields. A new
-            endpoint is always `enabled: true`; there is no way to create one disabled.
+            `id`, `secret`, `enabled`, `disabled_at`, `disabled_reason` and `environment_id` are
+            refused as
+            unknown fields. A new endpoint is always enabled.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

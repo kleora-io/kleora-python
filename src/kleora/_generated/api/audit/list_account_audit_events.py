@@ -195,22 +195,11 @@ def sync_detailed(
 ) -> Response[AuditEventList | Problem]:
     """The account's audit events
 
-     Every event of the principal's Account, account-level ones included.
+     Every audit event of the Account, including account-level events, newest first.
 
-    `account` is set on every event and is the column this reads, which is what
-    makes a customer's own membership changes — physically rows of the `id`
-    App's production environment — show up here rather than under Kleora's
-    Account (audit-log.md §Recording).
-
-    `environment_id` and `tenant_id` are filters on top of that scope rather
-    than lookups — `_audit_filtered` applies them like every other filter, so
-    they narrow rows this Account already owns and an id from another Account
-    simply matches nothing. There is no oracle in that: the answer is the same
-    empty page an id that does not exist gets.
-
-    `console_user` only, by scope level: an `api_key` and a `tenant_member`
-    cannot hold `account`, so both are 403 `insufficient-scope` without this
-    handler saying anything.
+    `environment_id` and `tenant_id` narrow the list; an id from another Account matches nothing.
+    Only available to console users: an API key or a tenant member's token is `403
+    insufficient-scope`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -269,22 +258,11 @@ def sync(
 ) -> AuditEventList | Problem | None:
     """The account's audit events
 
-     Every event of the principal's Account, account-level ones included.
+     Every audit event of the Account, including account-level events, newest first.
 
-    `account` is set on every event and is the column this reads, which is what
-    makes a customer's own membership changes — physically rows of the `id`
-    App's production environment — show up here rather than under Kleora's
-    Account (audit-log.md §Recording).
-
-    `environment_id` and `tenant_id` are filters on top of that scope rather
-    than lookups — `_audit_filtered` applies them like every other filter, so
-    they narrow rows this Account already owns and an id from another Account
-    simply matches nothing. There is no oracle in that: the answer is the same
-    empty page an id that does not exist gets.
-
-    `console_user` only, by scope level: an `api_key` and a `tenant_member`
-    cannot hold `account`, so both are 403 `insufficient-scope` without this
-    handler saying anything.
+    `environment_id` and `tenant_id` narrow the list; an id from another Account matches nothing.
+    Only available to console users: an API key or a tenant member's token is `403
+    insufficient-scope`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -338,22 +316,11 @@ async def asyncio_detailed(
 ) -> Response[AuditEventList | Problem]:
     """The account's audit events
 
-     Every event of the principal's Account, account-level ones included.
+     Every audit event of the Account, including account-level events, newest first.
 
-    `account` is set on every event and is the column this reads, which is what
-    makes a customer's own membership changes — physically rows of the `id`
-    App's production environment — show up here rather than under Kleora's
-    Account (audit-log.md §Recording).
-
-    `environment_id` and `tenant_id` are filters on top of that scope rather
-    than lookups — `_audit_filtered` applies them like every other filter, so
-    they narrow rows this Account already owns and an id from another Account
-    simply matches nothing. There is no oracle in that: the answer is the same
-    empty page an id that does not exist gets.
-
-    `console_user` only, by scope level: an `api_key` and a `tenant_member`
-    cannot hold `account`, so both are 403 `insufficient-scope` without this
-    handler saying anything.
+    `environment_id` and `tenant_id` narrow the list; an id from another Account matches nothing.
+    Only available to console users: an API key or a tenant member's token is `403
+    insufficient-scope`.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -410,22 +377,11 @@ async def asyncio(
 ) -> AuditEventList | Problem | None:
     """The account's audit events
 
-     Every event of the principal's Account, account-level ones included.
+     Every audit event of the Account, including account-level events, newest first.
 
-    `account` is set on every event and is the column this reads, which is what
-    makes a customer's own membership changes — physically rows of the `id`
-    App's production environment — show up here rather than under Kleora's
-    Account (audit-log.md §Recording).
-
-    `environment_id` and `tenant_id` are filters on top of that scope rather
-    than lookups — `_audit_filtered` applies them like every other filter, so
-    they narrow rows this Account already owns and an id from another Account
-    simply matches nothing. There is no oracle in that: the answer is the same
-    empty page an id that does not exist gets.
-
-    `console_user` only, by scope level: an `api_key` and a `tenant_member`
-    cannot hold `account`, so both are 403 `insufficient-scope` without this
-    handler saying anything.
+    `environment_id` and `tenant_id` narrow the list; an id from another Account matches nothing.
+    Only available to console users: an API key or a tenant member's token is `403
+    insufficient-scope`.
 
     Args:
         limit (int | Unset):  Default: 50.

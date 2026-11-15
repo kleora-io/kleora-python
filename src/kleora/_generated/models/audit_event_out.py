@@ -25,22 +25,19 @@ T = TypeVar("T", bound="AuditEventOut")
 
 @_attrs_define
 class AuditEventOut:
-    """One event, in the shape audit-log.md §API prints it.
+    """One audit event.
 
-    `environment_id` and `tenant_id` are nullable for two different reasons and
-    both are normal: an account-level event (`account.*`, `app.*`) never had an
-    environment, and deleting an App nulls the column on the events that
-    described what happened inside it, so the record survives the rows it
-    names.
+    `environment_id` and `tenant_id` may be `null`: an account-level event has no environment, and
+    deleting an App clears the environment of the events recorded inside it, while the events
+    themselves are kept.
 
         Attributes:
             account_id (UUID):
             action (str):
-            actor (AuditActor): Who acted: `{"kind": …, "id": …}`, with `id` null for `system`/`anonymous`.
+            actor (AuditActor): Who acted: `{"kind": ..., "id": ...}`, with `id` `null` for `system` and `anonymous`.
 
-                `display` names a `user` actor — resolved when the page is read
-                (audit-log.md §"Naming the actor and the target") — and is absent, not
-                null, for `api_key`, `system` and `anonymous`: none of them has a name.
+                `display` names a `user` actor, as they are now, and is absent for `api_key`, `system` and
+                `anonymous`.
             data (AuditEventOutData):
             environment_id (None | UUID):
             id (UUID):

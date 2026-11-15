@@ -129,13 +129,10 @@ def sync_detailed(
 ) -> Response[Problem | WebhookEndpointList]:
     """List webhook endpoints
 
-     The environment's endpoints, newest first.
+     The environment's webhook endpoints, newest first.
 
-    `?enabled=` narrows to endpoints in that state, and `?event_type=` to
-    endpoints subscribed to that one type — the same `array-contains` lookup
-    the model's GIN index exists for. Both are named to `paginate` as well as
-    applied, so a cursor issued under one filter cannot be presented against a
-    different one and seek at a position that means something else there.
+    `?enabled=` narrows to endpoints in that state, and `?event_type=` to endpoints subscribed to
+    that event type. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -178,13 +175,10 @@ def sync(
 ) -> Problem | WebhookEndpointList | None:
     """List webhook endpoints
 
-     The environment's endpoints, newest first.
+     The environment's webhook endpoints, newest first.
 
-    `?enabled=` narrows to endpoints in that state, and `?event_type=` to
-    endpoints subscribed to that one type — the same `array-contains` lookup
-    the model's GIN index exists for. Both are named to `paginate` as well as
-    applied, so a cursor issued under one filter cannot be presented against a
-    different one and seek at a position that means something else there.
+    `?enabled=` narrows to endpoints in that state, and `?event_type=` to endpoints subscribed to
+    that event type. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -222,13 +216,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | WebhookEndpointList]:
     """List webhook endpoints
 
-     The environment's endpoints, newest first.
+     The environment's webhook endpoints, newest first.
 
-    `?enabled=` narrows to endpoints in that state, and `?event_type=` to
-    endpoints subscribed to that one type — the same `array-contains` lookup
-    the model's GIN index exists for. Both are named to `paginate` as well as
-    applied, so a cursor issued under one filter cannot be presented against a
-    different one and seek at a position that means something else there.
+    `?enabled=` narrows to endpoints in that state, and `?event_type=` to endpoints subscribed to
+    that event type. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -269,13 +260,10 @@ async def asyncio(
 ) -> Problem | WebhookEndpointList | None:
     """List webhook endpoints
 
-     The environment's endpoints, newest first.
+     The environment's webhook endpoints, newest first.
 
-    `?enabled=` narrows to endpoints in that state, and `?event_type=` to
-    endpoints subscribed to that one type — the same `array-contains` lookup
-    the model's GIN index exists for. Both are named to `paginate` as well as
-    applied, so a cursor issued under one filter cannot be presented against a
-    different one and seek at a position that means something else there.
+    `?enabled=` narrows to endpoints in that state, and `?event_type=` to endpoints subscribed to
+    that event type. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):

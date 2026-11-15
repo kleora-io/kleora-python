@@ -17,12 +17,10 @@ T = TypeVar("T", bound="EnvironmentStatsTotals")
 
 @_attrs_define
 class EnvironmentStatsTotals:
-    """What the environment holds now — current counts, not counts over the range.
+    """What the environment holds now: current counts, not counts over the requested range.
 
-    `users` excludes erased users, `api_keys` counts active keys only, and
-    `active_sessions` is the "live" of sessions-and-tokens.md §"Browser
-    session": each figure is the set its own console page lists, so a number
-    here and a list there never disagree.
+    `users` excludes erased users, `api_keys` counts active keys, and `active_sessions` counts live
+    sessions.
 
         Attributes:
             active_sessions (int):

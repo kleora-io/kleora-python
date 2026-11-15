@@ -21,15 +21,10 @@ T = TypeVar("T", bound="ApiKeyOut")
 
 @_attrs_define
 class ApiKeyOut:
-    """An API key as every read of it reports it (api-keys.md §API).
+    """An API key.
 
-    `key` is not a field here — absent, not null, in every list and detail
-    response. `prefix` is what a read shows, and it is what a customer matches
-    a log line against.
-
-    `status` is derived (`revoked_at`, then `expires_at`, then active) rather
-    than stored: two timestamps already answer the question, and a column would
-    be a second answer that could disagree with them.
+    The key itself is never returned after creation. `prefix` identifies the key, for example in
+    logs. `status` is computed from `revoked_at` and `expires_at`.
 
         Attributes:
             created_at (datetime.datetime):

@@ -102,9 +102,10 @@ def sync_detailed(
 ) -> Response[MePasskeyRegisterFinishOut | Problem]:
     """Confirm registering one of the caller's own passkeys
 
-     Gated like `start`, and for the reason its counterpart on the issuer
-    gives: options minted a moment before a downgrade must not complete an
-    enrolment the plan no longer allows.
+     Finish registering a passkey for yourself.
+
+    Like `start`, refused on a plan without passkeys, even when the registration was started before
+    a downgrade.
 
     Args:
         body (MePasskeyRegisterFinishBody):
@@ -135,9 +136,10 @@ def sync(
 ) -> MePasskeyRegisterFinishOut | Problem | None:
     """Confirm registering one of the caller's own passkeys
 
-     Gated like `start`, and for the reason its counterpart on the issuer
-    gives: options minted a moment before a downgrade must not complete an
-    enrolment the plan no longer allows.
+     Finish registering a passkey for yourself.
+
+    Like `start`, refused on a plan without passkeys, even when the registration was started before
+    a downgrade.
 
     Args:
         body (MePasskeyRegisterFinishBody):
@@ -163,9 +165,10 @@ async def asyncio_detailed(
 ) -> Response[MePasskeyRegisterFinishOut | Problem]:
     """Confirm registering one of the caller's own passkeys
 
-     Gated like `start`, and for the reason its counterpart on the issuer
-    gives: options minted a moment before a downgrade must not complete an
-    enrolment the plan no longer allows.
+     Finish registering a passkey for yourself.
+
+    Like `start`, refused on a plan without passkeys, even when the registration was started before
+    a downgrade.
 
     Args:
         body (MePasskeyRegisterFinishBody):
@@ -194,9 +197,10 @@ async def asyncio(
 ) -> MePasskeyRegisterFinishOut | Problem | None:
     """Confirm registering one of the caller's own passkeys
 
-     Gated like `start`, and for the reason its counterpart on the issuer
-    gives: options minted a moment before a downgrade must not complete an
-    enrolment the plan no longer allows.
+     Finish registering a passkey for yourself.
+
+    Like `start`, refused on a plan without passkeys, even when the registration was started before
+    a downgrade.
 
     Args:
         body (MePasskeyRegisterFinishBody):

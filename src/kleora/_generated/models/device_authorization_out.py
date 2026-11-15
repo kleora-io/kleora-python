@@ -21,22 +21,11 @@ T = TypeVar("T", bound="DeviceAuthorizationOut")
 
 @_attrs_define
 class DeviceAuthorizationOut:
-    """One approved device authorization (device-grant.md §"Management surface").
+    """One device authorization a user approved.
 
-    `client_name` is the Client's configured name — device-grant.md is explicit
-    that a person is shown "the client, by its configured name, not its id" —
-    and `client_id` is beside it because an operator reading a list of them
-    needs the id the tool actually presented.
-
-    `last_used_at` is the authorization's Session's `last_seen_at`: a token
-    refresh moves it (`apps.identity.services.grants`), so it is the same figure
-    the session list reports and the one the 90-day expiry measures. It is never
-    null for a row this endpoint returns — every listed row has a Session — and
-    is typed nullable only because the column it mirrors is reached through a
-    nullable relation.
-
-    `ip` and `user_agent` are "from where": the address and agent of the browser
-    that approved it, recorded on the Session the approval opened.
+    `client_name` is the client's configured name, and `client_id` its id. `last_used_at` is when a
+    token was last refreshed under it; an authorization expires after 90 days without use. `ip` and
+    `user_agent` are those of the browser that approved it.
 
         Attributes:
             approved_at (datetime.datetime | None):

@@ -193,17 +193,10 @@ def sync_detailed(
 ) -> Response[AuditEventList | Problem]:
     """An environment's audit events
 
-     Every event recorded against this environment, newest first.
+     Every audit event recorded against this environment, newest first.
 
-    `environment = {id}` exactly, so the account-level events — and the events
-    of an App that was deleted, whose `environment` the cascade nulled — are not
-    here. They are the Account endpoint's, which is the one whose scope can
-    hold them.
-
-    `?tenant_id=` narrows further, on top of that scope: audit-log.md §API
-    offers it on this endpoint and the account one, and a tenant of another
-    environment simply matches nothing — the rows are already this
-    environment's.
+    Account-level events, and events of Apps that have since been deleted, are not included; read
+    them with `GET /account/audit-events`. `?tenant_id=` narrows the list further.
 
     Args:
         environment_id (str):
@@ -263,17 +256,10 @@ def sync(
 ) -> AuditEventList | Problem | None:
     """An environment's audit events
 
-     Every event recorded against this environment, newest first.
+     Every audit event recorded against this environment, newest first.
 
-    `environment = {id}` exactly, so the account-level events — and the events
-    of an App that was deleted, whose `environment` the cascade nulled — are not
-    here. They are the Account endpoint's, which is the one whose scope can
-    hold them.
-
-    `?tenant_id=` narrows further, on top of that scope: audit-log.md §API
-    offers it on this endpoint and the account one, and a tenant of another
-    environment simply matches nothing — the rows are already this
-    environment's.
+    Account-level events, and events of Apps that have since been deleted, are not included; read
+    them with `GET /account/audit-events`. `?tenant_id=` narrows the list further.
 
     Args:
         environment_id (str):
@@ -328,17 +314,10 @@ async def asyncio_detailed(
 ) -> Response[AuditEventList | Problem]:
     """An environment's audit events
 
-     Every event recorded against this environment, newest first.
+     Every audit event recorded against this environment, newest first.
 
-    `environment = {id}` exactly, so the account-level events — and the events
-    of an App that was deleted, whose `environment` the cascade nulled — are not
-    here. They are the Account endpoint's, which is the one whose scope can
-    hold them.
-
-    `?tenant_id=` narrows further, on top of that scope: audit-log.md §API
-    offers it on this endpoint and the account one, and a tenant of another
-    environment simply matches nothing — the rows are already this
-    environment's.
+    Account-level events, and events of Apps that have since been deleted, are not included; read
+    them with `GET /account/audit-events`. `?tenant_id=` narrows the list further.
 
     Args:
         environment_id (str):
@@ -396,17 +375,10 @@ async def asyncio(
 ) -> AuditEventList | Problem | None:
     """An environment's audit events
 
-     Every event recorded against this environment, newest first.
+     Every audit event recorded against this environment, newest first.
 
-    `environment = {id}` exactly, so the account-level events — and the events
-    of an App that was deleted, whose `environment` the cascade nulled — are not
-    here. They are the Account endpoint's, which is the one whose scope can
-    hold them.
-
-    `?tenant_id=` narrows further, on top of that scope: audit-log.md §API
-    offers it on this endpoint and the account one, and a tenant of another
-    environment simply matches nothing — the rows are already this
-    environment's.
+    Account-level events, and events of Apps that have since been deleted, are not included; read
+    them with `GET /account/audit-events`. `?tenant_id=` narrows the list further.
 
     Args:
         environment_id (str):

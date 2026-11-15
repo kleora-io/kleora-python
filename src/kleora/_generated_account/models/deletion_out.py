@@ -18,16 +18,10 @@ T = TypeVar("T", bound="DeletionOut")
 
 @_attrs_define
 class DeletionOut:
-    """§API `POST /deletion`: `202 {"erase_after": "…"}`.
+    """A scheduled account deletion.
 
-    One member, and it is the only thing a caller needs and the only thing we can
-    honestly promise: the moment the hourly sweep will erase this person unless the
-    cancellation link is opened. RFC 3339 UTC like every other timestamp here.
-
-    **Not `{"deleted": true}` and not a `204`**, because neither would be true.
-    §"What happens, and when" is a seven-day grace period, and "delete my account"
-    not deleting immediately "has to be said on the page in plain words" — a screen
-    can only say it if the API says when.
+    `erase_after` is the moment the account will be erased unless the emailed cancellation link is
+    used, as an RFC 3339 UTC timestamp.
 
         Attributes:
             erase_after (datetime.datetime):

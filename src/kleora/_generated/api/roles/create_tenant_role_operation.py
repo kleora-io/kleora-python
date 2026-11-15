@@ -105,32 +105,25 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: RoleIn,
 ) -> Response[Problem | RoleOut]:
-    r"""Create a tenant-scoped role
+    """Create a tenant-scoped role
 
-     A role this tenant defines for itself, assignable only to its own Members.
+     Create a role that this tenant defines for itself, assignable only to its own members.
 
-    The other half of the resource `POST E/roles` writes, and the reason a role
-    carries a `scope` at all: this one is deleted with the tenant, cannot be
-    assigned in another tenant of the environment (422 `role-not-assignable`
-    there), and is the only kind a `tenant_member` may create — under the
-    escalation guard, which refuses a permission the caller does not itself
-    hold (403 `privilege-escalation`, rbac.md §\"Escalation guard for tenant
-    members\").
+    The role is deleted with the tenant, and cannot be assigned in another tenant (`422
+    role-not-assignable` there). A tenant member may create one, but only with permissions it holds
+    itself: `403 privilege-escalation` otherwise.
 
-    The slug is unique across scopes and across the whole environment, so an
-    app-scoped role's slug is 409 `role-slug-conflict` here and this slug is a
-    409 for a later `POST E/roles` — while another tenant of the same
-    environment may define it freely, because a Member sees exactly one of the
-    two (rbac.md §Roles).
+    A slug used by an app-scoped role of the environment is `409 role-slug-conflict`. Another tenant
+    of the same environment may use the same slug for its own role.
 
     Args:
         tenant_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -158,32 +151,25 @@ def sync(
     client: AuthenticatedClient,
     body: RoleIn,
 ) -> Problem | RoleOut | None:
-    r"""Create a tenant-scoped role
+    """Create a tenant-scoped role
 
-     A role this tenant defines for itself, assignable only to its own Members.
+     Create a role that this tenant defines for itself, assignable only to its own members.
 
-    The other half of the resource `POST E/roles` writes, and the reason a role
-    carries a `scope` at all: this one is deleted with the tenant, cannot be
-    assigned in another tenant of the environment (422 `role-not-assignable`
-    there), and is the only kind a `tenant_member` may create — under the
-    escalation guard, which refuses a permission the caller does not itself
-    hold (403 `privilege-escalation`, rbac.md §\"Escalation guard for tenant
-    members\").
+    The role is deleted with the tenant, and cannot be assigned in another tenant (`422
+    role-not-assignable` there). A tenant member may create one, but only with permissions it holds
+    itself: `403 privilege-escalation` otherwise.
 
-    The slug is unique across scopes and across the whole environment, so an
-    app-scoped role's slug is 409 `role-slug-conflict` here and this slug is a
-    409 for a later `POST E/roles` — while another tenant of the same
-    environment may define it freely, because a Member sees exactly one of the
-    two (rbac.md §Roles).
+    A slug used by an app-scoped role of the environment is `409 role-slug-conflict`. Another tenant
+    of the same environment may use the same slug for its own role.
 
     Args:
         tenant_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -206,32 +192,25 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: RoleIn,
 ) -> Response[Problem | RoleOut]:
-    r"""Create a tenant-scoped role
+    """Create a tenant-scoped role
 
-     A role this tenant defines for itself, assignable only to its own Members.
+     Create a role that this tenant defines for itself, assignable only to its own members.
 
-    The other half of the resource `POST E/roles` writes, and the reason a role
-    carries a `scope` at all: this one is deleted with the tenant, cannot be
-    assigned in another tenant of the environment (422 `role-not-assignable`
-    there), and is the only kind a `tenant_member` may create — under the
-    escalation guard, which refuses a permission the caller does not itself
-    hold (403 `privilege-escalation`, rbac.md §\"Escalation guard for tenant
-    members\").
+    The role is deleted with the tenant, and cannot be assigned in another tenant (`422
+    role-not-assignable` there). A tenant member may create one, but only with permissions it holds
+    itself: `403 privilege-escalation` otherwise.
 
-    The slug is unique across scopes and across the whole environment, so an
-    app-scoped role's slug is 409 `role-slug-conflict` here and this slug is a
-    409 for a later `POST E/roles` — while another tenant of the same
-    environment may define it freely, because a Member sees exactly one of the
-    two (rbac.md §Roles).
+    A slug used by an app-scoped role of the environment is `409 role-slug-conflict`. Another tenant
+    of the same environment may use the same slug for its own role.
 
     Args:
         tenant_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -257,32 +236,25 @@ async def asyncio(
     client: AuthenticatedClient,
     body: RoleIn,
 ) -> Problem | RoleOut | None:
-    r"""Create a tenant-scoped role
+    """Create a tenant-scoped role
 
-     A role this tenant defines for itself, assignable only to its own Members.
+     Create a role that this tenant defines for itself, assignable only to its own members.
 
-    The other half of the resource `POST E/roles` writes, and the reason a role
-    carries a `scope` at all: this one is deleted with the tenant, cannot be
-    assigned in another tenant of the environment (422 `role-not-assignable`
-    there), and is the only kind a `tenant_member` may create — under the
-    escalation guard, which refuses a permission the caller does not itself
-    hold (403 `privilege-escalation`, rbac.md §\"Escalation guard for tenant
-    members\").
+    The role is deleted with the tenant, and cannot be assigned in another tenant (`422
+    role-not-assignable` there). A tenant member may create one, but only with permissions it holds
+    itself: `403 privilege-escalation` otherwise.
 
-    The slug is unique across scopes and across the whole environment, so an
-    app-scoped role's slug is 409 `role-slug-conflict` here and this slug is a
-    409 for a later `POST E/roles` — while another tenant of the same
-    environment may define it freely, because a Member sees exactly one of the
-    two (rbac.md §Roles).
+    A slug used by an app-scoped role of the environment is `409 role-slug-conflict`. Another tenant
+    of the same environment may use the same slug for its own role.
 
     Args:
         tenant_id (str):
-        body (RoleIn): `POST E/roles` and `POST T/roles` — one body for both scopes.
+        body (RoleIn): The body of `POST /environments/{environment_id}/roles` and `POST
+            /tenants/{tenant_id}/roles`.
 
-            `tenant_id` is not an input field: a role's scope is decided by the endpoint
-            it was created at and never changes (rbac.md §Roles). The environment path
-            writes the app-scoped role, assignable in every tenant; the tenant path
-            writes the one that tenant keeps to itself.
+            A role's scope is decided by where it is created, and never changes: an environment's
+            roles are
+            app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

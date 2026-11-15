@@ -127,14 +127,12 @@ def sync_detailed(
     q: None | str | Unset = UNSET,
     system: bool | None | Unset = UNSET,
 ) -> Response[PermissionList | Problem]:
-    r"""List permissions
+    """List permissions
 
-     The environment's permissions by name — the platform's 31 and the customer's.
+     The environment's permissions by name: the platform's reserved permissions and your own.
 
-    `?system=true` is the reserved set and `?system=false` the customer's own.
-    `q` is a case-insensitive substring of `name` (management-api.md
-    §Conventions \"Search\"; Q3-59). Every filter is named to `paginate` as well
-    as applied.
+    `?system=true` lists the reserved permissions and `?system=false` your own. `q` is a
+    case-insensitive substring of `name`. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -175,14 +173,12 @@ def sync(
     q: None | str | Unset = UNSET,
     system: bool | None | Unset = UNSET,
 ) -> PermissionList | Problem | None:
-    r"""List permissions
+    """List permissions
 
-     The environment's permissions by name — the platform's 31 and the customer's.
+     The environment's permissions by name: the platform's reserved permissions and your own.
 
-    `?system=true` is the reserved set and `?system=false` the customer's own.
-    `q` is a case-insensitive substring of `name` (management-api.md
-    §Conventions \"Search\"; Q3-59). Every filter is named to `paginate` as well
-    as applied.
+    `?system=true` lists the reserved permissions and `?system=false` your own. `q` is a
+    case-insensitive substring of `name`. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -218,14 +214,12 @@ async def asyncio_detailed(
     q: None | str | Unset = UNSET,
     system: bool | None | Unset = UNSET,
 ) -> Response[PermissionList | Problem]:
-    r"""List permissions
+    """List permissions
 
-     The environment's permissions by name — the platform's 31 and the customer's.
+     The environment's permissions by name: the platform's reserved permissions and your own.
 
-    `?system=true` is the reserved set and `?system=false` the customer's own.
-    `q` is a case-insensitive substring of `name` (management-api.md
-    §Conventions \"Search\"; Q3-59). Every filter is named to `paginate` as well
-    as applied.
+    `?system=true` lists the reserved permissions and `?system=false` your own. `q` is a
+    case-insensitive substring of `name`. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -264,14 +258,12 @@ async def asyncio(
     q: None | str | Unset = UNSET,
     system: bool | None | Unset = UNSET,
 ) -> PermissionList | Problem | None:
-    r"""List permissions
+    """List permissions
 
-     The environment's permissions by name — the platform's 31 and the customer's.
+     The environment's permissions by name: the platform's reserved permissions and your own.
 
-    `?system=true` is the reserved set and `?system=false` the customer's own.
-    `q` is a case-insensitive substring of `name` (management-api.md
-    §Conventions \"Search\"; Q3-59). Every filter is named to `paginate` as well
-    as applied.
+    `?system=true` lists the reserved permissions and `?system=false` your own. `q` is a
+    case-insensitive substring of `name`. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):

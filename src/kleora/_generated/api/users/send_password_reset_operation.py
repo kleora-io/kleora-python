@@ -100,14 +100,10 @@ def sync_detailed(
 ) -> Response[Problem | SentOut]:
     """Send a password reset email
 
-     Mail the same `reset_password` link the hosted `/forgot-password` sends.
+     Email the user a password reset link, the same one the hosted forgot-password page sends.
 
-    Through `passwords.request_reset`, which is the point: the link, the token's
-    lifetime, the invalidation of earlier unused ones and
-    `password.reset_requested` are one implementation, so an administrator's
-    send and a visitor's cannot drift apart. A blocked user gets the event and
-    no message, for the reason that service gives — a blocked account is not
-    helped by an invitation to try.
+    Earlier unused reset links stop working. A blocked user is sent nothing, but the request is
+    still audited.
 
     Args:
         environment_id (str):
@@ -141,14 +137,10 @@ def sync(
 ) -> Problem | SentOut | None:
     """Send a password reset email
 
-     Mail the same `reset_password` link the hosted `/forgot-password` sends.
+     Email the user a password reset link, the same one the hosted forgot-password page sends.
 
-    Through `passwords.request_reset`, which is the point: the link, the token's
-    lifetime, the invalidation of earlier unused ones and
-    `password.reset_requested` are one implementation, so an administrator's
-    send and a visitor's cannot drift apart. A blocked user gets the event and
-    no message, for the reason that service gives — a blocked account is not
-    helped by an invitation to try.
+    Earlier unused reset links stop working. A blocked user is sent nothing, but the request is
+    still audited.
 
     Args:
         environment_id (str):
@@ -177,14 +169,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | SentOut]:
     """Send a password reset email
 
-     Mail the same `reset_password` link the hosted `/forgot-password` sends.
+     Email the user a password reset link, the same one the hosted forgot-password page sends.
 
-    Through `passwords.request_reset`, which is the point: the link, the token's
-    lifetime, the invalidation of earlier unused ones and
-    `password.reset_requested` are one implementation, so an administrator's
-    send and a visitor's cannot drift apart. A blocked user gets the event and
-    no message, for the reason that service gives — a blocked account is not
-    helped by an invitation to try.
+    Earlier unused reset links stop working. A blocked user is sent nothing, but the request is
+    still audited.
 
     Args:
         environment_id (str):
@@ -216,14 +204,10 @@ async def asyncio(
 ) -> Problem | SentOut | None:
     """Send a password reset email
 
-     Mail the same `reset_password` link the hosted `/forgot-password` sends.
+     Email the user a password reset link, the same one the hosted forgot-password page sends.
 
-    Through `passwords.request_reset`, which is the point: the link, the token's
-    lifetime, the invalidation of earlier unused ones and
-    `password.reset_requested` are one implementation, so an administrator's
-    send and a visitor's cannot drift apart. A blocked user gets the event and
-    no message, for the reason that service gives — a blocked account is not
-    helped by an invitation to try.
+    Earlier unused reset links stop working. A blocked user is sent nothing, but the request is
+    still audited.
 
     Args:
         environment_id (str):

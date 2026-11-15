@@ -83,18 +83,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Sign one device out
+    """Sign one device out
 
-     Revoke one of this person's own live sessions, which may be this one.
+     Revoke one of the person's own live sessions, which may be the current one.
 
-    `404 not-found` for a malformed id, for somebody else's session and for one
-    that is already dead — one answer, so an id discloses nothing about what
-    exists. The row is resolved inside `user=caller.user`, so there is no id a
-    caller could supply that reaches another person's session.
-
-    Revocation cascades to the refresh families exactly as
-    `sessions-and-tokens.md` §\"Revocation semantics\" says; nothing about that
-    changes here, because `sessions.revoke_session` is the one thing that does it.
+    `404 not-found` for a malformed id, for another person's session and for a session that has
+    already ended. Revoking a session also revokes the refresh tokens issued on it.
 
     Args:
         session_id (str):
@@ -123,18 +117,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Sign one device out
+    """Sign one device out
 
-     Revoke one of this person's own live sessions, which may be this one.
+     Revoke one of the person's own live sessions, which may be the current one.
 
-    `404 not-found` for a malformed id, for somebody else's session and for one
-    that is already dead — one answer, so an id discloses nothing about what
-    exists. The row is resolved inside `user=caller.user`, so there is no id a
-    caller could supply that reaches another person's session.
-
-    Revocation cascades to the refresh families exactly as
-    `sessions-and-tokens.md` §\"Revocation semantics\" says; nothing about that
-    changes here, because `sessions.revoke_session` is the one thing that does it.
+    `404 not-found` for a malformed id, for another person's session and for a session that has
+    already ended. Revoking a session also revokes the refresh tokens issued on it.
 
     Args:
         session_id (str):
@@ -158,18 +146,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | FlowProblem]:
-    r"""Sign one device out
+    """Sign one device out
 
-     Revoke one of this person's own live sessions, which may be this one.
+     Revoke one of the person's own live sessions, which may be the current one.
 
-    `404 not-found` for a malformed id, for somebody else's session and for one
-    that is already dead — one answer, so an id discloses nothing about what
-    exists. The row is resolved inside `user=caller.user`, so there is no id a
-    caller could supply that reaches another person's session.
-
-    Revocation cascades to the refresh families exactly as
-    `sessions-and-tokens.md` §\"Revocation semantics\" says; nothing about that
-    changes here, because `sessions.revoke_session` is the one thing that does it.
+    `404 not-found` for a malformed id, for another person's session and for a session that has
+    already ended. Revoking a session also revokes the refresh tokens issued on it.
 
     Args:
         session_id (str):
@@ -196,18 +178,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | FlowProblem | None:
-    r"""Sign one device out
+    """Sign one device out
 
-     Revoke one of this person's own live sessions, which may be this one.
+     Revoke one of the person's own live sessions, which may be the current one.
 
-    `404 not-found` for a malformed id, for somebody else's session and for one
-    that is already dead — one answer, so an id discloses nothing about what
-    exists. The row is resolved inside `user=caller.user`, so there is no id a
-    caller could supply that reaches another person's session.
-
-    Revocation cascades to the refresh families exactly as
-    `sessions-and-tokens.md` §\"Revocation semantics\" says; nothing about that
-    changes here, because `sessions.revoke_session` is the one thing that does it.
+    `404 not-found` for a malformed id, for another person's session and for a session that has
+    already ended. Revoking a session also revokes the refresh tokens issued on it.
 
     Args:
         session_id (str):

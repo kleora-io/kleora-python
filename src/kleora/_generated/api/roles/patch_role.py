@@ -107,21 +107,18 @@ def sync_detailed(
 ) -> Response[Problem | RoleOut]:
     """Change a role
 
-     `name` and `description`. The slug is refused by the schema as immutable.
+     Update a role's `name` and `description`. The slug cannot be changed.
 
-    Renaming a system role is 409 `system-role`; re-describing one is allowed,
-    which is the same latitude a reserved permission gets.
+    Renaming a system role is `409 system-role`; changing its description is allowed.
 
     Args:
         role_id (str):
-        body (RolePatch): `PATCH /api/v1/roles/{role_id}` — `name` and `description`.
+        body (RolePatch): The body of `PATCH /api/v1/roles/{role_id}`: `name` and `description`.
 
-            `slug` is named in `immutable_fields`: it is what a token's `roles` array
-            carries, so moving it would change what every deployed integration reads
-            while the role's identity stayed the same (rbac.md §Roles). `permissions`
-            has its own `PUT`, and `scope`, `tenant_id`, `is_system` and `member_count`
-            are unknown fields — the first two are decided at creation, the third is
-            ours, and the last is a projection.
+            `slug` cannot be changed, since it is what tokens carry: sending it is refused as
+            immutable.
+            Permissions are replaced with `PUT /roles/{role_id}/permissions`. `scope`, `tenant_id`,
+            `is_system` and `member_count` are refused as unknown fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,21 +148,18 @@ def sync(
 ) -> Problem | RoleOut | None:
     """Change a role
 
-     `name` and `description`. The slug is refused by the schema as immutable.
+     Update a role's `name` and `description`. The slug cannot be changed.
 
-    Renaming a system role is 409 `system-role`; re-describing one is allowed,
-    which is the same latitude a reserved permission gets.
+    Renaming a system role is `409 system-role`; changing its description is allowed.
 
     Args:
         role_id (str):
-        body (RolePatch): `PATCH /api/v1/roles/{role_id}` — `name` and `description`.
+        body (RolePatch): The body of `PATCH /api/v1/roles/{role_id}`: `name` and `description`.
 
-            `slug` is named in `immutable_fields`: it is what a token's `roles` array
-            carries, so moving it would change what every deployed integration reads
-            while the role's identity stayed the same (rbac.md §Roles). `permissions`
-            has its own `PUT`, and `scope`, `tenant_id`, `is_system` and `member_count`
-            are unknown fields — the first two are decided at creation, the third is
-            ours, and the last is a projection.
+            `slug` cannot be changed, since it is what tokens carry: sending it is refused as
+            immutable.
+            Permissions are replaced with `PUT /roles/{role_id}/permissions`. `scope`, `tenant_id`,
+            `is_system` and `member_count` are refused as unknown fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,21 +184,18 @@ async def asyncio_detailed(
 ) -> Response[Problem | RoleOut]:
     """Change a role
 
-     `name` and `description`. The slug is refused by the schema as immutable.
+     Update a role's `name` and `description`. The slug cannot be changed.
 
-    Renaming a system role is 409 `system-role`; re-describing one is allowed,
-    which is the same latitude a reserved permission gets.
+    Renaming a system role is `409 system-role`; changing its description is allowed.
 
     Args:
         role_id (str):
-        body (RolePatch): `PATCH /api/v1/roles/{role_id}` — `name` and `description`.
+        body (RolePatch): The body of `PATCH /api/v1/roles/{role_id}`: `name` and `description`.
 
-            `slug` is named in `immutable_fields`: it is what a token's `roles` array
-            carries, so moving it would change what every deployed integration reads
-            while the role's identity stayed the same (rbac.md §Roles). `permissions`
-            has its own `PUT`, and `scope`, `tenant_id`, `is_system` and `member_count`
-            are unknown fields — the first two are decided at creation, the third is
-            ours, and the last is a projection.
+            `slug` cannot be changed, since it is what tokens carry: sending it is refused as
+            immutable.
+            Permissions are replaced with `PUT /roles/{role_id}/permissions`. `scope`, `tenant_id`,
+            `is_system` and `member_count` are refused as unknown fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -232,21 +223,18 @@ async def asyncio(
 ) -> Problem | RoleOut | None:
     """Change a role
 
-     `name` and `description`. The slug is refused by the schema as immutable.
+     Update a role's `name` and `description`. The slug cannot be changed.
 
-    Renaming a system role is 409 `system-role`; re-describing one is allowed,
-    which is the same latitude a reserved permission gets.
+    Renaming a system role is `409 system-role`; changing its description is allowed.
 
     Args:
         role_id (str):
-        body (RolePatch): `PATCH /api/v1/roles/{role_id}` — `name` and `description`.
+        body (RolePatch): The body of `PATCH /api/v1/roles/{role_id}`: `name` and `description`.
 
-            `slug` is named in `immutable_fields`: it is what a token's `roles` array
-            carries, so moving it would change what every deployed integration reads
-            while the role's identity stayed the same (rbac.md §Roles). `permissions`
-            has its own `PUT`, and `scope`, `tenant_id`, `is_system` and `member_count`
-            are unknown fields — the first two are decided at creation, the third is
-            ours, and the last is a projection.
+            `slug` cannot be changed, since it is what tokens carry: sending it is refused as
+            immutable.
+            Permissions are replaced with `PUT /roles/{role_id}/permissions`. `scope`, `tenant_id`,
+            `is_system` and `member_count` are refused as unknown fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

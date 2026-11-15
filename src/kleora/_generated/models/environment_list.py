@@ -23,20 +23,9 @@ T = TypeVar("T", bound="EnvironmentList")
 
 @_attrs_define
 class EnvironmentList:
-    """`GET /apps/{app_id}/environments` — the same two objects `AppOut` embeds.
+    """The body of `GET /apps/{app_id}/environments`: the App's two environments.
 
-    `next_cursor` is present and **always null**, exactly as `SigningKeyList`'s
-    is. The listing is not paginated: an App has exactly two Environments,
-    always, and they are created and destroyed with it (environments.md §"What
-    an environment contains"), so a cursor has nothing to resume from. The
-    envelope is here anyway because management-api.md §OpenAPI makes every list
-    response a named `{Resource}List` with `items` and `next_cursor`, "never an
-    inline object" — a bare array is an anonymous response type in every
-    generated client, and giving this one list a cursor later would then be a
-    breaking change to a published SDK rather than an additive one.
-
-    apps.md §API still describes this endpoint as returning "a bare list"; the
-    general rule wins and the orchestrator amends the spec (P2-20 §Log).
+    Not paginated, since an App always has exactly two environments: `next_cursor` is always `null`.
 
         Attributes:
             items (list[AppEnvironment]):

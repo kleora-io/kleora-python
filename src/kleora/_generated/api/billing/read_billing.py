@@ -79,23 +79,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[BillingOut | Problem]:
-    r"""Plan, limits, usage and subscription
+    """Plan, limits, usage and subscription
 
-     Everything about what this Account is on, and none of it from Stripe.
+     The Account's plan, subscription and limits, as last recorded.
 
-    **This operation never calls Stripe.** billing.md §\"Failure modes\": when
-    Stripe is down \"the page renders from our mirror, marked possibly stale.
-    Billing is on no critical path.\" An endpoint that reached out to Stripe to
-    render a plan would put a third party on the path of the console's own
-    settings page, and `subscription.as_of` is how the console says how old the
-    answer is instead.
-
-    The limits come from `apps.accounts.plan_limits`, which is P6-11's single
-    authority for billing.md §Plans — read per App and through
-    `effective_plan`, so a `scale` Account's `free` App reports `scale`'s
-    numbers rather than its own column's.
-
-    Never a card number and never a Stripe secret; never a Stripe id either.
+    Served from Kleora's own copy of the billing state, so it answers even when the payment provider
+    is unavailable; `subscription.as_of` says how current it is. Limits are reported per App, as the
+    plan that applies to each App. Never includes a card number or a payment provider identifier.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -118,23 +108,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> BillingOut | Problem | None:
-    r"""Plan, limits, usage and subscription
+    """Plan, limits, usage and subscription
 
-     Everything about what this Account is on, and none of it from Stripe.
+     The Account's plan, subscription and limits, as last recorded.
 
-    **This operation never calls Stripe.** billing.md §\"Failure modes\": when
-    Stripe is down \"the page renders from our mirror, marked possibly stale.
-    Billing is on no critical path.\" An endpoint that reached out to Stripe to
-    render a plan would put a third party on the path of the console's own
-    settings page, and `subscription.as_of` is how the console says how old the
-    answer is instead.
-
-    The limits come from `apps.accounts.plan_limits`, which is P6-11's single
-    authority for billing.md §Plans — read per App and through
-    `effective_plan`, so a `scale` Account's `free` App reports `scale`'s
-    numbers rather than its own column's.
-
-    Never a card number and never a Stripe secret; never a Stripe id either.
+    Served from Kleora's own copy of the billing state, so it answers even when the payment provider
+    is unavailable; `subscription.as_of` says how current it is. Limits are reported per App, as the
+    plan that applies to each App. Never includes a card number or a payment provider identifier.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,23 +133,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[BillingOut | Problem]:
-    r"""Plan, limits, usage and subscription
+    """Plan, limits, usage and subscription
 
-     Everything about what this Account is on, and none of it from Stripe.
+     The Account's plan, subscription and limits, as last recorded.
 
-    **This operation never calls Stripe.** billing.md §\"Failure modes\": when
-    Stripe is down \"the page renders from our mirror, marked possibly stale.
-    Billing is on no critical path.\" An endpoint that reached out to Stripe to
-    render a plan would put a third party on the path of the console's own
-    settings page, and `subscription.as_of` is how the console says how old the
-    answer is instead.
-
-    The limits come from `apps.accounts.plan_limits`, which is P6-11's single
-    authority for billing.md §Plans — read per App and through
-    `effective_plan`, so a `scale` Account's `free` App reports `scale`'s
-    numbers rather than its own column's.
-
-    Never a card number and never a Stripe secret; never a Stripe id either.
+    Served from Kleora's own copy of the billing state, so it answers even when the payment provider
+    is unavailable; `subscription.as_of` says how current it is. Limits are reported per App, as the
+    plan that applies to each App. Never includes a card number or a payment provider identifier.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,23 +160,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> BillingOut | Problem | None:
-    r"""Plan, limits, usage and subscription
+    """Plan, limits, usage and subscription
 
-     Everything about what this Account is on, and none of it from Stripe.
+     The Account's plan, subscription and limits, as last recorded.
 
-    **This operation never calls Stripe.** billing.md §\"Failure modes\": when
-    Stripe is down \"the page renders from our mirror, marked possibly stale.
-    Billing is on no critical path.\" An endpoint that reached out to Stripe to
-    render a plan would put a third party on the path of the console's own
-    settings page, and `subscription.as_of` is how the console says how old the
-    answer is instead.
-
-    The limits come from `apps.accounts.plan_limits`, which is P6-11's single
-    authority for billing.md §Plans — read per App and through
-    `effective_plan`, so a `scale` Account's `free` App reports `scale`'s
-    numbers rather than its own column's.
-
-    Never a card number and never a Stripe secret; never a Stripe id either.
+    Served from Kleora's own copy of the billing state, so it answers even when the payment provider
+    is unavailable; `subscription.as_of` says how current it is. Limits are reported per App, as the
+    plan that applies to each App. Never includes a card number or a payment provider identifier.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

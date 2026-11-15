@@ -113,22 +113,17 @@ def sync_detailed(
 ) -> Response[Problem | UserOut]:
     """Block a user
 
-     Stop the user signing in, and cut off everything already signed in.
+     Block the user from signing in, and end everything already signed in.
 
-    One transaction: the status, every live session, and every refresh token
-    hanging off them (sessions-and-tokens.md §Revocation). A blocked user's next
-    login answers exactly as a wrong password does, and a refresh with an
-    outstanding token answers `invalid_grant`.
+    In one transaction: the status changes, and every live session and its refresh tokens are
+    revoked. A blocked user's next sign-in is refused exactly as a wrong password is, and a refresh
+    answers `invalid_grant`.
 
-    The body is optional and carries one field, `reason` (C8-42): a note of up
-    to 200 characters saying why, stored on the row alongside `blocked_at` and
-    the principal that asked, and repeated in `user.blocked`'s `data.reason` as
-    it always was. A plain `POST` with no body is the ordinary block, so nothing
-    that called this before has to change.
+    The body is optional and carries one field, `reason`: a note of up to 200 characters, stored
+    with the block and included in the `user.blocked` event's `data.reason`.
 
-    Idempotent: blocking a blocked user is 200 with no second event — and
-    therefore does **not** overwrite the reason a first block recorded. To
-    change it, unblock and block again; the audit trail then carries both.
+    Idempotent: blocking a blocked user answers `200` with no second event, and does not overwrite
+    the reason first recorded. To change it, unblock and block again.
 
     Args:
         environment_id (str):
@@ -165,22 +160,17 @@ def sync(
 ) -> Problem | UserOut | None:
     """Block a user
 
-     Stop the user signing in, and cut off everything already signed in.
+     Block the user from signing in, and end everything already signed in.
 
-    One transaction: the status, every live session, and every refresh token
-    hanging off them (sessions-and-tokens.md §Revocation). A blocked user's next
-    login answers exactly as a wrong password does, and a refresh with an
-    outstanding token answers `invalid_grant`.
+    In one transaction: the status changes, and every live session and its refresh tokens are
+    revoked. A blocked user's next sign-in is refused exactly as a wrong password is, and a refresh
+    answers `invalid_grant`.
 
-    The body is optional and carries one field, `reason` (C8-42): a note of up
-    to 200 characters saying why, stored on the row alongside `blocked_at` and
-    the principal that asked, and repeated in `user.blocked`'s `data.reason` as
-    it always was. A plain `POST` with no body is the ordinary block, so nothing
-    that called this before has to change.
+    The body is optional and carries one field, `reason`: a note of up to 200 characters, stored
+    with the block and included in the `user.blocked` event's `data.reason`.
 
-    Idempotent: blocking a blocked user is 200 with no second event — and
-    therefore does **not** overwrite the reason a first block recorded. To
-    change it, unblock and block again; the audit trail then carries both.
+    Idempotent: blocking a blocked user answers `200` with no second event, and does not overwrite
+    the reason first recorded. To change it, unblock and block again.
 
     Args:
         environment_id (str):
@@ -212,22 +202,17 @@ async def asyncio_detailed(
 ) -> Response[Problem | UserOut]:
     """Block a user
 
-     Stop the user signing in, and cut off everything already signed in.
+     Block the user from signing in, and end everything already signed in.
 
-    One transaction: the status, every live session, and every refresh token
-    hanging off them (sessions-and-tokens.md §Revocation). A blocked user's next
-    login answers exactly as a wrong password does, and a refresh with an
-    outstanding token answers `invalid_grant`.
+    In one transaction: the status changes, and every live session and its refresh tokens are
+    revoked. A blocked user's next sign-in is refused exactly as a wrong password is, and a refresh
+    answers `invalid_grant`.
 
-    The body is optional and carries one field, `reason` (C8-42): a note of up
-    to 200 characters saying why, stored on the row alongside `blocked_at` and
-    the principal that asked, and repeated in `user.blocked`'s `data.reason` as
-    it always was. A plain `POST` with no body is the ordinary block, so nothing
-    that called this before has to change.
+    The body is optional and carries one field, `reason`: a note of up to 200 characters, stored
+    with the block and included in the `user.blocked` event's `data.reason`.
 
-    Idempotent: blocking a blocked user is 200 with no second event — and
-    therefore does **not** overwrite the reason a first block recorded. To
-    change it, unblock and block again; the audit trail then carries both.
+    Idempotent: blocking a blocked user answers `200` with no second event, and does not overwrite
+    the reason first recorded. To change it, unblock and block again.
 
     Args:
         environment_id (str):
@@ -262,22 +247,17 @@ async def asyncio(
 ) -> Problem | UserOut | None:
     """Block a user
 
-     Stop the user signing in, and cut off everything already signed in.
+     Block the user from signing in, and end everything already signed in.
 
-    One transaction: the status, every live session, and every refresh token
-    hanging off them (sessions-and-tokens.md §Revocation). A blocked user's next
-    login answers exactly as a wrong password does, and a refresh with an
-    outstanding token answers `invalid_grant`.
+    In one transaction: the status changes, and every live session and its refresh tokens are
+    revoked. A blocked user's next sign-in is refused exactly as a wrong password is, and a refresh
+    answers `invalid_grant`.
 
-    The body is optional and carries one field, `reason` (C8-42): a note of up
-    to 200 characters saying why, stored on the row alongside `blocked_at` and
-    the principal that asked, and repeated in `user.blocked`'s `data.reason` as
-    it always was. A plain `POST` with no body is the ordinary block, so nothing
-    that called this before has to change.
+    The body is optional and carries one field, `reason`: a note of up to 200 characters, stored
+    with the block and included in the `user.blocked` event's `data.reason`.
 
-    Idempotent: blocking a blocked user is 200 with no second event — and
-    therefore does **not** overwrite the reason a first block recorded. To
-    change it, unblock and block again; the audit trail then carries both.
+    Idempotent: blocking a blocked user answers `200` with no second event, and does not overwrite
+    the reason first recorded. To change it, unblock and block again.
 
     Args:
         environment_id (str):

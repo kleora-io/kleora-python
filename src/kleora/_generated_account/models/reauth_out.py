@@ -22,18 +22,10 @@ T = TypeVar("T", bound="ReauthOut")
 
 @_attrs_define
 class ReauthOut:
-    """§Re-authentication: "The API tells a caller what this person can answer with".
+    """What the person can re-authenticate with.
 
-    `Q3-126`'s lesson, applied before it could be repeated: that ticket's brief
-    said the login page "already knows what the environment offers" and neither
-    document it reads carried the field, so the fix became a new member on a public
-    API that nobody had presented as a design decision. This is that member,
-    designed up front — a claim that a page knows something is a claim about a
-    schema, and this is the schema saying it.
-
-    `reauthenticated_until` is `null` when the mark is absent or has expired, so a
-    screen can decide whether to show the gate at all rather than discovering it
-    from a `401`.
+    `reauthenticated_until` is `null` when the session has no current re-authentication, so a screen
+    can tell whether to ask for one before the person fills in a form.
 
         Attributes:
             has_password (bool):

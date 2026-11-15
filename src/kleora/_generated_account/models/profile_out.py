@@ -19,7 +19,7 @@ T = TypeVar("T", bound="ProfileOut")
 
 @_attrs_define
 class ProfileOut:
-    """§"The operations", row 1, member for member — and no `metadata`.
+    """The person's profile. Custom `metadata` is never included.
 
     Attributes:
         created_at (datetime.datetime):

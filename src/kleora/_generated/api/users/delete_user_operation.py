@@ -106,23 +106,14 @@ def sync_detailed(
     client: AuthenticatedClient,
     erase: bool | Unset = True,
 ) -> Response[Any | Problem]:
-    r"""Erase a user
+    """Erase a user
 
-     Always erasure; the row is never removed (users-and-credentials.md).
+     Erase a user. The user's record is kept, with its identifying data overwritten.
 
-    `?erase=true` is accepted and has no additional effect: every user has at
-    least a `user.created` event, so a \"hard delete when there is no history\"
-    branch is unreachable, and `Invitation.invited_by` and `ApiKey.created_by`
-    are `PROTECT` references that would make it fail unpredictably.
+    `?erase=true` is accepted and changes nothing: every deletion is an erasure.
 
-    Irreversible. The identifying columns are overwritten rather than copied
-    aside, the credentials and memberships are deleted, and the audit trail —
-    which still names the id — is the only thing left that says the person was
-    ever here.
-
-    Refused with 409 `last-owner` while the user is the last active owner of an
-    Account's tenant: erasure takes every membership with it, and that one must
-    not go.
+    Irreversible. Credentials and memberships are deleted, and the audit trail keeps only the user's
+    id. `409 last-owner` while the user is the last active owner of an Account's tenant.
 
     Args:
         environment_id (str):
@@ -157,23 +148,14 @@ def sync(
     client: AuthenticatedClient,
     erase: bool | Unset = True,
 ) -> Any | Problem | None:
-    r"""Erase a user
+    """Erase a user
 
-     Always erasure; the row is never removed (users-and-credentials.md).
+     Erase a user. The user's record is kept, with its identifying data overwritten.
 
-    `?erase=true` is accepted and has no additional effect: every user has at
-    least a `user.created` event, so a \"hard delete when there is no history\"
-    branch is unreachable, and `Invitation.invited_by` and `ApiKey.created_by`
-    are `PROTECT` references that would make it fail unpredictably.
+    `?erase=true` is accepted and changes nothing: every deletion is an erasure.
 
-    Irreversible. The identifying columns are overwritten rather than copied
-    aside, the credentials and memberships are deleted, and the audit trail —
-    which still names the id — is the only thing left that says the person was
-    ever here.
-
-    Refused with 409 `last-owner` while the user is the last active owner of an
-    Account's tenant: erasure takes every membership with it, and that one must
-    not go.
+    Irreversible. Credentials and memberships are deleted, and the audit trail keeps only the user's
+    id. `409 last-owner` while the user is the last active owner of an Account's tenant.
 
     Args:
         environment_id (str):
@@ -203,23 +185,14 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     erase: bool | Unset = True,
 ) -> Response[Any | Problem]:
-    r"""Erase a user
+    """Erase a user
 
-     Always erasure; the row is never removed (users-and-credentials.md).
+     Erase a user. The user's record is kept, with its identifying data overwritten.
 
-    `?erase=true` is accepted and has no additional effect: every user has at
-    least a `user.created` event, so a \"hard delete when there is no history\"
-    branch is unreachable, and `Invitation.invited_by` and `ApiKey.created_by`
-    are `PROTECT` references that would make it fail unpredictably.
+    `?erase=true` is accepted and changes nothing: every deletion is an erasure.
 
-    Irreversible. The identifying columns are overwritten rather than copied
-    aside, the credentials and memberships are deleted, and the audit trail —
-    which still names the id — is the only thing left that says the person was
-    ever here.
-
-    Refused with 409 `last-owner` while the user is the last active owner of an
-    Account's tenant: erasure takes every membership with it, and that one must
-    not go.
+    Irreversible. Credentials and memberships are deleted, and the audit trail keeps only the user's
+    id. `409 last-owner` while the user is the last active owner of an Account's tenant.
 
     Args:
         environment_id (str):
@@ -252,23 +225,14 @@ async def asyncio(
     client: AuthenticatedClient,
     erase: bool | Unset = True,
 ) -> Any | Problem | None:
-    r"""Erase a user
+    """Erase a user
 
-     Always erasure; the row is never removed (users-and-credentials.md).
+     Erase a user. The user's record is kept, with its identifying data overwritten.
 
-    `?erase=true` is accepted and has no additional effect: every user has at
-    least a `user.created` event, so a \"hard delete when there is no history\"
-    branch is unreachable, and `Invitation.invited_by` and `ApiKey.created_by`
-    are `PROTECT` references that would make it fail unpredictably.
+    `?erase=true` is accepted and changes nothing: every deletion is an erasure.
 
-    Irreversible. The identifying columns are overwritten rather than copied
-    aside, the credentials and memberships are deleted, and the audit trail —
-    which still names the id — is the only thing left that says the person was
-    ever here.
-
-    Refused with 409 `last-owner` while the user is the last active owner of an
-    Account's tenant: erasure takes every membership with it, and that one must
-    not go.
+    Irreversible. Credentials and memberships are deleted, and the audit trail keeps only the user's
+    id. `409 last-owner` while the user is the last active owner of an Account's tenant.
 
     Args:
         environment_id (str):

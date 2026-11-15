@@ -20,20 +20,13 @@ T = TypeVar("T", bound="MauAllowanceOut")
 
 @_attrs_define
 class MauAllowanceOut:
-    """One bucket of MAU and the allowance it is measured against.
+    """One pool of monthly active users and the allowance it is measured against.
 
-    **This is where billing.md §Plans' deliberate asymmetry is published rather
-    than left to be inferred.** `free` is 10 000 pooled across every `free` App
-    of the Account, `pro` is 25 000 *per App*, and `scale` is 250 000 pooled
-    across the whole Account — so `scope` is `account` for a pool and `app` for
-    a `pro` App's own number, and `app_id` is set for exactly the second kind.
-    A client that read `allowance` without `scope` would measure a `free`
-    Account's pool against one App at a time.
+    Allowances are pooled differently by plan: `free` pools every `free` App of the Account, `pro`
+    counts each App separately, and `scale` pools the whole Account. `scope` is `account` for a pool
+    and `app` for a single `pro` App, and `app_id` is set only for the latter.
 
-    `over_allowance` is a **fact, never a refusal**. billing.md §"Limits, and
-    how they are enforced": MAU "never blocks authentication", and on `free` —
-    which has no card, and therefore no overage — being over it "is a notice and
-    nothing else: repeated, clear, and never a refusal".
+    `over_allowance` is informational: exceeding an allowance never blocks sign-in.
 
         Attributes:
             allowance (int):

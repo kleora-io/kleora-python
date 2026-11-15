@@ -17,13 +17,10 @@ T = TypeVar("T", bound="RevokedOut")
 
 @_attrs_define
 class RevokedOut:
-    """The `200` of every revoke-all: `{"revoked": <count>}`.
+    """The `200` of a revoke-all operation: `{"revoked": <count>}`.
 
-    A schema rather than a bare integer, so the document names the property and
-    a generated client reads `result.revoked` rather than a JSON scalar.
-
-        Attributes:
-            revoked (int):
+    Attributes:
+        revoked (int):
     """
 
     revoked: int

@@ -19,10 +19,10 @@ T = TypeVar("T", bound="MfaFactorOut")
 
 @_attrs_define
 class MfaFactorOut:
-    """One factor of a user's (`mfa.md` §API): `GET …/users/{uid}/mfa`.
+    """One MFA factor of a user.
 
-    "Never seeds or hashes" — `secret_encrypted` and `recovery_hashes` have no
-    reader here. Unconfirmed factors are included, with `confirmed_at: null`.
+    Secrets and recovery code hashes are never returned. An unconfirmed factor has `confirmed_at:
+    null`.
 
         Attributes:
             confirmed_at (datetime.datetime | None):

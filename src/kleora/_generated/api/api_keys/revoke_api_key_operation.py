@@ -100,16 +100,10 @@ def sync_detailed(
 ) -> Response[ApiKeyOut | Problem]:
     """Revoke an API key
 
-     Stop the key authenticating, keeping the row. Idempotent.
+     Revoke an API key, keeping its record. Idempotent.
 
-    The very next request with that key is 401, and revoking an already revoked
-    key answers 200 with the same row rather than a conflict: the end state the
-    caller asked for is the end state. Only the first one writes the event.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's — the row is gone, and 200 with a `status` read off an instance
-    that no longer has a row behind it would be a worse answer than the one the
-    second `DELETE` gets.
+    The key stops working immediately. Revoking a revoked key answers `200` with the same key, and
+    records no second event. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -143,16 +137,10 @@ def sync(
 ) -> ApiKeyOut | Problem | None:
     """Revoke an API key
 
-     Stop the key authenticating, keeping the row. Idempotent.
+     Revoke an API key, keeping its record. Idempotent.
 
-    The very next request with that key is 401, and revoking an already revoked
-    key answers 200 with the same row rather than a conflict: the end state the
-    caller asked for is the end state. Only the first one writes the event.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's — the row is gone, and 200 with a `status` read off an instance
-    that no longer has a row behind it would be a worse answer than the one the
-    second `DELETE` gets.
+    The key stops working immediately. Revoking a revoked key answers `200` with the same key, and
+    records no second event. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -181,16 +169,10 @@ async def asyncio_detailed(
 ) -> Response[ApiKeyOut | Problem]:
     """Revoke an API key
 
-     Stop the key authenticating, keeping the row. Idempotent.
+     Revoke an API key, keeping its record. Idempotent.
 
-    The very next request with that key is 401, and revoking an already revoked
-    key answers 200 with the same row rather than a conflict: the end state the
-    caller asked for is the end state. Only the first one writes the event.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's — the row is gone, and 200 with a `status` read off an instance
-    that no longer has a row behind it would be a worse answer than the one the
-    second `DELETE` gets.
+    The key stops working immediately. Revoking a revoked key answers `200` with the same key, and
+    records no second event. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -222,16 +204,10 @@ async def asyncio(
 ) -> ApiKeyOut | Problem | None:
     """Revoke an API key
 
-     Stop the key authenticating, keeping the row. Idempotent.
+     Revoke an API key, keeping its record. Idempotent.
 
-    The very next request with that key is 401, and revoking an already revoked
-    key answers 200 with the same row rather than a conflict: the end state the
-    caller asked for is the end state. Only the first one writes the event.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's — the row is gone, and 200 with a `status` read off an instance
-    that no longer has a row behind it would be a worse answer than the one the
-    second `DELETE` gets.
+    The key stops working immediately. Revoking a revoked key answers `200` with the same key, and
+    records no second event. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):

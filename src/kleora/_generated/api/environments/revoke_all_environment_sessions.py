@@ -95,15 +95,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | RevokedOut]:
-    r"""Revoke every session in the environment
+    """Revoke every session in the environment
 
-     Break glass: every session and every refresh token in the environment.
+     Revoke every session and every refresh token in the environment.
 
-    security-baseline.md §\"Signing key compromise\" pairs this with a
-    `retire_immediately` rotation — the rotation stops the leaked key verifying,
-    this stops everything it signed being refreshed into something new. Access
-    tokens already issued run to `exp`, which is why customers who need an
-    immediate cut-off keep `access_token_ttl` short.
+    For use after a signing key compromise, together with a signing key rotation that retires the
+    old key immediately. Access tokens already issued remain valid until they expire, so keep
+    `access_token_ttl` short if you need an immediate cut-off.
 
     Args:
         environment_id (str):
@@ -132,15 +130,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Problem | RevokedOut | None:
-    r"""Revoke every session in the environment
+    """Revoke every session in the environment
 
-     Break glass: every session and every refresh token in the environment.
+     Revoke every session and every refresh token in the environment.
 
-    security-baseline.md §\"Signing key compromise\" pairs this with a
-    `retire_immediately` rotation — the rotation stops the leaked key verifying,
-    this stops everything it signed being refreshed into something new. Access
-    tokens already issued run to `exp`, which is why customers who need an
-    immediate cut-off keep `access_token_ttl` short.
+    For use after a signing key compromise, together with a signing key rotation that retires the
+    old key immediately. Access tokens already issued remain valid until they expire, so keep
+    `access_token_ttl` short if you need an immediate cut-off.
 
     Args:
         environment_id (str):
@@ -164,15 +160,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Problem | RevokedOut]:
-    r"""Revoke every session in the environment
+    """Revoke every session in the environment
 
-     Break glass: every session and every refresh token in the environment.
+     Revoke every session and every refresh token in the environment.
 
-    security-baseline.md §\"Signing key compromise\" pairs this with a
-    `retire_immediately` rotation — the rotation stops the leaked key verifying,
-    this stops everything it signed being refreshed into something new. Access
-    tokens already issued run to `exp`, which is why customers who need an
-    immediate cut-off keep `access_token_ttl` short.
+    For use after a signing key compromise, together with a signing key rotation that retires the
+    old key immediately. Access tokens already issued remain valid until they expire, so keep
+    `access_token_ttl` short if you need an immediate cut-off.
 
     Args:
         environment_id (str):
@@ -199,15 +193,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Problem | RevokedOut | None:
-    r"""Revoke every session in the environment
+    """Revoke every session in the environment
 
-     Break glass: every session and every refresh token in the environment.
+     Revoke every session and every refresh token in the environment.
 
-    security-baseline.md §\"Signing key compromise\" pairs this with a
-    `retire_immediately` rotation — the rotation stops the leaked key verifying,
-    this stops everything it signed being refreshed into something new. Access
-    tokens already issued run to `exp`, which is why customers who need an
-    immediate cut-off keep `access_token_ttl` short.
+    For use after a signing key compromise, together with a signing key rotation that retires the
+    old key immediately. Access tokens already issued remain valid until they expire, so keep
+    `access_token_ttl` short if you need an immediate cut-off.
 
     Args:
         environment_id (str):

@@ -87,11 +87,7 @@ def sync_detailed(
 ) -> Response[BrandingOut | Problem]:
     """An environment's branding record
 
-     The stored record, merged over the defaults so it is always whole.
-
-    An Environment created before a key existed has a record without it
-    (`merged_branding`), and a console that had to defend against that would be
-    a second place the default record is written down.
+     The stored branding record, merged over the defaults so every key is present.
 
     Args:
         environment_id (str):
@@ -122,11 +118,7 @@ def sync(
 ) -> BrandingOut | Problem | None:
     """An environment's branding record
 
-     The stored record, merged over the defaults so it is always whole.
-
-    An Environment created before a key existed has a record without it
-    (`merged_branding`), and a console that had to defend against that would be
-    a second place the default record is written down.
+     The stored branding record, merged over the defaults so every key is present.
 
     Args:
         environment_id (str):
@@ -152,11 +144,7 @@ async def asyncio_detailed(
 ) -> Response[BrandingOut | Problem]:
     """An environment's branding record
 
-     The stored record, merged over the defaults so it is always whole.
-
-    An Environment created before a key existed has a record without it
-    (`merged_branding`), and a console that had to defend against that would be
-    a second place the default record is written down.
+     The stored branding record, merged over the defaults so every key is present.
 
     Args:
         environment_id (str):
@@ -185,11 +173,7 @@ async def asyncio(
 ) -> BrandingOut | Problem | None:
     """An environment's branding record
 
-     The stored record, merged over the defaults so it is always whole.
-
-    An Environment created before a key existed has a record without it
-    (`merged_branding`), and a console that had to defend against that would be
-    a second place the default record is written down.
+     The stored branding record, merged over the defaults so every key is present.
 
     Args:
         environment_id (str):

@@ -17,17 +17,10 @@ T = TypeVar("T", bound="EmailConfirmIn")
 
 @_attrs_define
 class EmailConfirmIn:
-    """`POST /email/confirm` with `{token}` — the row drafted in `U10-05`'s Log.
+    """The body of `POST /email/confirm`: the token from the confirmation link.
 
-    The operation §API omits: §"Changing an email address" step 2 requires a route
-    the mailed token is `POST`ed to ("only the `POST` spends it, so a mail scanner
-    cannot") and §"Failure modes" declares its two refusals, but the table has no row.
-
-    No `max_length` bound below the column's: a token is 32 random bytes as URL-safe
-    base64 and the only thing that matters about a wrong one is that it is wrong, so
-    a length refusal would answer `422` where §"Failure modes" says `400
-    invalid-token` — one answer for unknown, spent and expired, and a bound would
-    make a fourth.
+    Only the `POST` spends the token, so a mail scanner that follows the link cannot. A token that
+    is unknown, already used or expired is `400 invalid-token`.
 
         Attributes:
             token (str):

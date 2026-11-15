@@ -23,8 +23,8 @@ T = TypeVar("T", bound="MePasskeyRegisterFinishOut")
 
 @_attrs_define
 class MePasskeyRegisterFinishOut:
-    """`recovery_codes` is present, once, only the first time this user
-    registers a second factor of any kind (`mfa.md` §"Recovery codes").
+    """The registered passkey. `recovery_codes` is present, once, only the first time the user
+    registers a second factor of any kind.
 
         Attributes:
             passkey (MePasskeyOut): The one passkey `POST /me/passkeys/register/finish` just registered —

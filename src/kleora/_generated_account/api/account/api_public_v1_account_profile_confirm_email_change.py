@@ -93,41 +93,22 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EmailConfirmIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Confirm a new email address with the token from the emailed link
+    """Confirm a new email address with the token from the emailed link
 
-     Step 2 of two: spend the mailed token and move the address.
+     Step 2 of changing the email address: spend the emailed token and move the address.
 
-    The operation §API omits; the row is drafted in `U10-05`'s Log and three things
-    about it are decisions rather than defaults:
-
-    * **Authenticated.** §API's note under the table calls `DELETE /deletion` \"the one
-      route on this surface that takes no bearer token\", and one is one. It also means
-      an attacker who can read the new mailbox but holds no token cannot move the
-      address — the mailbox and the session are two credentials and this step wants
-      both.
-    * **Not sensitive.** §\"Failure modes\" gives this route `invalid-token` and
-      `email-taken` and no `reauth-required`, and step 1 already took a
-      re-authentication. A second password prompt in front of clicking a link we
-      ourselves mailed would teach people to type their password at prompts that did
-      not need it.
-    * **The token must be the caller's own**, and a token that is somebody else's is
-      `400 invalid-token` rather than a `403` — one document for every way a token
-      cannot be spent, so a caller holding a guessed one learns nothing from which
-      reason refused it.
+    Requires the person's bearer token as well as the emailed token, but no further
+    re-authentication. A token that is unknown, already used, expired or issued to somebody else is
+    `400 invalid-token`. `409 email-taken` when the new address has since been registered in this
+    environment.
 
     Args:
-        body (EmailConfirmIn): `POST /email/confirm` with `{token}` — the row drafted in
-            `U10-05`'s Log.
+        body (EmailConfirmIn): The body of `POST /email/confirm`: the token from the confirmation
+            link.
 
-            The operation §API omits: §"Changing an email address" step 2 requires a route
-            the mailed token is `POST`ed to ("only the `POST` spends it, so a mail scanner
-            cannot") and §"Failure modes" declares its two refusals, but the table has no row.
-
-            No `max_length` bound below the column's: a token is 32 random bytes as URL-safe
-            base64 and the only thing that matters about a wrong one is that it is wrong, so
-            a length refusal would answer `422` where §"Failure modes" says `400
-            invalid-token` — one answer for unknown, spent and expired, and a bound would
-            make a fourth.
+            Only the `POST` spends the token, so a mail scanner that follows the link cannot. A token
+            that
+            is unknown, already used or expired is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,41 +134,22 @@ def sync(
     client: AuthenticatedClient,
     body: EmailConfirmIn,
 ) -> Any | FlowProblem | None:
-    r"""Confirm a new email address with the token from the emailed link
+    """Confirm a new email address with the token from the emailed link
 
-     Step 2 of two: spend the mailed token and move the address.
+     Step 2 of changing the email address: spend the emailed token and move the address.
 
-    The operation §API omits; the row is drafted in `U10-05`'s Log and three things
-    about it are decisions rather than defaults:
-
-    * **Authenticated.** §API's note under the table calls `DELETE /deletion` \"the one
-      route on this surface that takes no bearer token\", and one is one. It also means
-      an attacker who can read the new mailbox but holds no token cannot move the
-      address — the mailbox and the session are two credentials and this step wants
-      both.
-    * **Not sensitive.** §\"Failure modes\" gives this route `invalid-token` and
-      `email-taken` and no `reauth-required`, and step 1 already took a
-      re-authentication. A second password prompt in front of clicking a link we
-      ourselves mailed would teach people to type their password at prompts that did
-      not need it.
-    * **The token must be the caller's own**, and a token that is somebody else's is
-      `400 invalid-token` rather than a `403` — one document for every way a token
-      cannot be spent, so a caller holding a guessed one learns nothing from which
-      reason refused it.
+    Requires the person's bearer token as well as the emailed token, but no further
+    re-authentication. A token that is unknown, already used, expired or issued to somebody else is
+    `400 invalid-token`. `409 email-taken` when the new address has since been registered in this
+    environment.
 
     Args:
-        body (EmailConfirmIn): `POST /email/confirm` with `{token}` — the row drafted in
-            `U10-05`'s Log.
+        body (EmailConfirmIn): The body of `POST /email/confirm`: the token from the confirmation
+            link.
 
-            The operation §API omits: §"Changing an email address" step 2 requires a route
-            the mailed token is `POST`ed to ("only the `POST` spends it, so a mail scanner
-            cannot") and §"Failure modes" declares its two refusals, but the table has no row.
-
-            No `max_length` bound below the column's: a token is 32 random bytes as URL-safe
-            base64 and the only thing that matters about a wrong one is that it is wrong, so
-            a length refusal would answer `422` where §"Failure modes" says `400
-            invalid-token` — one answer for unknown, spent and expired, and a bound would
-            make a fourth.
+            Only the `POST` spends the token, so a mail scanner that follows the link cannot. A token
+            that
+            is unknown, already used or expired is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -208,41 +170,22 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EmailConfirmIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Confirm a new email address with the token from the emailed link
+    """Confirm a new email address with the token from the emailed link
 
-     Step 2 of two: spend the mailed token and move the address.
+     Step 2 of changing the email address: spend the emailed token and move the address.
 
-    The operation §API omits; the row is drafted in `U10-05`'s Log and three things
-    about it are decisions rather than defaults:
-
-    * **Authenticated.** §API's note under the table calls `DELETE /deletion` \"the one
-      route on this surface that takes no bearer token\", and one is one. It also means
-      an attacker who can read the new mailbox but holds no token cannot move the
-      address — the mailbox and the session are two credentials and this step wants
-      both.
-    * **Not sensitive.** §\"Failure modes\" gives this route `invalid-token` and
-      `email-taken` and no `reauth-required`, and step 1 already took a
-      re-authentication. A second password prompt in front of clicking a link we
-      ourselves mailed would teach people to type their password at prompts that did
-      not need it.
-    * **The token must be the caller's own**, and a token that is somebody else's is
-      `400 invalid-token` rather than a `403` — one document for every way a token
-      cannot be spent, so a caller holding a guessed one learns nothing from which
-      reason refused it.
+    Requires the person's bearer token as well as the emailed token, but no further
+    re-authentication. A token that is unknown, already used, expired or issued to somebody else is
+    `400 invalid-token`. `409 email-taken` when the new address has since been registered in this
+    environment.
 
     Args:
-        body (EmailConfirmIn): `POST /email/confirm` with `{token}` — the row drafted in
-            `U10-05`'s Log.
+        body (EmailConfirmIn): The body of `POST /email/confirm`: the token from the confirmation
+            link.
 
-            The operation §API omits: §"Changing an email address" step 2 requires a route
-            the mailed token is `POST`ed to ("only the `POST` spends it, so a mail scanner
-            cannot") and §"Failure modes" declares its two refusals, but the table has no row.
-
-            No `max_length` bound below the column's: a token is 32 random bytes as URL-safe
-            base64 and the only thing that matters about a wrong one is that it is wrong, so
-            a length refusal would answer `422` where §"Failure modes" says `400
-            invalid-token` — one answer for unknown, spent and expired, and a bound would
-            make a fourth.
+            Only the `POST` spends the token, so a mail scanner that follows the link cannot. A token
+            that
+            is unknown, already used or expired is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -266,41 +209,22 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EmailConfirmIn,
 ) -> Any | FlowProblem | None:
-    r"""Confirm a new email address with the token from the emailed link
+    """Confirm a new email address with the token from the emailed link
 
-     Step 2 of two: spend the mailed token and move the address.
+     Step 2 of changing the email address: spend the emailed token and move the address.
 
-    The operation §API omits; the row is drafted in `U10-05`'s Log and three things
-    about it are decisions rather than defaults:
-
-    * **Authenticated.** §API's note under the table calls `DELETE /deletion` \"the one
-      route on this surface that takes no bearer token\", and one is one. It also means
-      an attacker who can read the new mailbox but holds no token cannot move the
-      address — the mailbox and the session are two credentials and this step wants
-      both.
-    * **Not sensitive.** §\"Failure modes\" gives this route `invalid-token` and
-      `email-taken` and no `reauth-required`, and step 1 already took a
-      re-authentication. A second password prompt in front of clicking a link we
-      ourselves mailed would teach people to type their password at prompts that did
-      not need it.
-    * **The token must be the caller's own**, and a token that is somebody else's is
-      `400 invalid-token` rather than a `403` — one document for every way a token
-      cannot be spent, so a caller holding a guessed one learns nothing from which
-      reason refused it.
+    Requires the person's bearer token as well as the emailed token, but no further
+    re-authentication. A token that is unknown, already used, expired or issued to somebody else is
+    `400 invalid-token`. `409 email-taken` when the new address has since been registered in this
+    environment.
 
     Args:
-        body (EmailConfirmIn): `POST /email/confirm` with `{token}` — the row drafted in
-            `U10-05`'s Log.
+        body (EmailConfirmIn): The body of `POST /email/confirm`: the token from the confirmation
+            link.
 
-            The operation §API omits: §"Changing an email address" step 2 requires a route
-            the mailed token is `POST`ed to ("only the `POST` spends it, so a mail scanner
-            cannot") and §"Failure modes" declares its two refusals, but the table has no row.
-
-            No `max_length` bound below the column's: a token is 32 random bytes as URL-safe
-            base64 and the only thing that matters about a wrong one is that it is wrong, so
-            a length refusal would answer `422` where §"Failure modes" says `400
-            invalid-token` — one answer for unknown, spent and expired, and a bound would
-            make a fourth.
+            Only the `POST` spends the token, so a mail scanner that follows the link cannot. A token
+            that
+            is unknown, already used or expired is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

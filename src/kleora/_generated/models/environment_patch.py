@@ -24,20 +24,10 @@ T = TypeVar("T", bound="EnvironmentPatch")
 
 @_attrs_define
 class EnvironmentPatch:
-    """`PATCH /api/v1/environments/{environment_id}` — the settings columns.
+    """The body of `PATCH /api/v1/environments/{environment_id}`: the environment's settings.
 
-    The ranges are the model's and the document's at once: declared here, they
-    reach `/api/v1/openapi.json`, so a generated client refuses an
-    `access_token_ttl` of 30 before the request is made, and a hand-written
-    caller that sends one gets 422 with the field in `errors[]` rather than a
-    500 from the check constraint.
-
-    `issuer`, `kind` and `backfill_status` are named in `immutable_fields`
-    rather than left off: the issuer is stored on this row because every token's
-    `iss` and every cached JWKS entry names it, `kind` is what a `kl_test_` key
-    is confined to, and `backfill_status` is a report on work in progress. All
-    three are plainly properties of the resource, so refusing them as unknown
-    keys would read as a typo (environments.md §API).
+    Out-of-range values are `422` naming the field. `issuer`, `kind` and `backfill_status` cannot be
+    changed and are refused as immutable.
 
         Attributes:
             access_token_ttl (int | Unset):

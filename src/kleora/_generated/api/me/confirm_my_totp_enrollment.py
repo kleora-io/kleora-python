@@ -95,11 +95,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: MeEnrollConfirmBody,
 ) -> Response[MeRecoveryCodesOut | Problem]:
-    r"""Confirm the caller's own TOTP enrolment
+    """Confirm the caller's own TOTP enrolment
 
-     Verifies `code`, confirms the pending factor, and returns the ten
-    recovery codes once — the one place on this surface a secret appears in a
-    body, and it appears once (`mfa.md`'s \"shown once\" rule, unrelaxed here).
+     Verify `code`, confirm the pending TOTP factor, and return the ten recovery codes, once.
 
     Args:
         body (MeEnrollConfirmBody):
@@ -128,11 +126,9 @@ def sync(
     client: AuthenticatedClient,
     body: MeEnrollConfirmBody,
 ) -> MeRecoveryCodesOut | Problem | None:
-    r"""Confirm the caller's own TOTP enrolment
+    """Confirm the caller's own TOTP enrolment
 
-     Verifies `code`, confirms the pending factor, and returns the ten
-    recovery codes once — the one place on this surface a secret appears in a
-    body, and it appears once (`mfa.md`'s \"shown once\" rule, unrelaxed here).
+     Verify `code`, confirm the pending TOTP factor, and return the ten recovery codes, once.
 
     Args:
         body (MeEnrollConfirmBody):
@@ -156,11 +152,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: MeEnrollConfirmBody,
 ) -> Response[MeRecoveryCodesOut | Problem]:
-    r"""Confirm the caller's own TOTP enrolment
+    """Confirm the caller's own TOTP enrolment
 
-     Verifies `code`, confirms the pending factor, and returns the ten
-    recovery codes once — the one place on this surface a secret appears in a
-    body, and it appears once (`mfa.md`'s \"shown once\" rule, unrelaxed here).
+     Verify `code`, confirm the pending TOTP factor, and return the ten recovery codes, once.
 
     Args:
         body (MeEnrollConfirmBody):
@@ -187,11 +181,9 @@ async def asyncio(
     client: AuthenticatedClient,
     body: MeEnrollConfirmBody,
 ) -> MeRecoveryCodesOut | Problem | None:
-    r"""Confirm the caller's own TOTP enrolment
+    """Confirm the caller's own TOTP enrolment
 
-     Verifies `code`, confirms the pending factor, and returns the ten
-    recovery codes once — the one place on this surface a secret appears in a
-    body, and it appears once (`mfa.md`'s \"shown once\" rule, unrelaxed here).
+     Verify `code`, confirm the pending TOTP factor, and return the ten recovery codes, once.
 
     Args:
         body (MeEnrollConfirmBody):

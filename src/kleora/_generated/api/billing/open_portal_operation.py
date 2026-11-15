@@ -86,11 +86,10 @@ def sync_detailed(
 ) -> Response[BillingSessionOut | Problem]:
     """Open the Stripe Customer Portal
 
-     A Customer Portal session — minted per request, and never shared.
+     A billing portal session, created for this request and never reused.
 
-    The Portal is where cards, invoices, receipts, tax ids and cancellation
-    live. That is the whole reason this endpoint takes no body and returns one
-    URL: every screen behind it is one this codebase does not contain.
+    The portal is where cards, invoices, receipts, tax ids and cancellation are managed. Takes no
+    body and returns one URL.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,11 +114,10 @@ def sync(
 ) -> BillingSessionOut | Problem | None:
     """Open the Stripe Customer Portal
 
-     A Customer Portal session — minted per request, and never shared.
+     A billing portal session, created for this request and never reused.
 
-    The Portal is where cards, invoices, receipts, tax ids and cancellation
-    live. That is the whole reason this endpoint takes no body and returns one
-    URL: every screen behind it is one this codebase does not contain.
+    The portal is where cards, invoices, receipts, tax ids and cancellation are managed. Takes no
+    body and returns one URL.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,11 +138,10 @@ async def asyncio_detailed(
 ) -> Response[BillingSessionOut | Problem]:
     """Open the Stripe Customer Portal
 
-     A Customer Portal session — minted per request, and never shared.
+     A billing portal session, created for this request and never reused.
 
-    The Portal is where cards, invoices, receipts, tax ids and cancellation
-    live. That is the whole reason this endpoint takes no body and returns one
-    URL: every screen behind it is one this codebase does not contain.
+    The portal is where cards, invoices, receipts, tax ids and cancellation are managed. Takes no
+    body and returns one URL.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,11 +164,10 @@ async def asyncio(
 ) -> BillingSessionOut | Problem | None:
     """Open the Stripe Customer Portal
 
-     A Customer Portal session — minted per request, and never shared.
+     A billing portal session, created for this request and never reused.
 
-    The Portal is where cards, invoices, receipts, tax ids and cancellation
-    live. That is the whole reason this endpoint takes no body and returns one
-    URL: every screen behind it is one this codebase does not contain.
+    The portal is where cards, invoices, receipts, tax ids and cancellation are managed. Takes no
+    body and returns one URL.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

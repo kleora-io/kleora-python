@@ -111,14 +111,10 @@ def sync_detailed(
 ) -> Response[EmailTemplateList | Problem]:
     """List email templates
 
-     All twelve rows of the environment, kind by kind, `en` before `pl`.
+     All of the environment's email templates, by kind, `en` before `pl`.
 
-    A list of fixed size is still a list (management-api.md §OpenAPI): the
-    envelope is the same `{items, next_cursor}` every other listing here
-    answers, `next_cursor` is null on the only page there will ever be, and
-    `limit` and `cursor` are accepted and ignored — a generated client that had
-    to special-case one listing of the surface would be worse off than one
-    reading a null it expects.
+    The list has a fixed size, so `next_cursor` is always `null`, and `limit` and `cursor` are
+    accepted and ignored.
 
     Args:
         environment_id (str):
@@ -155,14 +151,10 @@ def sync(
 ) -> EmailTemplateList | Problem | None:
     """List email templates
 
-     All twelve rows of the environment, kind by kind, `en` before `pl`.
+     All of the environment's email templates, by kind, `en` before `pl`.
 
-    A list of fixed size is still a list (management-api.md §OpenAPI): the
-    envelope is the same `{items, next_cursor}` every other listing here
-    answers, `next_cursor` is null on the only page there will ever be, and
-    `limit` and `cursor` are accepted and ignored — a generated client that had
-    to special-case one listing of the surface would be worse off than one
-    reading a null it expects.
+    The list has a fixed size, so `next_cursor` is always `null`, and `limit` and `cursor` are
+    accepted and ignored.
 
     Args:
         environment_id (str):
@@ -194,14 +186,10 @@ async def asyncio_detailed(
 ) -> Response[EmailTemplateList | Problem]:
     """List email templates
 
-     All twelve rows of the environment, kind by kind, `en` before `pl`.
+     All of the environment's email templates, by kind, `en` before `pl`.
 
-    A list of fixed size is still a list (management-api.md §OpenAPI): the
-    envelope is the same `{items, next_cursor}` every other listing here
-    answers, `next_cursor` is null on the only page there will ever be, and
-    `limit` and `cursor` are accepted and ignored — a generated client that had
-    to special-case one listing of the surface would be worse off than one
-    reading a null it expects.
+    The list has a fixed size, so `next_cursor` is always `null`, and `limit` and `cursor` are
+    accepted and ignored.
 
     Args:
         environment_id (str):
@@ -236,14 +224,10 @@ async def asyncio(
 ) -> EmailTemplateList | Problem | None:
     """List email templates
 
-     All twelve rows of the environment, kind by kind, `en` before `pl`.
+     All of the environment's email templates, by kind, `en` before `pl`.
 
-    A list of fixed size is still a list (management-api.md §OpenAPI): the
-    envelope is the same `{items, next_cursor}` every other listing here
-    answers, `next_cursor` is null on the only page there will ever be, and
-    `limit` and `cursor` are accepted and ignored — a generated client that had
-    to special-case one listing of the surface would be worse off than one
-    reading a null it expects.
+    The list has a fixed size, so `next_cursor` is always `null`, and `limit` and `cursor` are
+    accepted and ignored.
 
     Args:
         environment_id (str):

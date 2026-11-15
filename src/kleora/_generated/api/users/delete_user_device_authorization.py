@@ -99,25 +99,15 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke a device authorization
+    """Revoke a device authorization
 
-     Revoke it: the Session it opened, and every refresh token of that Session.
+     Revoke a device authorization: the session it opened, and every refresh token of that
+    session.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Revoking it is one
-    action.\" That action is `apps.identity.services.device.revoke`, which is
-    `sessions.revoke_session` plus the `device.revoked` event naming the client —
-    so this never disagrees with `DELETE …/sessions/{id}` about what a revoked
-    Session is. Access tokens already minted run to `exp`
-    (sessions-and-tokens.md §\"Revocation semantics\"); what stops immediately is
-    the credential's ability to renew itself.
-
-    204, and idempotent: a second call finds the row already dead, writes no
-    second event and answers the same. An id that is not this user's — or not a
-    UUID — is the 404 a missing row gets, the same way the session routes answer.
-
-    409 `conflict` for the row deleted under the write, which is the same race
-    `DELETE …/sessions/{id}` documents: `identity.sessions.prune` and user
-    erasure both remove Session rows.
+    Access tokens already issued remain valid until they expire; the device can no longer renew
+    them. Idempotent: revoking an authorization that has already ended is also `204`, with no second
+    event. An id that is not this user's, or not a UUID, is `404`. `409 conflict` when the session
+    is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -152,25 +142,15 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke a device authorization
+    """Revoke a device authorization
 
-     Revoke it: the Session it opened, and every refresh token of that Session.
+     Revoke a device authorization: the session it opened, and every refresh token of that
+    session.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Revoking it is one
-    action.\" That action is `apps.identity.services.device.revoke`, which is
-    `sessions.revoke_session` plus the `device.revoked` event naming the client —
-    so this never disagrees with `DELETE …/sessions/{id}` about what a revoked
-    Session is. Access tokens already minted run to `exp`
-    (sessions-and-tokens.md §\"Revocation semantics\"); what stops immediately is
-    the credential's ability to renew itself.
-
-    204, and idempotent: a second call finds the row already dead, writes no
-    second event and answers the same. An id that is not this user's — or not a
-    UUID — is the 404 a missing row gets, the same way the session routes answer.
-
-    409 `conflict` for the row deleted under the write, which is the same race
-    `DELETE …/sessions/{id}` documents: `identity.sessions.prune` and user
-    erasure both remove Session rows.
+    Access tokens already issued remain valid until they expire; the device can no longer renew
+    them. Idempotent: revoking an authorization that has already ended is also `204`, with no second
+    event. An id that is not this user's, or not a UUID, is `404`. `409 conflict` when the session
+    is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -200,25 +180,15 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke a device authorization
+    """Revoke a device authorization
 
-     Revoke it: the Session it opened, and every refresh token of that Session.
+     Revoke a device authorization: the session it opened, and every refresh token of that
+    session.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Revoking it is one
-    action.\" That action is `apps.identity.services.device.revoke`, which is
-    `sessions.revoke_session` plus the `device.revoked` event naming the client —
-    so this never disagrees with `DELETE …/sessions/{id}` about what a revoked
-    Session is. Access tokens already minted run to `exp`
-    (sessions-and-tokens.md §\"Revocation semantics\"); what stops immediately is
-    the credential's ability to renew itself.
-
-    204, and idempotent: a second call finds the row already dead, writes no
-    second event and answers the same. An id that is not this user's — or not a
-    UUID — is the 404 a missing row gets, the same way the session routes answer.
-
-    409 `conflict` for the row deleted under the write, which is the same race
-    `DELETE …/sessions/{id}` documents: `identity.sessions.prune` and user
-    erasure both remove Session rows.
+    Access tokens already issued remain valid until they expire; the device can no longer renew
+    them. Idempotent: revoking an authorization that has already ended is also `204`, with no second
+    event. An id that is not this user's, or not a UUID, is `404`. `409 conflict` when the session
+    is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -251,25 +221,15 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke a device authorization
+    """Revoke a device authorization
 
-     Revoke it: the Session it opened, and every refresh token of that Session.
+     Revoke a device authorization: the session it opened, and every refresh token of that
+    session.
 
-    device-grant.md §\"Living with the grant afterwards\": \"Revoking it is one
-    action.\" That action is `apps.identity.services.device.revoke`, which is
-    `sessions.revoke_session` plus the `device.revoked` event naming the client —
-    so this never disagrees with `DELETE …/sessions/{id}` about what a revoked
-    Session is. Access tokens already minted run to `exp`
-    (sessions-and-tokens.md §\"Revocation semantics\"); what stops immediately is
-    the credential's ability to renew itself.
-
-    204, and idempotent: a second call finds the row already dead, writes no
-    second event and answers the same. An id that is not this user's — or not a
-    UUID — is the 404 a missing row gets, the same way the session routes answer.
-
-    409 `conflict` for the row deleted under the write, which is the same race
-    `DELETE …/sessions/{id}` documents: `identity.sessions.prune` and user
-    erasure both remove Session rows.
+    Access tokens already issued remain valid until they expire; the device can no longer renew
+    them. Idempotent: revoking an authorization that has already ended is also `204`, with no second
+    event. An id that is not this user's, or not a UUID, is `404`. `409 conflict` when the session
+    is deleted while the request is being processed.
 
     Args:
         environment_id (str):

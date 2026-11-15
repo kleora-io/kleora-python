@@ -108,36 +108,29 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UserPatch,
 ) -> Response[Problem | UserOut]:
-    r"""Change a user
+    """Change a user
 
-     A merge patch over the user's own profile. Never a password, never a status.
+     Update a user's profile (merge patch). The password and the status cannot be changed here.
 
-    An `email` change is the one that does more than it says: the address has to
-    be free in this environment, `email_verified_at` goes back to null, and a
-    fresh verification link is mailed — all three suppressed by
-    `email_verified: true` in the same patch, which is how an administrator says
-    \"I know this address is theirs\".
+    Changing `email` requires the address to be free in this environment, marks it unverified, and
+    emails a verification link, unless the same patch sets `email_verified: true`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPatch): `PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
+        body (UserPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/users/{user_id}`.
 
-            `picture_url` and `locale` are the clearable fields: `null` means "no
-            picture" and "no preference", and both are values a caller can go back to.
-            `email`, `name` and `metadata` are not — an address is what identifies the
-            row, a name has `""` for "none", and `metadata` has `{}`.
+            `picture_url` and `locale` can be cleared with `null`; `email`, `name` and `metadata`
+            cannot
+            (use `""` for no name and `{}` for no metadata).
 
-            `email_verified` is an instruction, not a property: `true` stamps
-            `email_verified_at` and suppresses the verification mail an address change
-            would otherwise send, `false` clears it. `password` is deliberately absent —
-            setting one is `POST …/users/{user_id}/password`, which revokes every
-            session and mails the person, and folding that into a patch would make an
-            account takeover look like a profile edit.
-
-            `status` is named in `immutable_fields` rather than left off, because it is
-            plainly a property of the resource and the way to change it is
-            `POST …/block` or `…/unblock`.
+            `email_verified: true` marks the address verified, and suppresses the verification email
+            an
+            address change would otherwise send; `false` marks it unverified. To set a password, use
+            `POST
+            .../users/{user_id}/password`. `status` cannot be changed here: sending it is refused as
+            immutable; use `block` and `unblock`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,36 +160,29 @@ def sync(
     client: AuthenticatedClient,
     body: UserPatch,
 ) -> Problem | UserOut | None:
-    r"""Change a user
+    """Change a user
 
-     A merge patch over the user's own profile. Never a password, never a status.
+     Update a user's profile (merge patch). The password and the status cannot be changed here.
 
-    An `email` change is the one that does more than it says: the address has to
-    be free in this environment, `email_verified_at` goes back to null, and a
-    fresh verification link is mailed — all three suppressed by
-    `email_verified: true` in the same patch, which is how an administrator says
-    \"I know this address is theirs\".
+    Changing `email` requires the address to be free in this environment, marks it unverified, and
+    emails a verification link, unless the same patch sets `email_verified: true`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPatch): `PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
+        body (UserPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/users/{user_id}`.
 
-            `picture_url` and `locale` are the clearable fields: `null` means "no
-            picture" and "no preference", and both are values a caller can go back to.
-            `email`, `name` and `metadata` are not — an address is what identifies the
-            row, a name has `""` for "none", and `metadata` has `{}`.
+            `picture_url` and `locale` can be cleared with `null`; `email`, `name` and `metadata`
+            cannot
+            (use `""` for no name and `{}` for no metadata).
 
-            `email_verified` is an instruction, not a property: `true` stamps
-            `email_verified_at` and suppresses the verification mail an address change
-            would otherwise send, `false` clears it. `password` is deliberately absent —
-            setting one is `POST …/users/{user_id}/password`, which revokes every
-            session and mails the person, and folding that into a patch would make an
-            account takeover look like a profile edit.
-
-            `status` is named in `immutable_fields` rather than left off, because it is
-            plainly a property of the resource and the way to change it is
-            `POST …/block` or `…/unblock`.
+            `email_verified: true` marks the address verified, and suppresses the verification email
+            an
+            address change would otherwise send; `false` marks it unverified. To set a password, use
+            `POST
+            .../users/{user_id}/password`. `status` cannot be changed here: sending it is refused as
+            immutable; use `block` and `unblock`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -221,36 +207,29 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UserPatch,
 ) -> Response[Problem | UserOut]:
-    r"""Change a user
+    """Change a user
 
-     A merge patch over the user's own profile. Never a password, never a status.
+     Update a user's profile (merge patch). The password and the status cannot be changed here.
 
-    An `email` change is the one that does more than it says: the address has to
-    be free in this environment, `email_verified_at` goes back to null, and a
-    fresh verification link is mailed — all three suppressed by
-    `email_verified: true` in the same patch, which is how an administrator says
-    \"I know this address is theirs\".
+    Changing `email` requires the address to be free in this environment, marks it unverified, and
+    emails a verification link, unless the same patch sets `email_verified: true`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPatch): `PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
+        body (UserPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/users/{user_id}`.
 
-            `picture_url` and `locale` are the clearable fields: `null` means "no
-            picture" and "no preference", and both are values a caller can go back to.
-            `email`, `name` and `metadata` are not — an address is what identifies the
-            row, a name has `""` for "none", and `metadata` has `{}`.
+            `picture_url` and `locale` can be cleared with `null`; `email`, `name` and `metadata`
+            cannot
+            (use `""` for no name and `{}` for no metadata).
 
-            `email_verified` is an instruction, not a property: `true` stamps
-            `email_verified_at` and suppresses the verification mail an address change
-            would otherwise send, `false` clears it. `password` is deliberately absent —
-            setting one is `POST …/users/{user_id}/password`, which revokes every
-            session and mails the person, and folding that into a patch would make an
-            account takeover look like a profile edit.
-
-            `status` is named in `immutable_fields` rather than left off, because it is
-            plainly a property of the resource and the way to change it is
-            `POST …/block` or `…/unblock`.
+            `email_verified: true` marks the address verified, and suppresses the verification email
+            an
+            address change would otherwise send; `false` marks it unverified. To set a password, use
+            `POST
+            .../users/{user_id}/password`. `status` cannot be changed here: sending it is refused as
+            immutable; use `block` and `unblock`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -278,36 +257,29 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UserPatch,
 ) -> Problem | UserOut | None:
-    r"""Change a user
+    """Change a user
 
-     A merge patch over the user's own profile. Never a password, never a status.
+     Update a user's profile (merge patch). The password and the status cannot be changed here.
 
-    An `email` change is the one that does more than it says: the address has to
-    be free in this environment, `email_verified_at` goes back to null, and a
-    fresh verification link is mailed — all three suppressed by
-    `email_verified: true` in the same patch, which is how an administrator says
-    \"I know this address is theirs\".
+    Changing `email` requires the address to be free in this environment, marks it unverified, and
+    emails a verification link, unless the same patch sets `email_verified: true`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPatch): `PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
+        body (UserPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/users/{user_id}`.
 
-            `picture_url` and `locale` are the clearable fields: `null` means "no
-            picture" and "no preference", and both are values a caller can go back to.
-            `email`, `name` and `metadata` are not — an address is what identifies the
-            row, a name has `""` for "none", and `metadata` has `{}`.
+            `picture_url` and `locale` can be cleared with `null`; `email`, `name` and `metadata`
+            cannot
+            (use `""` for no name and `{}` for no metadata).
 
-            `email_verified` is an instruction, not a property: `true` stamps
-            `email_verified_at` and suppresses the verification mail an address change
-            would otherwise send, `false` clears it. `password` is deliberately absent —
-            setting one is `POST …/users/{user_id}/password`, which revokes every
-            session and mails the person, and folding that into a patch would make an
-            account takeover look like a profile edit.
-
-            `status` is named in `immutable_fields` rather than left off, because it is
-            plainly a property of the resource and the way to change it is
-            `POST …/block` or `…/unblock`.
+            `email_verified: true` marks the address verified, and suppresses the verification email
+            an
+            address change would otherwise send; `false` marks it unverified. To set a password, use
+            `POST
+            .../users/{user_id}/password`. `status` cannot be changed here: sending it is refused as
+            immutable; use `block` and `unblock`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

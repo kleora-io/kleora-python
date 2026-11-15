@@ -79,29 +79,15 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[BillingUsageOut | Problem]:
-    r"""MAU, App and Tenant usage for the current period
+    """MAU, App and Tenant usage for the current period
 
-     What this Account has used this calendar month, and against what.
+     What the Account has used this calendar month, and against what allowance.
 
-    billing.md §API: \"so a customer can check our arithmetic\". That phrase is
-    the whole design of the response — every figure comes with the window it was
-    measured over and the allowance it is measured against, because a usage
-    number a customer cannot reconcile is a number they will dispute, and one
-    that disagrees with their invoice is worse than none at all. It is served
-    from the same roll-up the invoice will be built from
-    (`apps.billing.metering`), never from a second count of its own.
+    Every figure comes with the window it was measured over and the allowance it is measured
+    against, from the same figures the invoice is built from. `over_allowance` is informational:
+    exceeding an allowance never blocks sign-in.
 
-    **Nothing here refuses anything, and nothing downstream of it may.**
-    `over_allowance` is a fact about a number. billing.md §\"Limits, and how they
-    are enforced\" is explicit that MAU \"never blocks authentication\" and that
-    `free` — which has no card and therefore no overage — is told and keeps
-    working: \"Refusing a sign-in because the customer grew is precisely the
-    failure this spec is arranged to avoid.\"
-
-    `billing:read`, like `GET /account/billing`: usage is a billing figure, so
-    it is behind the billing permission rather than `account:read`. An `admin`
-    holds `billing:read` and not `billing:write`, so it reads this and cannot
-    reach Checkout or the Portal (rbac.md §Permissions).
+    Requires `billing:read`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,29 +110,15 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> BillingUsageOut | Problem | None:
-    r"""MAU, App and Tenant usage for the current period
+    """MAU, App and Tenant usage for the current period
 
-     What this Account has used this calendar month, and against what.
+     What the Account has used this calendar month, and against what allowance.
 
-    billing.md §API: \"so a customer can check our arithmetic\". That phrase is
-    the whole design of the response — every figure comes with the window it was
-    measured over and the allowance it is measured against, because a usage
-    number a customer cannot reconcile is a number they will dispute, and one
-    that disagrees with their invoice is worse than none at all. It is served
-    from the same roll-up the invoice will be built from
-    (`apps.billing.metering`), never from a second count of its own.
+    Every figure comes with the window it was measured over and the allowance it is measured
+    against, from the same figures the invoice is built from. `over_allowance` is informational:
+    exceeding an allowance never blocks sign-in.
 
-    **Nothing here refuses anything, and nothing downstream of it may.**
-    `over_allowance` is a fact about a number. billing.md §\"Limits, and how they
-    are enforced\" is explicit that MAU \"never blocks authentication\" and that
-    `free` — which has no card and therefore no overage — is told and keeps
-    working: \"Refusing a sign-in because the customer grew is precisely the
-    failure this spec is arranged to avoid.\"
-
-    `billing:read`, like `GET /account/billing`: usage is a billing figure, so
-    it is behind the billing permission rather than `account:read`. An `admin`
-    holds `billing:read` and not `billing:write`, so it reads this and cannot
-    reach Checkout or the Portal (rbac.md §Permissions).
+    Requires `billing:read`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,29 +137,15 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[BillingUsageOut | Problem]:
-    r"""MAU, App and Tenant usage for the current period
+    """MAU, App and Tenant usage for the current period
 
-     What this Account has used this calendar month, and against what.
+     What the Account has used this calendar month, and against what allowance.
 
-    billing.md §API: \"so a customer can check our arithmetic\". That phrase is
-    the whole design of the response — every figure comes with the window it was
-    measured over and the allowance it is measured against, because a usage
-    number a customer cannot reconcile is a number they will dispute, and one
-    that disagrees with their invoice is worse than none at all. It is served
-    from the same roll-up the invoice will be built from
-    (`apps.billing.metering`), never from a second count of its own.
+    Every figure comes with the window it was measured over and the allowance it is measured
+    against, from the same figures the invoice is built from. `over_allowance` is informational:
+    exceeding an allowance never blocks sign-in.
 
-    **Nothing here refuses anything, and nothing downstream of it may.**
-    `over_allowance` is a fact about a number. billing.md §\"Limits, and how they
-    are enforced\" is explicit that MAU \"never blocks authentication\" and that
-    `free` — which has no card and therefore no overage — is told and keeps
-    working: \"Refusing a sign-in because the customer grew is precisely the
-    failure this spec is arranged to avoid.\"
-
-    `billing:read`, like `GET /account/billing`: usage is a billing figure, so
-    it is behind the billing permission rather than `account:read`. An `admin`
-    holds `billing:read` and not `billing:write`, so it reads this and cannot
-    reach Checkout or the Portal (rbac.md §Permissions).
+    Requires `billing:read`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -208,29 +166,15 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> BillingUsageOut | Problem | None:
-    r"""MAU, App and Tenant usage for the current period
+    """MAU, App and Tenant usage for the current period
 
-     What this Account has used this calendar month, and against what.
+     What the Account has used this calendar month, and against what allowance.
 
-    billing.md §API: \"so a customer can check our arithmetic\". That phrase is
-    the whole design of the response — every figure comes with the window it was
-    measured over and the allowance it is measured against, because a usage
-    number a customer cannot reconcile is a number they will dispute, and one
-    that disagrees with their invoice is worse than none at all. It is served
-    from the same roll-up the invoice will be built from
-    (`apps.billing.metering`), never from a second count of its own.
+    Every figure comes with the window it was measured over and the allowance it is measured
+    against, from the same figures the invoice is built from. `over_allowance` is informational:
+    exceeding an allowance never blocks sign-in.
 
-    **Nothing here refuses anything, and nothing downstream of it may.**
-    `over_allowance` is a fact about a number. billing.md §\"Limits, and how they
-    are enforced\" is explicit that MAU \"never blocks authentication\" and that
-    `free` — which has no card and therefore no overage — is told and keeps
-    working: \"Refusing a sign-in because the customer grew is precisely the
-    failure this spec is arranged to avoid.\"
-
-    `billing:read`, like `GET /account/billing`: usage is a billing figure, so
-    it is behind the billing permission rather than `account:read`. An `admin`
-    holds `billing:read` and not `billing:write`, so it reads this and cannot
-    reach Checkout or the Portal (rbac.md §Permissions).
+    Requires `billing:read`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

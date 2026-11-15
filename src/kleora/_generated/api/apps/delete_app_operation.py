@@ -95,12 +95,9 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Delete an app
 
-     The App, both Environments and every row below them, in one transaction.
+     Delete the App, both its environments and everything in them, in one transaction.
 
-    Refused for the `id` App: it holds every Account's own tenant (ADR 0010), so
-    deleting it would delete the customer records of every other Account on the
-    platform. A repeated `DELETE` is 404 — the correct report of the end state,
-    and not something idempotency replays (apps.md §`DELETE /apps/{app_id}`).
+    Refused for the platform's own `id` App. Repeating the `DELETE` answers `404`.
 
     Args:
         app_id (str):
@@ -131,12 +128,9 @@ def sync(
 ) -> Any | Problem | None:
     """Delete an app
 
-     The App, both Environments and every row below them, in one transaction.
+     Delete the App, both its environments and everything in them, in one transaction.
 
-    Refused for the `id` App: it holds every Account's own tenant (ADR 0010), so
-    deleting it would delete the customer records of every other Account on the
-    platform. A repeated `DELETE` is 404 — the correct report of the end state,
-    and not something idempotency replays (apps.md §`DELETE /apps/{app_id}`).
+    Refused for the platform's own `id` App. Repeating the `DELETE` answers `404`.
 
     Args:
         app_id (str):
@@ -162,12 +156,9 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Delete an app
 
-     The App, both Environments and every row below them, in one transaction.
+     Delete the App, both its environments and everything in them, in one transaction.
 
-    Refused for the `id` App: it holds every Account's own tenant (ADR 0010), so
-    deleting it would delete the customer records of every other Account on the
-    platform. A repeated `DELETE` is 404 — the correct report of the end state,
-    and not something idempotency replays (apps.md §`DELETE /apps/{app_id}`).
+    Refused for the platform's own `id` App. Repeating the `DELETE` answers `404`.
 
     Args:
         app_id (str):
@@ -196,12 +187,9 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Delete an app
 
-     The App, both Environments and every row below them, in one transaction.
+     Delete the App, both its environments and everything in them, in one transaction.
 
-    Refused for the `id` App: it holds every Account's own tenant (ADR 0010), so
-    deleting it would delete the customer records of every other Account on the
-    platform. A repeated `DELETE` is 404 — the correct report of the end state,
-    and not something idempotency replays (apps.md §`DELETE /apps/{app_id}`).
+    Refused for the platform's own `id` App. Repeating the `DELETE` answers `404`.
 
     Args:
         app_id (str):

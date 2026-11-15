@@ -98,19 +98,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ApiKeyCreated | Problem]:
-    r"""Rotate an API key
+    """Rotate an API key
 
-     A new secret for the key, returned once. No body, no overlap window.
+     Issue a new secret for an API key, returned once. Takes no body.
 
-    The row keeps its id, name, scopes and audit history; only the credential
-    moves. The previous secret stops authenticating immediately — the same
-    \"nothing caches key validity\" rule a revocation relies on. A `revoked` or
-    `expired` key is 409 `api-key-not-rotatable`: rotating one would hand back
-    a secret that looks live and is not, and the answer to a dead key is a new
-    key, not a rotated one.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's, for the same reason `revoke_api_key_operation` is.
+    The key keeps its id, name, scopes and audit history. The previous secret stops working
+    immediately; there is no overlap. A revoked or expired key is `409 api-key-not-rotatable`;
+    create a new key instead. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -142,19 +136,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> ApiKeyCreated | Problem | None:
-    r"""Rotate an API key
+    """Rotate an API key
 
-     A new secret for the key, returned once. No body, no overlap window.
+     Issue a new secret for an API key, returned once. Takes no body.
 
-    The row keeps its id, name, scopes and audit history; only the credential
-    moves. The previous secret stops authenticating immediately — the same
-    \"nothing caches key validity\" rule a revocation relies on. A `revoked` or
-    `expired` key is 409 `api-key-not-rotatable`: rotating one would hand back
-    a secret that looks live and is not, and the answer to a dead key is a new
-    key, not a rotated one.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's, for the same reason `revoke_api_key_operation` is.
+    The key keeps its id, name, scopes and audit history. The previous secret stops working
+    immediately; there is no overlap. A revoked or expired key is `409 api-key-not-rotatable`;
+    create a new key instead. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -181,19 +169,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ApiKeyCreated | Problem]:
-    r"""Rotate an API key
+    """Rotate an API key
 
-     A new secret for the key, returned once. No body, no overlap window.
+     Issue a new secret for an API key, returned once. Takes no body.
 
-    The row keeps its id, name, scopes and audit history; only the credential
-    moves. The previous secret stops authenticating immediately — the same
-    \"nothing caches key validity\" rule a revocation relies on. A `revoked` or
-    `expired` key is 409 `api-key-not-rotatable`: rotating one would hand back
-    a secret that looks live and is not, and the answer to a dead key is a new
-    key, not a rotated one.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's, for the same reason `revoke_api_key_operation` is.
+    The key keeps its id, name, scopes and audit history. The previous secret stops working
+    immediately; there is no overlap. A revoked or expired key is `409 api-key-not-rotatable`;
+    create a new key instead. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):
@@ -223,19 +205,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> ApiKeyCreated | Problem | None:
-    r"""Rotate an API key
+    """Rotate an API key
 
-     A new secret for the key, returned once. No body, no overlap window.
+     Issue a new secret for an API key, returned once. Takes no body.
 
-    The row keeps its id, name, scopes and audit history; only the credential
-    moves. The previous secret stops authenticating immediately — the same
-    \"nothing caches key validity\" rule a revocation relies on. A `revoked` or
-    `expired` key is 409 `api-key-not-rotatable`: rotating one would hand back
-    a secret that looks live and is not, and the answer to a dead key is a new
-    key, not a rotated one.
-
-    404 when a `DELETE` commits between this operation's own lookup and the
-    service's, for the same reason `revoke_api_key_operation` is.
+    The key keeps its id, name, scopes and audit history. The previous secret stops working
+    immediately; there is no overlap. A revoked or expired key is `409 api-key-not-rotatable`;
+    create a new key instead. `404` when the key is deleted while the request is being processed.
 
     Args:
         environment_id (str):

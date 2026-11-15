@@ -19,16 +19,10 @@ T = TypeVar("T", bound="WebhookEndpointOut")
 
 @_attrs_define
 class WebhookEndpointOut:
-    """A `WebhookEndpoint` as every read of it reports it (webhooks.md §Data).
+    """A webhook endpoint.
 
-    No `secret` field here, in any form — absent, not null, exactly like
-    `ClientOut.has_secret`'s pattern, except a webhook secret has no boolean
-    "has one" to report: a `WebhookEndpoint` always holds one, minted at
-    creation, so there is nothing a read needs to say about it beyond that it
-    exists. `previous_secret_expires_at` is the one thing a read *does* say
-    about rotation: non-null for the 24 hours webhooks.md §Signature keeps the
-    previous secret verifying, so the console can show "rotation in progress"
-    without ever seeing the old secret itself.
+    The signing secret is never returned after creation or rotation. `previous_secret_expires_at` is
+    set for 24 hours after a rotation, while the previous secret still verifies.
 
         Attributes:
             created_at (datetime.datetime):

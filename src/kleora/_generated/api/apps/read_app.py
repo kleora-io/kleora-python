@@ -85,13 +85,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[AppOut | Problem]:
-    r"""An app
+    """An app
 
-     The App, with both environment ids embedded.
+     The App, with the ids of both its environments.
 
-    `app_id` is a `str` and never parsed here: `@requires` resolved the row and
-    a value that is not a UUID is the same 404 a missing row gets
-    (management-api.md §\"Resource map\").
+    An `app_id` that is not a UUID is answered `404`, like a missing App.
 
     Args:
         app_id (str):
@@ -120,13 +118,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> AppOut | Problem | None:
-    r"""An app
+    """An app
 
-     The App, with both environment ids embedded.
+     The App, with the ids of both its environments.
 
-    `app_id` is a `str` and never parsed here: `@requires` resolved the row and
-    a value that is not a UUID is the same 404 a missing row gets
-    (management-api.md §\"Resource map\").
+    An `app_id` that is not a UUID is answered `404`, like a missing App.
 
     Args:
         app_id (str):
@@ -150,13 +146,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[AppOut | Problem]:
-    r"""An app
+    """An app
 
-     The App, with both environment ids embedded.
+     The App, with the ids of both its environments.
 
-    `app_id` is a `str` and never parsed here: `@requires` resolved the row and
-    a value that is not a UUID is the same 404 a missing row gets
-    (management-api.md §\"Resource map\").
+    An `app_id` that is not a UUID is answered `404`, like a missing App.
 
     Args:
         app_id (str):
@@ -183,13 +177,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> AppOut | Problem | None:
-    r"""An app
+    """An app
 
-     The App, with both environment ids embedded.
+     The App, with the ids of both its environments.
 
-    `app_id` is a `str` and never parsed here: `@requires` resolved the row and
-    a value that is not a UUID is the same 404 a missing row gets
-    (management-api.md §\"Resource map\").
+    An `app_id` that is not a UUID is answered `404`, like a missing App.
 
     Args:
         app_id (str):

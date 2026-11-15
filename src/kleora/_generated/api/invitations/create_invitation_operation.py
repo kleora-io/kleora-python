@@ -107,31 +107,21 @@ def sync_detailed(
 ) -> Response[InvitationOut | Problem]:
     """Invite an address
 
-     Write the invitation and mail the link. The token is in neither answer.
+     Create an invitation and email the link. The token is not returned.
 
-    The roles are validated exactly as `POST T/members` validates them — same
-    resolver, same two failures — and the same two guards run over them: a
-    `tenant_member` may only offer roles inside its own permission set, and
-    `owner` in an Account's tenant may only be offered by a member who holds it.
-    An invitation is a membership that has not happened yet, so a rule that
-    applied to one and not the other would be a way round it.
+    The roles are validated as `POST /tenants/{tenant_id}/members` validates them: a tenant member
+    may only offer roles within its own permissions, and `owner` in an Account's tenant may only be
+    offered by a member who holds it.
 
-    Keyed with `Idempotency-Key` like every `POST` on this surface (P2-05), and
-    the mail is enqueued inside the transaction that writes the row — so a
-    replayed key replays the stored 201 and sends nothing a second time.
+    With an `Idempotency-Key`, a repeated request returns the stored `201` and sends no second
+    email.
 
     Args:
         tenant_id (str):
-        body (InvitationIn): `POST /api/v1/tenants/{tenant_id}/invitations`.
+        body (InvitationIn): The body of `POST /api/v1/tenants/{tenant_id}/invitations`.
 
-            `email` is a plain string validated by the User model's own address rule at
-            write time rather than by an `EmailStr` here, so an address this surface
-            accepts is exactly an address the platform can hold — one schema-level
-            definition of "an email" that disagreed with the model's would be a 422 for
-            an address a member could have, or a 500 for one it could not.
-
-            `roles` is a list of Role ids, validated exactly as `POST T/members`
-            validates them, and defaults to none.
+            `email` is validated by the same rules as a user's address. `roles` is a list of role ids,
+            validated as `POST /tenants/{tenant_id}/members` validates them, and empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,31 +151,21 @@ def sync(
 ) -> InvitationOut | Problem | None:
     """Invite an address
 
-     Write the invitation and mail the link. The token is in neither answer.
+     Create an invitation and email the link. The token is not returned.
 
-    The roles are validated exactly as `POST T/members` validates them — same
-    resolver, same two failures — and the same two guards run over them: a
-    `tenant_member` may only offer roles inside its own permission set, and
-    `owner` in an Account's tenant may only be offered by a member who holds it.
-    An invitation is a membership that has not happened yet, so a rule that
-    applied to one and not the other would be a way round it.
+    The roles are validated as `POST /tenants/{tenant_id}/members` validates them: a tenant member
+    may only offer roles within its own permissions, and `owner` in an Account's tenant may only be
+    offered by a member who holds it.
 
-    Keyed with `Idempotency-Key` like every `POST` on this surface (P2-05), and
-    the mail is enqueued inside the transaction that writes the row — so a
-    replayed key replays the stored 201 and sends nothing a second time.
+    With an `Idempotency-Key`, a repeated request returns the stored `201` and sends no second
+    email.
 
     Args:
         tenant_id (str):
-        body (InvitationIn): `POST /api/v1/tenants/{tenant_id}/invitations`.
+        body (InvitationIn): The body of `POST /api/v1/tenants/{tenant_id}/invitations`.
 
-            `email` is a plain string validated by the User model's own address rule at
-            write time rather than by an `EmailStr` here, so an address this surface
-            accepts is exactly an address the platform can hold — one schema-level
-            definition of "an email" that disagreed with the model's would be a 422 for
-            an address a member could have, or a 500 for one it could not.
-
-            `roles` is a list of Role ids, validated exactly as `POST T/members`
-            validates them, and defaults to none.
+            `email` is validated by the same rules as a user's address. `roles` is a list of role ids,
+            validated as `POST /tenants/{tenant_id}/members` validates them, and empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -210,31 +190,21 @@ async def asyncio_detailed(
 ) -> Response[InvitationOut | Problem]:
     """Invite an address
 
-     Write the invitation and mail the link. The token is in neither answer.
+     Create an invitation and email the link. The token is not returned.
 
-    The roles are validated exactly as `POST T/members` validates them — same
-    resolver, same two failures — and the same two guards run over them: a
-    `tenant_member` may only offer roles inside its own permission set, and
-    `owner` in an Account's tenant may only be offered by a member who holds it.
-    An invitation is a membership that has not happened yet, so a rule that
-    applied to one and not the other would be a way round it.
+    The roles are validated as `POST /tenants/{tenant_id}/members` validates them: a tenant member
+    may only offer roles within its own permissions, and `owner` in an Account's tenant may only be
+    offered by a member who holds it.
 
-    Keyed with `Idempotency-Key` like every `POST` on this surface (P2-05), and
-    the mail is enqueued inside the transaction that writes the row — so a
-    replayed key replays the stored 201 and sends nothing a second time.
+    With an `Idempotency-Key`, a repeated request returns the stored `201` and sends no second
+    email.
 
     Args:
         tenant_id (str):
-        body (InvitationIn): `POST /api/v1/tenants/{tenant_id}/invitations`.
+        body (InvitationIn): The body of `POST /api/v1/tenants/{tenant_id}/invitations`.
 
-            `email` is a plain string validated by the User model's own address rule at
-            write time rather than by an `EmailStr` here, so an address this surface
-            accepts is exactly an address the platform can hold — one schema-level
-            definition of "an email" that disagreed with the model's would be a 422 for
-            an address a member could have, or a 500 for one it could not.
-
-            `roles` is a list of Role ids, validated exactly as `POST T/members`
-            validates them, and defaults to none.
+            `email` is validated by the same rules as a user's address. `roles` is a list of role ids,
+            validated as `POST /tenants/{tenant_id}/members` validates them, and empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -262,31 +232,21 @@ async def asyncio(
 ) -> InvitationOut | Problem | None:
     """Invite an address
 
-     Write the invitation and mail the link. The token is in neither answer.
+     Create an invitation and email the link. The token is not returned.
 
-    The roles are validated exactly as `POST T/members` validates them — same
-    resolver, same two failures — and the same two guards run over them: a
-    `tenant_member` may only offer roles inside its own permission set, and
-    `owner` in an Account's tenant may only be offered by a member who holds it.
-    An invitation is a membership that has not happened yet, so a rule that
-    applied to one and not the other would be a way round it.
+    The roles are validated as `POST /tenants/{tenant_id}/members` validates them: a tenant member
+    may only offer roles within its own permissions, and `owner` in an Account's tenant may only be
+    offered by a member who holds it.
 
-    Keyed with `Idempotency-Key` like every `POST` on this surface (P2-05), and
-    the mail is enqueued inside the transaction that writes the row — so a
-    replayed key replays the stored 201 and sends nothing a second time.
+    With an `Idempotency-Key`, a repeated request returns the stored `201` and sends no second
+    email.
 
     Args:
         tenant_id (str):
-        body (InvitationIn): `POST /api/v1/tenants/{tenant_id}/invitations`.
+        body (InvitationIn): The body of `POST /api/v1/tenants/{tenant_id}/invitations`.
 
-            `email` is a plain string validated by the User model's own address rule at
-            write time rather than by an `EmailStr` here, so an address this surface
-            accepts is exactly an address the platform can hold — one schema-level
-            definition of "an email" that disagreed with the model's would be a 422 for
-            an address a member could have, or a 500 for one it could not.
-
-            `roles` is a list of Role ids, validated exactly as `POST T/members`
-            validates them, and defaults to none.
+            `email` is validated by the same rules as a user's address. `roles` is a list of role ids,
+            validated as `POST /tenants/{tenant_id}/members` validates them, and empty by default.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

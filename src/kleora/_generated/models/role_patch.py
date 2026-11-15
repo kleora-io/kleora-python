@@ -18,14 +18,11 @@ T = TypeVar("T", bound="RolePatch")
 
 @_attrs_define
 class RolePatch:
-    """`PATCH /api/v1/roles/{role_id}` — `name` and `description`.
+    """The body of `PATCH /api/v1/roles/{role_id}`: `name` and `description`.
 
-    `slug` is named in `immutable_fields`: it is what a token's `roles` array
-    carries, so moving it would change what every deployed integration reads
-    while the role's identity stayed the same (rbac.md §Roles). `permissions`
-    has its own `PUT`, and `scope`, `tenant_id`, `is_system` and `member_count`
-    are unknown fields — the first two are decided at creation, the third is
-    ours, and the last is a projection.
+    `slug` cannot be changed, since it is what tokens carry: sending it is refused as immutable.
+    Permissions are replaced with `PUT /roles/{role_id}/permissions`. `scope`, `tenant_id`,
+    `is_system` and `member_count` are refused as unknown fields.
 
         Attributes:
             description (str | Unset):

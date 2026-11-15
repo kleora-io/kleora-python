@@ -74,20 +74,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | RevokedOut]:
-    r"""Sign every other device out
+    """Sign every other device out
 
-     Every live session except this token's, and the count of what went.
+     Revoke every live session of the person except the one this token belongs to, and return how
+    many were revoked.
 
-    Not sensitive, and not a `revoke-all`: see the module docstring for both. The
-    count is what a screen puts in its confirmation — \"3 other devices signed
-    out\" — and is the reason this is not a `204`.
-
-    `sessions.revoke_all_for_user` rather than a loop over `_live`, because that
-    service is what also emits the `sessions.revoked_all` summary the taxonomy
-    defines: \"without it, revoking forty sessions is forty rows and no record of
-    the single act that caused them\". It is one transaction, it cascades to the
-    refresh families, and `except_session` is exactly this token's own — the
-    argument that function already exists to take.
+    Does not require re-authentication. Revoking a session also revokes its refresh tokens.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -110,20 +102,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | RevokedOut | None:
-    r"""Sign every other device out
+    """Sign every other device out
 
-     Every live session except this token's, and the count of what went.
+     Revoke every live session of the person except the one this token belongs to, and return how
+    many were revoked.
 
-    Not sensitive, and not a `revoke-all`: see the module docstring for both. The
-    count is what a screen puts in its confirmation — \"3 other devices signed
-    out\" — and is the reason this is not a `204`.
-
-    `sessions.revoke_all_for_user` rather than a loop over `_live`, because that
-    service is what also emits the `sessions.revoked_all` summary the taxonomy
-    defines: \"without it, revoking forty sessions is forty rows and no record of
-    the single act that caused them\". It is one transaction, it cascades to the
-    refresh families, and `except_session` is exactly this token's own — the
-    argument that function already exists to take.
+    Does not require re-authentication. Revoking a session also revokes its refresh tokens.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -142,20 +126,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | RevokedOut]:
-    r"""Sign every other device out
+    """Sign every other device out
 
-     Every live session except this token's, and the count of what went.
+     Revoke every live session of the person except the one this token belongs to, and return how
+    many were revoked.
 
-    Not sensitive, and not a `revoke-all`: see the module docstring for both. The
-    count is what a screen puts in its confirmation — \"3 other devices signed
-    out\" — and is the reason this is not a `204`.
-
-    `sessions.revoke_all_for_user` rather than a loop over `_live`, because that
-    service is what also emits the `sessions.revoked_all` summary the taxonomy
-    defines: \"without it, revoking forty sessions is forty rows and no record of
-    the single act that caused them\". It is one transaction, it cascades to the
-    refresh families, and `except_session` is exactly this token's own — the
-    argument that function already exists to take.
+    Does not require re-authentication. Revoking a session also revokes its refresh tokens.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -176,20 +152,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | RevokedOut | None:
-    r"""Sign every other device out
+    """Sign every other device out
 
-     Every live session except this token's, and the count of what went.
+     Revoke every live session of the person except the one this token belongs to, and return how
+    many were revoked.
 
-    Not sensitive, and not a `revoke-all`: see the module docstring for both. The
-    count is what a screen puts in its confirmation — \"3 other devices signed
-    out\" — and is the reason this is not a `204`.
-
-    `sessions.revoke_all_for_user` rather than a loop over `_live`, because that
-    service is what also emits the `sessions.revoked_all` summary the taxonomy
-    defines: \"without it, revoking forty sessions is forty rows and no record of
-    the single act that caused them\". It is one transaction, it cascades to the
-    refresh families, and `except_session` is exactly this token's own — the
-    argument that function already exists to take.
+    Does not require re-authentication. Revoking a session also revokes its refresh tokens.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -22,11 +22,9 @@ T = TypeVar("T", bound="AccountAuditFilters")
 
 @_attrs_define
 class AccountAuditFilters:
-    """The account endpoint's filters: `environment_id` as well.
+    """The filters of the Account's audit event list, which also takes `environment_id`.
 
-    Only here, because it is the only endpoint whose scope spans more than one
-    environment — and omitting it is what asks for every event of the Account,
-    account-level ones included.
+    Without `environment_id`, every event of the Account is listed, account-level events included.
 
         Attributes:
             action (list[str] | None | Unset):

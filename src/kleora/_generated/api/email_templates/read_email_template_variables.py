@@ -87,20 +87,9 @@ def sync_detailed(
 ) -> Response[EmailVariables | Problem]:
     """The variables an email template may use
 
-     email.md §Variables, machine-readable, for the editor to render.
+     The variables an email template may use, with a description and a sample value for each.
 
-    A singleton document rather than a list: there is nothing to seek and
-    nothing to page, and an `items`/`next_cursor` envelope around a description
-    of a table would be pagination with no pagination in it (management-api.md
-    §OpenAPI).
-
-    Environment-scoped because two of the samples are the environment's own —
-    `app_name` is its App's name and `link` is built on its issuer — and served
-    from `apps.email.engine`'s own table, the one the validator walks and the
-    renderer binds, so the console never holds a second copy of the spec's
-    table. Samples are the `all` set, written in the environment's default
-    locale: the editor shows what a variable stands for, and `POST …/render`
-    is where the two sample sets are chosen between.
+    Samples use the environment's own App name and issuer, in the environment's default language.
 
     Args:
         environment_id (str):
@@ -131,20 +120,9 @@ def sync(
 ) -> EmailVariables | Problem | None:
     """The variables an email template may use
 
-     email.md §Variables, machine-readable, for the editor to render.
+     The variables an email template may use, with a description and a sample value for each.
 
-    A singleton document rather than a list: there is nothing to seek and
-    nothing to page, and an `items`/`next_cursor` envelope around a description
-    of a table would be pagination with no pagination in it (management-api.md
-    §OpenAPI).
-
-    Environment-scoped because two of the samples are the environment's own —
-    `app_name` is its App's name and `link` is built on its issuer — and served
-    from `apps.email.engine`'s own table, the one the validator walks and the
-    renderer binds, so the console never holds a second copy of the spec's
-    table. Samples are the `all` set, written in the environment's default
-    locale: the editor shows what a variable stands for, and `POST …/render`
-    is where the two sample sets are chosen between.
+    Samples use the environment's own App name and issuer, in the environment's default language.
 
     Args:
         environment_id (str):
@@ -170,20 +148,9 @@ async def asyncio_detailed(
 ) -> Response[EmailVariables | Problem]:
     """The variables an email template may use
 
-     email.md §Variables, machine-readable, for the editor to render.
+     The variables an email template may use, with a description and a sample value for each.
 
-    A singleton document rather than a list: there is nothing to seek and
-    nothing to page, and an `items`/`next_cursor` envelope around a description
-    of a table would be pagination with no pagination in it (management-api.md
-    §OpenAPI).
-
-    Environment-scoped because two of the samples are the environment's own —
-    `app_name` is its App's name and `link` is built on its issuer — and served
-    from `apps.email.engine`'s own table, the one the validator walks and the
-    renderer binds, so the console never holds a second copy of the spec's
-    table. Samples are the `all` set, written in the environment's default
-    locale: the editor shows what a variable stands for, and `POST …/render`
-    is where the two sample sets are chosen between.
+    Samples use the environment's own App name and issuer, in the environment's default language.
 
     Args:
         environment_id (str):
@@ -212,20 +179,9 @@ async def asyncio(
 ) -> EmailVariables | Problem | None:
     """The variables an email template may use
 
-     email.md §Variables, machine-readable, for the editor to render.
+     The variables an email template may use, with a description and a sample value for each.
 
-    A singleton document rather than a list: there is nothing to seek and
-    nothing to page, and an `items`/`next_cursor` envelope around a description
-    of a table would be pagination with no pagination in it (management-api.md
-    §OpenAPI).
-
-    Environment-scoped because two of the samples are the environment's own —
-    `app_name` is its App's name and `link` is built on its issuer — and served
-    from `apps.email.engine`'s own table, the one the validator walks and the
-    renderer binds, so the console never holds a second copy of the spec's
-    table. Samples are the `all` set, written in the environment's default
-    locale: the editor shows what a variable stands for, and `POST …/render`
-    is where the two sample sets are chosen between.
+    Samples use the environment's own App name and issuer, in the environment's default language.
 
     Args:
         environment_id (str):

@@ -178,11 +178,9 @@ def sync_detailed(
 ) -> Response[AuditEventList | Problem]:
     """A tenant's audit events
 
-     Every event recorded against this tenant — the `tenant_member`'s endpoint.
+     Every audit event recorded against this tenant, newest first.
 
-    It takes no `tenant_id` filter because the path already is one, and no
-    `environment_id` one because a Tenant belongs to exactly one environment.
-    Another tenant's id is 404 by containment, whether or not the row exists.
+    Available to the tenant's own members. Another tenant's id is `404`.
 
     Args:
         tenant_id (str):
@@ -237,11 +235,9 @@ def sync(
 ) -> AuditEventList | Problem | None:
     """A tenant's audit events
 
-     Every event recorded against this tenant — the `tenant_member`'s endpoint.
+     Every audit event recorded against this tenant, newest first.
 
-    It takes no `tenant_id` filter because the path already is one, and no
-    `environment_id` one because a Tenant belongs to exactly one environment.
-    Another tenant's id is 404 by containment, whether or not the row exists.
+    Available to the tenant's own members. Another tenant's id is `404`.
 
     Args:
         tenant_id (str):
@@ -291,11 +287,9 @@ async def asyncio_detailed(
 ) -> Response[AuditEventList | Problem]:
     """A tenant's audit events
 
-     Every event recorded against this tenant — the `tenant_member`'s endpoint.
+     Every audit event recorded against this tenant, newest first.
 
-    It takes no `tenant_id` filter because the path already is one, and no
-    `environment_id` one because a Tenant belongs to exactly one environment.
-    Another tenant's id is 404 by containment, whether or not the row exists.
+    Available to the tenant's own members. Another tenant's id is `404`.
 
     Args:
         tenant_id (str):
@@ -348,11 +342,9 @@ async def asyncio(
 ) -> AuditEventList | Problem | None:
     """A tenant's audit events
 
-     Every event recorded against this tenant — the `tenant_member`'s endpoint.
+     Every audit event recorded against this tenant, newest first.
 
-    It takes no `tenant_id` filter because the path already is one, and no
-    `environment_id` one because a Tenant belongs to exactly one environment.
-    Another tenant's id is 404 by containment, whether or not the row exists.
+    Available to the tenant's own members. Another tenant's id is `404`.
 
     Args:
         tenant_id (str):

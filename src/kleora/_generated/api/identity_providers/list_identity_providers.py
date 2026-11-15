@@ -90,15 +90,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[IdentityProviderList | Problem]:
-    r"""List identity providers
+    """List identity providers
 
-     Every provider configured for this environment, by kind. Never a client secret.
+     Every identity provider configured for the environment, by kind. Client secrets are never
+    returned.
 
-    Configured, not enabled: a provider switched off still appears, because the
-    credentials are still there and \"off\" is a state a person chose rather than
-    the absence of a row. Not paginated — there are four possible rows and no
-    fifth — so `next_cursor` is always null, the arrangement `GET …/signing-keys`
-    already has.
+    Disabled providers are listed too. Not paginated: `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -127,15 +124,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> IdentityProviderList | Problem | None:
-    r"""List identity providers
+    """List identity providers
 
-     Every provider configured for this environment, by kind. Never a client secret.
+     Every identity provider configured for the environment, by kind. Client secrets are never
+    returned.
 
-    Configured, not enabled: a provider switched off still appears, because the
-    credentials are still there and \"off\" is a state a person chose rather than
-    the absence of a row. Not paginated — there are four possible rows and no
-    fifth — so `next_cursor` is always null, the arrangement `GET …/signing-keys`
-    already has.
+    Disabled providers are listed too. Not paginated: `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -159,15 +153,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[IdentityProviderList | Problem]:
-    r"""List identity providers
+    """List identity providers
 
-     Every provider configured for this environment, by kind. Never a client secret.
+     Every identity provider configured for the environment, by kind. Client secrets are never
+    returned.
 
-    Configured, not enabled: a provider switched off still appears, because the
-    credentials are still there and \"off\" is a state a person chose rather than
-    the absence of a row. Not paginated — there are four possible rows and no
-    fifth — so `next_cursor` is always null, the arrangement `GET …/signing-keys`
-    already has.
+    Disabled providers are listed too. Not paginated: `next_cursor` is always `null`.
 
     Args:
         environment_id (str):
@@ -194,15 +185,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> IdentityProviderList | Problem | None:
-    r"""List identity providers
+    """List identity providers
 
-     Every provider configured for this environment, by kind. Never a client secret.
+     Every identity provider configured for the environment, by kind. Client secrets are never
+    returned.
 
-    Configured, not enabled: a provider switched off still appears, because the
-    credentials are still there and \"off\" is a state a person chose rather than
-    the absence of a row. Not paginated — there are four possible rows and no
-    fifth — so `next_cursor` is always null, the arrangement `GET …/signing-keys`
-    already has.
+    Disabled providers are listed too. Not paginated: `next_cursor` is always `null`.
 
     Args:
         environment_id (str):

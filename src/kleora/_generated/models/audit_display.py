@@ -19,19 +19,12 @@ T = TypeVar("T", bound="AuditDisplay")
 
 @_attrs_define
 class AuditDisplay:
-    """Who or what an `actor`/`target` id names, resolved when the page is
-    read — never captured when the event was written (audit-log.md
-    §"Naming the actor and the target").
+    """Who or what an `actor` or `target` id names, as it is now rather than when the event was
+    recorded.
 
-    Bounded by `audit:read`, not `users:read`: a name, the email that tells
-    two people sharing one apart, and the avatar — nothing else a User
-    resource carries. Every field below is set only when it applies to what
-    was resolved: `email`, `avatar_color` and `picture_url` never appear on a
-    tenant's `display`, and nothing but `removed` appears when the id no
-    longer resolves to any row (a hard-deleted Tenant, mainly — a User is
-    only ever erased in place and always resolves). The three audit-events
-    endpoints declare `exclude_unset=True` for exactly this: a field the
-    resolver did not set is absent from the response, not `null`.
+    A name, the email, and the avatar. Fields appear only where they apply: a tenant has no `email`,
+    `avatar_color` or `picture_url`, and when the id no longer resolves (for example a deleted
+    tenant) only `removed` appears. Fields that do not apply are absent, not `null`.
 
         Attributes:
             avatar_color (None | str | Unset):

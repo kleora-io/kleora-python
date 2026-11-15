@@ -111,17 +111,13 @@ def sync_detailed(
 
     Args:
         app_id (str):
-        body (AppPatch): `PATCH /api/v1/apps/{app_id}` — `name`, and nothing else.
+        body (AppPatch): The body of `PATCH /api/v1/apps/{app_id}`: `name`, and nothing else.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as a typo. Both of the App's issuers are derived from it and every
-            token minted so far claims one of them as `iss`, so a rename would silently
-            invalidate deployed integrations (apps.md §"The slug is the issuer").
-
-            `is_platform`, `account_id` and `environments` are unknown fields on
-            purpose: the first two are ours and the third is a projection, not a
-            property, and `extra="forbid"` says so.
+            `slug` cannot be changed, because both of the App's issuers are derived from it: sending
+            it is
+            refused as immutable. `is_platform`, `account_id` and `environments` are refused as
+            unknown
+            fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -155,17 +151,13 @@ def sync(
 
     Args:
         app_id (str):
-        body (AppPatch): `PATCH /api/v1/apps/{app_id}` — `name`, and nothing else.
+        body (AppPatch): The body of `PATCH /api/v1/apps/{app_id}`: `name`, and nothing else.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as a typo. Both of the App's issuers are derived from it and every
-            token minted so far claims one of them as `iss`, so a rename would silently
-            invalidate deployed integrations (apps.md §"The slug is the issuer").
-
-            `is_platform`, `account_id` and `environments` are unknown fields on
-            purpose: the first two are ours and the third is a projection, not a
-            property, and `extra="forbid"` says so.
+            `slug` cannot be changed, because both of the App's issuers are derived from it: sending
+            it is
+            refused as immutable. `is_platform`, `account_id` and `environments` are refused as
+            unknown
+            fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -194,17 +186,13 @@ async def asyncio_detailed(
 
     Args:
         app_id (str):
-        body (AppPatch): `PATCH /api/v1/apps/{app_id}` — `name`, and nothing else.
+        body (AppPatch): The body of `PATCH /api/v1/apps/{app_id}`: `name`, and nothing else.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as a typo. Both of the App's issuers are derived from it and every
-            token minted so far claims one of them as `iss`, so a rename would silently
-            invalidate deployed integrations (apps.md §"The slug is the issuer").
-
-            `is_platform`, `account_id` and `environments` are unknown fields on
-            purpose: the first two are ours and the third is a projection, not a
-            property, and `extra="forbid"` says so.
+            `slug` cannot be changed, because both of the App's issuers are derived from it: sending
+            it is
+            refused as immutable. `is_platform`, `account_id` and `environments` are refused as
+            unknown
+            fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -236,17 +224,13 @@ async def asyncio(
 
     Args:
         app_id (str):
-        body (AppPatch): `PATCH /api/v1/apps/{app_id}` — `name`, and nothing else.
+        body (AppPatch): The body of `PATCH /api/v1/apps/{app_id}`: `name`, and nothing else.
 
-            `slug` is not a field of this schema, so it cannot be written; it is named
-            in `immutable_fields` so that sending it is answered as what it is rather
-            than as a typo. Both of the App's issuers are derived from it and every
-            token minted so far claims one of them as `iss`, so a rename would silently
-            invalidate deployed integrations (apps.md §"The slug is the issuer").
-
-            `is_platform`, `account_id` and `environments` are unknown fields on
-            purpose: the first two are ours and the third is a projection, not a
-            property, and `extra="forbid"` says so.
+            `slug` cannot be changed, because both of the App's issuers are derived from it: sending
+            it is
+            refused as immutable. `is_platform`, `account_id` and `environments` are refused as
+            unknown
+            fields.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

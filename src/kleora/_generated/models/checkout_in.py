@@ -21,15 +21,10 @@ T = TypeVar("T", bound="CheckoutIn")
 
 @_attrs_define
 class CheckoutIn:
-    """`POST /api/v1/account/billing/checkout`.
+    """The body of `POST /api/v1/account/billing/checkout`.
 
-    Two closed sets and a country. In particular **no return URL**: one taken
-    from the body would be an open redirect with a payment page in front of it,
-    so it comes from this deployment's own configuration
-    (`apps.billing.services._return_url`), and **no currency and no price**
-    either — the caller says where the customer bills from and the server
-    decides what that costs. A currency in the body would be a client choosing
-    its own price list.
+    The plan, the billing interval and the billing country. There is no return URL, currency or
+    price: the return URL is fixed, and the price and currency follow from the plan and the country.
 
         Attributes:
             plan (CheckoutInPlan):

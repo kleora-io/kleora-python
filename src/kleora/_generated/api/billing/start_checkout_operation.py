@@ -95,39 +95,25 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: CheckoutIn,
 ) -> Response[BillingSessionOut | Problem]:
-    r"""Start Stripe Checkout
+    """Start Stripe Checkout
 
      A short-lived Stripe Checkout URL for a named plan.
 
-    `200`, not `201`: nothing of ours was created. The Stripe objects a
-    completed Checkout produces reach this codebase through the webhook, which
-    is the only writer of the mirror.
+    Answers `200`: nothing is created until the Checkout is completed. The currency follows
+    `billing_country` (or the address on record when none is given, and the default currency
+    otherwise), never the caller's language, and is fixed for the life of the subscription. Taxes
+    are calculated and tax ids collected during Checkout; every price is net.
 
-    **The currency follows `billing_country`** and never the caller's locale
-    (billing.md §\"Currency follows the customer, never the page language\"); the
-    country the buyer states wins, the address on their Stripe record answers
-    when they state none, and the default currency applies when neither does.
-    It is fixed for the life of the subscription, because Stripe will not switch
-    a live one's currency.
-
-    Stripe Tax is enabled on the session and tax ids are collected there
-    (`apps.billing.services.start_checkout`), so VAT and sales tax are Stripe's
-    arithmetic — every Price is net in both currencies. A second Checkout for an
-    Account that already has a live subscription is `409 conflict` pointing at
-    the Portal — the door half of
-    billing.md's \"the second is a no-op, not a second subscription\"; the
-    one-to-one mirror is the other half.
+    `409 conflict` when the Account already has a live subscription; change it through the billing
+    portal instead.
 
     Args:
-        body (CheckoutIn): `POST /api/v1/account/billing/checkout`.
+        body (CheckoutIn): The body of `POST /api/v1/account/billing/checkout`.
 
-            Two closed sets and a country. In particular **no return URL**: one taken
-            from the body would be an open redirect with a payment page in front of it,
-            so it comes from this deployment's own configuration
-            (`apps.billing.services._return_url`), and **no currency and no price**
-            either — the caller says where the customer bills from and the server
-            decides what that costs. A currency in the body would be a client choosing
-            its own price list.
+            The plan, the billing interval and the billing country. There is no return URL, currency
+            or
+            price: the return URL is fixed, and the price and currency follow from the plan and the
+            country.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -153,39 +139,25 @@ def sync(
     client: AuthenticatedClient,
     body: CheckoutIn,
 ) -> BillingSessionOut | Problem | None:
-    r"""Start Stripe Checkout
+    """Start Stripe Checkout
 
      A short-lived Stripe Checkout URL for a named plan.
 
-    `200`, not `201`: nothing of ours was created. The Stripe objects a
-    completed Checkout produces reach this codebase through the webhook, which
-    is the only writer of the mirror.
+    Answers `200`: nothing is created until the Checkout is completed. The currency follows
+    `billing_country` (or the address on record when none is given, and the default currency
+    otherwise), never the caller's language, and is fixed for the life of the subscription. Taxes
+    are calculated and tax ids collected during Checkout; every price is net.
 
-    **The currency follows `billing_country`** and never the caller's locale
-    (billing.md §\"Currency follows the customer, never the page language\"); the
-    country the buyer states wins, the address on their Stripe record answers
-    when they state none, and the default currency applies when neither does.
-    It is fixed for the life of the subscription, because Stripe will not switch
-    a live one's currency.
-
-    Stripe Tax is enabled on the session and tax ids are collected there
-    (`apps.billing.services.start_checkout`), so VAT and sales tax are Stripe's
-    arithmetic — every Price is net in both currencies. A second Checkout for an
-    Account that already has a live subscription is `409 conflict` pointing at
-    the Portal — the door half of
-    billing.md's \"the second is a no-op, not a second subscription\"; the
-    one-to-one mirror is the other half.
+    `409 conflict` when the Account already has a live subscription; change it through the billing
+    portal instead.
 
     Args:
-        body (CheckoutIn): `POST /api/v1/account/billing/checkout`.
+        body (CheckoutIn): The body of `POST /api/v1/account/billing/checkout`.
 
-            Two closed sets and a country. In particular **no return URL**: one taken
-            from the body would be an open redirect with a payment page in front of it,
-            so it comes from this deployment's own configuration
-            (`apps.billing.services._return_url`), and **no currency and no price**
-            either — the caller says where the customer bills from and the server
-            decides what that costs. A currency in the body would be a client choosing
-            its own price list.
+            The plan, the billing interval and the billing country. There is no return URL, currency
+            or
+            price: the return URL is fixed, and the price and currency follow from the plan and the
+            country.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -206,39 +178,25 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: CheckoutIn,
 ) -> Response[BillingSessionOut | Problem]:
-    r"""Start Stripe Checkout
+    """Start Stripe Checkout
 
      A short-lived Stripe Checkout URL for a named plan.
 
-    `200`, not `201`: nothing of ours was created. The Stripe objects a
-    completed Checkout produces reach this codebase through the webhook, which
-    is the only writer of the mirror.
+    Answers `200`: nothing is created until the Checkout is completed. The currency follows
+    `billing_country` (or the address on record when none is given, and the default currency
+    otherwise), never the caller's language, and is fixed for the life of the subscription. Taxes
+    are calculated and tax ids collected during Checkout; every price is net.
 
-    **The currency follows `billing_country`** and never the caller's locale
-    (billing.md §\"Currency follows the customer, never the page language\"); the
-    country the buyer states wins, the address on their Stripe record answers
-    when they state none, and the default currency applies when neither does.
-    It is fixed for the life of the subscription, because Stripe will not switch
-    a live one's currency.
-
-    Stripe Tax is enabled on the session and tax ids are collected there
-    (`apps.billing.services.start_checkout`), so VAT and sales tax are Stripe's
-    arithmetic — every Price is net in both currencies. A second Checkout for an
-    Account that already has a live subscription is `409 conflict` pointing at
-    the Portal — the door half of
-    billing.md's \"the second is a no-op, not a second subscription\"; the
-    one-to-one mirror is the other half.
+    `409 conflict` when the Account already has a live subscription; change it through the billing
+    portal instead.
 
     Args:
-        body (CheckoutIn): `POST /api/v1/account/billing/checkout`.
+        body (CheckoutIn): The body of `POST /api/v1/account/billing/checkout`.
 
-            Two closed sets and a country. In particular **no return URL**: one taken
-            from the body would be an open redirect with a payment page in front of it,
-            so it comes from this deployment's own configuration
-            (`apps.billing.services._return_url`), and **no currency and no price**
-            either — the caller says where the customer bills from and the server
-            decides what that costs. A currency in the body would be a client choosing
-            its own price list.
+            The plan, the billing interval and the billing country. There is no return URL, currency
+            or
+            price: the return URL is fixed, and the price and currency follow from the plan and the
+            country.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -262,39 +220,25 @@ async def asyncio(
     client: AuthenticatedClient,
     body: CheckoutIn,
 ) -> BillingSessionOut | Problem | None:
-    r"""Start Stripe Checkout
+    """Start Stripe Checkout
 
      A short-lived Stripe Checkout URL for a named plan.
 
-    `200`, not `201`: nothing of ours was created. The Stripe objects a
-    completed Checkout produces reach this codebase through the webhook, which
-    is the only writer of the mirror.
+    Answers `200`: nothing is created until the Checkout is completed. The currency follows
+    `billing_country` (or the address on record when none is given, and the default currency
+    otherwise), never the caller's language, and is fixed for the life of the subscription. Taxes
+    are calculated and tax ids collected during Checkout; every price is net.
 
-    **The currency follows `billing_country`** and never the caller's locale
-    (billing.md §\"Currency follows the customer, never the page language\"); the
-    country the buyer states wins, the address on their Stripe record answers
-    when they state none, and the default currency applies when neither does.
-    It is fixed for the life of the subscription, because Stripe will not switch
-    a live one's currency.
-
-    Stripe Tax is enabled on the session and tax ids are collected there
-    (`apps.billing.services.start_checkout`), so VAT and sales tax are Stripe's
-    arithmetic — every Price is net in both currencies. A second Checkout for an
-    Account that already has a live subscription is `409 conflict` pointing at
-    the Portal — the door half of
-    billing.md's \"the second is a no-op, not a second subscription\"; the
-    one-to-one mirror is the other half.
+    `409 conflict` when the Account already has a live subscription; change it through the billing
+    portal instead.
 
     Args:
-        body (CheckoutIn): `POST /api/v1/account/billing/checkout`.
+        body (CheckoutIn): The body of `POST /api/v1/account/billing/checkout`.
 
-            Two closed sets and a country. In particular **no return URL**: one taken
-            from the body would be an open redirect with a payment page in front of it,
-            so it comes from this deployment's own configuration
-            (`apps.billing.services._return_url`), and **no currency and no price**
-            either — the caller says where the customer bills from and the server
-            decides what that costs. A currency in the body would be a client choosing
-            its own price list.
+            The plan, the billing interval and the billing country. There is no return URL, currency
+            or
+            price: the return URL is fixed, and the price and currency follow from the plan and the
+            country.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

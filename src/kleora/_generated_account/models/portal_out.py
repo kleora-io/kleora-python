@@ -19,17 +19,10 @@ T = TypeVar("T", bound="PortalOut")
 
 @_attrs_define
 class PortalOut:
-    """§API `GET /portal`: `{url, sections[]}`.
+    """The hosted account portal's entry URL and the sections this environment offers.
 
-    "One document naming the portal URL and which sections this Environment
-    offers, so a customer's own page renders the right links without hard-coding a
-    path of ours or guessing at `self_deletion`."
-
-    `url` is the portal's stable entry point, `{issuer}/account`. The `client_id`
-    and `return_to` parameters §"Getting there and back" describes are the
-    caller's to add — they are about where the *customer's* browser should come
-    back to, which this endpoint cannot know and an SDK helper builds
-    (`accountPortalUrl`, `U10-04`).
+    `url` is `{issuer}/account`. To have the portal send the person back to your application, add
+    the `client_id` and `return_to` query parameters.
 
         Attributes:
             sections (list[PortalSection]):

@@ -96,13 +96,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke an invitation
+    """Revoke an invitation
 
-     Stamp `revoked_at` so the link stops resolving. Idempotent, and 204.
+     Revoke an invitation, so its link stops working. Idempotent.
 
-    The row stays and lists under `?status=revoked`: an invitation that was sent
-    and withdrawn is a thing that happened, and a console that could not show it
-    would have no answer to \"why did that link stop working\".
+    The invitation is kept, and listed under `?status=revoked`.
 
     Args:
         tenant_id (str):
@@ -134,13 +132,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke an invitation
+    """Revoke an invitation
 
-     Stamp `revoked_at` so the link stops resolving. Idempotent, and 204.
+     Revoke an invitation, so its link stops working. Idempotent.
 
-    The row stays and lists under `?status=revoked`: an invitation that was sent
-    and withdrawn is a thing that happened, and a console that could not show it
-    would have no answer to \"why did that link stop working\".
+    The invitation is kept, and listed under `?status=revoked`.
 
     Args:
         tenant_id (str):
@@ -167,13 +163,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke an invitation
+    """Revoke an invitation
 
-     Stamp `revoked_at` so the link stops resolving. Idempotent, and 204.
+     Revoke an invitation, so its link stops working. Idempotent.
 
-    The row stays and lists under `?status=revoked`: an invitation that was sent
-    and withdrawn is a thing that happened, and a console that could not show it
-    would have no answer to \"why did that link stop working\".
+    The invitation is kept, and listed under `?status=revoked`.
 
     Args:
         tenant_id (str):
@@ -203,13 +197,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke an invitation
+    """Revoke an invitation
 
-     Stamp `revoked_at` so the link stops resolving. Idempotent, and 204.
+     Revoke an invitation, so its link stops working. Idempotent.
 
-    The row stays and lists under `?status=revoked`: an invitation that was sent
-    and withdrawn is a thing that happened, and a console that could not show it
-    would have no answer to \"why did that link stop working\".
+    The invitation is kept, and listed under `?status=revoked`.
 
     Args:
         tenant_id (str):

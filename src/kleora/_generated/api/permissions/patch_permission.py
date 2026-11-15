@@ -107,21 +107,15 @@ def sync_detailed(
 ) -> Response[PermissionOut | Problem]:
     """Describe a permission
 
-     The description, and nothing else — on a reserved permission too.
-
-    Re-describing ours is the one edit rbac.md allows a customer to make to the
-    reserved set, and `ensure_reserved_permissions` is idempotent precisely so
-    that a later App creation cannot undo it.
+     Update a permission's description. This is also the one change allowed on a reserved
+    permission.
 
     Args:
         permission_id (str):
-        body (PermissionPatch): `PATCH /api/v1/permissions/{permission_id}` — the description, and
-            nothing else.
+        body (PermissionPatch): The body of `PATCH /api/v1/permissions/{permission_id}`: the
+            description, and nothing else.
 
-            `name` is named in `immutable_fields` rather than left off: it is plainly a
-            property of the resource, and it is what every Role, API-key scope and token
-            claim carries, so a rename would silently change what a deployed
-            integration is asking for (rbac.md §API: "`name` present → 422").
+            `name` cannot be changed: sending it is refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -151,21 +145,15 @@ def sync(
 ) -> PermissionOut | Problem | None:
     """Describe a permission
 
-     The description, and nothing else — on a reserved permission too.
-
-    Re-describing ours is the one edit rbac.md allows a customer to make to the
-    reserved set, and `ensure_reserved_permissions` is idempotent precisely so
-    that a later App creation cannot undo it.
+     Update a permission's description. This is also the one change allowed on a reserved
+    permission.
 
     Args:
         permission_id (str):
-        body (PermissionPatch): `PATCH /api/v1/permissions/{permission_id}` — the description, and
-            nothing else.
+        body (PermissionPatch): The body of `PATCH /api/v1/permissions/{permission_id}`: the
+            description, and nothing else.
 
-            `name` is named in `immutable_fields` rather than left off: it is plainly a
-            property of the resource, and it is what every Role, API-key scope and token
-            claim carries, so a rename would silently change what a deployed
-            integration is asking for (rbac.md §API: "`name` present → 422").
+            `name` cannot be changed: sending it is refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -190,21 +178,15 @@ async def asyncio_detailed(
 ) -> Response[PermissionOut | Problem]:
     """Describe a permission
 
-     The description, and nothing else — on a reserved permission too.
-
-    Re-describing ours is the one edit rbac.md allows a customer to make to the
-    reserved set, and `ensure_reserved_permissions` is idempotent precisely so
-    that a later App creation cannot undo it.
+     Update a permission's description. This is also the one change allowed on a reserved
+    permission.
 
     Args:
         permission_id (str):
-        body (PermissionPatch): `PATCH /api/v1/permissions/{permission_id}` — the description, and
-            nothing else.
+        body (PermissionPatch): The body of `PATCH /api/v1/permissions/{permission_id}`: the
+            description, and nothing else.
 
-            `name` is named in `immutable_fields` rather than left off: it is plainly a
-            property of the resource, and it is what every Role, API-key scope and token
-            claim carries, so a rename would silently change what a deployed
-            integration is asking for (rbac.md §API: "`name` present → 422").
+            `name` cannot be changed: sending it is refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -232,21 +214,15 @@ async def asyncio(
 ) -> PermissionOut | Problem | None:
     """Describe a permission
 
-     The description, and nothing else — on a reserved permission too.
-
-    Re-describing ours is the one edit rbac.md allows a customer to make to the
-    reserved set, and `ensure_reserved_permissions` is idempotent precisely so
-    that a later App creation cannot undo it.
+     Update a permission's description. This is also the one change allowed on a reserved
+    permission.
 
     Args:
         permission_id (str):
-        body (PermissionPatch): `PATCH /api/v1/permissions/{permission_id}` — the description, and
-            nothing else.
+        body (PermissionPatch): The body of `PATCH /api/v1/permissions/{permission_id}`: the
+            description, and nothing else.
 
-            `name` is named in `immutable_fields` rather than left off: it is plainly a
-            property of the resource, and it is what every Role, API-key scope and token
-            claim carries, so a rename would silently change what a deployed
-            integration is asking for (rbac.md §API: "`name` present → 422").
+            `name` cannot be changed: sending it is refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

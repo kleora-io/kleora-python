@@ -17,13 +17,11 @@ T = TypeVar("T", bound="ReauthIn")
 
 @_attrs_define
 class ReauthIn:
-    """A password and nothing else (§Re-authentication).
+    """The body of `POST /reauth`: the person's password.
 
-    A passkey assertion cannot be accepted here — `rp_id` is the issuer host and a
-    ceremony on the customer's origin is refused by the browser — and a provider
-    round trip cannot, because it is a navigation. Both remain available on the
-    hosted `/account/reauth`, which accepts all three; the asymmetry is the
-    browser's and `GET /reauth` is how a caller finds out which it has.
+    Passkeys and provider sign-in cannot be used through this API, because both need the browser on
+    the issuer's own origin. The hosted `/account/reauth` page accepts all three; `GET /reauth` says
+    which the person has.
 
         Attributes:
             password (str):

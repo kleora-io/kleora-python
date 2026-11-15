@@ -114,15 +114,10 @@ def sync_detailed(
 ) -> Response[Problem | UserSettingList]:
     """One user's settings
 
-     Every definition's answer for this user, `hidden` included.
+     Every setting definition's value for this user, including hidden settings.
 
-    The operator surface, so nothing is filtered by `access` — visibility
-    levels bind what the *user* sees on the public surface, not what
-    `settings:read` sees here (user-settings.md §API). One row per definition,
-    each carrying the stored value or the default; at most 50 rows (the
-    definitions cap), so `next_cursor` is present and always null, exactly as
-    `EmailTemplateList` answers, and `limit` and `cursor` are accepted and
-    ignored.
+    Each row carries the stored value or the default. At most 50 rows, so `next_cursor` is always
+    `null`, and `limit` and `cursor` are accepted and ignored.
 
     Args:
         environment_id (str):
@@ -162,15 +157,10 @@ def sync(
 ) -> Problem | UserSettingList | None:
     """One user's settings
 
-     Every definition's answer for this user, `hidden` included.
+     Every setting definition's value for this user, including hidden settings.
 
-    The operator surface, so nothing is filtered by `access` — visibility
-    levels bind what the *user* sees on the public surface, not what
-    `settings:read` sees here (user-settings.md §API). One row per definition,
-    each carrying the stored value or the default; at most 50 rows (the
-    definitions cap), so `next_cursor` is present and always null, exactly as
-    `EmailTemplateList` answers, and `limit` and `cursor` are accepted and
-    ignored.
+    Each row carries the stored value or the default. At most 50 rows, so `next_cursor` is always
+    `null`, and `limit` and `cursor` are accepted and ignored.
 
     Args:
         environment_id (str):
@@ -205,15 +195,10 @@ async def asyncio_detailed(
 ) -> Response[Problem | UserSettingList]:
     """One user's settings
 
-     Every definition's answer for this user, `hidden` included.
+     Every setting definition's value for this user, including hidden settings.
 
-    The operator surface, so nothing is filtered by `access` — visibility
-    levels bind what the *user* sees on the public surface, not what
-    `settings:read` sees here (user-settings.md §API). One row per definition,
-    each carrying the stored value or the default; at most 50 rows (the
-    definitions cap), so `next_cursor` is present and always null, exactly as
-    `EmailTemplateList` answers, and `limit` and `cursor` are accepted and
-    ignored.
+    Each row carries the stored value or the default. At most 50 rows, so `next_cursor` is always
+    `null`, and `limit` and `cursor` are accepted and ignored.
 
     Args:
         environment_id (str):
@@ -251,15 +236,10 @@ async def asyncio(
 ) -> Problem | UserSettingList | None:
     """One user's settings
 
-     Every definition's answer for this user, `hidden` included.
+     Every setting definition's value for this user, including hidden settings.
 
-    The operator surface, so nothing is filtered by `access` — visibility
-    levels bind what the *user* sees on the public surface, not what
-    `settings:read` sees here (user-settings.md §API). One row per definition,
-    each carrying the stored value or the default; at most 50 rows (the
-    definitions cap), so `next_cursor` is present and always null, exactly as
-    `EmailTemplateList` answers, and `limit` and `cursor` are accepted and
-    ignored.
+    Each row carries the stored value or the default. At most 50 rows, so `next_cursor` is always
+    `null`, and `limit` and `cursor` are accepted and ignored.
 
     Args:
         environment_id (str):

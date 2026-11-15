@@ -23,13 +23,10 @@ T = TypeVar("T", bound="IdentityList")
 
 @_attrs_define
 class IdentityList:
-    """`GET …/users/{user_id}/identities`, oldest link first.
+    """The body of `GET .../users/{user_id}/identities`, oldest first.
 
-    `next_cursor` is present and **always null**, for the reason
-    `IdentityProviderList` and `SigningKeyList` give: a User can hold at most one
-    identity per provider kind, so there are four possible rows and no fifth, and a
-    generated client that had to special-case one list of this surface is a worse
-    cost than a member that is always null (management-api.md §OpenAPI).
+    Not paginated, since a user holds at most one identity per provider kind: `next_cursor` is
+    always `null`.
 
         Attributes:
             items (list[IdentityOut]):

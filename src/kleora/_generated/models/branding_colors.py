@@ -18,18 +18,12 @@ T = TypeVar("T", bound="BrandingColors")
 
 @_attrs_define
 class BrandingColors:
-    """The palette: seven required six-digit hex entries, and three optional ones.
+    """The palette: seven required six-digit hex colours, and three optional ones.
 
-    `border` is the colour of every control's border: inputs, secondary and
-    quiet buttons, the strength meter's segments. `null`, or left out, borders
-    them in `muted`, which is how every page rendered before the key existed
-    (branding.md §Validation). It is optional because it was added after
-    2026-09-18, and a key added since then never turns an existing client's
-    unchanged `PUT` into a `422`. `GET` always carries it.
-
-    `on_background` and `success` are the same shape: each is `null` by
-    default, each names the colour it falls back to, and a record that says
-    nothing about either renders exactly as it did before that key existed.
+    `border` is the border colour of controls (inputs, secondary and quiet buttons, the password
+    strength meter); when `null` or absent, `muted` is used. `on_background` and `success` are also
+    optional and `null` by default, each falling back to another colour. `GET` always includes all
+    three.
 
         Attributes:
             background (str):

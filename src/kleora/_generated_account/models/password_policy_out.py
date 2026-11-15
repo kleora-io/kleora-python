@@ -17,12 +17,9 @@ T = TypeVar("T", bound="PasswordPolicyOut")
 
 @_attrs_define
 class PasswordPolicyOut:
-    """§API `GET /password`: `{has_password, min_length, breach_check}`.
-
-    What a screen needs to render the form before anybody types: whether to ask
-    for a current password at all, the minimum to say out loud, and whether a
-    refusal can come back from the breach corpus. All three are the Environment's,
-    so a customer's own screens show the same rules the portal does.
+    """What a password form needs before anything is typed: whether the person has a password (and
+    so must give the current one), the minimum length, and whether new passwords are checked
+    against known breaches.
 
         Attributes:
             breach_check (bool):

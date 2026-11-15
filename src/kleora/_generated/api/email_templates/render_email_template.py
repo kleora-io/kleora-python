@@ -111,20 +111,11 @@ def sync_detailed(
 ) -> Response[EmailTemplateRendered | Problem]:
     """Render an email template with sample values
 
-     The stored row — or a draft — rendered with the sample values. Nothing is sent.
+     Render the stored template, or a draft, with sample values. Nothing is sent or saved.
 
-    `email_templates:read` alone, so a `viewer` keeps a working preview of a
-    template they may not edit. Nothing is written and no message is enqueued:
-    this is `apps.email.engine.render_source`, the same function a send goes
-    through, with the sample context in place of a recipient's.
-
-    A field present in the body replaces that column for this render only, so a
-    console that has edited the HTML previews it against the saved subject
-    without echoing back what it did not touch. The draft is validated exactly
-    as a write would validate it — the preview of an invalid template is the
-    `422` that explains why it cannot be saved — and validation renders *every*
-    sample set, so which one this request asked for cannot make the preview and
-    the validator disagree.
+    Requires only `email_templates:read`. Each field present in the body replaces that part of the
+    stored template for this render only. A draft is validated as a write would be, so an invalid
+    one is the `422` saving it would give.
 
     Args:
         environment_id (str):
@@ -164,20 +155,11 @@ def sync(
 ) -> EmailTemplateRendered | Problem | None:
     """Render an email template with sample values
 
-     The stored row — or a draft — rendered with the sample values. Nothing is sent.
+     Render the stored template, or a draft, with sample values. Nothing is sent or saved.
 
-    `email_templates:read` alone, so a `viewer` keeps a working preview of a
-    template they may not edit. Nothing is written and no message is enqueued:
-    this is `apps.email.engine.render_source`, the same function a send goes
-    through, with the sample context in place of a recipient's.
-
-    A field present in the body replaces that column for this render only, so a
-    console that has edited the HTML previews it against the saved subject
-    without echoing back what it did not touch. The draft is validated exactly
-    as a write would validate it — the preview of an invalid template is the
-    `422` that explains why it cannot be saved — and validation renders *every*
-    sample set, so which one this request asked for cannot make the preview and
-    the validator disagree.
+    Requires only `email_templates:read`. Each field present in the body replaces that part of the
+    stored template for this render only. A draft is validated as a write would be, so an invalid
+    one is the `422` saving it would give.
 
     Args:
         environment_id (str):
@@ -212,20 +194,11 @@ async def asyncio_detailed(
 ) -> Response[EmailTemplateRendered | Problem]:
     """Render an email template with sample values
 
-     The stored row — or a draft — rendered with the sample values. Nothing is sent.
+     Render the stored template, or a draft, with sample values. Nothing is sent or saved.
 
-    `email_templates:read` alone, so a `viewer` keeps a working preview of a
-    template they may not edit. Nothing is written and no message is enqueued:
-    this is `apps.email.engine.render_source`, the same function a send goes
-    through, with the sample context in place of a recipient's.
-
-    A field present in the body replaces that column for this render only, so a
-    console that has edited the HTML previews it against the saved subject
-    without echoing back what it did not touch. The draft is validated exactly
-    as a write would validate it — the preview of an invalid template is the
-    `422` that explains why it cannot be saved — and validation renders *every*
-    sample set, so which one this request asked for cannot make the preview and
-    the validator disagree.
+    Requires only `email_templates:read`. Each field present in the body replaces that part of the
+    stored template for this render only. A draft is validated as a write would be, so an invalid
+    one is the `422` saving it would give.
 
     Args:
         environment_id (str):
@@ -263,20 +236,11 @@ async def asyncio(
 ) -> EmailTemplateRendered | Problem | None:
     """Render an email template with sample values
 
-     The stored row — or a draft — rendered with the sample values. Nothing is sent.
+     Render the stored template, or a draft, with sample values. Nothing is sent or saved.
 
-    `email_templates:read` alone, so a `viewer` keeps a working preview of a
-    template they may not edit. Nothing is written and no message is enqueued:
-    this is `apps.email.engine.render_source`, the same function a send goes
-    through, with the sample context in place of a recipient's.
-
-    A field present in the body replaces that column for this render only, so a
-    console that has edited the HTML previews it against the saved subject
-    without echoing back what it did not touch. The draft is validated exactly
-    as a write would validate it — the preview of an invalid template is the
-    `422` that explains why it cannot be saved — and validation renders *every*
-    sample set, so which one this request asked for cannot make the preview and
-    the validator disagree.
+    Requires only `email_templates:read`. Each field present in the body replaces that part of the
+    stored template for this render only. A draft is validated as a write would be, so an invalid
+    one is the `422` saving it would give.
 
     Args:
         environment_id (str):

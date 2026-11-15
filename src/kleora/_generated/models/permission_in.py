@@ -18,10 +18,10 @@ T = TypeVar("T", bound="PermissionIn")
 
 @_attrs_define
 class PermissionIn:
-    """`POST /api/v1/environments/{environment_id}/permissions`.
+    """The body of `POST /api/v1/environments/{environment_id}/permissions`.
 
-    `is_system` is not an input field: the reserved rows are the platform's and
-    a customer claiming one is 422 `reserved-permission` on the name.
+    `is_system` is not an input field. A name in the reserved namespace is `422
+    reserved-permission`.
 
         Attributes:
             name (str):

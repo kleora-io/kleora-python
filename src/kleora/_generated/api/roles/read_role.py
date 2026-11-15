@@ -87,12 +87,11 @@ def sync_detailed(
 ) -> Response[Problem | RoleOut]:
     """A role
 
-     One role, at the scope level the role itself decides (rbac.md §API).
+     One role.
 
-    A `tenant_member` reads its own tenant's roles here and nothing else: an
-    app-scoped role, another tenant's role and any permission are all rows of
-    its environment, so they are 403 `insufficient-scope` rather than 404, and
-    `GET T/roles` stays the listing that shows it the app-scoped ones.
+    A tenant member may read its own tenant's roles here and nothing else: an app-scoped role or
+    another tenant's role is `403 insufficient-scope`. Use `GET /tenants/{tenant_id}/roles` to list
+    the app-scoped roles a tenant member can assign.
 
     Args:
         role_id (str):
@@ -123,12 +122,11 @@ def sync(
 ) -> Problem | RoleOut | None:
     """A role
 
-     One role, at the scope level the role itself decides (rbac.md §API).
+     One role.
 
-    A `tenant_member` reads its own tenant's roles here and nothing else: an
-    app-scoped role, another tenant's role and any permission are all rows of
-    its environment, so they are 403 `insufficient-scope` rather than 404, and
-    `GET T/roles` stays the listing that shows it the app-scoped ones.
+    A tenant member may read its own tenant's roles here and nothing else: an app-scoped role or
+    another tenant's role is `403 insufficient-scope`. Use `GET /tenants/{tenant_id}/roles` to list
+    the app-scoped roles a tenant member can assign.
 
     Args:
         role_id (str):
@@ -154,12 +152,11 @@ async def asyncio_detailed(
 ) -> Response[Problem | RoleOut]:
     """A role
 
-     One role, at the scope level the role itself decides (rbac.md §API).
+     One role.
 
-    A `tenant_member` reads its own tenant's roles here and nothing else: an
-    app-scoped role, another tenant's role and any permission are all rows of
-    its environment, so they are 403 `insufficient-scope` rather than 404, and
-    `GET T/roles` stays the listing that shows it the app-scoped ones.
+    A tenant member may read its own tenant's roles here and nothing else: an app-scoped role or
+    another tenant's role is `403 insufficient-scope`. Use `GET /tenants/{tenant_id}/roles` to list
+    the app-scoped roles a tenant member can assign.
 
     Args:
         role_id (str):
@@ -188,12 +185,11 @@ async def asyncio(
 ) -> Problem | RoleOut | None:
     """A role
 
-     One role, at the scope level the role itself decides (rbac.md §API).
+     One role.
 
-    A `tenant_member` reads its own tenant's roles here and nothing else: an
-    app-scoped role, another tenant's role and any permission are all rows of
-    its environment, so they are 403 `insufficient-scope` rather than 404, and
-    `GET T/roles` stays the listing that shows it the app-scoped ones.
+    A tenant member may read its own tenant's roles here and nothing else: an app-scoped role or
+    another tenant's role is `403 insufficient-scope`. Use `GET /tenants/{tenant_id}/roles` to list
+    the app-scoped roles a tenant member can assign.
 
     Args:
         role_id (str):

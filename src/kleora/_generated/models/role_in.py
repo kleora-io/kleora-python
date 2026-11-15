@@ -19,12 +19,11 @@ T = TypeVar("T", bound="RoleIn")
 
 @_attrs_define
 class RoleIn:
-    """`POST E/roles` and `POST T/roles` — one body for both scopes.
+    """The body of `POST /environments/{environment_id}/roles` and `POST
+    /tenants/{tenant_id}/roles`.
 
-    `tenant_id` is not an input field: a role's scope is decided by the endpoint
-    it was created at and never changes (rbac.md §Roles). The environment path
-    writes the app-scoped role, assignable in every tenant; the tenant path
-    writes the one that tenant keeps to itself.
+    A role's scope is decided by where it is created, and never changes: an environment's roles are
+    app-scoped and assignable in every tenant, a tenant's roles only in that tenant.
 
         Attributes:
             name (str):

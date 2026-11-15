@@ -110,58 +110,37 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EnvironmentPatch,
 ) -> Response[EnvironmentOut | Problem]:
-    r"""Change an environment's settings
+    """Change an environment's settings
 
-     Any subset of the settings columns, validated against domain-model.md.
+     Update any subset of the environment's settings.
 
-    Refusals that are not the schema's. `tenant_mode` and `no_tenant_behaviour`
-    on the `id` App's environments are 409 `platform-protected`: they decide how
-    the console's own users are grouped, and a customer switching them would be
-    changing the shape of every Account's membership (platform-bootstrap.md
-    §Invariants). `no_tenant_behaviour=create` needs a `tenant_creator_role`,
-    and a `tenant_creator_role` has to name an app-scoped role of this
-    environment — both are the model's rules, arriving as a `ValidationError`
-    and leaving as a 422 naming the field. And `multi` → `single` is refused
-    while another Tenant exists (409 `tenant-mode-switch-blocked`) or while an
-    earlier switch's backfill is still in flight (409
-    `tenant-mode-backfill-pending`).
+    - `tenant_mode` and `no_tenant_behaviour` cannot be changed on the platform's own `id` App: `409
+      platform-protected`.
+    - `no_tenant_behaviour=create` needs a `tenant_creator_role`, which must name an app-scoped role
+      of this environment; otherwise `422` naming the field.
+    - Switching `tenant_mode` from `multi` to `single` is refused while another tenant exists (`409
+      tenant-mode-switch-blocked`) or while an earlier switch is still being applied (`409
+      tenant-mode-backfill-pending`).
 
-    **202, not 200**, for the `PATCH` that starts that backfill: the settings
-    are applied and durable, but the memberships `single` mode owes are written
-    by a Celery task, and the body reports `backfill_status: \"pending\"` until it
-    is done (environments.md §API, tenants-and-membership.md §\"Tenant modes\").
+    The `PATCH` that switches to `single` answers `202`: the settings are saved, but the memberships
+    the new mode needs are written in the background, and `backfill_status` reads `pending` until
+    that is done.
 
-    And `mfa_policy: required` is 402 `payment-required` on a plan that does
-    not carry MFA enforcement (billing.md §Plans; mfa.md §\"What a plan gates\").
-    Only that value: `off` and `optional` are on every plan, and a downgrade
-    writes a stored `required` **down** to `optional` rather than leaving the
-    column saying one thing while the login flow does another
-    (`apps.billing.dunning.relax_mfa_policy`).
+    `mfa_policy: required` is `402 payment-required` on a plan without MFA enforcement; `off` and
+    `optional` are available on every plan.
 
-    **The authentication policy is a person's to change.** `mfa_policy`,
-    `password_min_length` and `password_breach_check` are accepted only from a
-    `console_user`. Any other credential that sends one of them, whatever the
-    value — an API key holding `settings:write` among them — gets 403
-    `insufficient-scope` naming the fields, and nothing in the request is
-    applied (environments.md §API).
+    `mfa_policy`, `password_min_length` and `password_breach_check` can only be changed by a console
+    user. Any other credential sending one of them, whatever the value, gets `403
+    insufficient-scope` naming the fields, and nothing in the request is applied.
 
     Args:
         environment_id (str):
-        body (EnvironmentPatch): `PATCH /api/v1/environments/{environment_id}` — the settings
-            columns.
+        body (EnvironmentPatch): The body of `PATCH /api/v1/environments/{environment_id}`: the
+            environment's settings.
 
-            The ranges are the model's and the document's at once: declared here, they
-            reach `/api/v1/openapi.json`, so a generated client refuses an
-            `access_token_ttl` of 30 before the request is made, and a hand-written
-            caller that sends one gets 422 with the field in `errors[]` rather than a
-            500 from the check constraint.
-
-            `issuer`, `kind` and `backfill_status` are named in `immutable_fields`
-            rather than left off: the issuer is stored on this row because every token's
-            `iss` and every cached JWKS entry names it, `kind` is what a `kl_test_` key
-            is confined to, and `backfill_status` is a report on work in progress. All
-            three are plainly properties of the resource, so refusing them as unknown
-            keys would read as a typo (environments.md §API).
+            Out-of-range values are `422` naming the field. `issuer`, `kind` and `backfill_status`
+            cannot be
+            changed and are refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,58 +168,37 @@ def sync(
     client: AuthenticatedClient,
     body: EnvironmentPatch,
 ) -> EnvironmentOut | Problem | None:
-    r"""Change an environment's settings
+    """Change an environment's settings
 
-     Any subset of the settings columns, validated against domain-model.md.
+     Update any subset of the environment's settings.
 
-    Refusals that are not the schema's. `tenant_mode` and `no_tenant_behaviour`
-    on the `id` App's environments are 409 `platform-protected`: they decide how
-    the console's own users are grouped, and a customer switching them would be
-    changing the shape of every Account's membership (platform-bootstrap.md
-    §Invariants). `no_tenant_behaviour=create` needs a `tenant_creator_role`,
-    and a `tenant_creator_role` has to name an app-scoped role of this
-    environment — both are the model's rules, arriving as a `ValidationError`
-    and leaving as a 422 naming the field. And `multi` → `single` is refused
-    while another Tenant exists (409 `tenant-mode-switch-blocked`) or while an
-    earlier switch's backfill is still in flight (409
-    `tenant-mode-backfill-pending`).
+    - `tenant_mode` and `no_tenant_behaviour` cannot be changed on the platform's own `id` App: `409
+      platform-protected`.
+    - `no_tenant_behaviour=create` needs a `tenant_creator_role`, which must name an app-scoped role
+      of this environment; otherwise `422` naming the field.
+    - Switching `tenant_mode` from `multi` to `single` is refused while another tenant exists (`409
+      tenant-mode-switch-blocked`) or while an earlier switch is still being applied (`409
+      tenant-mode-backfill-pending`).
 
-    **202, not 200**, for the `PATCH` that starts that backfill: the settings
-    are applied and durable, but the memberships `single` mode owes are written
-    by a Celery task, and the body reports `backfill_status: \"pending\"` until it
-    is done (environments.md §API, tenants-and-membership.md §\"Tenant modes\").
+    The `PATCH` that switches to `single` answers `202`: the settings are saved, but the memberships
+    the new mode needs are written in the background, and `backfill_status` reads `pending` until
+    that is done.
 
-    And `mfa_policy: required` is 402 `payment-required` on a plan that does
-    not carry MFA enforcement (billing.md §Plans; mfa.md §\"What a plan gates\").
-    Only that value: `off` and `optional` are on every plan, and a downgrade
-    writes a stored `required` **down** to `optional` rather than leaving the
-    column saying one thing while the login flow does another
-    (`apps.billing.dunning.relax_mfa_policy`).
+    `mfa_policy: required` is `402 payment-required` on a plan without MFA enforcement; `off` and
+    `optional` are available on every plan.
 
-    **The authentication policy is a person's to change.** `mfa_policy`,
-    `password_min_length` and `password_breach_check` are accepted only from a
-    `console_user`. Any other credential that sends one of them, whatever the
-    value — an API key holding `settings:write` among them — gets 403
-    `insufficient-scope` naming the fields, and nothing in the request is
-    applied (environments.md §API).
+    `mfa_policy`, `password_min_length` and `password_breach_check` can only be changed by a console
+    user. Any other credential sending one of them, whatever the value, gets `403
+    insufficient-scope` naming the fields, and nothing in the request is applied.
 
     Args:
         environment_id (str):
-        body (EnvironmentPatch): `PATCH /api/v1/environments/{environment_id}` — the settings
-            columns.
+        body (EnvironmentPatch): The body of `PATCH /api/v1/environments/{environment_id}`: the
+            environment's settings.
 
-            The ranges are the model's and the document's at once: declared here, they
-            reach `/api/v1/openapi.json`, so a generated client refuses an
-            `access_token_ttl` of 30 before the request is made, and a hand-written
-            caller that sends one gets 422 with the field in `errors[]` rather than a
-            500 from the check constraint.
-
-            `issuer`, `kind` and `backfill_status` are named in `immutable_fields`
-            rather than left off: the issuer is stored on this row because every token's
-            `iss` and every cached JWKS entry names it, `kind` is what a `kl_test_` key
-            is confined to, and `backfill_status` is a report on work in progress. All
-            three are plainly properties of the resource, so refusing them as unknown
-            keys would read as a typo (environments.md §API).
+            Out-of-range values are `422` naming the field. `issuer`, `kind` and `backfill_status`
+            cannot be
+            changed and are refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -263,58 +221,37 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EnvironmentPatch,
 ) -> Response[EnvironmentOut | Problem]:
-    r"""Change an environment's settings
+    """Change an environment's settings
 
-     Any subset of the settings columns, validated against domain-model.md.
+     Update any subset of the environment's settings.
 
-    Refusals that are not the schema's. `tenant_mode` and `no_tenant_behaviour`
-    on the `id` App's environments are 409 `platform-protected`: they decide how
-    the console's own users are grouped, and a customer switching them would be
-    changing the shape of every Account's membership (platform-bootstrap.md
-    §Invariants). `no_tenant_behaviour=create` needs a `tenant_creator_role`,
-    and a `tenant_creator_role` has to name an app-scoped role of this
-    environment — both are the model's rules, arriving as a `ValidationError`
-    and leaving as a 422 naming the field. And `multi` → `single` is refused
-    while another Tenant exists (409 `tenant-mode-switch-blocked`) or while an
-    earlier switch's backfill is still in flight (409
-    `tenant-mode-backfill-pending`).
+    - `tenant_mode` and `no_tenant_behaviour` cannot be changed on the platform's own `id` App: `409
+      platform-protected`.
+    - `no_tenant_behaviour=create` needs a `tenant_creator_role`, which must name an app-scoped role
+      of this environment; otherwise `422` naming the field.
+    - Switching `tenant_mode` from `multi` to `single` is refused while another tenant exists (`409
+      tenant-mode-switch-blocked`) or while an earlier switch is still being applied (`409
+      tenant-mode-backfill-pending`).
 
-    **202, not 200**, for the `PATCH` that starts that backfill: the settings
-    are applied and durable, but the memberships `single` mode owes are written
-    by a Celery task, and the body reports `backfill_status: \"pending\"` until it
-    is done (environments.md §API, tenants-and-membership.md §\"Tenant modes\").
+    The `PATCH` that switches to `single` answers `202`: the settings are saved, but the memberships
+    the new mode needs are written in the background, and `backfill_status` reads `pending` until
+    that is done.
 
-    And `mfa_policy: required` is 402 `payment-required` on a plan that does
-    not carry MFA enforcement (billing.md §Plans; mfa.md §\"What a plan gates\").
-    Only that value: `off` and `optional` are on every plan, and a downgrade
-    writes a stored `required` **down** to `optional` rather than leaving the
-    column saying one thing while the login flow does another
-    (`apps.billing.dunning.relax_mfa_policy`).
+    `mfa_policy: required` is `402 payment-required` on a plan without MFA enforcement; `off` and
+    `optional` are available on every plan.
 
-    **The authentication policy is a person's to change.** `mfa_policy`,
-    `password_min_length` and `password_breach_check` are accepted only from a
-    `console_user`. Any other credential that sends one of them, whatever the
-    value — an API key holding `settings:write` among them — gets 403
-    `insufficient-scope` naming the fields, and nothing in the request is
-    applied (environments.md §API).
+    `mfa_policy`, `password_min_length` and `password_breach_check` can only be changed by a console
+    user. Any other credential sending one of them, whatever the value, gets `403
+    insufficient-scope` naming the fields, and nothing in the request is applied.
 
     Args:
         environment_id (str):
-        body (EnvironmentPatch): `PATCH /api/v1/environments/{environment_id}` — the settings
-            columns.
+        body (EnvironmentPatch): The body of `PATCH /api/v1/environments/{environment_id}`: the
+            environment's settings.
 
-            The ranges are the model's and the document's at once: declared here, they
-            reach `/api/v1/openapi.json`, so a generated client refuses an
-            `access_token_ttl` of 30 before the request is made, and a hand-written
-            caller that sends one gets 422 with the field in `errors[]` rather than a
-            500 from the check constraint.
-
-            `issuer`, `kind` and `backfill_status` are named in `immutable_fields`
-            rather than left off: the issuer is stored on this row because every token's
-            `iss` and every cached JWKS entry names it, `kind` is what a `kl_test_` key
-            is confined to, and `backfill_status` is a report on work in progress. All
-            three are plainly properties of the resource, so refusing them as unknown
-            keys would read as a typo (environments.md §API).
+            Out-of-range values are `422` naming the field. `issuer`, `kind` and `backfill_status`
+            cannot be
+            changed and are refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -340,58 +277,37 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EnvironmentPatch,
 ) -> EnvironmentOut | Problem | None:
-    r"""Change an environment's settings
+    """Change an environment's settings
 
-     Any subset of the settings columns, validated against domain-model.md.
+     Update any subset of the environment's settings.
 
-    Refusals that are not the schema's. `tenant_mode` and `no_tenant_behaviour`
-    on the `id` App's environments are 409 `platform-protected`: they decide how
-    the console's own users are grouped, and a customer switching them would be
-    changing the shape of every Account's membership (platform-bootstrap.md
-    §Invariants). `no_tenant_behaviour=create` needs a `tenant_creator_role`,
-    and a `tenant_creator_role` has to name an app-scoped role of this
-    environment — both are the model's rules, arriving as a `ValidationError`
-    and leaving as a 422 naming the field. And `multi` → `single` is refused
-    while another Tenant exists (409 `tenant-mode-switch-blocked`) or while an
-    earlier switch's backfill is still in flight (409
-    `tenant-mode-backfill-pending`).
+    - `tenant_mode` and `no_tenant_behaviour` cannot be changed on the platform's own `id` App: `409
+      platform-protected`.
+    - `no_tenant_behaviour=create` needs a `tenant_creator_role`, which must name an app-scoped role
+      of this environment; otherwise `422` naming the field.
+    - Switching `tenant_mode` from `multi` to `single` is refused while another tenant exists (`409
+      tenant-mode-switch-blocked`) or while an earlier switch is still being applied (`409
+      tenant-mode-backfill-pending`).
 
-    **202, not 200**, for the `PATCH` that starts that backfill: the settings
-    are applied and durable, but the memberships `single` mode owes are written
-    by a Celery task, and the body reports `backfill_status: \"pending\"` until it
-    is done (environments.md §API, tenants-and-membership.md §\"Tenant modes\").
+    The `PATCH` that switches to `single` answers `202`: the settings are saved, but the memberships
+    the new mode needs are written in the background, and `backfill_status` reads `pending` until
+    that is done.
 
-    And `mfa_policy: required` is 402 `payment-required` on a plan that does
-    not carry MFA enforcement (billing.md §Plans; mfa.md §\"What a plan gates\").
-    Only that value: `off` and `optional` are on every plan, and a downgrade
-    writes a stored `required` **down** to `optional` rather than leaving the
-    column saying one thing while the login flow does another
-    (`apps.billing.dunning.relax_mfa_policy`).
+    `mfa_policy: required` is `402 payment-required` on a plan without MFA enforcement; `off` and
+    `optional` are available on every plan.
 
-    **The authentication policy is a person's to change.** `mfa_policy`,
-    `password_min_length` and `password_breach_check` are accepted only from a
-    `console_user`. Any other credential that sends one of them, whatever the
-    value — an API key holding `settings:write` among them — gets 403
-    `insufficient-scope` naming the fields, and nothing in the request is
-    applied (environments.md §API).
+    `mfa_policy`, `password_min_length` and `password_breach_check` can only be changed by a console
+    user. Any other credential sending one of them, whatever the value, gets `403
+    insufficient-scope` naming the fields, and nothing in the request is applied.
 
     Args:
         environment_id (str):
-        body (EnvironmentPatch): `PATCH /api/v1/environments/{environment_id}` — the settings
-            columns.
+        body (EnvironmentPatch): The body of `PATCH /api/v1/environments/{environment_id}`: the
+            environment's settings.
 
-            The ranges are the model's and the document's at once: declared here, they
-            reach `/api/v1/openapi.json`, so a generated client refuses an
-            `access_token_ttl` of 30 before the request is made, and a hand-written
-            caller that sends one gets 422 with the field in `errors[]` rather than a
-            500 from the check constraint.
-
-            `issuer`, `kind` and `backfill_status` are named in `immutable_fields`
-            rather than left off: the issuer is stored on this row because every token's
-            `iss` and every cached JWKS entry names it, `kind` is what a `kl_test_` key
-            is confined to, and `backfill_status` is a report on work in progress. All
-            three are plainly properties of the resource, so refusing them as unknown
-            keys would read as a typo (environments.md §API).
+            Out-of-range values are `422` naming the field. `issuer`, `kind` and `backfill_status`
+            cannot be
+            changed and are refused as immutable.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

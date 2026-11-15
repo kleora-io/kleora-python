@@ -23,14 +23,10 @@ T = TypeVar("T", bound="SettingDefinitionPatch")
 
 @_attrs_define
 class SettingDefinitionPatch:
-    """`PATCH …/settings/definitions/{key}` — the mutable fields only.
+    """The body of `PATCH .../settings/definitions/{key}`.
 
-    `key` and `type` are refused as `immutable` rather than as unknown keys,
-    because the resource plainly has them (user-settings.md §API: "never key
-    or type"). `constraints` replaces the whole object — the constraints of a
-    setting are one decision, and half of one merged with half of another
-    would be a bound nobody chose; `null` resets them to the type's defaults.
-    Clearing `default` (`null`) is a definition with no default again.
+    `key` and `type` are refused as immutable. `constraints` replaces the whole object, and `null`
+    resets it to the type's defaults. `default: null` removes the default.
 
         Attributes:
             access (SettingDefinitionPatchAccess | Unset):

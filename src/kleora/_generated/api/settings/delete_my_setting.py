@@ -90,11 +90,10 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Clear one of the calling console user's own settings
 
-     Remove the stored value, so the default answers again.
+     Remove your stored value, so the default applies again.
 
-    The same access semantics as the `PUT` — `404` for hidden and unknown keys
-    alike, `403` for `user_visible` — and idempotent: clearing a value never
-    written is still `204` (user-settings.md §API).
+    `404` for hidden and unknown keys alike, and `403` for `user_visible` settings. Idempotent:
+    removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -125,11 +124,10 @@ def sync(
 ) -> Any | Problem | None:
     """Clear one of the calling console user's own settings
 
-     Remove the stored value, so the default answers again.
+     Remove your stored value, so the default applies again.
 
-    The same access semantics as the `PUT` — `404` for hidden and unknown keys
-    alike, `403` for `user_visible` — and idempotent: clearing a value never
-    written is still `204` (user-settings.md §API).
+    `404` for hidden and unknown keys alike, and `403` for `user_visible` settings. Idempotent:
+    removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -155,11 +153,10 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Clear one of the calling console user's own settings
 
-     Remove the stored value, so the default answers again.
+     Remove your stored value, so the default applies again.
 
-    The same access semantics as the `PUT` — `404` for hidden and unknown keys
-    alike, `403` for `user_visible` — and idempotent: clearing a value never
-    written is still `204` (user-settings.md §API).
+    `404` for hidden and unknown keys alike, and `403` for `user_visible` settings. Idempotent:
+    removing a value that was never stored is also `204`.
 
     Args:
         key (str):
@@ -188,11 +185,10 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Clear one of the calling console user's own settings
 
-     Remove the stored value, so the default answers again.
+     Remove your stored value, so the default applies again.
 
-    The same access semantics as the `PUT` — `404` for hidden and unknown keys
-    alike, `403` for `user_visible` — and idempotent: clearing a value never
-    written is still `204` (user-settings.md §API).
+    `404` for hidden and unknown keys alike, and `403` for `user_visible` settings. Idempotent:
+    removing a value that was never stored is also `204`.
 
     Args:
         key (str):

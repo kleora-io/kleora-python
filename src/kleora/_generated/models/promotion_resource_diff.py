@@ -17,12 +17,11 @@ T = TypeVar("T", bound="PromotionResourceDiff")
 
 @_attrs_define
 class PromotionResourceDiff:
-    """What happened to one collection matched by key.
+    """What a promotion did to one kind of resource, matched by key.
 
-    `created` and `updated` name the rows by the key they were matched on — a
-    permission by `name`, a role by `slug`, a template by `kind:locale` — and
-    `unchanged` counts the ones that matched and did not move. Rows that exist
-    only on the target appear nowhere: promotion never deletes.
+    `created` and `updated` name the resources by their key: a permission by `name`, a role by
+    `slug`, a template by `kind:locale`. `unchanged` counts the ones that matched and did not
+    change. Resources that exist only in production are not listed: promotion never deletes.
 
         Attributes:
             created (list[str]):

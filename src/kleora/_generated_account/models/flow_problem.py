@@ -23,11 +23,9 @@ T = TypeVar("T", bound="FlowProblem")
 
 @_attrs_define
 class FlowProblem:
-    """RFC 9457 problem details, plus the `code` every flow refusal carries.
+    """An RFC 9457 problem details document, with the `code` every refusal on this API carries.
 
-    A plain `BaseModel` for `api.management.v1.schemas.Problem`'s reason: a
-    `Schema` validates through django-ninja's attribute getter, which would
-    silently drop the extension members RFC 9457 exists to allow.
+    Problem documents may carry extension members beyond the fields listed here.
 
         Attributes:
             code (str):

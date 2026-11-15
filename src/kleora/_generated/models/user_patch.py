@@ -23,23 +23,15 @@ T = TypeVar("T", bound="UserPatch")
 
 @_attrs_define
 class UserPatch:
-    """`PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
+    """The body of `PATCH /api/v1/environments/{environment_id}/users/{user_id}`.
 
-    `picture_url` and `locale` are the clearable fields: `null` means "no
-    picture" and "no preference", and both are values a caller can go back to.
-    `email`, `name` and `metadata` are not — an address is what identifies the
-    row, a name has `""` for "none", and `metadata` has `{}`.
+    `picture_url` and `locale` can be cleared with `null`; `email`, `name` and `metadata` cannot
+    (use `""` for no name and `{}` for no metadata).
 
-    `email_verified` is an instruction, not a property: `true` stamps
-    `email_verified_at` and suppresses the verification mail an address change
-    would otherwise send, `false` clears it. `password` is deliberately absent —
-    setting one is `POST …/users/{user_id}/password`, which revokes every
-    session and mails the person, and folding that into a patch would make an
-    account takeover look like a profile edit.
-
-    `status` is named in `immutable_fields` rather than left off, because it is
-    plainly a property of the resource and the way to change it is
-    `POST …/block` or `…/unblock`.
+    `email_verified: true` marks the address verified, and suppresses the verification email an
+    address change would otherwise send; `false` marks it unverified. To set a password, use `POST
+    .../users/{user_id}/password`. `status` cannot be changed here: sending it is refused as
+    immutable; use `block` and `unblock`.
 
         Attributes:
             email (str | Unset):

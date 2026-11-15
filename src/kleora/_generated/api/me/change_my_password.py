@@ -93,33 +93,21 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: MePasswordIn,
 ) -> Response[Any | Problem]:
-    r"""Change the caller's own password
+    """Change the caller's own password
 
-     `POST /me/password` — the current password, a new one, and no body back.
+     Change your own password. Requires the current password, and a recent re-authentication.
 
-    Reauth-gated like every `/me/mfa` mutation, then throttled, then handed to
-    `passwords.change_password`. A wrong `current_password` is `401
-    invalid-credentials` — the same answer a blocked or a locked account gets,
-    because which of the three it was is not something a caller who does not
-    already know should learn here — and a new password the environment's policy
-    refuses is the `422 password-policy` / `password-breached` pair every other
-    password endpoint answers with.
+    A wrong `current_password` is `401 invalid-credentials`, the same answer a blocked or locked
+    account gets. A new password the environment's policy refuses is `422 password-policy` or `422
+    password-breached`.
 
-    Every other session of the caller's is revoked and this one survives, so the
-    console tab the change was made in keeps working (users-and-credentials.md
-    §\"Password change (user-initiated)\").
+    Every other session of yours is revoked; this one keeps working.
 
     Args:
-        body (MePasswordIn): `POST /me/password` — the person's own password change (`Q3-151`).
+        body (MePasswordIn): The body of `POST /me/password`: the current password and the new
+            one. Both are required.
 
-            Two fields, both required, and the current one is not optional on any path:
-            users-and-credentials.md §"Password change (user-initiated)" asks for it, and
-            it is what makes this a change rather than an administrator's set
-            (`UserPasswordIn` above has no `current_password` precisely because an
-            administrator does not know it).
-
-            `extra="forbid"` for the reason that schema gives. Neither value is ever
-            echoed: the response is `204` with no body.
+            Neither is ever returned; the response is `204` with no body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,33 +133,21 @@ def sync(
     client: AuthenticatedClient,
     body: MePasswordIn,
 ) -> Any | Problem | None:
-    r"""Change the caller's own password
+    """Change the caller's own password
 
-     `POST /me/password` — the current password, a new one, and no body back.
+     Change your own password. Requires the current password, and a recent re-authentication.
 
-    Reauth-gated like every `/me/mfa` mutation, then throttled, then handed to
-    `passwords.change_password`. A wrong `current_password` is `401
-    invalid-credentials` — the same answer a blocked or a locked account gets,
-    because which of the three it was is not something a caller who does not
-    already know should learn here — and a new password the environment's policy
-    refuses is the `422 password-policy` / `password-breached` pair every other
-    password endpoint answers with.
+    A wrong `current_password` is `401 invalid-credentials`, the same answer a blocked or locked
+    account gets. A new password the environment's policy refuses is `422 password-policy` or `422
+    password-breached`.
 
-    Every other session of the caller's is revoked and this one survives, so the
-    console tab the change was made in keeps working (users-and-credentials.md
-    §\"Password change (user-initiated)\").
+    Every other session of yours is revoked; this one keeps working.
 
     Args:
-        body (MePasswordIn): `POST /me/password` — the person's own password change (`Q3-151`).
+        body (MePasswordIn): The body of `POST /me/password`: the current password and the new
+            one. Both are required.
 
-            Two fields, both required, and the current one is not optional on any path:
-            users-and-credentials.md §"Password change (user-initiated)" asks for it, and
-            it is what makes this a change rather than an administrator's set
-            (`UserPasswordIn` above has no `current_password` precisely because an
-            administrator does not know it).
-
-            `extra="forbid"` for the reason that schema gives. Neither value is ever
-            echoed: the response is `204` with no body.
+            Neither is ever returned; the response is `204` with no body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -192,33 +168,21 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: MePasswordIn,
 ) -> Response[Any | Problem]:
-    r"""Change the caller's own password
+    """Change the caller's own password
 
-     `POST /me/password` — the current password, a new one, and no body back.
+     Change your own password. Requires the current password, and a recent re-authentication.
 
-    Reauth-gated like every `/me/mfa` mutation, then throttled, then handed to
-    `passwords.change_password`. A wrong `current_password` is `401
-    invalid-credentials` — the same answer a blocked or a locked account gets,
-    because which of the three it was is not something a caller who does not
-    already know should learn here — and a new password the environment's policy
-    refuses is the `422 password-policy` / `password-breached` pair every other
-    password endpoint answers with.
+    A wrong `current_password` is `401 invalid-credentials`, the same answer a blocked or locked
+    account gets. A new password the environment's policy refuses is `422 password-policy` or `422
+    password-breached`.
 
-    Every other session of the caller's is revoked and this one survives, so the
-    console tab the change was made in keeps working (users-and-credentials.md
-    §\"Password change (user-initiated)\").
+    Every other session of yours is revoked; this one keeps working.
 
     Args:
-        body (MePasswordIn): `POST /me/password` — the person's own password change (`Q3-151`).
+        body (MePasswordIn): The body of `POST /me/password`: the current password and the new
+            one. Both are required.
 
-            Two fields, both required, and the current one is not optional on any path:
-            users-and-credentials.md §"Password change (user-initiated)" asks for it, and
-            it is what makes this a change rather than an administrator's set
-            (`UserPasswordIn` above has no `current_password` precisely because an
-            administrator does not know it).
-
-            `extra="forbid"` for the reason that schema gives. Neither value is ever
-            echoed: the response is `204` with no body.
+            Neither is ever returned; the response is `204` with no body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -242,33 +206,21 @@ async def asyncio(
     client: AuthenticatedClient,
     body: MePasswordIn,
 ) -> Any | Problem | None:
-    r"""Change the caller's own password
+    """Change the caller's own password
 
-     `POST /me/password` — the current password, a new one, and no body back.
+     Change your own password. Requires the current password, and a recent re-authentication.
 
-    Reauth-gated like every `/me/mfa` mutation, then throttled, then handed to
-    `passwords.change_password`. A wrong `current_password` is `401
-    invalid-credentials` — the same answer a blocked or a locked account gets,
-    because which of the three it was is not something a caller who does not
-    already know should learn here — and a new password the environment's policy
-    refuses is the `422 password-policy` / `password-breached` pair every other
-    password endpoint answers with.
+    A wrong `current_password` is `401 invalid-credentials`, the same answer a blocked or locked
+    account gets. A new password the environment's policy refuses is `422 password-policy` or `422
+    password-breached`.
 
-    Every other session of the caller's is revoked and this one survives, so the
-    console tab the change was made in keeps working (users-and-credentials.md
-    §\"Password change (user-initiated)\").
+    Every other session of yours is revoked; this one keeps working.
 
     Args:
-        body (MePasswordIn): `POST /me/password` — the person's own password change (`Q3-151`).
+        body (MePasswordIn): The body of `POST /me/password`: the current password and the new
+            one. Both are required.
 
-            Two fields, both required, and the current one is not optional on any path:
-            users-and-credentials.md §"Password change (user-initiated)" asks for it, and
-            it is what makes this a change rather than an administrator's set
-            (`UserPasswordIn` above has no `current_password` precisely because an
-            administrator does not know it).
-
-            `extra="forbid"` for the reason that schema gives. Neither value is ever
-            echoed: the response is `204` with no body.
+            Neither is ever returned; the response is `204` with no body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -23,7 +23,7 @@ T = TypeVar("T", bound="AppOut")
 
 @_attrs_define
 class AppOut:
-    """An App as every operation on it reports it (apps.md §"App resource").
+    """An App.
 
     Attributes:
         account_id (UUID):

@@ -23,31 +23,22 @@ T = TypeVar("T", bound="BillingOut")
 
 @_attrs_define
 class BillingOut:
-    """`GET /api/v1/account/billing` (billing.md §API).
+    """The body of `GET /api/v1/account/billing`.
 
-    Plan, limits, usage, status and period end — and `subscription` is `null`
-    for an Account that has never bought anything, which is most of them.
-    `pro_apps` is what `quantity` is supposed to equal; the two are reported
-    separately on purpose, because a disagreement between what we would charge
-    for and what Stripe is charging for is exactly the drift reconciliation
-    exists to find, and hiding it behind one number would hide it from the
-    customer too.
+    Plan, limits, usage, status and period end. `subscription` is `null` for an Account that has
+    never subscribed. `pro_apps` is the number of Apps the subscription's `quantity` should equal;
+    they are reported separately so that any disagreement is visible.
 
         Attributes:
             account_plan (str):
             apps (list[AppPlanOut]):
             pro_apps (int):
             subscription (None | SubscriptionOut):
-            usage (UsageOut): `GET /api/v1/account/usage` (environments.md §API).
+            usage (UsageOut): The body of `GET /api/v1/account/usage`.
 
-                `sandbox_users` is reported so the console can show it and is never counted
-                toward anything. `mau` is the Account's monthly active users for the current
-                calendar month, from the same roll-up `GET /account/billing/usage` reads
-                (`apps.billing.metering`, P6-12) — it was declared as a `null` placeholder
-                first so that filling it in would be additive for every generated client,
-                and the type stays optional for exactly that reason. It is read from the
-                roll-up rather than counted here, because two arithmetics for one figure is
-                how a usage page and an invoice come to disagree.
+                `sandbox_users` is reported but never counted toward a limit. `mau` is the Account's monthly
+                active users for the current calendar month, the same figure `GET /account/billing/usage`
+                reports; it may be `null`.
     """
 
     account_plan: str

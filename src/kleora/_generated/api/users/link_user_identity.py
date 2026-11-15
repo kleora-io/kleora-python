@@ -115,44 +115,30 @@ def sync_detailed(
 ) -> Response[IdentityOut | Problem]:
     """Link a provider account to a user
 
-     Attach a provider account to this user, **by subject**.
+     Link an external provider account to this user, by the provider's subject identifier.
 
-    `provider_subject` is the provider's own immutable id for the person — never
-    an email address. Nothing here resolves a user from a claimed address, which
-    is the rule that keeps a provider account from walking into somebody else's
-    account: the email a provider hands us says nothing about who owns the
-    mailbox, and this platform never treats it as though it did.
+    `provider_subject` is the provider's own permanent id for the person, never an email address.
 
-    201 with a `Location` when the link is new. **200 when that subject is already
-    on this user**, with the row as it stands and no second audit event — a repeat
-    of the same request is not a second link, so the log should not claim it was.
+    - `201` with a `Location` header when the link is new.
+    - `200` when that subject is already linked to this user, with no second audit event.
+    - `409 provider-already-linked` when the subject is linked to another user of this environment.
+      It is never moved; merge the two users instead.
 
-    409 `provider-already-linked` when the subject belongs to **another** user of
-    this environment. It is never moved: one provider account is one user's, per
-    environment, and two records that turn out to be one person are a merge, which
-    is a separate operation with its own consent.
-
-    The row records no claimed address and no verified flag — an administrator is
-    not a provider and nothing here should read as though one had spoken. A later
-    sign-in through that provider fills both in.
+    The link records no provider email or verification status; they are filled in at the person's
+    next sign-in through that provider.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (IdentityIn): `POST …/users/{user_id}/identities` — an administrative link, by
+        body (IdentityIn): The body of `POST .../users/{user_id}/identities`: an external provider
+            account to link, by
             subject.
 
-            `provider_subject` is the provider's own immutable id for the person — Google's
-            `sub`, GitHub's numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id` —
-            and **never an email address**. Nothing on this surface resolves a User from a
-            claimed address.
-
-            `extra="forbid"`, which here is a security property rather than tidiness: it is
-            what makes this endpoint unable to accept a `provider_email` a caller hoped
-            would be trusted, or a provider token or client secret it hoped would be
-            stored. A link is a statement about a person; a secret belongs to the
-            environment's provider configuration and is written through
-            `PUT …/identity-providers/{kind}` alone.
+            `provider_subject` is the provider's own permanent id for the person (Google's `sub`,
+            GitHub's
+            numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id`), never an email address. Any
+            other
+            field, such as a provider email, token or secret, is refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -184,44 +170,30 @@ def sync(
 ) -> IdentityOut | Problem | None:
     """Link a provider account to a user
 
-     Attach a provider account to this user, **by subject**.
+     Link an external provider account to this user, by the provider's subject identifier.
 
-    `provider_subject` is the provider's own immutable id for the person — never
-    an email address. Nothing here resolves a user from a claimed address, which
-    is the rule that keeps a provider account from walking into somebody else's
-    account: the email a provider hands us says nothing about who owns the
-    mailbox, and this platform never treats it as though it did.
+    `provider_subject` is the provider's own permanent id for the person, never an email address.
 
-    201 with a `Location` when the link is new. **200 when that subject is already
-    on this user**, with the row as it stands and no second audit event — a repeat
-    of the same request is not a second link, so the log should not claim it was.
+    - `201` with a `Location` header when the link is new.
+    - `200` when that subject is already linked to this user, with no second audit event.
+    - `409 provider-already-linked` when the subject is linked to another user of this environment.
+      It is never moved; merge the two users instead.
 
-    409 `provider-already-linked` when the subject belongs to **another** user of
-    this environment. It is never moved: one provider account is one user's, per
-    environment, and two records that turn out to be one person are a merge, which
-    is a separate operation with its own consent.
-
-    The row records no claimed address and no verified flag — an administrator is
-    not a provider and nothing here should read as though one had spoken. A later
-    sign-in through that provider fills both in.
+    The link records no provider email or verification status; they are filled in at the person's
+    next sign-in through that provider.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (IdentityIn): `POST …/users/{user_id}/identities` — an administrative link, by
+        body (IdentityIn): The body of `POST .../users/{user_id}/identities`: an external provider
+            account to link, by
             subject.
 
-            `provider_subject` is the provider's own immutable id for the person — Google's
-            `sub`, GitHub's numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id` —
-            and **never an email address**. Nothing on this surface resolves a User from a
-            claimed address.
-
-            `extra="forbid"`, which here is a security property rather than tidiness: it is
-            what makes this endpoint unable to accept a `provider_email` a caller hoped
-            would be trusted, or a provider token or client secret it hoped would be
-            stored. A link is a statement about a person; a secret belongs to the
-            environment's provider configuration and is written through
-            `PUT …/identity-providers/{kind}` alone.
+            `provider_subject` is the provider's own permanent id for the person (Google's `sub`,
+            GitHub's
+            numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id`), never an email address. Any
+            other
+            field, such as a provider email, token or secret, is refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -248,44 +220,30 @@ async def asyncio_detailed(
 ) -> Response[IdentityOut | Problem]:
     """Link a provider account to a user
 
-     Attach a provider account to this user, **by subject**.
+     Link an external provider account to this user, by the provider's subject identifier.
 
-    `provider_subject` is the provider's own immutable id for the person — never
-    an email address. Nothing here resolves a user from a claimed address, which
-    is the rule that keeps a provider account from walking into somebody else's
-    account: the email a provider hands us says nothing about who owns the
-    mailbox, and this platform never treats it as though it did.
+    `provider_subject` is the provider's own permanent id for the person, never an email address.
 
-    201 with a `Location` when the link is new. **200 when that subject is already
-    on this user**, with the row as it stands and no second audit event — a repeat
-    of the same request is not a second link, so the log should not claim it was.
+    - `201` with a `Location` header when the link is new.
+    - `200` when that subject is already linked to this user, with no second audit event.
+    - `409 provider-already-linked` when the subject is linked to another user of this environment.
+      It is never moved; merge the two users instead.
 
-    409 `provider-already-linked` when the subject belongs to **another** user of
-    this environment. It is never moved: one provider account is one user's, per
-    environment, and two records that turn out to be one person are a merge, which
-    is a separate operation with its own consent.
-
-    The row records no claimed address and no verified flag — an administrator is
-    not a provider and nothing here should read as though one had spoken. A later
-    sign-in through that provider fills both in.
+    The link records no provider email or verification status; they are filled in at the person's
+    next sign-in through that provider.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (IdentityIn): `POST …/users/{user_id}/identities` — an administrative link, by
+        body (IdentityIn): The body of `POST .../users/{user_id}/identities`: an external provider
+            account to link, by
             subject.
 
-            `provider_subject` is the provider's own immutable id for the person — Google's
-            `sub`, GitHub's numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id` —
-            and **never an email address**. Nothing on this surface resolves a User from a
-            claimed address.
-
-            `extra="forbid"`, which here is a security property rather than tidiness: it is
-            what makes this endpoint unable to accept a `provider_email` a caller hoped
-            would be trusted, or a provider token or client secret it hoped would be
-            stored. A link is a statement about a person; a secret belongs to the
-            environment's provider configuration and is written through
-            `PUT …/identity-providers/{kind}` alone.
+            `provider_subject` is the provider's own permanent id for the person (Google's `sub`,
+            GitHub's
+            numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id`), never an email address. Any
+            other
+            field, such as a provider email, token or secret, is refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -315,44 +273,30 @@ async def asyncio(
 ) -> IdentityOut | Problem | None:
     """Link a provider account to a user
 
-     Attach a provider account to this user, **by subject**.
+     Link an external provider account to this user, by the provider's subject identifier.
 
-    `provider_subject` is the provider's own immutable id for the person — never
-    an email address. Nothing here resolves a user from a claimed address, which
-    is the rule that keeps a provider account from walking into somebody else's
-    account: the email a provider hands us says nothing about who owns the
-    mailbox, and this platform never treats it as though it did.
+    `provider_subject` is the provider's own permanent id for the person, never an email address.
 
-    201 with a `Location` when the link is new. **200 when that subject is already
-    on this user**, with the row as it stands and no second audit event — a repeat
-    of the same request is not a second link, so the log should not claim it was.
+    - `201` with a `Location` header when the link is new.
+    - `200` when that subject is already linked to this user, with no second audit event.
+    - `409 provider-already-linked` when the subject is linked to another user of this environment.
+      It is never moved; merge the two users instead.
 
-    409 `provider-already-linked` when the subject belongs to **another** user of
-    this environment. It is never moved: one provider account is one user's, per
-    environment, and two records that turn out to be one person are a merge, which
-    is a separate operation with its own consent.
-
-    The row records no claimed address and no verified flag — an administrator is
-    not a provider and nothing here should read as though one had spoken. A later
-    sign-in through that provider fills both in.
+    The link records no provider email or verification status; they are filled in at the person's
+    next sign-in through that provider.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (IdentityIn): `POST …/users/{user_id}/identities` — an administrative link, by
+        body (IdentityIn): The body of `POST .../users/{user_id}/identities`: an external provider
+            account to link, by
             subject.
 
-            `provider_subject` is the provider's own immutable id for the person — Google's
-            `sub`, GitHub's numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id` —
-            and **never an email address**. Nothing on this surface resolves a User from a
-            claimed address.
-
-            `extra="forbid"`, which here is a security property rather than tidiness: it is
-            what makes this endpoint unable to accept a `provider_email` a caller hoped
-            would be trusted, or a provider token or client secret it hoped would be
-            stored. A link is a statement about a person; a secret belongs to the
-            environment's provider configuration and is written through
-            `PUT …/identity-providers/{kind}` alone.
+            `provider_subject` is the provider's own permanent id for the person (Google's `sub`,
+            GitHub's
+            numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id`), never an email address. Any
+            other
+            field, such as a provider email, token or secret, is refused as unknown.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

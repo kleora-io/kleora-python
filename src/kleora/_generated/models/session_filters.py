@@ -19,12 +19,10 @@ T = TypeVar("T", bound="SessionFilters")
 
 @_attrs_define
 class SessionFilters:
-    """The one filter of the session list.
+    """The filter of the session list.
 
-    Valid sessions only by default (sessions-and-tokens.md §API): a console
-    showing revoked and expired rows beside live ones invites revoking
-    something that ended on its own. `include_expired=true` is the audit view,
-    and it is in the cursor's fingerprint like every other filter.
+    Only live sessions are listed by default; `include_expired=true` includes revoked and expired
+    ones.
 
         Attributes:
             include_expired (bool | Unset):  Default: False.

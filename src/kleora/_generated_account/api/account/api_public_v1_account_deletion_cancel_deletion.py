@@ -93,42 +93,22 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: DeletionCancelIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Cancel a deletion request with the token from the emailed link
+    """Cancel a deletion request with the token from the emailed link
 
-     Spend the mailed token and put the account back.
+     Cancel a scheduled account deletion with the token from the emailed link.
 
-    **The one route on this surface with no bearer token**, and the reason is
-    structural rather than a convenience: the request that produced this token revoked
-    every session of the person it belongs to, so there is no session to present. A
-    route here that demanded one would make the cancellation link useless, and a
-    cancellation link that does not work is a seven-day grace period that is not an
-    undo.
+    The only operation on this API that takes no bearer token: requesting the deletion revoked every
+    session, so the person has none to present. Rate limited per IP address.
 
-    It is on this surface rather than on `/flow/*` \"so that the deletion resource has
-    one home\" (§\"What happens, and when\"), and it is keyed by IP because there is no
-    `sid` to key on — 30 a minute, \"the shared 30-per-IP-per-minute token row every
-    other token endpoint takes\".
-
-    The Environment comes from the host rather than from the credential, which is the
-    one thing this handler does differently from every other on the surface:
-    `HostResolutionMiddleware` has already resolved it, and it is what scopes the
-    token lookup (ADR 0005). A token of another Environment is `400 invalid-token`
-    for free, because `users.consume` never sees it.
-
-    `204` for a token that was spent and for a row with nothing outstanding alike:
-    the state the caller asked for is the state that holds. A second click on the same
-    link is `400 invalid-token`, because the first one spent it — one answer for
-    unknown, spent and expired, which §\"Failure modes\" asks for in as many words.
+    Answers `204` when the deletion is cancelled, and also when there was nothing outstanding to
+    cancel. An unknown, already used or expired token, or a token of another environment, is `400
+    invalid-token`.
 
     Args:
-        body (DeletionCancelIn): `DELETE /deletion` with `{token}` — the one anonymous body on
-            this surface.
+        body (DeletionCancelIn): The body of `DELETE /deletion`: the token from the emailed
+            cancellation link.
 
-            The person holds no session by construction: the request that produced this token
-            revoked every one of them. So the mailed token is the whole credential, and
-            `TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`
-            carries, for the same reason — one `400 invalid-token` for every way a token can
-            be wrong, and a length bound would make a second answer out of one of them.
+            An unknown, used or expired token is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -154,42 +134,22 @@ def sync(
     client: AuthenticatedClient | Client,
     body: DeletionCancelIn,
 ) -> Any | FlowProblem | None:
-    r"""Cancel a deletion request with the token from the emailed link
+    """Cancel a deletion request with the token from the emailed link
 
-     Spend the mailed token and put the account back.
+     Cancel a scheduled account deletion with the token from the emailed link.
 
-    **The one route on this surface with no bearer token**, and the reason is
-    structural rather than a convenience: the request that produced this token revoked
-    every session of the person it belongs to, so there is no session to present. A
-    route here that demanded one would make the cancellation link useless, and a
-    cancellation link that does not work is a seven-day grace period that is not an
-    undo.
+    The only operation on this API that takes no bearer token: requesting the deletion revoked every
+    session, so the person has none to present. Rate limited per IP address.
 
-    It is on this surface rather than on `/flow/*` \"so that the deletion resource has
-    one home\" (§\"What happens, and when\"), and it is keyed by IP because there is no
-    `sid` to key on — 30 a minute, \"the shared 30-per-IP-per-minute token row every
-    other token endpoint takes\".
-
-    The Environment comes from the host rather than from the credential, which is the
-    one thing this handler does differently from every other on the surface:
-    `HostResolutionMiddleware` has already resolved it, and it is what scopes the
-    token lookup (ADR 0005). A token of another Environment is `400 invalid-token`
-    for free, because `users.consume` never sees it.
-
-    `204` for a token that was spent and for a row with nothing outstanding alike:
-    the state the caller asked for is the state that holds. A second click on the same
-    link is `400 invalid-token`, because the first one spent it — one answer for
-    unknown, spent and expired, which §\"Failure modes\" asks for in as many words.
+    Answers `204` when the deletion is cancelled, and also when there was nothing outstanding to
+    cancel. An unknown, already used or expired token, or a token of another environment, is `400
+    invalid-token`.
 
     Args:
-        body (DeletionCancelIn): `DELETE /deletion` with `{token}` — the one anonymous body on
-            this surface.
+        body (DeletionCancelIn): The body of `DELETE /deletion`: the token from the emailed
+            cancellation link.
 
-            The person holds no session by construction: the request that produced this token
-            revoked every one of them. So the mailed token is the whole credential, and
-            `TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`
-            carries, for the same reason — one `400 invalid-token` for every way a token can
-            be wrong, and a length bound would make a second answer out of one of them.
+            An unknown, used or expired token is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -210,42 +170,22 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     body: DeletionCancelIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Cancel a deletion request with the token from the emailed link
+    """Cancel a deletion request with the token from the emailed link
 
-     Spend the mailed token and put the account back.
+     Cancel a scheduled account deletion with the token from the emailed link.
 
-    **The one route on this surface with no bearer token**, and the reason is
-    structural rather than a convenience: the request that produced this token revoked
-    every session of the person it belongs to, so there is no session to present. A
-    route here that demanded one would make the cancellation link useless, and a
-    cancellation link that does not work is a seven-day grace period that is not an
-    undo.
+    The only operation on this API that takes no bearer token: requesting the deletion revoked every
+    session, so the person has none to present. Rate limited per IP address.
 
-    It is on this surface rather than on `/flow/*` \"so that the deletion resource has
-    one home\" (§\"What happens, and when\"), and it is keyed by IP because there is no
-    `sid` to key on — 30 a minute, \"the shared 30-per-IP-per-minute token row every
-    other token endpoint takes\".
-
-    The Environment comes from the host rather than from the credential, which is the
-    one thing this handler does differently from every other on the surface:
-    `HostResolutionMiddleware` has already resolved it, and it is what scopes the
-    token lookup (ADR 0005). A token of another Environment is `400 invalid-token`
-    for free, because `users.consume` never sees it.
-
-    `204` for a token that was spent and for a row with nothing outstanding alike:
-    the state the caller asked for is the state that holds. A second click on the same
-    link is `400 invalid-token`, because the first one spent it — one answer for
-    unknown, spent and expired, which §\"Failure modes\" asks for in as many words.
+    Answers `204` when the deletion is cancelled, and also when there was nothing outstanding to
+    cancel. An unknown, already used or expired token, or a token of another environment, is `400
+    invalid-token`.
 
     Args:
-        body (DeletionCancelIn): `DELETE /deletion` with `{token}` — the one anonymous body on
-            this surface.
+        body (DeletionCancelIn): The body of `DELETE /deletion`: the token from the emailed
+            cancellation link.
 
-            The person holds no session by construction: the request that produced this token
-            revoked every one of them. So the mailed token is the whole credential, and
-            `TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`
-            carries, for the same reason — one `400 invalid-token` for every way a token can
-            be wrong, and a length bound would make a second answer out of one of them.
+            An unknown, used or expired token is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -269,42 +209,22 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     body: DeletionCancelIn,
 ) -> Any | FlowProblem | None:
-    r"""Cancel a deletion request with the token from the emailed link
+    """Cancel a deletion request with the token from the emailed link
 
-     Spend the mailed token and put the account back.
+     Cancel a scheduled account deletion with the token from the emailed link.
 
-    **The one route on this surface with no bearer token**, and the reason is
-    structural rather than a convenience: the request that produced this token revoked
-    every session of the person it belongs to, so there is no session to present. A
-    route here that demanded one would make the cancellation link useless, and a
-    cancellation link that does not work is a seven-day grace period that is not an
-    undo.
+    The only operation on this API that takes no bearer token: requesting the deletion revoked every
+    session, so the person has none to present. Rate limited per IP address.
 
-    It is on this surface rather than on `/flow/*` \"so that the deletion resource has
-    one home\" (§\"What happens, and when\"), and it is keyed by IP because there is no
-    `sid` to key on — 30 a minute, \"the shared 30-per-IP-per-minute token row every
-    other token endpoint takes\".
-
-    The Environment comes from the host rather than from the credential, which is the
-    one thing this handler does differently from every other on the surface:
-    `HostResolutionMiddleware` has already resolved it, and it is what scopes the
-    token lookup (ADR 0005). A token of another Environment is `400 invalid-token`
-    for free, because `users.consume` never sees it.
-
-    `204` for a token that was spent and for a row with nothing outstanding alike:
-    the state the caller asked for is the state that holds. A second click on the same
-    link is `400 invalid-token`, because the first one spent it — one answer for
-    unknown, spent and expired, which §\"Failure modes\" asks for in as many words.
+    Answers `204` when the deletion is cancelled, and also when there was nothing outstanding to
+    cancel. An unknown, already used or expired token, or a token of another environment, is `400
+    invalid-token`.
 
     Args:
-        body (DeletionCancelIn): `DELETE /deletion` with `{token}` — the one anonymous body on
-            this surface.
+        body (DeletionCancelIn): The body of `DELETE /deletion`: the token from the emailed
+            cancellation link.
 
-            The person holds no session by construction: the request that produced this token
-            revoked every one of them. So the mailed token is the whole credential, and
-            `TOKEN_MAX_LENGTH` is the same non-committal ceiling `EmailConfirmIn.token`
-            carries, for the same reason — one `400 invalid-token` for every way a token can
-            be wrong, and a length bound would make a second answer out of one of them.
+            An unknown, used or expired token is `400 invalid-token`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

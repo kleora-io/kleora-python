@@ -23,17 +23,10 @@ T = TypeVar("T", bound="SigningKeyList")
 
 @_attrs_define
 class SigningKeyList:
-    """`GET …/signing-keys`, ordered `active`, `next`, `retired`.
+    """The body of `GET .../signing-keys`, ordered `active`, `next`, `retired`.
 
-    `next_cursor` is present and **always null**. The listing is not paginated
-    — the ordering sessions-and-tokens.md §API fixes is by *status*, which is
-    not a column a keyset seek can resume from, and the row count is bounded by
-    one `active`, one `next` and the retired keys still inside their retention
-    window, which `signing_keys.prune` clears once a minute. The field is here
-    anyway because management-api.md §OpenAPI makes every list response a named
-    `{Resource}List` with `items` and `next_cursor`, and a generated client
-    (P2-20) that has to special-case one list of the surface is a worse cost
-    than a member that is always null.
+    Not paginated: `next_cursor` is always `null`. There is one `active` key, at most one `next`
+    key, and the retired keys still within their retention window.
 
         Attributes:
             items (list[SigningKeyOut]):

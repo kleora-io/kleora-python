@@ -27,18 +27,9 @@ T = TypeVar("T", bound="UserFilters")
 
 @_attrs_define
 class UserFilters:
-    """The six filters of `GET …/users` (users-and-credentials.md §API).
+    """The six filters of `GET .../users`.
 
-    One schema rather than four handler arguments, for a reason that is
-    structural: `tenant_id` is a `authz.TARGET_PARAMS` name, and
-    `ManagementRouter` refuses a handler that takes one of those as a plain
-    argument — because a target read out of the query string is a target the
-    caller chose. Here it is a field of a query *schema*, which django-ninja
-    hands the handler as one object, so `resolve_target` never sees a
-    `tenant_id` key among the handler's arguments and containment is still
-    resolved from `environment_id` in the path. It is a filter and nothing
-    else: the row it names is looked up inside the environment `@requires`
-    already resolved.
+    `tenant_id` narrows the list to members of one tenant of this environment.
 
         Attributes:
             email (None | str | Unset):

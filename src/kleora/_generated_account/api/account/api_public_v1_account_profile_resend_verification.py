@@ -76,30 +76,11 @@ def sync_detailed(
 ) -> Response[FlowProblem | ResendOut]:
     r"""Send another verification link to the signed-in person's own address
 
-     `POST /flow/verify-email/resend`'s per-user budget, shared, not a second one.
+     Send the person's address verification email again.
 
-    §\"The operations\" says exactly that, so the spend goes through
-    `apps.identity.throttles.mail_send` — one window across verification, reset
-    and (later) the email change, counted for the person rather than for a
-    surface. A second bucket here would mean a person who had just used the
-    hosted resend form could send again from a customer's screen, which is the
-    budget saying one thing and meaning another.
-
-    A person whose address is already verified gets `{\"sent\": false}` and nothing
-    is sent (`users-and-credentials.md`), rather than a refusal: there is nothing
-    wrong with asking, and the answer is simply that there was nothing to send.
-
-    **A `POST` that fails closed on Redis, including on the throttle.** The rate
-    limiter above already answers `503 unavailable` when Redis cannot decide, and
-    `mail_send` raising `RateLimitUnavailable` is the same outage one layer in, so
-    it gets the same answer. That is `/flow/*`'s split — the management API chooses
-    the other way and logs, because there it is an authenticated operator's own
-    request and `management-api.md` §\"Failure modes\" prefers availability; here the
-    budget is the only thing standing between one bearer token and a mailbox.
-
-    No `req`: this surface has no login chain, so there is no AuthRequest to put
-    into the link and the tab that opens the mail lands on the hosted
-    `/verify-email` page as a direct visit.
+    Counts toward the person's shared budget for emailed links, the same budget the hosted pages'
+    resend uses. When the address is already verified, the answer is `{\"sent\": false}` and nothing
+    is sent. Answers `503 unavailable` when the rate limit cannot be checked.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -124,30 +105,11 @@ def sync(
 ) -> FlowProblem | ResendOut | None:
     r"""Send another verification link to the signed-in person's own address
 
-     `POST /flow/verify-email/resend`'s per-user budget, shared, not a second one.
+     Send the person's address verification email again.
 
-    §\"The operations\" says exactly that, so the spend goes through
-    `apps.identity.throttles.mail_send` — one window across verification, reset
-    and (later) the email change, counted for the person rather than for a
-    surface. A second bucket here would mean a person who had just used the
-    hosted resend form could send again from a customer's screen, which is the
-    budget saying one thing and meaning another.
-
-    A person whose address is already verified gets `{\"sent\": false}` and nothing
-    is sent (`users-and-credentials.md`), rather than a refusal: there is nothing
-    wrong with asking, and the answer is simply that there was nothing to send.
-
-    **A `POST` that fails closed on Redis, including on the throttle.** The rate
-    limiter above already answers `503 unavailable` when Redis cannot decide, and
-    `mail_send` raising `RateLimitUnavailable` is the same outage one layer in, so
-    it gets the same answer. That is `/flow/*`'s split — the management API chooses
-    the other way and logs, because there it is an authenticated operator's own
-    request and `management-api.md` §\"Failure modes\" prefers availability; here the
-    budget is the only thing standing between one bearer token and a mailbox.
-
-    No `req`: this surface has no login chain, so there is no AuthRequest to put
-    into the link and the tab that opens the mail lands on the hosted
-    `/verify-email` page as a direct visit.
+    Counts toward the person's shared budget for emailed links, the same budget the hosted pages'
+    resend uses. When the address is already verified, the answer is `{\"sent\": false}` and nothing
+    is sent. Answers `503 unavailable` when the rate limit cannot be checked.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,30 +130,11 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | ResendOut]:
     r"""Send another verification link to the signed-in person's own address
 
-     `POST /flow/verify-email/resend`'s per-user budget, shared, not a second one.
+     Send the person's address verification email again.
 
-    §\"The operations\" says exactly that, so the spend goes through
-    `apps.identity.throttles.mail_send` — one window across verification, reset
-    and (later) the email change, counted for the person rather than for a
-    surface. A second bucket here would mean a person who had just used the
-    hosted resend form could send again from a customer's screen, which is the
-    budget saying one thing and meaning another.
-
-    A person whose address is already verified gets `{\"sent\": false}` and nothing
-    is sent (`users-and-credentials.md`), rather than a refusal: there is nothing
-    wrong with asking, and the answer is simply that there was nothing to send.
-
-    **A `POST` that fails closed on Redis, including on the throttle.** The rate
-    limiter above already answers `503 unavailable` when Redis cannot decide, and
-    `mail_send` raising `RateLimitUnavailable` is the same outage one layer in, so
-    it gets the same answer. That is `/flow/*`'s split — the management API chooses
-    the other way and logs, because there it is an authenticated operator's own
-    request and `management-api.md` §\"Failure modes\" prefers availability; here the
-    budget is the only thing standing between one bearer token and a mailbox.
-
-    No `req`: this surface has no login chain, so there is no AuthRequest to put
-    into the link and the tab that opens the mail lands on the hosted
-    `/verify-email` page as a direct visit.
+    Counts toward the person's shared budget for emailed links, the same budget the hosted pages'
+    resend uses. When the address is already verified, the answer is `{\"sent\": false}` and nothing
+    is sent. Answers `503 unavailable` when the rate limit cannot be checked.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -214,30 +157,11 @@ async def asyncio(
 ) -> FlowProblem | ResendOut | None:
     r"""Send another verification link to the signed-in person's own address
 
-     `POST /flow/verify-email/resend`'s per-user budget, shared, not a second one.
+     Send the person's address verification email again.
 
-    §\"The operations\" says exactly that, so the spend goes through
-    `apps.identity.throttles.mail_send` — one window across verification, reset
-    and (later) the email change, counted for the person rather than for a
-    surface. A second bucket here would mean a person who had just used the
-    hosted resend form could send again from a customer's screen, which is the
-    budget saying one thing and meaning another.
-
-    A person whose address is already verified gets `{\"sent\": false}` and nothing
-    is sent (`users-and-credentials.md`), rather than a refusal: there is nothing
-    wrong with asking, and the answer is simply that there was nothing to send.
-
-    **A `POST` that fails closed on Redis, including on the throttle.** The rate
-    limiter above already answers `503 unavailable` when Redis cannot decide, and
-    `mail_send` raising `RateLimitUnavailable` is the same outage one layer in, so
-    it gets the same answer. That is `/flow/*`'s split — the management API chooses
-    the other way and logs, because there it is an authenticated operator's own
-    request and `management-api.md` §\"Failure modes\" prefers availability; here the
-    budget is the only thing standing between one bearer token and a mailbox.
-
-    No `req`: this surface has no login chain, so there is no AuthRequest to put
-    into the link and the tab that opens the mail lands on the hosted
-    `/verify-email` page as a direct visit.
+    Counts toward the person's shared budget for emailed links, the same budget the hosted pages'
+    resend uses. When the address is already verified, the answer is `{\"sent\": false}` and nothing
+    is sent. Answers `503 unavailable` when the rate limit cannot be checked.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

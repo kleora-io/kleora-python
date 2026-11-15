@@ -126,18 +126,9 @@ def sync_detailed(
 
      The Account's Apps, oldest first, optionally filtered to one slug or searched.
 
-    `?slug=` is an exact, case-sensitive match — not a prefix and not a search —
-    because it exists for one thing: the console resolving the slug in its URL
-    to the App the page is about. It is filtered *inside* the Account, so
-    another Account's slug returns an empty page rather than a 404: a filter
-    that matched nothing, not a row that was hidden (apps.md §`GET /apps`).
-
-    `q` is management-api.md §Conventions' own contract: a case-insensitive
-    substring of `name` or `slug`, for the console's Apps table (Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint and a cursor issued for one cannot be presented
-    against the unfiltered listing.
+    `slug` is an exact, case-sensitive match. A slug that belongs to another Account returns an
+    empty page rather than `404`. `q` is a case-insensitive substring of `name` or `slug`. A cursor
+    is only valid with the filters it was issued for.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -179,18 +170,9 @@ def sync(
 
      The Account's Apps, oldest first, optionally filtered to one slug or searched.
 
-    `?slug=` is an exact, case-sensitive match — not a prefix and not a search —
-    because it exists for one thing: the console resolving the slug in its URL
-    to the App the page is about. It is filtered *inside* the Account, so
-    another Account's slug returns an empty page rather than a 404: a filter
-    that matched nothing, not a row that was hidden (apps.md §`GET /apps`).
-
-    `q` is management-api.md §Conventions' own contract: a case-insensitive
-    substring of `name` or `slug`, for the console's Apps table (Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint and a cursor issued for one cannot be presented
-    against the unfiltered listing.
+    `slug` is an exact, case-sensitive match. A slug that belongs to another Account returns an
+    empty page rather than `404`. `q` is a case-insensitive substring of `name` or `slug`. A cursor
+    is only valid with the filters it was issued for.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -227,18 +209,9 @@ async def asyncio_detailed(
 
      The Account's Apps, oldest first, optionally filtered to one slug or searched.
 
-    `?slug=` is an exact, case-sensitive match — not a prefix and not a search —
-    because it exists for one thing: the console resolving the slug in its URL
-    to the App the page is about. It is filtered *inside* the Account, so
-    another Account's slug returns an empty page rather than a 404: a filter
-    that matched nothing, not a row that was hidden (apps.md §`GET /apps`).
-
-    `q` is management-api.md §Conventions' own contract: a case-insensitive
-    substring of `name` or `slug`, for the console's Apps table (Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint and a cursor issued for one cannot be presented
-    against the unfiltered listing.
+    `slug` is an exact, case-sensitive match. A slug that belongs to another Account returns an
+    empty page rather than `404`. `q` is a case-insensitive substring of `name` or `slug`. A cursor
+    is only valid with the filters it was issued for.
 
     Args:
         limit (int | Unset):  Default: 50.
@@ -278,18 +251,9 @@ async def asyncio(
 
      The Account's Apps, oldest first, optionally filtered to one slug or searched.
 
-    `?slug=` is an exact, case-sensitive match — not a prefix and not a search —
-    because it exists for one thing: the console resolving the slug in its URL
-    to the App the page is about. It is filtered *inside* the Account, so
-    another Account's slug returns an empty page rather than a 404: a filter
-    that matched nothing, not a row that was hidden (apps.md §`GET /apps`).
-
-    `q` is management-api.md §Conventions' own contract: a case-insensitive
-    substring of `name` or `slug`, for the console's Apps table (Q3-59).
-
-    Both filters are named to `paginate` as well as applied, so they are part
-    of the cursor's fingerprint and a cursor issued for one cannot be presented
-    against the unfiltered listing.
+    `slug` is an exact, case-sensitive match. A slug that belongs to another Account returns an
+    empty page rather than `404`. `q` is a case-insensitive substring of `name` or `slug`. A cursor
+    is only valid with the filters it was issued for.
 
     Args:
         limit (int | Unset):  Default: 50.

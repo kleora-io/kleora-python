@@ -18,14 +18,10 @@ T = TypeVar("T", bound="BrandingLayout")
 
 @_attrs_define
 class BrandingLayout:
-    """One of the two `layout.kind` shapes.
+    """The page layout: one of two `kind`s.
 
-    Declared as one model with optional members, mirroring `BrandingBackground`
-    for the same reason — the union would put two schemas in the document for
-    a three-key object. Which keys each `kind` may carry is a validation rule,
-    enforced in `branding_validation` and stated in `branding.md` §Validation:
-    a `centered` layout carrying `side` is a 422 naming `layout.side` as an
-    unknown field, not a type error.
+    Each `kind` allows only its own members; for example, `side` on a `centered` layout is `422`
+    naming `layout.side` as an unknown field.
 
         Attributes:
             kind (str):

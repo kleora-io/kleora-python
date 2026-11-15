@@ -97,20 +97,11 @@ def sync_detailed(
 ) -> Response[FlowProblem | RecoveryCodesOut]:
     """Confirm TOTP enrolment, and receive the recovery codes once
 
-     Verify the code, confirm the factor, and return the ten codes once.
+     Verify a TOTP code, confirm the factor, and return the ten recovery codes, once.
 
-    The one place on this surface a secret appears in a body, and it appears
-    once — there is no operation that reads them back.
-
-    A wrong code is `401 invalid-code`, the same answer a spent recovery code and
-    a locked account get, because which of the three it was is not something a
-    caller who does not already know should learn here.
-
-    **`amr` is not extended.** `/flow/mfa/enroll/confirm` adds `otp` to the
-    session because that session is mid-sign-in and the chain reads `amr` to
-    decide whether the second factor is done; nothing here is mid-anything, and a
-    self-service enrolment is not a sign-in that proved a second factor. The next
-    sign-in will challenge and record it.
+    The codes cannot be read back later. A wrong code is `401 invalid-code`, the same answer as for
+    a locked account. Confirming does not change the current session's authentication methods
+    (`amr`); the next sign-in asks for the factor.
 
     Args:
         body (EnrollConfirmIn): The six digits. No `req`: this surface has no login chain to be
@@ -142,20 +133,11 @@ def sync(
 ) -> FlowProblem | RecoveryCodesOut | None:
     """Confirm TOTP enrolment, and receive the recovery codes once
 
-     Verify the code, confirm the factor, and return the ten codes once.
+     Verify a TOTP code, confirm the factor, and return the ten recovery codes, once.
 
-    The one place on this surface a secret appears in a body, and it appears
-    once — there is no operation that reads them back.
-
-    A wrong code is `401 invalid-code`, the same answer a spent recovery code and
-    a locked account get, because which of the three it was is not something a
-    caller who does not already know should learn here.
-
-    **`amr` is not extended.** `/flow/mfa/enroll/confirm` adds `otp` to the
-    session because that session is mid-sign-in and the chain reads `amr` to
-    decide whether the second factor is done; nothing here is mid-anything, and a
-    self-service enrolment is not a sign-in that proved a second factor. The next
-    sign-in will challenge and record it.
+    The codes cannot be read back later. A wrong code is `401 invalid-code`, the same answer as for
+    a locked account. Confirming does not change the current session's authentication methods
+    (`amr`); the next sign-in asks for the factor.
 
     Args:
         body (EnrollConfirmIn): The six digits. No `req`: this surface has no login chain to be
@@ -182,20 +164,11 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | RecoveryCodesOut]:
     """Confirm TOTP enrolment, and receive the recovery codes once
 
-     Verify the code, confirm the factor, and return the ten codes once.
+     Verify a TOTP code, confirm the factor, and return the ten recovery codes, once.
 
-    The one place on this surface a secret appears in a body, and it appears
-    once — there is no operation that reads them back.
-
-    A wrong code is `401 invalid-code`, the same answer a spent recovery code and
-    a locked account get, because which of the three it was is not something a
-    caller who does not already know should learn here.
-
-    **`amr` is not extended.** `/flow/mfa/enroll/confirm` adds `otp` to the
-    session because that session is mid-sign-in and the chain reads `amr` to
-    decide whether the second factor is done; nothing here is mid-anything, and a
-    self-service enrolment is not a sign-in that proved a second factor. The next
-    sign-in will challenge and record it.
+    The codes cannot be read back later. A wrong code is `401 invalid-code`, the same answer as for
+    a locked account. Confirming does not change the current session's authentication methods
+    (`amr`); the next sign-in asks for the factor.
 
     Args:
         body (EnrollConfirmIn): The six digits. No `req`: this surface has no login chain to be
@@ -225,20 +198,11 @@ async def asyncio(
 ) -> FlowProblem | RecoveryCodesOut | None:
     """Confirm TOTP enrolment, and receive the recovery codes once
 
-     Verify the code, confirm the factor, and return the ten codes once.
+     Verify a TOTP code, confirm the factor, and return the ten recovery codes, once.
 
-    The one place on this surface a secret appears in a body, and it appears
-    once — there is no operation that reads them back.
-
-    A wrong code is `401 invalid-code`, the same answer a spent recovery code and
-    a locked account get, because which of the three it was is not something a
-    caller who does not already know should learn here.
-
-    **`amr` is not extended.** `/flow/mfa/enroll/confirm` adds `otp` to the
-    session because that session is mid-sign-in and the chain reads `amr` to
-    decide whether the second factor is done; nothing here is mid-anything, and a
-    self-service enrolment is not a sign-in that proved a second factor. The next
-    sign-in will challenge and record it.
+    The codes cannot be read back later. A wrong code is `401 invalid-code`, the same answer as for
+    a locked account. Confirming does not change the current session's authentication methods
+    (`amr`); the next sign-in asks for the factor.
 
     Args:
         body (EnrollConfirmIn): The six digits. No `req`: this surface has no login chain to be

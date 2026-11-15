@@ -21,19 +21,13 @@ T = TypeVar("T", bound="IdentityProviderOut")
 
 @_attrs_define
 class IdentityProviderOut:
-    """One configured provider. Never its client secret, in any shape.
+    """One configured identity provider. Its client secret is never returned.
 
-    `callback_url` is the whole reason a customer opens this resource: it is the
-    one string they have to paste into Google Cloud Console or Entra, it differs
-    between production and sandbox because the issuer does (ADR 0006), and it is
-    **computed** from the environment's issuer rather than stored — so a stack
-    whose ports moved answers with the URL that works now rather than the one
-    that worked when the row was written.
+    `callback_url` is the redirect URL to register with the provider. It differs between production
+    and sandbox, and is computed from the environment's current issuer.
 
-    `scopes` is the extras the customer added; `requested_scopes` is what an
-    authorization request will actually ask for, the provider's own minimum
-    included. Both, because "why is it asking for `openid`?" and "what did I
-    add?" are different questions and one field cannot answer both.
+    `scopes` is the extra scopes you added; `requested_scopes` is everything an authorization
+    request asks for, including the provider's own minimum.
 
         Attributes:
             allowed_email_domains (list[str]):

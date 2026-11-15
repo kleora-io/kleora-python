@@ -90,49 +90,27 @@ def sync_detailed(
 ) -> Response[Any | FlowProblem]:
     r"""Change the signed-in person's own password
 
-     `current_password` **and** the re-auth mark, exactly as `/me/password` requires both.
+     Change the person's password, or set one if they have none.
 
-    The mark is the decorator's (`@self_service(sensitive=True)`), so by the time
-    this runs the session has re-proved itself inside five minutes.
+    Requires a recent re-authentication. What happens depends on whether the person already has a
+    password, never on what the caller sent:
 
-    Two paths, decided by what the person *has* and never by what the caller
-    sent:
+    - **They have one:** `current_password` is verified. A wrong or missing one is `401
+      invalid-credentials`. Every other session is revoked; this one keeps working.
+    - **They have none:** no `current_password` is needed. Every session is revoked, including this
+      one.
 
-    * **They have a password** → `passwords.change_password`, which verifies
-      `current_password`. A wrong one — or a missing one — is
-      `401 invalid-credentials`, never a `422`, because \"naming the missing field
-      would distinguish 'you have a password' from 'you do not' to a caller
-      holding somebody's token\" (§\"Failure modes\"). Every *other* session is
-      revoked and this one survives, so the screen the change was made on keeps
-      working.
-    * **They have none** → `passwords.set_password`, the §\"The operations\" row
-      \"Set a password (person has none)\": there is no `current_password` to
-      supply, \"the re-auth gate is what stands in for it, and a person who can
-      satisfy it holds a passkey or a provider identity\". That service revokes
-      **every** session including this one, which is its own rule for an
-      administrative set — and is the right one here too: a person who had no
-      password now has a credential that did not exist a moment ago, and the
-      sessions opened before it should not outlive the change.
-
-    A new password the policy refuses is `422 password-policy` or
-    `422 password-breached`, with `errors[].field = \"password\"`, which is the same
-    pair every other password endpoint in this codebase answers with.
+    A new password the policy refuses is `422 password-policy` or `422 password-breached`, with
+    `errors[].field = \"password\"`.
 
     Args:
-        body (PasswordIn): `current_password` and `new_password`, the second required.
+        body (PasswordIn): The body of `POST /password`.
 
-            `current_password` is optional **only** because a person who has none has none
-            to send (§"The operations": "Set a password (person has none) … No
-            `current_password` to supply"). It is not a way to skip the check: a person who
-            *does* have a password and omits it gets `401 invalid-credentials` and not a
-            `422`, because "naming the missing field would distinguish 'you have a
-            password' from 'you do not' to a caller holding somebody's token"
-            (§"Failure modes").
-
-            Neither field carries a `min_length`. The policy is the Environment's and its
-            refusal is `422 password-policy` with `errors[].field = "password"`; a schema
-            bound would answer first, in django-ninja's shape, for the one input whose
-            refusal §"Failure modes" writes out.
+            `current_password` is required when the person has a password, and omitted when they have
+            none;
+            a missing or wrong one is `401 invalid-credentials`. Length is checked by the
+            environment's
+            password policy, which answers `422 password-policy` with `errors[].field = "password"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,49 +138,27 @@ def sync(
 ) -> Any | FlowProblem | None:
     r"""Change the signed-in person's own password
 
-     `current_password` **and** the re-auth mark, exactly as `/me/password` requires both.
+     Change the person's password, or set one if they have none.
 
-    The mark is the decorator's (`@self_service(sensitive=True)`), so by the time
-    this runs the session has re-proved itself inside five minutes.
+    Requires a recent re-authentication. What happens depends on whether the person already has a
+    password, never on what the caller sent:
 
-    Two paths, decided by what the person *has* and never by what the caller
-    sent:
+    - **They have one:** `current_password` is verified. A wrong or missing one is `401
+      invalid-credentials`. Every other session is revoked; this one keeps working.
+    - **They have none:** no `current_password` is needed. Every session is revoked, including this
+      one.
 
-    * **They have a password** → `passwords.change_password`, which verifies
-      `current_password`. A wrong one — or a missing one — is
-      `401 invalid-credentials`, never a `422`, because \"naming the missing field
-      would distinguish 'you have a password' from 'you do not' to a caller
-      holding somebody's token\" (§\"Failure modes\"). Every *other* session is
-      revoked and this one survives, so the screen the change was made on keeps
-      working.
-    * **They have none** → `passwords.set_password`, the §\"The operations\" row
-      \"Set a password (person has none)\": there is no `current_password` to
-      supply, \"the re-auth gate is what stands in for it, and a person who can
-      satisfy it holds a passkey or a provider identity\". That service revokes
-      **every** session including this one, which is its own rule for an
-      administrative set — and is the right one here too: a person who had no
-      password now has a credential that did not exist a moment ago, and the
-      sessions opened before it should not outlive the change.
-
-    A new password the policy refuses is `422 password-policy` or
-    `422 password-breached`, with `errors[].field = \"password\"`, which is the same
-    pair every other password endpoint in this codebase answers with.
+    A new password the policy refuses is `422 password-policy` or `422 password-breached`, with
+    `errors[].field = \"password\"`.
 
     Args:
-        body (PasswordIn): `current_password` and `new_password`, the second required.
+        body (PasswordIn): The body of `POST /password`.
 
-            `current_password` is optional **only** because a person who has none has none
-            to send (§"The operations": "Set a password (person has none) … No
-            `current_password` to supply"). It is not a way to skip the check: a person who
-            *does* have a password and omits it gets `401 invalid-credentials` and not a
-            `422`, because "naming the missing field would distinguish 'you have a
-            password' from 'you do not' to a caller holding somebody's token"
-            (§"Failure modes").
-
-            Neither field carries a `min_length`. The policy is the Environment's and its
-            refusal is `422 password-policy` with `errors[].field = "password"`; a schema
-            bound would answer first, in django-ninja's shape, for the one input whose
-            refusal §"Failure modes" writes out.
+            `current_password` is required when the person has a password, and omitted when they have
+            none;
+            a missing or wrong one is `401 invalid-credentials`. Length is checked by the
+            environment's
+            password policy, which answers `422 password-policy` with `errors[].field = "password"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -225,49 +181,27 @@ async def asyncio_detailed(
 ) -> Response[Any | FlowProblem]:
     r"""Change the signed-in person's own password
 
-     `current_password` **and** the re-auth mark, exactly as `/me/password` requires both.
+     Change the person's password, or set one if they have none.
 
-    The mark is the decorator's (`@self_service(sensitive=True)`), so by the time
-    this runs the session has re-proved itself inside five minutes.
+    Requires a recent re-authentication. What happens depends on whether the person already has a
+    password, never on what the caller sent:
 
-    Two paths, decided by what the person *has* and never by what the caller
-    sent:
+    - **They have one:** `current_password` is verified. A wrong or missing one is `401
+      invalid-credentials`. Every other session is revoked; this one keeps working.
+    - **They have none:** no `current_password` is needed. Every session is revoked, including this
+      one.
 
-    * **They have a password** → `passwords.change_password`, which verifies
-      `current_password`. A wrong one — or a missing one — is
-      `401 invalid-credentials`, never a `422`, because \"naming the missing field
-      would distinguish 'you have a password' from 'you do not' to a caller
-      holding somebody's token\" (§\"Failure modes\"). Every *other* session is
-      revoked and this one survives, so the screen the change was made on keeps
-      working.
-    * **They have none** → `passwords.set_password`, the §\"The operations\" row
-      \"Set a password (person has none)\": there is no `current_password` to
-      supply, \"the re-auth gate is what stands in for it, and a person who can
-      satisfy it holds a passkey or a provider identity\". That service revokes
-      **every** session including this one, which is its own rule for an
-      administrative set — and is the right one here too: a person who had no
-      password now has a credential that did not exist a moment ago, and the
-      sessions opened before it should not outlive the change.
-
-    A new password the policy refuses is `422 password-policy` or
-    `422 password-breached`, with `errors[].field = \"password\"`, which is the same
-    pair every other password endpoint in this codebase answers with.
+    A new password the policy refuses is `422 password-policy` or `422 password-breached`, with
+    `errors[].field = \"password\"`.
 
     Args:
-        body (PasswordIn): `current_password` and `new_password`, the second required.
+        body (PasswordIn): The body of `POST /password`.
 
-            `current_password` is optional **only** because a person who has none has none
-            to send (§"The operations": "Set a password (person has none) … No
-            `current_password` to supply"). It is not a way to skip the check: a person who
-            *does* have a password and omits it gets `401 invalid-credentials` and not a
-            `422`, because "naming the missing field would distinguish 'you have a
-            password' from 'you do not' to a caller holding somebody's token"
-            (§"Failure modes").
-
-            Neither field carries a `min_length`. The policy is the Environment's and its
-            refusal is `422 password-policy` with `errors[].field = "password"`; a schema
-            bound would answer first, in django-ninja's shape, for the one input whose
-            refusal §"Failure modes" writes out.
+            `current_password` is required when the person has a password, and omitted when they have
+            none;
+            a missing or wrong one is `401 invalid-credentials`. Length is checked by the
+            environment's
+            password policy, which answers `422 password-policy` with `errors[].field = "password"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -293,49 +227,27 @@ async def asyncio(
 ) -> Any | FlowProblem | None:
     r"""Change the signed-in person's own password
 
-     `current_password` **and** the re-auth mark, exactly as `/me/password` requires both.
+     Change the person's password, or set one if they have none.
 
-    The mark is the decorator's (`@self_service(sensitive=True)`), so by the time
-    this runs the session has re-proved itself inside five minutes.
+    Requires a recent re-authentication. What happens depends on whether the person already has a
+    password, never on what the caller sent:
 
-    Two paths, decided by what the person *has* and never by what the caller
-    sent:
+    - **They have one:** `current_password` is verified. A wrong or missing one is `401
+      invalid-credentials`. Every other session is revoked; this one keeps working.
+    - **They have none:** no `current_password` is needed. Every session is revoked, including this
+      one.
 
-    * **They have a password** → `passwords.change_password`, which verifies
-      `current_password`. A wrong one — or a missing one — is
-      `401 invalid-credentials`, never a `422`, because \"naming the missing field
-      would distinguish 'you have a password' from 'you do not' to a caller
-      holding somebody's token\" (§\"Failure modes\"). Every *other* session is
-      revoked and this one survives, so the screen the change was made on keeps
-      working.
-    * **They have none** → `passwords.set_password`, the §\"The operations\" row
-      \"Set a password (person has none)\": there is no `current_password` to
-      supply, \"the re-auth gate is what stands in for it, and a person who can
-      satisfy it holds a passkey or a provider identity\". That service revokes
-      **every** session including this one, which is its own rule for an
-      administrative set — and is the right one here too: a person who had no
-      password now has a credential that did not exist a moment ago, and the
-      sessions opened before it should not outlive the change.
-
-    A new password the policy refuses is `422 password-policy` or
-    `422 password-breached`, with `errors[].field = \"password\"`, which is the same
-    pair every other password endpoint in this codebase answers with.
+    A new password the policy refuses is `422 password-policy` or `422 password-breached`, with
+    `errors[].field = \"password\"`.
 
     Args:
-        body (PasswordIn): `current_password` and `new_password`, the second required.
+        body (PasswordIn): The body of `POST /password`.
 
-            `current_password` is optional **only** because a person who has none has none
-            to send (§"The operations": "Set a password (person has none) … No
-            `current_password` to supply"). It is not a way to skip the check: a person who
-            *does* have a password and omits it gets `401 invalid-credentials` and not a
-            `422`, because "naming the missing field would distinguish 'you have a
-            password' from 'you do not' to a caller holding somebody's token"
-            (§"Failure modes").
-
-            Neither field carries a `min_length`. The policy is the Environment's and its
-            refusal is `422 password-policy` with `errors[].field = "password"`; a schema
-            bound would answer first, in django-ninja's shape, for the one input whose
-            refusal §"Failure modes" writes out.
+            `current_password` is required when the person has a password, and omitted when they have
+            none;
+            a missing or wrong one is `401 invalid-credentials`. Length is checked by the
+            environment's
+            password policy, which answers `422 password-policy` with `errors[].field = "password"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

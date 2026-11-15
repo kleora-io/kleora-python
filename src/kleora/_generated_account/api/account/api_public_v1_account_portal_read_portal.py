@@ -74,21 +74,13 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | PortalOut]:
-    r"""Where the hosted account portal is, and which sections it offers
+    """Where the hosted account portal is, and which sections it offers
 
-     The portal's stable entry URL, and the sections this Environment offers.
+     The hosted account portal's entry URL, and the sections this environment offers.
 
-    **`danger` is here when `Environment.self_deletion` is on, and absent otherwise**
-    — the seam `U10-03` left (`PortalSection` already declared the value, `ALWAYS` did
-    not list it), closed by `U10-05` with the column it needs. §\"The portal\" gives the
-    condition as \"when the Environment offers it\", and this is the only place on the
-    surface that answers that question in a document rather than as a `404`: §API says
-    so in as many words, \"so a customer's own page renders the right links without
-    hard-coding a path of ours or **guessing at `self_deletion`**\".
-
-    It is still not the decision. The `/deletion` routes are `404` when the column is
-    false whatever this list says, which is §\"Failure modes\"' \"the API's `404` is what
-    decides it\" — a client-side route that hides itself is not a control.
+    `danger` (account deletion) is listed only when the environment allows people to delete their
+    own account. The list is for rendering links; the `/deletion` operations answer `404` whenever
+    deletion is not offered, whatever a client shows.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -111,21 +103,13 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | PortalOut | None:
-    r"""Where the hosted account portal is, and which sections it offers
+    """Where the hosted account portal is, and which sections it offers
 
-     The portal's stable entry URL, and the sections this Environment offers.
+     The hosted account portal's entry URL, and the sections this environment offers.
 
-    **`danger` is here when `Environment.self_deletion` is on, and absent otherwise**
-    — the seam `U10-03` left (`PortalSection` already declared the value, `ALWAYS` did
-    not list it), closed by `U10-05` with the column it needs. §\"The portal\" gives the
-    condition as \"when the Environment offers it\", and this is the only place on the
-    surface that answers that question in a document rather than as a `404`: §API says
-    so in as many words, \"so a customer's own page renders the right links without
-    hard-coding a path of ours or **guessing at `self_deletion`**\".
-
-    It is still not the decision. The `/deletion` routes are `404` when the column is
-    false whatever this list says, which is §\"Failure modes\"' \"the API's `404` is what
-    decides it\" — a client-side route that hides itself is not a control.
+    `danger` (account deletion) is listed only when the environment allows people to delete their
+    own account. The list is for rendering links; the `/deletion` operations answer `404` whenever
+    deletion is not offered, whatever a client shows.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -144,21 +128,13 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[FlowProblem | PortalOut]:
-    r"""Where the hosted account portal is, and which sections it offers
+    """Where the hosted account portal is, and which sections it offers
 
-     The portal's stable entry URL, and the sections this Environment offers.
+     The hosted account portal's entry URL, and the sections this environment offers.
 
-    **`danger` is here when `Environment.self_deletion` is on, and absent otherwise**
-    — the seam `U10-03` left (`PortalSection` already declared the value, `ALWAYS` did
-    not list it), closed by `U10-05` with the column it needs. §\"The portal\" gives the
-    condition as \"when the Environment offers it\", and this is the only place on the
-    surface that answers that question in a document rather than as a `404`: §API says
-    so in as many words, \"so a customer's own page renders the right links without
-    hard-coding a path of ours or **guessing at `self_deletion`**\".
-
-    It is still not the decision. The `/deletion` routes are `404` when the column is
-    false whatever this list says, which is §\"Failure modes\"' \"the API's `404` is what
-    decides it\" — a client-side route that hides itself is not a control.
+    `danger` (account deletion) is listed only when the environment allows people to delete their
+    own account. The list is for rendering links; the `/deletion` operations answer `404` whenever
+    deletion is not offered, whatever a client shows.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -179,21 +155,13 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> FlowProblem | PortalOut | None:
-    r"""Where the hosted account portal is, and which sections it offers
+    """Where the hosted account portal is, and which sections it offers
 
-     The portal's stable entry URL, and the sections this Environment offers.
+     The hosted account portal's entry URL, and the sections this environment offers.
 
-    **`danger` is here when `Environment.self_deletion` is on, and absent otherwise**
-    — the seam `U10-03` left (`PortalSection` already declared the value, `ALWAYS` did
-    not list it), closed by `U10-05` with the column it needs. §\"The portal\" gives the
-    condition as \"when the Environment offers it\", and this is the only place on the
-    surface that answers that question in a document rather than as a `404`: §API says
-    so in as many words, \"so a customer's own page renders the right links without
-    hard-coding a path of ours or **guessing at `self_deletion`**\".
-
-    It is still not the decision. The `/deletion` routes are `404` when the column is
-    false whatever this list says, which is §\"Failure modes\"' \"the API's `404` is what
-    decides it\" — a client-side route that hides itself is not a control.
+    `danger` (account deletion) is listed only when the environment allows people to delete their
+    own account. The list is for rendering links; the `/deletion` operations answer `404` whenever
+    deletion is not offered, whatever a client shows.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

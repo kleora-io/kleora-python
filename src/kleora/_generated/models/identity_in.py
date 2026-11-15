@@ -18,19 +18,12 @@ T = TypeVar("T", bound="IdentityIn")
 
 @_attrs_define
 class IdentityIn:
-    """`POST …/users/{user_id}/identities` — an administrative link, by subject.
+    """The body of `POST .../users/{user_id}/identities`: an external provider account to link, by
+    subject.
 
-    `provider_subject` is the provider's own immutable id for the person — Google's
-    `sub`, GitHub's numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id` —
-    and **never an email address**. Nothing on this surface resolves a User from a
-    claimed address.
-
-    `extra="forbid"`, which here is a security property rather than tidiness: it is
-    what makes this endpoint unable to accept a `provider_email` a caller hoped
-    would be trusted, or a provider token or client secret it hoped would be
-    stored. A link is a statement about a person; a secret belongs to the
-    environment's provider configuration and is written through
-    `PUT …/identity-providers/{kind}` alone.
+    `provider_subject` is the provider's own permanent id for the person (Google's `sub`, GitHub's
+    numeric `id`, Microsoft's `oid`, Facebook's app-scoped `id`), never an email address. Any other
+    field, such as a provider email, token or secret, is refused as unknown.
 
         Attributes:
             provider (IdentityInProvider):

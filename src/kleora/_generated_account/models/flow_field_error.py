@@ -25,10 +25,9 @@ T = TypeVar("T", bound="FlowFieldError")
 class FlowFieldError:
     """One field-level failure inside a `validation-error` problem.
 
-    `code` is the stable machine token the SPA's catalogue keys on; `params`
-    holds the numbers its sentence needs (`{"minimum": 12, "maximum": 128}`).
-    `message` is a fixed English developer-facing string and is never rendered
-    to an end user — ADR 0011 puts every user-visible string in the SPA.
+    `code` is a stable machine token, and `params` holds the values a message needs (`{"minimum":
+    12, "maximum": 128}`). `message` is a fixed English string for developers, not for display to
+    end users.
 
         Attributes:
             code (str):

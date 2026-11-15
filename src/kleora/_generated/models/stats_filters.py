@@ -20,13 +20,10 @@ T = TypeVar("T", bound="StatsFilters")
 
 @_attrs_define
 class StatsFilters:
-    """The one query parameter of `GET …/stats`.
+    """The query parameter of `GET .../stats`.
 
-    A schema rather than a handler argument, so the parameter appears in the
-    document under its own name and the default lives in one place.
-
-        Attributes:
-            range_ (StatsFiltersRange | Unset):  Default: StatsFiltersRange.VALUE_0.
+    Attributes:
+        range_ (StatsFiltersRange | Unset):  Default: StatsFiltersRange.VALUE_0.
     """
 
     range_: StatsFiltersRange | Unset = StatsFiltersRange.VALUE_0

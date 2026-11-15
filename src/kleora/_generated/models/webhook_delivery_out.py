@@ -21,13 +21,10 @@ T = TypeVar("T", bound="WebhookDeliveryOut")
 
 @_attrs_define
 class WebhookDeliveryOut:
-    """One `WebhookDelivery` row — one attempt, to one endpoint.
+    """One delivery attempt, to one endpoint.
 
-    `endpoint_id` is nullable exactly as the column is: `SET_NULL` on the
-    endpoint's own deletion means an attempt's log outlives the row it was
-    aimed at (webhooks.md §"Failure modes": "the log survives its retention").
-    `response_body` is already truncated, by `apps.webhooks.transport` at the
-    point it was read — this reports it as stored, not a second truncation.
+    `endpoint_id` is `null` when the endpoint has since been deleted; the attempt is kept.
+    `response_body` is truncated.
 
         Attributes:
             attempt (int):

@@ -28,50 +28,30 @@ T = TypeVar("T", bound="BrandingIn")
 
 @_attrs_define
 class BrandingIn:
-    """`PUT /api/v1/environments/{id}/branding` and `POST …/branding/preview`.
+    """The body of `PUT /api/v1/environments/{environment_id}/branding` and `POST
+    .../branding/preview`: the whole branding record.
 
-    Every top-level key that existed on 2026-09-18 is required — this is a
-    whole-record replacement and branding.md says partial updates are not
-    offered — and a key added since may be left out and is stored as its
-    default. `extra="forbid"` is what makes an unknown key a 422 rather than a
-    value silently dropped on the way to storage.
+    Partial updates are not offered. A few recently added keys may be left out, and are stored as
+    their defaults. Unknown keys are `422`.
 
         Attributes:
-            background (BrandingBackground): One of the three `background.kind` shapes.
+            background (BrandingBackground): The page background: one of three `kind`s.
 
-                Declared as one model with optional members rather than as a discriminated
-                union, because the union would put three schemas in the document for a
-                three-key object and generated clients would name them
-                `BrandingBackgroundType0`. Which keys each `kind` may carry is a validation
-                rule, enforced in `branding_validation` and stated in `branding.md`
-                §Validation — a `solid` background carrying `angle` is a 422 naming
-                `background.angle` as an unknown field, not a type error.
+                Each `kind` allows only its own members; for example, `angle` on a `solid` background is `422`
+                naming `background.angle` as an unknown field. `from` is a gradient's starting colour.
+            colors (BrandingColors): The palette: seven required six-digit hex colours, and three optional ones.
 
-                `from` is a Python keyword, so the field is `from_` with the alias the wire
-                uses; `populate_by_name` keeps both readable from Python.
-            colors (BrandingColors): The palette: seven required six-digit hex entries, and three optional ones.
-
-                `border` is the colour of every control's border: inputs, secondary and
-                quiet buttons, the strength meter's segments. `null`, or left out, borders
-                them in `muted`, which is how every page rendered before the key existed
-                (branding.md §Validation). It is optional because it was added after
-                2026-09-18, and a key added since then never turns an existing client's
-                unchanged `PUT` into a `422`. `GET` always carries it.
-
-                `on_background` and `success` are the same shape: each is `null` by
-                default, each names the colour it falls back to, and a record that says
-                nothing about either renders exactly as it did before that key existed.
+                `border` is the border colour of controls (inputs, secondary and quiet buttons, the password
+                strength meter); when `null` or absent, `muted` is used. `on_background` and `success` are also
+                optional and `null` by default, each falling back to another colour. `GET` always includes all
+                three.
             custom_css (str):
             favicon_url (None | str):
             font (str):
-            layout (BrandingLayout): One of the two `layout.kind` shapes.
+            layout (BrandingLayout): The page layout: one of two `kind`s.
 
-                Declared as one model with optional members, mirroring `BrandingBackground`
-                for the same reason — the union would put two schemas in the document for
-                a three-key object. Which keys each `kind` may carry is a validation rule,
-                enforced in `branding_validation` and stated in `branding.md` §Validation:
-                a `centered` layout carrying `side` is a 422 naming `layout.side` as an
-                unknown field, not a type error.
+                Each `kind` allows only its own members; for example, `side` on a `centered` layout is `422`
+                naming `layout.side` as an unknown field.
             links (BrandingLinks): The three footer links. `null` means the link is not rendered.
             logo_url (None | str):
             radius (str):
@@ -81,13 +61,13 @@ class BrandingIn:
                 color-scheme` while the page is open.
             colors_dark (BrandingColors | None | Unset): The palette rendered when the page is dark: the same keys and rules
                 as `colors`. Required when `color_scheme` is `dark` or `auto`; kept, not applied, under `light`.
-            composition (Composition | None | Unset): `null` (the default) renders every page in the order hosted-login.md
-                §Pages gives. A document selects and orders the blocks of a covered region: v1 covers `/login`'s form region,
-                whose blocks are `subtitle`, `credentials`, `actions` and `passkey`. `credentials`, `actions` and `passkey`
-                appear exactly once and `credentials` comes before `actions`; `subtitle` is the one block that may be left out.
+            composition (Composition | None | Unset): `null` (the default) renders every page in its standard order. A
+                document selects and orders the blocks of a covered region: v1 covers `/login`'s form region, whose blocks are
+                `subtitle`, `credentials`, `actions` and `passkey`. `credentials`, `actions` and `passkey` appear exactly once
+                and `credentials` comes before `actions`; `subtitle` is the one block that may be left out.
             icons (BrandingInIcons | Unset): `enabled` (default true), `button` (an icon name or null) and `panel_features`
-                (up to three names). Names come from the curated set in branding.md §Icons. A non-empty `panel_features` needs a
-                split layout with the brand panel.
+                (up to three names). Names come from the curated icon set. A non-empty `panel_features` needs a split layout
+                with the brand panel.
             sandbox_marker (str | Unset): `none`, `rail` or `canvas`; left out, `none`. The sandbox's pages carry the
                 console's hatch; a production environment never renders it, whatever this says.
     """

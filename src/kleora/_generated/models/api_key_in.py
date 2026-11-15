@@ -19,18 +19,11 @@ T = TypeVar("T", bound="ApiKeyIn")
 
 @_attrs_define
 class ApiKeyIn:
-    """`POST /api/v1/environments/{environment_id}/api-keys`.
+    """The body of `POST /api/v1/environments/{environment_id}/api-keys`.
 
-    `extra="forbid"` is the whole of the "not an input field" rule: `prefix`,
-    `key`, `key_hash`, `status`, `environment_id` and `created_by` are 422 as
-    unknown fields. The prefix in particular is never a caller's choice — it
-    follows the environment's kind, which is what makes a `kl_test_` key
-    structurally unable to reach production (api-keys.md §Format).
-
-    The scope rules are not here. They are the resource's — the allowed set is
-    the reserved permission table minus the account-level half — and they
-    answer 422 `invalid-scope` rather than `validation-error`, which is a slug
-    a schema cannot produce.
+    `prefix`, `key`, `key_hash`, `status`, `environment_id` and `created_by` are refused as unknown
+    fields. The prefix follows the environment's kind, so a `kl_test_` key can never be used in
+    production. A scope that is not allowed for an API key is `422 invalid-scope`.
 
         Attributes:
             name (str):

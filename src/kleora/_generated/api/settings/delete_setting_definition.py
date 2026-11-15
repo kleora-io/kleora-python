@@ -93,10 +93,9 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Delete a setting definition
 
-     Remove the definition and every value written under it (§Model).
+     Delete the definition and every value stored under it.
 
-    The value count the console's confirm dialog names is `value_count` on the
-    `GET` before this — the delete itself is unconditional.
+    `value_count` on the definition says how many values will be deleted.
 
     Args:
         environment_id (str):
@@ -130,10 +129,9 @@ def sync(
 ) -> Any | Problem | None:
     """Delete a setting definition
 
-     Remove the definition and every value written under it (§Model).
+     Delete the definition and every value stored under it.
 
-    The value count the console's confirm dialog names is `value_count` on the
-    `GET` before this — the delete itself is unconditional.
+    `value_count` on the definition says how many values will be deleted.
 
     Args:
         environment_id (str):
@@ -162,10 +160,9 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Delete a setting definition
 
-     Remove the definition and every value written under it (§Model).
+     Delete the definition and every value stored under it.
 
-    The value count the console's confirm dialog names is `value_count` on the
-    `GET` before this — the delete itself is unconditional.
+    `value_count` on the definition says how many values will be deleted.
 
     Args:
         environment_id (str):
@@ -197,10 +194,9 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Delete a setting definition
 
-     Remove the definition and every value written under it (§Model).
+     Delete the definition and every value stored under it.
 
-    The value count the console's confirm dialog names is `value_count` on the
-    `GET` before this — the delete itself is unconditional.
+    `value_count` on the definition says how many values will be deleted.
 
     Args:
         environment_id (str):

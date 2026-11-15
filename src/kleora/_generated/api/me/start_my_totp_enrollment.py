@@ -86,11 +86,9 @@ def sync_detailed(
 ) -> Response[MeEnrollStartOut | Problem]:
     """Begin the caller's own TOTP enrolment
 
-     Reauth-gated — enrolment included (see this section's own comment).
+     Start enrolling a TOTP factor for yourself. Requires a recent re-authentication.
 
-    `409 mfa-already-enrolled` guards the same thing `api.public.v1.flow.mfa.
-    enroll_start`'s does: a caller who already holds a confirmed factor
-    silently replacing it outside the reauth-gated remove flow.
+    `409 mfa-already-enrolled` when you already hold a confirmed TOTP factor.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,11 +113,9 @@ def sync(
 ) -> MeEnrollStartOut | Problem | None:
     """Begin the caller's own TOTP enrolment
 
-     Reauth-gated — enrolment included (see this section's own comment).
+     Start enrolling a TOTP factor for yourself. Requires a recent re-authentication.
 
-    `409 mfa-already-enrolled` guards the same thing `api.public.v1.flow.mfa.
-    enroll_start`'s does: a caller who already holds a confirmed factor
-    silently replacing it outside the reauth-gated remove flow.
+    `409 mfa-already-enrolled` when you already hold a confirmed TOTP factor.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,11 +136,9 @@ async def asyncio_detailed(
 ) -> Response[MeEnrollStartOut | Problem]:
     """Begin the caller's own TOTP enrolment
 
-     Reauth-gated — enrolment included (see this section's own comment).
+     Start enrolling a TOTP factor for yourself. Requires a recent re-authentication.
 
-    `409 mfa-already-enrolled` guards the same thing `api.public.v1.flow.mfa.
-    enroll_start`'s does: a caller who already holds a confirmed factor
-    silently replacing it outside the reauth-gated remove flow.
+    `409 mfa-already-enrolled` when you already hold a confirmed TOTP factor.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,11 +161,9 @@ async def asyncio(
 ) -> MeEnrollStartOut | Problem | None:
     """Begin the caller's own TOTP enrolment
 
-     Reauth-gated — enrolment included (see this section's own comment).
+     Start enrolling a TOTP factor for yourself. Requires a recent re-authentication.
 
-    `409 mfa-already-enrolled` guards the same thing `api.public.v1.flow.mfa.
-    enroll_start`'s does: a caller who already holds a confirmed factor
-    silently replacing it outside the reauth-gated remove flow.
+    `409 mfa-already-enrolled` when you already hold a confirmed TOTP factor.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

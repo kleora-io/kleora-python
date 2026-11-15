@@ -100,33 +100,21 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: AccountIn,
 ) -> Response[AccountOut | Problem]:
-    r"""Create an account
+    """Create an account
 
-     An additional Account for the person already holding a console token.
+     Create an additional Account for the person holding a console token.
 
-    `scope=\"none\"` because it *creates* the Account a scope would be resolved
-    against: there is no target and nothing to contain. The restriction that
-    matters here is a different one — only a `console_user` may call it, since
-    an `api_key` or a `tenant_member` creating an Account would be a credential
-    minting authority outside the environment it was issued for — and it is
-    declared as `kinds`, not written below (ADR 0009).
+    Only a console user's token may call this; an API key or a tenant member's token is refused. The
+    person's email address must be verified, and the number of Accounts a person may hold is
+    limited.
 
-    The two rules that could be mistaken for the endpoint's are the service's:
-    `create_account` requires a verified address and refuses an eleventh
-    Account, so the hosted \"create your workspace\" form cannot hold to one set
-    of rules while this holds to another.
-
-    No `Location`: there is no URL that names this Account. `/account` is
-    whichever Account the *token* resolves to, and this one becomes reachable
-    only after the console re-authorises with `tenant={slug}`.
+    No `Location` header: `/account` always means the Account the token was issued for, and the new
+    Account becomes reachable once the console signs in again for it.
 
     Args:
-        body (AccountIn): `POST /api/v1/accounts`.
+        body (AccountIn): The body of `POST /api/v1/accounts`.
 
-            `slug` is optional and derived from `name` when it is absent
-            (platform-bootstrap.md §"Deriving a slug from a name"). Absent and `null`
-            mean the same thing here, which they may on a creation: there is no stored
-            value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,33 +140,21 @@ def sync(
     client: AuthenticatedClient,
     body: AccountIn,
 ) -> AccountOut | Problem | None:
-    r"""Create an account
+    """Create an account
 
-     An additional Account for the person already holding a console token.
+     Create an additional Account for the person holding a console token.
 
-    `scope=\"none\"` because it *creates* the Account a scope would be resolved
-    against: there is no target and nothing to contain. The restriction that
-    matters here is a different one — only a `console_user` may call it, since
-    an `api_key` or a `tenant_member` creating an Account would be a credential
-    minting authority outside the environment it was issued for — and it is
-    declared as `kinds`, not written below (ADR 0009).
+    Only a console user's token may call this; an API key or a tenant member's token is refused. The
+    person's email address must be verified, and the number of Accounts a person may hold is
+    limited.
 
-    The two rules that could be mistaken for the endpoint's are the service's:
-    `create_account` requires a verified address and refuses an eleventh
-    Account, so the hosted \"create your workspace\" form cannot hold to one set
-    of rules while this holds to another.
-
-    No `Location`: there is no URL that names this Account. `/account` is
-    whichever Account the *token* resolves to, and this one becomes reachable
-    only after the console re-authorises with `tenant={slug}`.
+    No `Location` header: `/account` always means the Account the token was issued for, and the new
+    Account becomes reachable once the console signs in again for it.
 
     Args:
-        body (AccountIn): `POST /api/v1/accounts`.
+        body (AccountIn): The body of `POST /api/v1/accounts`.
 
-            `slug` is optional and derived from `name` when it is absent
-            (platform-bootstrap.md §"Deriving a slug from a name"). Absent and `null`
-            mean the same thing here, which they may on a creation: there is no stored
-            value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -199,33 +175,21 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: AccountIn,
 ) -> Response[AccountOut | Problem]:
-    r"""Create an account
+    """Create an account
 
-     An additional Account for the person already holding a console token.
+     Create an additional Account for the person holding a console token.
 
-    `scope=\"none\"` because it *creates* the Account a scope would be resolved
-    against: there is no target and nothing to contain. The restriction that
-    matters here is a different one — only a `console_user` may call it, since
-    an `api_key` or a `tenant_member` creating an Account would be a credential
-    minting authority outside the environment it was issued for — and it is
-    declared as `kinds`, not written below (ADR 0009).
+    Only a console user's token may call this; an API key or a tenant member's token is refused. The
+    person's email address must be verified, and the number of Accounts a person may hold is
+    limited.
 
-    The two rules that could be mistaken for the endpoint's are the service's:
-    `create_account` requires a verified address and refuses an eleventh
-    Account, so the hosted \"create your workspace\" form cannot hold to one set
-    of rules while this holds to another.
-
-    No `Location`: there is no URL that names this Account. `/account` is
-    whichever Account the *token* resolves to, and this one becomes reachable
-    only after the console re-authorises with `tenant={slug}`.
+    No `Location` header: `/account` always means the Account the token was issued for, and the new
+    Account becomes reachable once the console signs in again for it.
 
     Args:
-        body (AccountIn): `POST /api/v1/accounts`.
+        body (AccountIn): The body of `POST /api/v1/accounts`.
 
-            `slug` is optional and derived from `name` when it is absent
-            (platform-bootstrap.md §"Deriving a slug from a name"). Absent and `null`
-            mean the same thing here, which they may on a creation: there is no stored
-            value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -249,33 +213,21 @@ async def asyncio(
     client: AuthenticatedClient,
     body: AccountIn,
 ) -> AccountOut | Problem | None:
-    r"""Create an account
+    """Create an account
 
-     An additional Account for the person already holding a console token.
+     Create an additional Account for the person holding a console token.
 
-    `scope=\"none\"` because it *creates* the Account a scope would be resolved
-    against: there is no target and nothing to contain. The restriction that
-    matters here is a different one — only a `console_user` may call it, since
-    an `api_key` or a `tenant_member` creating an Account would be a credential
-    minting authority outside the environment it was issued for — and it is
-    declared as `kinds`, not written below (ADR 0009).
+    Only a console user's token may call this; an API key or a tenant member's token is refused. The
+    person's email address must be verified, and the number of Accounts a person may hold is
+    limited.
 
-    The two rules that could be mistaken for the endpoint's are the service's:
-    `create_account` requires a verified address and refuses an eleventh
-    Account, so the hosted \"create your workspace\" form cannot hold to one set
-    of rules while this holds to another.
-
-    No `Location`: there is no URL that names this Account. `/account` is
-    whichever Account the *token* resolves to, and this one becomes reachable
-    only after the console re-authorises with `tenant={slug}`.
+    No `Location` header: `/account` always means the Account the token was issued for, and the new
+    Account becomes reachable once the console signs in again for it.
 
     Args:
-        body (AccountIn): `POST /api/v1/accounts`.
+        body (AccountIn): The body of `POST /api/v1/accounts`.
 
-            `slug` is optional and derived from `name` when it is absent
-            (platform-bootstrap.md §"Deriving a slug from a name"). Absent and `null`
-            mean the same thing here, which they may on a creation: there is no stored
-            value for `null` to be different from.
+            `slug` is optional and derived from `name` when absent or `null`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

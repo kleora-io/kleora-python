@@ -25,11 +25,10 @@ T = TypeVar("T", bound="SigningKeyOut")
 
 @_attrs_define
 class SigningKeyOut:
-    """One signing key as every read reports it (sessions-and-tokens.md §API).
+    """One signing key.
 
-    `public_jwk` is RFC 7517's public JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg`,
-    `use`. Typed `dict[str, str]` rather than a model of its own because it is
-    published verbatim and a JWK's membership is the RFC's to decide, not ours.
+    `public_jwk` is the public key as an RFC 7517 JWK: `kty`, `crv`, `x`, `y`, `kid`, `alg` and
+    `use`.
 
         Attributes:
             activated_at (datetime.datetime | None):

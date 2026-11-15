@@ -18,12 +18,10 @@ T = TypeVar("T", bound="ExportIdentity")
 
 @_attrs_define
 class ExportIdentity:
-    """One Identity in the export — never a secret, only when it last changed.
+    """One identity in a user export, without any secret.
 
-    S9-01a's provider columns join it, all seven, because every one of them is
-    the person's own data: what a provider claimed about them and when the
-    identity was linked and last used. A `password` row carries the blank/null
-    form of each, which is the honest answer rather than an omission.
+    Includes what the provider reported about the user and when the identity was linked and last
+    used. For a `password` identity these provider fields are empty.
 
         Attributes:
             last_login_at (datetime.datetime | None):

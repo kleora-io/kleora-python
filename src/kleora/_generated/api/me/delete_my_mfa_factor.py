@@ -88,14 +88,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Remove one of the caller's own factors
+    """Remove one of the caller's own factors
 
-     One route for either kind — `management-api.md` §\"/me/mfa\": \"Remove
-    one, under the same rules self-service follows\" — dispatching to
-    `apps.identity.services.webauthn.remove_credential` for a passkey and to
-    `apps.identity.services.mfa.remove_factors` (which removes TOTP and the
-    shared recovery set together) for anything else, each behind its own kind's
-    removal-refusal rule.
+     Remove one of your own MFA factors or passkeys, under the same rules as self-service.
+
+    Removing a TOTP factor also removes the recovery codes.
 
     Args:
         factor_id (str):
@@ -124,14 +121,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Remove one of the caller's own factors
+    """Remove one of the caller's own factors
 
-     One route for either kind — `management-api.md` §\"/me/mfa\": \"Remove
-    one, under the same rules self-service follows\" — dispatching to
-    `apps.identity.services.webauthn.remove_credential` for a passkey and to
-    `apps.identity.services.mfa.remove_factors` (which removes TOTP and the
-    shared recovery set together) for anything else, each behind its own kind's
-    removal-refusal rule.
+     Remove one of your own MFA factors or passkeys, under the same rules as self-service.
+
+    Removing a TOTP factor also removes the recovery codes.
 
     Args:
         factor_id (str):
@@ -155,14 +149,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Remove one of the caller's own factors
+    """Remove one of the caller's own factors
 
-     One route for either kind — `management-api.md` §\"/me/mfa\": \"Remove
-    one, under the same rules self-service follows\" — dispatching to
-    `apps.identity.services.webauthn.remove_credential` for a passkey and to
-    `apps.identity.services.mfa.remove_factors` (which removes TOTP and the
-    shared recovery set together) for anything else, each behind its own kind's
-    removal-refusal rule.
+     Remove one of your own MFA factors or passkeys, under the same rules as self-service.
+
+    Removing a TOTP factor also removes the recovery codes.
 
     Args:
         factor_id (str):
@@ -189,14 +180,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Remove one of the caller's own factors
+    """Remove one of the caller's own factors
 
-     One route for either kind — `management-api.md` §\"/me/mfa\": \"Remove
-    one, under the same rules self-service follows\" — dispatching to
-    `apps.identity.services.webauthn.remove_credential` for a passkey and to
-    `apps.identity.services.mfa.remove_factors` (which removes TOTP and the
-    shared recovery set together) for anything else, each behind its own kind's
-    removal-refusal rule.
+     Remove one of your own MFA factors or passkeys, under the same rules as self-service.
+
+    Removing a TOTP factor also removes the recovery codes.
 
     Args:
         factor_id (str):

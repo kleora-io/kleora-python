@@ -100,16 +100,10 @@ def sync_detailed(
 ) -> Response[InvitationOut | Problem]:
     """Re-send an invitation
 
-     A new token, a fresh seven days, and another mail.
+     Issue a new invitation link, valid for seven days, and email it.
 
-    The previous link stops working the moment this returns: the row holds one
-    token hash and this overwrites it. That is the point of re-sending rather
-    than sending twice — an invitation that had two live links would be two
-    invitations, and revoking it would only take one of them away.
-
-    Throttled per invitation, one a minute and five an hour
-    (`apps.tenancy.throttles`), because the budget protects the mailbox of
-    somebody who is not our user and cannot ask us to stop.
+    The previous link stops working immediately. Limited to one resend a minute and five an hour per
+    invitation.
 
     Args:
         tenant_id (str):
@@ -143,16 +137,10 @@ def sync(
 ) -> InvitationOut | Problem | None:
     """Re-send an invitation
 
-     A new token, a fresh seven days, and another mail.
+     Issue a new invitation link, valid for seven days, and email it.
 
-    The previous link stops working the moment this returns: the row holds one
-    token hash and this overwrites it. That is the point of re-sending rather
-    than sending twice — an invitation that had two live links would be two
-    invitations, and revoking it would only take one of them away.
-
-    Throttled per invitation, one a minute and five an hour
-    (`apps.tenancy.throttles`), because the budget protects the mailbox of
-    somebody who is not our user and cannot ask us to stop.
+    The previous link stops working immediately. Limited to one resend a minute and five an hour per
+    invitation.
 
     Args:
         tenant_id (str):
@@ -181,16 +169,10 @@ async def asyncio_detailed(
 ) -> Response[InvitationOut | Problem]:
     """Re-send an invitation
 
-     A new token, a fresh seven days, and another mail.
+     Issue a new invitation link, valid for seven days, and email it.
 
-    The previous link stops working the moment this returns: the row holds one
-    token hash and this overwrites it. That is the point of re-sending rather
-    than sending twice — an invitation that had two live links would be two
-    invitations, and revoking it would only take one of them away.
-
-    Throttled per invitation, one a minute and five an hour
-    (`apps.tenancy.throttles`), because the budget protects the mailbox of
-    somebody who is not our user and cannot ask us to stop.
+    The previous link stops working immediately. Limited to one resend a minute and five an hour per
+    invitation.
 
     Args:
         tenant_id (str):
@@ -222,16 +204,10 @@ async def asyncio(
 ) -> InvitationOut | Problem | None:
     """Re-send an invitation
 
-     A new token, a fresh seven days, and another mail.
+     Issue a new invitation link, valid for seven days, and email it.
 
-    The previous link stops working the moment this returns: the row holds one
-    token hash and this overwrites it. That is the point of re-sending rather
-    than sending twice — an invitation that had two live links would be two
-    invitations, and revoking it would only take one of them away.
-
-    Throttled per invitation, one a minute and five an hour
-    (`apps.tenancy.throttles`), because the budget protects the mailbox of
-    somebody who is not our user and cannot ask us to stop.
+    The previous link stops working immediately. Limited to one resend a minute and five an hour per
+    invitation.
 
     Args:
         tenant_id (str):

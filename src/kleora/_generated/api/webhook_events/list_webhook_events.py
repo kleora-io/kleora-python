@@ -142,28 +142,18 @@ def sync_detailed(
     endpoint_id: None | Unset | UUID = UNSET,
     outcome: ListWebhookEventsOutcomeType0 | None | Unset = UNSET,
 ) -> Response[Problem | WebhookEventList]:
-    r"""List webhook events
+    """List webhook events
 
-     The environment's webhook events, newest first — the feed across every
-    endpoint, or one endpoint's own delivery log with `?endpoint_id=`.
+     The environment's webhook events, newest first: across every endpoint, or one endpoint's
+    delivery log with `?endpoint_id=`.
 
-    Each row's `outcome` is the **worst** among the endpoints the event
-    reached, not the most recent attempt (webhooks.md §\"One event, several
-    endpoints, one row\" — a success arriving after a failure must not paint
-    the row green and hide the failure behind it); `succeeded_endpoints`/
-    `total_endpoints` are the counts the console renders beside it. See
-    `_events_page_items` for how both are computed.
+    Each event's `outcome` is the worst outcome among the endpoints it was delivered to, so a later
+    success does not hide a failure; `succeeded_endpoints` and `total_endpoints` give the counts.
 
-    `outcome` as a **filter**, by contrast, matches **any** delivery of the
-    event, never the row's own summary: an event that failed to one endpoint
-    and succeeded to another is returned by `?outcome=failed` *and* by
-    `?outcome=succeeded`, even though only one of those is what its row
-    displays (webhooks.md: \"filtering by outcome matches any delivery of
-    that event, not the row's summary\" — otherwise the filter would hide
-    exactly what it was opened to find). `_events_with_latest_outcome` is
-    that predicate. Every filter is named to `paginate` as well as applied,
-    so a cursor issued under one cannot be presented against a different one
-    and seek at a position that means something else there.
+    The `outcome` filter, by contrast, matches an event if any of its deliveries had that outcome,
+    so an event that failed for one endpoint and succeeded for another is returned by both
+    `?outcome=failed` and `?outcome=succeeded`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -207,28 +197,18 @@ def sync(
     endpoint_id: None | Unset | UUID = UNSET,
     outcome: ListWebhookEventsOutcomeType0 | None | Unset = UNSET,
 ) -> Problem | WebhookEventList | None:
-    r"""List webhook events
+    """List webhook events
 
-     The environment's webhook events, newest first — the feed across every
-    endpoint, or one endpoint's own delivery log with `?endpoint_id=`.
+     The environment's webhook events, newest first: across every endpoint, or one endpoint's
+    delivery log with `?endpoint_id=`.
 
-    Each row's `outcome` is the **worst** among the endpoints the event
-    reached, not the most recent attempt (webhooks.md §\"One event, several
-    endpoints, one row\" — a success arriving after a failure must not paint
-    the row green and hide the failure behind it); `succeeded_endpoints`/
-    `total_endpoints` are the counts the console renders beside it. See
-    `_events_page_items` for how both are computed.
+    Each event's `outcome` is the worst outcome among the endpoints it was delivered to, so a later
+    success does not hide a failure; `succeeded_endpoints` and `total_endpoints` give the counts.
 
-    `outcome` as a **filter**, by contrast, matches **any** delivery of the
-    event, never the row's own summary: an event that failed to one endpoint
-    and succeeded to another is returned by `?outcome=failed` *and* by
-    `?outcome=succeeded`, even though only one of those is what its row
-    displays (webhooks.md: \"filtering by outcome matches any delivery of
-    that event, not the row's summary\" — otherwise the filter would hide
-    exactly what it was opened to find). `_events_with_latest_outcome` is
-    that predicate. Every filter is named to `paginate` as well as applied,
-    so a cursor issued under one cannot be presented against a different one
-    and seek at a position that means something else there.
+    The `outcome` filter, by contrast, matches an event if any of its deliveries had that outcome,
+    so an event that failed for one endpoint and succeeded for another is returned by both
+    `?outcome=failed` and `?outcome=succeeded`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -267,28 +247,18 @@ async def asyncio_detailed(
     endpoint_id: None | Unset | UUID = UNSET,
     outcome: ListWebhookEventsOutcomeType0 | None | Unset = UNSET,
 ) -> Response[Problem | WebhookEventList]:
-    r"""List webhook events
+    """List webhook events
 
-     The environment's webhook events, newest first — the feed across every
-    endpoint, or one endpoint's own delivery log with `?endpoint_id=`.
+     The environment's webhook events, newest first: across every endpoint, or one endpoint's
+    delivery log with `?endpoint_id=`.
 
-    Each row's `outcome` is the **worst** among the endpoints the event
-    reached, not the most recent attempt (webhooks.md §\"One event, several
-    endpoints, one row\" — a success arriving after a failure must not paint
-    the row green and hide the failure behind it); `succeeded_endpoints`/
-    `total_endpoints` are the counts the console renders beside it. See
-    `_events_page_items` for how both are computed.
+    Each event's `outcome` is the worst outcome among the endpoints it was delivered to, so a later
+    success does not hide a failure; `succeeded_endpoints` and `total_endpoints` give the counts.
 
-    `outcome` as a **filter**, by contrast, matches **any** delivery of the
-    event, never the row's own summary: an event that failed to one endpoint
-    and succeeded to another is returned by `?outcome=failed` *and* by
-    `?outcome=succeeded`, even though only one of those is what its row
-    displays (webhooks.md: \"filtering by outcome matches any delivery of
-    that event, not the row's summary\" — otherwise the filter would hide
-    exactly what it was opened to find). `_events_with_latest_outcome` is
-    that predicate. Every filter is named to `paginate` as well as applied,
-    so a cursor issued under one cannot be presented against a different one
-    and seek at a position that means something else there.
+    The `outcome` filter, by contrast, matches an event if any of its deliveries had that outcome,
+    so an event that failed for one endpoint and succeeded for another is returned by both
+    `?outcome=failed` and `?outcome=succeeded`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):
@@ -330,28 +300,18 @@ async def asyncio(
     endpoint_id: None | Unset | UUID = UNSET,
     outcome: ListWebhookEventsOutcomeType0 | None | Unset = UNSET,
 ) -> Problem | WebhookEventList | None:
-    r"""List webhook events
+    """List webhook events
 
-     The environment's webhook events, newest first — the feed across every
-    endpoint, or one endpoint's own delivery log with `?endpoint_id=`.
+     The environment's webhook events, newest first: across every endpoint, or one endpoint's
+    delivery log with `?endpoint_id=`.
 
-    Each row's `outcome` is the **worst** among the endpoints the event
-    reached, not the most recent attempt (webhooks.md §\"One event, several
-    endpoints, one row\" — a success arriving after a failure must not paint
-    the row green and hide the failure behind it); `succeeded_endpoints`/
-    `total_endpoints` are the counts the console renders beside it. See
-    `_events_page_items` for how both are computed.
+    Each event's `outcome` is the worst outcome among the endpoints it was delivered to, so a later
+    success does not hide a failure; `succeeded_endpoints` and `total_endpoints` give the counts.
 
-    `outcome` as a **filter**, by contrast, matches **any** delivery of the
-    event, never the row's own summary: an event that failed to one endpoint
-    and succeeded to another is returned by `?outcome=failed` *and* by
-    `?outcome=succeeded`, even though only one of those is what its row
-    displays (webhooks.md: \"filtering by outcome matches any delivery of
-    that event, not the row's summary\" — otherwise the filter would hide
-    exactly what it was opened to find). `_events_with_latest_outcome` is
-    that predicate. Every filter is named to `paginate` as well as applied,
-    so a cursor issued under one cannot be presented against a different one
-    and seek at a position that means something else there.
+    The `outcome` filter, by contrast, matches an event if any of its deliveries had that outcome,
+    so an event that failed for one endpoint and succeeded for another is returned by both
+    `?outcome=failed` and `?outcome=succeeded`. A cursor is only valid with the filters it was
+    issued for.
 
     Args:
         environment_id (str):

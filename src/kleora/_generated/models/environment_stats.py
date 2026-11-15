@@ -24,11 +24,10 @@ T = TypeVar("T", bound="EnvironmentStats")
 
 @_attrs_define
 class EnvironmentStats:
-    """`GET /apps/{app_id}/environments/{environment_id}/stats`.
+    """The body of `GET /apps/{app_id}/environments/{environment_id}/stats`.
 
-    `computed_at` is when the figures were computed, not when they were asked
-    for: the answer is cached for 60 seconds, and a console that shows a number
-    has to be able to say how old it is.
+    The figures are cached for 60 seconds; `computed_at` is when they were computed, not when they
+    were requested.
 
         Attributes:
             computed_at (datetime.datetime):
@@ -37,12 +36,11 @@ class EnvironmentStats:
 
                 Booleans rather than counts: the checklist asks whether a thing has ever
                 happened, and it disappears when all four are true.
-            totals (EnvironmentStatsTotals): What the environment holds now — current counts, not counts over the range.
+            totals (EnvironmentStatsTotals): What the environment holds now: current counts, not counts over the requested
+                range.
 
-                `users` excludes erased users, `api_keys` counts active keys only, and
-                `active_sessions` is the "live" of sessions-and-tokens.md §"Browser
-                session": each figure is the set its own console page lists, so a number
-                here and a list there never disagree.
+                `users` excludes erased users, `api_keys` counts active keys, and `active_sessions` counts live
+                sessions.
     """
 
     computed_at: datetime.datetime

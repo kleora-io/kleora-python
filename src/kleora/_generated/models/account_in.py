@@ -19,12 +19,9 @@ T = TypeVar("T", bound="AccountIn")
 
 @_attrs_define
 class AccountIn:
-    """`POST /api/v1/accounts`.
+    """The body of `POST /api/v1/accounts`.
 
-    `slug` is optional and derived from `name` when it is absent
-    (platform-bootstrap.md §"Deriving a slug from a name"). Absent and `null`
-    mean the same thing here, which they may on a creation: there is no stored
-    value for `null` to be different from.
+    `slug` is optional and derived from `name` when absent or `null`.
 
         Attributes:
             name (str):

@@ -19,27 +19,24 @@ T = TypeVar("T", bound="ClientSecretOut")
 
 @_attrs_define
 class ClientSecretOut:
-    """The `200` of `POST …/rotate-secret`: the resource and the new secret.
+    """The `200` of `POST .../rotate-secret`: the client and its new secret.
 
-    Required rather than optional, unlike `ClientCreated`: rotation answers only
-    for a `web` client, so there is always one to carry.
-
-        Attributes:
-            allowed_scopes (list[str]):
-            client_id (str):
-            client_secret (str):
-            created_at (datetime.datetime):
-            device_grant_enabled (bool):
-            environment_id (UUID):
-            has_secret (bool):
-            id (UUID):
-            initiate_login_uri (None | str):
-            is_default (bool):
-            kind (str):
-            name (str):
-            post_logout_redirect_uris (list[str]):
-            redirect_uris (list[str]):
-            updated_at (datetime.datetime):
+    Attributes:
+        allowed_scopes (list[str]):
+        client_id (str):
+        client_secret (str):
+        created_at (datetime.datetime):
+        device_grant_enabled (bool):
+        environment_id (UUID):
+        has_secret (bool):
+        id (UUID):
+        initiate_login_uri (None | str):
+        is_default (bool):
+        kind (str):
+        name (str):
+        post_logout_redirect_uris (list[str]):
+        redirect_uris (list[str]):
+        updated_at (datetime.datetime):
     """
 
     allowed_scopes: list[str]

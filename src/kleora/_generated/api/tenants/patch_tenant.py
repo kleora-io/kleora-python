@@ -107,27 +107,20 @@ def sync_detailed(
 ) -> Response[Problem | TenantOut]:
     r"""Change a tenant
 
-     `name`, `slug` and `metadata`; the last replaced whole.
+     Update a tenant's `name`, `slug` and `metadata`. `metadata` is replaced whole.
 
-    The default tenant's `slug` is 422 with `code: \"immutable\"` — it is the
-    string `single` mode hides the tenant under and the one every other tenant
-    is blocked from claiming (tenants-and-membership.md §Tenants). So is the
-    `slug` of a tenant an Account is linked to: it is the Account's slug, which
-    cannot change either (platform-bootstrap.md).
+    The `slug` of the default tenant cannot change (`422` with `code: \"immutable\"`), and neither can
+    the `slug` of a tenant linked to an Account.
 
     Args:
         tenant_id (str):
-        body (TenantPatch): `PATCH /api/v1/tenants/{tenant_id}` — `name`, `slug` and `metadata`.
+        body (TenantPatch): The body of `PATCH /api/v1/tenants/{tenant_id}`: `name`, `slug` and
+            `metadata`.
 
-            `metadata` is replaced whole, which is what a merge patch does with an
-            object unless a spec says it merges, and no spec says this one does.
-
-            `is_default`, `status`, `member_count` and `environment_id` are unknown
-            fields on purpose: the first is what the environment's own tenant is, the
-            second moves through `suspend`/`unsuspend`, and the last two are
-            projections rather than properties. The default tenant's `slug` is refused
-            by the resource rather than by the schema — 422 with `code: "immutable"` —
-            because which tenant it is is a row this schema cannot see.
+            `metadata` is replaced whole. `is_default`, `status`, `member_count` and `environment_id`
+            are
+            refused as unknown fields; use `suspend` and `unsuspend` to change the status. The default
+            tenant's `slug` cannot be changed (`422` with `code: "immutable"`).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,27 +150,20 @@ def sync(
 ) -> Problem | TenantOut | None:
     r"""Change a tenant
 
-     `name`, `slug` and `metadata`; the last replaced whole.
+     Update a tenant's `name`, `slug` and `metadata`. `metadata` is replaced whole.
 
-    The default tenant's `slug` is 422 with `code: \"immutable\"` — it is the
-    string `single` mode hides the tenant under and the one every other tenant
-    is blocked from claiming (tenants-and-membership.md §Tenants). So is the
-    `slug` of a tenant an Account is linked to: it is the Account's slug, which
-    cannot change either (platform-bootstrap.md).
+    The `slug` of the default tenant cannot change (`422` with `code: \"immutable\"`), and neither can
+    the `slug` of a tenant linked to an Account.
 
     Args:
         tenant_id (str):
-        body (TenantPatch): `PATCH /api/v1/tenants/{tenant_id}` — `name`, `slug` and `metadata`.
+        body (TenantPatch): The body of `PATCH /api/v1/tenants/{tenant_id}`: `name`, `slug` and
+            `metadata`.
 
-            `metadata` is replaced whole, which is what a merge patch does with an
-            object unless a spec says it merges, and no spec says this one does.
-
-            `is_default`, `status`, `member_count` and `environment_id` are unknown
-            fields on purpose: the first is what the environment's own tenant is, the
-            second moves through `suspend`/`unsuspend`, and the last two are
-            projections rather than properties. The default tenant's `slug` is refused
-            by the resource rather than by the schema — 422 with `code: "immutable"` —
-            because which tenant it is is a row this schema cannot see.
+            `metadata` is replaced whole. `is_default`, `status`, `member_count` and `environment_id`
+            are
+            refused as unknown fields; use `suspend` and `unsuspend` to change the status. The default
+            tenant's `slug` cannot be changed (`422` with `code: "immutable"`).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -202,27 +188,20 @@ async def asyncio_detailed(
 ) -> Response[Problem | TenantOut]:
     r"""Change a tenant
 
-     `name`, `slug` and `metadata`; the last replaced whole.
+     Update a tenant's `name`, `slug` and `metadata`. `metadata` is replaced whole.
 
-    The default tenant's `slug` is 422 with `code: \"immutable\"` — it is the
-    string `single` mode hides the tenant under and the one every other tenant
-    is blocked from claiming (tenants-and-membership.md §Tenants). So is the
-    `slug` of a tenant an Account is linked to: it is the Account's slug, which
-    cannot change either (platform-bootstrap.md).
+    The `slug` of the default tenant cannot change (`422` with `code: \"immutable\"`), and neither can
+    the `slug` of a tenant linked to an Account.
 
     Args:
         tenant_id (str):
-        body (TenantPatch): `PATCH /api/v1/tenants/{tenant_id}` — `name`, `slug` and `metadata`.
+        body (TenantPatch): The body of `PATCH /api/v1/tenants/{tenant_id}`: `name`, `slug` and
+            `metadata`.
 
-            `metadata` is replaced whole, which is what a merge patch does with an
-            object unless a spec says it merges, and no spec says this one does.
-
-            `is_default`, `status`, `member_count` and `environment_id` are unknown
-            fields on purpose: the first is what the environment's own tenant is, the
-            second moves through `suspend`/`unsuspend`, and the last two are
-            projections rather than properties. The default tenant's `slug` is refused
-            by the resource rather than by the schema — 422 with `code: "immutable"` —
-            because which tenant it is is a row this schema cannot see.
+            `metadata` is replaced whole. `is_default`, `status`, `member_count` and `environment_id`
+            are
+            refused as unknown fields; use `suspend` and `unsuspend` to change the status. The default
+            tenant's `slug` cannot be changed (`422` with `code: "immutable"`).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -250,27 +229,20 @@ async def asyncio(
 ) -> Problem | TenantOut | None:
     r"""Change a tenant
 
-     `name`, `slug` and `metadata`; the last replaced whole.
+     Update a tenant's `name`, `slug` and `metadata`. `metadata` is replaced whole.
 
-    The default tenant's `slug` is 422 with `code: \"immutable\"` — it is the
-    string `single` mode hides the tenant under and the one every other tenant
-    is blocked from claiming (tenants-and-membership.md §Tenants). So is the
-    `slug` of a tenant an Account is linked to: it is the Account's slug, which
-    cannot change either (platform-bootstrap.md).
+    The `slug` of the default tenant cannot change (`422` with `code: \"immutable\"`), and neither can
+    the `slug` of a tenant linked to an Account.
 
     Args:
         tenant_id (str):
-        body (TenantPatch): `PATCH /api/v1/tenants/{tenant_id}` — `name`, `slug` and `metadata`.
+        body (TenantPatch): The body of `PATCH /api/v1/tenants/{tenant_id}`: `name`, `slug` and
+            `metadata`.
 
-            `metadata` is replaced whole, which is what a merge patch does with an
-            object unless a spec says it merges, and no spec says this one does.
-
-            `is_default`, `status`, `member_count` and `environment_id` are unknown
-            fields on purpose: the first is what the environment's own tenant is, the
-            second moves through `suspend`/`unsuspend`, and the last two are
-            projections rather than properties. The default tenant's `slug` is refused
-            by the resource rather than by the schema — 422 with `code: "immutable"` —
-            because which tenant it is is a row this schema cannot see.
+            `metadata` is replaced whole. `is_default`, `status`, `member_count` and `environment_id`
+            are
+            refused as unknown fields; use `suspend` and `unsuspend` to change the status. The default
+            tenant's `slug` cannot be changed (`422` with `code: "immutable"`).
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

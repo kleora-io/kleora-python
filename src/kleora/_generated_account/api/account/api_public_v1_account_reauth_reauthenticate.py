@@ -83,35 +83,22 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: ReauthIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Re-prove the signed-in person's own password
+    """Re-prove the signed-in person's own password
 
-     Verify the password against this session's own user, and mark the session.
+     Re-authenticate the current session with the person's password.
 
-    **`sensitive=False`, and it has to be**: this is the operation that satisfies
-    the gate, so gating it would be a cycle with no way in. That is not a
-    weakening — it takes a password, which is a stronger proof than the mark it
-    writes.
-
-    A wrong password is `401 invalid-credentials`, indistinguishable from every
-    other credential refusal on this surface, and **counts toward the same
-    progressive lockout** a wrong password anywhere else does — because the check
-    goes through `authenticate_password` rather than through a hash comparison.
-    §\"Rate limits\" says so in as many words: \"A failed re-authentication and a
-    wrong `current_password` both count toward progressive lockout\".
-
-    Nothing about the session is disturbed. `amr` is unchanged and no new session
-    is opened: `reauth.mark` writes a property *next to* the session, which is the
-    whole of what `mfa.md` §Self-service asks for and the reason a person who has
-    just re-authenticated is not suddenly treated as having passed a second factor.
+    Does not itself require re-authentication. A wrong password is `401 invalid-credentials` and
+    counts toward the same progressive lockout as a failed sign-in. The session is otherwise
+    unchanged: no new session is opened and its authentication methods (`amr`) stay the same.
 
     Args:
-        body (ReauthIn): A password and nothing else (§Re-authentication).
+        body (ReauthIn): The body of `POST /reauth`: the person's password.
 
-            A passkey assertion cannot be accepted here — `rp_id` is the issuer host and a
-            ceremony on the customer's origin is refused by the browser — and a provider
-            round trip cannot, because it is a navigation. Both remain available on the
-            hosted `/account/reauth`, which accepts all three; the asymmetry is the
-            browser's and `GET /reauth` is how a caller finds out which it has.
+            Passkeys and provider sign-in cannot be used through this API, because both need the
+            browser on
+            the issuer's own origin. The hosted `/account/reauth` page accepts all three; `GET
+            /reauth` says
+            which the person has.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,35 +124,22 @@ def sync(
     client: AuthenticatedClient,
     body: ReauthIn,
 ) -> Any | FlowProblem | None:
-    r"""Re-prove the signed-in person's own password
+    """Re-prove the signed-in person's own password
 
-     Verify the password against this session's own user, and mark the session.
+     Re-authenticate the current session with the person's password.
 
-    **`sensitive=False`, and it has to be**: this is the operation that satisfies
-    the gate, so gating it would be a cycle with no way in. That is not a
-    weakening — it takes a password, which is a stronger proof than the mark it
-    writes.
-
-    A wrong password is `401 invalid-credentials`, indistinguishable from every
-    other credential refusal on this surface, and **counts toward the same
-    progressive lockout** a wrong password anywhere else does — because the check
-    goes through `authenticate_password` rather than through a hash comparison.
-    §\"Rate limits\" says so in as many words: \"A failed re-authentication and a
-    wrong `current_password` both count toward progressive lockout\".
-
-    Nothing about the session is disturbed. `amr` is unchanged and no new session
-    is opened: `reauth.mark` writes a property *next to* the session, which is the
-    whole of what `mfa.md` §Self-service asks for and the reason a person who has
-    just re-authenticated is not suddenly treated as having passed a second factor.
+    Does not itself require re-authentication. A wrong password is `401 invalid-credentials` and
+    counts toward the same progressive lockout as a failed sign-in. The session is otherwise
+    unchanged: no new session is opened and its authentication methods (`amr`) stay the same.
 
     Args:
-        body (ReauthIn): A password and nothing else (§Re-authentication).
+        body (ReauthIn): The body of `POST /reauth`: the person's password.
 
-            A passkey assertion cannot be accepted here — `rp_id` is the issuer host and a
-            ceremony on the customer's origin is refused by the browser — and a provider
-            round trip cannot, because it is a navigation. Both remain available on the
-            hosted `/account/reauth`, which accepts all three; the asymmetry is the
-            browser's and `GET /reauth` is how a caller finds out which it has.
+            Passkeys and provider sign-in cannot be used through this API, because both need the
+            browser on
+            the issuer's own origin. The hosted `/account/reauth` page accepts all three; `GET
+            /reauth` says
+            which the person has.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -186,35 +160,22 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: ReauthIn,
 ) -> Response[Any | FlowProblem]:
-    r"""Re-prove the signed-in person's own password
+    """Re-prove the signed-in person's own password
 
-     Verify the password against this session's own user, and mark the session.
+     Re-authenticate the current session with the person's password.
 
-    **`sensitive=False`, and it has to be**: this is the operation that satisfies
-    the gate, so gating it would be a cycle with no way in. That is not a
-    weakening — it takes a password, which is a stronger proof than the mark it
-    writes.
-
-    A wrong password is `401 invalid-credentials`, indistinguishable from every
-    other credential refusal on this surface, and **counts toward the same
-    progressive lockout** a wrong password anywhere else does — because the check
-    goes through `authenticate_password` rather than through a hash comparison.
-    §\"Rate limits\" says so in as many words: \"A failed re-authentication and a
-    wrong `current_password` both count toward progressive lockout\".
-
-    Nothing about the session is disturbed. `amr` is unchanged and no new session
-    is opened: `reauth.mark` writes a property *next to* the session, which is the
-    whole of what `mfa.md` §Self-service asks for and the reason a person who has
-    just re-authenticated is not suddenly treated as having passed a second factor.
+    Does not itself require re-authentication. A wrong password is `401 invalid-credentials` and
+    counts toward the same progressive lockout as a failed sign-in. The session is otherwise
+    unchanged: no new session is opened and its authentication methods (`amr`) stay the same.
 
     Args:
-        body (ReauthIn): A password and nothing else (§Re-authentication).
+        body (ReauthIn): The body of `POST /reauth`: the person's password.
 
-            A passkey assertion cannot be accepted here — `rp_id` is the issuer host and a
-            ceremony on the customer's origin is refused by the browser — and a provider
-            round trip cannot, because it is a navigation. Both remain available on the
-            hosted `/account/reauth`, which accepts all three; the asymmetry is the
-            browser's and `GET /reauth` is how a caller finds out which it has.
+            Passkeys and provider sign-in cannot be used through this API, because both need the
+            browser on
+            the issuer's own origin. The hosted `/account/reauth` page accepts all three; `GET
+            /reauth` says
+            which the person has.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -238,35 +199,22 @@ async def asyncio(
     client: AuthenticatedClient,
     body: ReauthIn,
 ) -> Any | FlowProblem | None:
-    r"""Re-prove the signed-in person's own password
+    """Re-prove the signed-in person's own password
 
-     Verify the password against this session's own user, and mark the session.
+     Re-authenticate the current session with the person's password.
 
-    **`sensitive=False`, and it has to be**: this is the operation that satisfies
-    the gate, so gating it would be a cycle with no way in. That is not a
-    weakening — it takes a password, which is a stronger proof than the mark it
-    writes.
-
-    A wrong password is `401 invalid-credentials`, indistinguishable from every
-    other credential refusal on this surface, and **counts toward the same
-    progressive lockout** a wrong password anywhere else does — because the check
-    goes through `authenticate_password` rather than through a hash comparison.
-    §\"Rate limits\" says so in as many words: \"A failed re-authentication and a
-    wrong `current_password` both count toward progressive lockout\".
-
-    Nothing about the session is disturbed. `amr` is unchanged and no new session
-    is opened: `reauth.mark` writes a property *next to* the session, which is the
-    whole of what `mfa.md` §Self-service asks for and the reason a person who has
-    just re-authenticated is not suddenly treated as having passed a second factor.
+    Does not itself require re-authentication. A wrong password is `401 invalid-credentials` and
+    counts toward the same progressive lockout as a failed sign-in. The session is otherwise
+    unchanged: no new session is opened and its authentication methods (`amr`) stay the same.
 
     Args:
-        body (ReauthIn): A password and nothing else (§Re-authentication).
+        body (ReauthIn): The body of `POST /reauth`: the person's password.
 
-            A passkey assertion cannot be accepted here — `rp_id` is the issuer host and a
-            ceremony on the customer's origin is refused by the browser — and a provider
-            round trip cannot, because it is a navigation. Both remain available on the
-            hosted `/account/reauth`, which accepts all three; the asymmetry is the
-            browser's and `GET /reauth` is how a caller finds out which it has.
+            Passkeys and provider sign-in cannot be used through this API, because both need the
+            browser on
+            the issuer's own origin. The hosted `/account/reauth` page accepts all three; `GET
+            /reauth` says
+            which the person has.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

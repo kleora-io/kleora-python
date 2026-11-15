@@ -111,35 +111,27 @@ def sync_detailed(
 ) -> Response[IdentityProviderOut | Problem]:
     """Configure an identity provider
 
-     Create or replace this environment's configuration for `kind`.
+     Create or replace the environment's configuration for one identity provider kind.
 
-    `client_secret` is write-only and **optional: omitting it keeps the stored
-    one**. That is not a shortcut, it is the only workable shape — the value is
-    never readable, so a client flipping `enabled` cannot send it back, and
-    demanding it would make a customer mint a fresh secret at their provider in
-    order to turn a button off. Omitted on the *first* write for a kind it is 422
-    `validation-error` on `client_secret`. Sent with a value different from the
-    stored one it **rotates**: the previous secret keeps completing token
-    exchanges for 24 hours, and `identity_provider.secret_rotated` is audited
-    beside the `.updated`.
+    `client_secret` is write-only, and optional: omitting it keeps the stored secret. On the first
+    write for a kind it is required (`422 validation-error`). Sending a different value rotates it:
+    the previous secret keeps working for token exchanges for 24 hours, and the rotation is audited
+    as `identity_provider.secret_rotated`.
 
     Args:
         environment_id (str):
         kind (PutIdentityProviderKind):
-        body (IdentityProviderIn): `PUT E/identity-providers/{kind}` — create or replace.
+        body (IdentityProviderIn): The body of `PUT /environments/{environment_id}/identity-
+            providers/{kind}`: create or
+            replace.
 
-            `client_secret` is **optional, and omitting it keeps the stored one.** That is
-            the one place this `PUT` is not a literal replacement, and it is deliberate:
-            the secret is write-only, so a console flipping `enabled` has never been able
-            to read the value it would have to send back, and requiring it would mean
-            asking the customer to mint a new secret at their provider in order to turn a
-            button off. Omitted on a *first* write it is 422 — a configuration with no
-            secret is a button that cannot work. Sent with a different value it rotates,
-            and the previous secret keeps working for 24 hours.
-
-            `null` is not the same as absent and is refused by the type: a caller who
-            meant "clear the secret" is asking for a configuration that cannot complete a
-            sign-in, and `DELETE` is how a provider goes away.
+            `client_secret` is optional, and omitting it keeps the stored secret, so a configuration
+            can be
+            changed without sending the secret again. It is required on the first write for a kind
+            (`422`).
+            Sending a different value rotates it, and the previous secret keeps working for 24 hours.
+            `null`
+            is refused; to remove a provider, use `DELETE`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -171,35 +163,27 @@ def sync(
 ) -> IdentityProviderOut | Problem | None:
     """Configure an identity provider
 
-     Create or replace this environment's configuration for `kind`.
+     Create or replace the environment's configuration for one identity provider kind.
 
-    `client_secret` is write-only and **optional: omitting it keeps the stored
-    one**. That is not a shortcut, it is the only workable shape — the value is
-    never readable, so a client flipping `enabled` cannot send it back, and
-    demanding it would make a customer mint a fresh secret at their provider in
-    order to turn a button off. Omitted on the *first* write for a kind it is 422
-    `validation-error` on `client_secret`. Sent with a value different from the
-    stored one it **rotates**: the previous secret keeps completing token
-    exchanges for 24 hours, and `identity_provider.secret_rotated` is audited
-    beside the `.updated`.
+    `client_secret` is write-only, and optional: omitting it keeps the stored secret. On the first
+    write for a kind it is required (`422 validation-error`). Sending a different value rotates it:
+    the previous secret keeps working for token exchanges for 24 hours, and the rotation is audited
+    as `identity_provider.secret_rotated`.
 
     Args:
         environment_id (str):
         kind (PutIdentityProviderKind):
-        body (IdentityProviderIn): `PUT E/identity-providers/{kind}` — create or replace.
+        body (IdentityProviderIn): The body of `PUT /environments/{environment_id}/identity-
+            providers/{kind}`: create or
+            replace.
 
-            `client_secret` is **optional, and omitting it keeps the stored one.** That is
-            the one place this `PUT` is not a literal replacement, and it is deliberate:
-            the secret is write-only, so a console flipping `enabled` has never been able
-            to read the value it would have to send back, and requiring it would mean
-            asking the customer to mint a new secret at their provider in order to turn a
-            button off. Omitted on a *first* write it is 422 — a configuration with no
-            secret is a button that cannot work. Sent with a different value it rotates,
-            and the previous secret keeps working for 24 hours.
-
-            `null` is not the same as absent and is refused by the type: a caller who
-            meant "clear the secret" is asking for a configuration that cannot complete a
-            sign-in, and `DELETE` is how a provider goes away.
+            `client_secret` is optional, and omitting it keeps the stored secret, so a configuration
+            can be
+            changed without sending the secret again. It is required on the first write for a kind
+            (`422`).
+            Sending a different value rotates it, and the previous secret keeps working for 24 hours.
+            `null`
+            is refused; to remove a provider, use `DELETE`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -226,35 +210,27 @@ async def asyncio_detailed(
 ) -> Response[IdentityProviderOut | Problem]:
     """Configure an identity provider
 
-     Create or replace this environment's configuration for `kind`.
+     Create or replace the environment's configuration for one identity provider kind.
 
-    `client_secret` is write-only and **optional: omitting it keeps the stored
-    one**. That is not a shortcut, it is the only workable shape — the value is
-    never readable, so a client flipping `enabled` cannot send it back, and
-    demanding it would make a customer mint a fresh secret at their provider in
-    order to turn a button off. Omitted on the *first* write for a kind it is 422
-    `validation-error` on `client_secret`. Sent with a value different from the
-    stored one it **rotates**: the previous secret keeps completing token
-    exchanges for 24 hours, and `identity_provider.secret_rotated` is audited
-    beside the `.updated`.
+    `client_secret` is write-only, and optional: omitting it keeps the stored secret. On the first
+    write for a kind it is required (`422 validation-error`). Sending a different value rotates it:
+    the previous secret keeps working for token exchanges for 24 hours, and the rotation is audited
+    as `identity_provider.secret_rotated`.
 
     Args:
         environment_id (str):
         kind (PutIdentityProviderKind):
-        body (IdentityProviderIn): `PUT E/identity-providers/{kind}` — create or replace.
+        body (IdentityProviderIn): The body of `PUT /environments/{environment_id}/identity-
+            providers/{kind}`: create or
+            replace.
 
-            `client_secret` is **optional, and omitting it keeps the stored one.** That is
-            the one place this `PUT` is not a literal replacement, and it is deliberate:
-            the secret is write-only, so a console flipping `enabled` has never been able
-            to read the value it would have to send back, and requiring it would mean
-            asking the customer to mint a new secret at their provider in order to turn a
-            button off. Omitted on a *first* write it is 422 — a configuration with no
-            secret is a button that cannot work. Sent with a different value it rotates,
-            and the previous secret keeps working for 24 hours.
-
-            `null` is not the same as absent and is refused by the type: a caller who
-            meant "clear the secret" is asking for a configuration that cannot complete a
-            sign-in, and `DELETE` is how a provider goes away.
+            `client_secret` is optional, and omitting it keeps the stored secret, so a configuration
+            can be
+            changed without sending the secret again. It is required on the first write for a kind
+            (`422`).
+            Sending a different value rotates it, and the previous secret keeps working for 24 hours.
+            `null`
+            is refused; to remove a provider, use `DELETE`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -284,35 +260,27 @@ async def asyncio(
 ) -> IdentityProviderOut | Problem | None:
     """Configure an identity provider
 
-     Create or replace this environment's configuration for `kind`.
+     Create or replace the environment's configuration for one identity provider kind.
 
-    `client_secret` is write-only and **optional: omitting it keeps the stored
-    one**. That is not a shortcut, it is the only workable shape — the value is
-    never readable, so a client flipping `enabled` cannot send it back, and
-    demanding it would make a customer mint a fresh secret at their provider in
-    order to turn a button off. Omitted on the *first* write for a kind it is 422
-    `validation-error` on `client_secret`. Sent with a value different from the
-    stored one it **rotates**: the previous secret keeps completing token
-    exchanges for 24 hours, and `identity_provider.secret_rotated` is audited
-    beside the `.updated`.
+    `client_secret` is write-only, and optional: omitting it keeps the stored secret. On the first
+    write for a kind it is required (`422 validation-error`). Sending a different value rotates it:
+    the previous secret keeps working for token exchanges for 24 hours, and the rotation is audited
+    as `identity_provider.secret_rotated`.
 
     Args:
         environment_id (str):
         kind (PutIdentityProviderKind):
-        body (IdentityProviderIn): `PUT E/identity-providers/{kind}` — create or replace.
+        body (IdentityProviderIn): The body of `PUT /environments/{environment_id}/identity-
+            providers/{kind}`: create or
+            replace.
 
-            `client_secret` is **optional, and omitting it keeps the stored one.** That is
-            the one place this `PUT` is not a literal replacement, and it is deliberate:
-            the secret is write-only, so a console flipping `enabled` has never been able
-            to read the value it would have to send back, and requiring it would mean
-            asking the customer to mint a new secret at their provider in order to turn a
-            button off. Omitted on a *first* write it is 422 — a configuration with no
-            secret is a button that cannot work. Sent with a different value it rotates,
-            and the previous secret keeps working for 24 hours.
-
-            `null` is not the same as absent and is refused by the type: a caller who
-            meant "clear the secret" is asking for a configuration that cannot complete a
-            sign-in, and `DELETE` is how a provider goes away.
+            `client_secret` is optional, and omitting it keeps the stored secret, so a configuration
+            can be
+            changed without sending the secret again. It is required on the first write for a kind
+            (`422`).
+            Sending a different value rotates it, and the previous secret keeps working for 24 hours.
+            `null`
+            is refused; to remove a provider, use `DELETE`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

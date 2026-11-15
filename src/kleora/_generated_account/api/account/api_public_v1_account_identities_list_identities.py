@@ -81,16 +81,12 @@ def sync_detailed(
 ) -> Response[FlowProblem | IdentitiesOut]:
     """The signed-in person's own provider links, and what can be linked
 
-     This person's links, every provider on offer, and whether they hold a password.
+     The person's linked provider identities, every provider the environment offers, and whether
+    the person has a password.
 
-    `has_password` is here for the same reason it is on `GET /flow/identities`: a
-    screen deciding whether to offer Remove needs to know what else could begin a
-    sign-in, and the alternative is a second call that could disagree with this
-    one about the same person.
-
-    `providers` is `link_buttons`, which carries a same-origin `start_url` with no
-    destination parameter in it — the navigation is top-level and the customer's
-    screen does not get to choose where it lands.
+    `has_password` helps a screen decide whether removing an identity is possible. Each provider's
+    `start_url` is a same-origin path with no destination parameter, to be opened as a top-level
+    navigation.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -115,16 +111,12 @@ def sync(
 ) -> FlowProblem | IdentitiesOut | None:
     """The signed-in person's own provider links, and what can be linked
 
-     This person's links, every provider on offer, and whether they hold a password.
+     The person's linked provider identities, every provider the environment offers, and whether
+    the person has a password.
 
-    `has_password` is here for the same reason it is on `GET /flow/identities`: a
-    screen deciding whether to offer Remove needs to know what else could begin a
-    sign-in, and the alternative is a second call that could disagree with this
-    one about the same person.
-
-    `providers` is `link_buttons`, which carries a same-origin `start_url` with no
-    destination parameter in it — the navigation is top-level and the customer's
-    screen does not get to choose where it lands.
+    `has_password` helps a screen decide whether removing an identity is possible. Each provider's
+    `start_url` is a same-origin path with no destination parameter, to be opened as a top-level
+    navigation.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,16 +137,12 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | IdentitiesOut]:
     """The signed-in person's own provider links, and what can be linked
 
-     This person's links, every provider on offer, and whether they hold a password.
+     The person's linked provider identities, every provider the environment offers, and whether
+    the person has a password.
 
-    `has_password` is here for the same reason it is on `GET /flow/identities`: a
-    screen deciding whether to offer Remove needs to know what else could begin a
-    sign-in, and the alternative is a second call that could disagree with this
-    one about the same person.
-
-    `providers` is `link_buttons`, which carries a same-origin `start_url` with no
-    destination parameter in it — the navigation is top-level and the customer's
-    screen does not get to choose where it lands.
+    `has_password` helps a screen decide whether removing an identity is possible. Each provider's
+    `start_url` is a same-origin path with no destination parameter, to be opened as a top-level
+    navigation.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -177,16 +165,12 @@ async def asyncio(
 ) -> FlowProblem | IdentitiesOut | None:
     """The signed-in person's own provider links, and what can be linked
 
-     This person's links, every provider on offer, and whether they hold a password.
+     The person's linked provider identities, every provider the environment offers, and whether
+    the person has a password.
 
-    `has_password` is here for the same reason it is on `GET /flow/identities`: a
-    screen deciding whether to offer Remove needs to know what else could begin a
-    sign-in, and the alternative is a second call that could disagree with this
-    one about the same person.
-
-    `providers` is `link_buttons`, which carries a same-origin `start_url` with no
-    destination parameter in it — the navigation is top-level and the customer's
-    screen does not get to choose where it lands.
+    `has_password` helps a screen decide whether removing an identity is possible. Each provider's
+    `start_url` is a same-origin path with no destination parameter, to be opened as a top-level
+    navigation.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

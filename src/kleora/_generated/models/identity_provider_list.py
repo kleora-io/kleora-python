@@ -23,13 +23,10 @@ T = TypeVar("T", bound="IdentityProviderList")
 
 @_attrs_define
 class IdentityProviderList:
-    """`GET E/identity-providers`, ordered by `kind`.
+    """The body of `GET /environments/{environment_id}/identity-providers`, ordered by `kind`.
 
-    `next_cursor` is present and **always null**, for the reason
-    `SigningKeyList` gives: there are four possible rows and no fifth, so a
-    keyset seek would have nothing to resume, and a generated client that had to
-    special-case one list of this surface is a worse cost than a member that is
-    always null (management-api.md §OpenAPI).
+    Not paginated, since there is at most one configuration per provider kind: `next_cursor` is
+    always `null`.
 
         Attributes:
             items (list[IdentityProviderOut]):

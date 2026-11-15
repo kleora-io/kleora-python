@@ -22,12 +22,11 @@ T = TypeVar("T", bound="IdentitiesOut")
 
 @_attrs_define
 class IdentitiesOut:
-    """§API `GET /identities`: "links, `providers[]`, `has_password`".
+    """The person's provider identities, the providers this environment offers, and whether the
+    person has a password.
 
-    `providers` carries each kind's `start_url`, which is the other origin-bound
-    ceremony's hand-off: linking is a redirect round trip through
-    `GET /oauth/social/{kind}/start?intent=link`, so the API lists and removes and
-    the navigation is the customer's screen's to make, top-level.
+    Each provider carries a `start_url`. Linking a provider is a browser redirect through `GET
+    /oauth/social/{kind}/start?intent=link`, made top-level by the customer's screen.
 
         Attributes:
             has_password (bool):

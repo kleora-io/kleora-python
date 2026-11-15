@@ -85,16 +85,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EnvironmentList | Problem]:
-    r"""An app's environments
+    """An app's environments
 
-     The same two objects `GET /apps/{app_id}` embeds, in the list envelope.
+     The App's two environments, in the standard list envelope.
 
-    Not paginated — an App has exactly two Environments, always, and they are
-    created and destroyed with it (environments.md §\"What an environment
-    contains\") — so `next_cursor` is always null. It is present because
-    management-api.md §OpenAPI admits no inline object here: one envelope for
-    every list of the surface is one type in every generated client, and
-    `SigningKeyList` settled the same question for the same reason.
+    Not paginated: an App always has exactly two environments, so `next_cursor` is always `null`.
 
     Args:
         app_id (str):
@@ -123,16 +118,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> EnvironmentList | Problem | None:
-    r"""An app's environments
+    """An app's environments
 
-     The same two objects `GET /apps/{app_id}` embeds, in the list envelope.
+     The App's two environments, in the standard list envelope.
 
-    Not paginated — an App has exactly two Environments, always, and they are
-    created and destroyed with it (environments.md §\"What an environment
-    contains\") — so `next_cursor` is always null. It is present because
-    management-api.md §OpenAPI admits no inline object here: one envelope for
-    every list of the surface is one type in every generated client, and
-    `SigningKeyList` settled the same question for the same reason.
+    Not paginated: an App always has exactly two environments, so `next_cursor` is always `null`.
 
     Args:
         app_id (str):
@@ -156,16 +146,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EnvironmentList | Problem]:
-    r"""An app's environments
+    """An app's environments
 
-     The same two objects `GET /apps/{app_id}` embeds, in the list envelope.
+     The App's two environments, in the standard list envelope.
 
-    Not paginated — an App has exactly two Environments, always, and they are
-    created and destroyed with it (environments.md §\"What an environment
-    contains\") — so `next_cursor` is always null. It is present because
-    management-api.md §OpenAPI admits no inline object here: one envelope for
-    every list of the surface is one type in every generated client, and
-    `SigningKeyList` settled the same question for the same reason.
+    Not paginated: an App always has exactly two environments, so `next_cursor` is always `null`.
 
     Args:
         app_id (str):
@@ -192,16 +177,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> EnvironmentList | Problem | None:
-    r"""An app's environments
+    """An app's environments
 
-     The same two objects `GET /apps/{app_id}` embeds, in the list envelope.
+     The App's two environments, in the standard list envelope.
 
-    Not paginated — an App has exactly two Environments, always, and they are
-    created and destroyed with it (environments.md §\"What an environment
-    contains\") — so `next_cursor` is always null. It is present because
-    management-api.md §OpenAPI admits no inline object here: one envelope for
-    every list of the surface is one type in every generated client, and
-    `SigningKeyList` settled the same question for the same reason.
+    Not paginated: an App always has exactly two environments, so `next_cursor` is always `null`.
 
     Args:
         app_id (str):

@@ -23,14 +23,10 @@ T = TypeVar("T", bound="EmailTemplateList")
 
 @_attrs_define
 class EmailTemplateList:
-    """`GET …/email-templates` — the twelve rows, in one envelope.
+    """The body of `GET .../email-templates`: every template of the environment.
 
-    `next_cursor` is present and **always null**. Twelve is a fixed size, not
-    an exemption: management-api.md §OpenAPI gives every list of this surface
-    one named `{Resource}List` shape, and a generated client that had to
-    special-case this one would be worse off than one reading a null it knows
-    to expect. `limit` and `cursor` are accepted and ignored for the same
-    reason — the client's list call is the same call here as everywhere.
+    The list has a fixed size, so `next_cursor` is always `null`, and `limit` and `cursor` are
+    accepted and ignored.
 
         Attributes:
             items (list[EmailTemplateOut]):

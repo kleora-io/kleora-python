@@ -19,11 +19,9 @@ T = TypeVar("T", bound="AppIn")
 
 @_attrs_define
 class AppIn:
-    """`POST /api/v1/apps`.
+    """The body of `POST /api/v1/apps`.
 
-    `slug` is optional and derived from `name` when absent (apps.md §"The slug
-    is the issuer"). Absent and `null` mean the same thing here, which they may
-    on a creation: there is no stored value for `null` to be different from.
+    `slug` is optional and derived from `name` when absent or `null`.
 
         Attributes:
             name (str):

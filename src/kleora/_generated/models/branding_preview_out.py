@@ -18,14 +18,11 @@ T = TypeVar("T", bound="BrandingPreviewOut")
 
 @_attrs_define
 class BrandingPreviewOut:
-    """The `201` of `POST …/branding/preview` — branding.md §Preview, item 3.
+    """The `201` of `POST .../branding/preview`: where to preview the draft, and until when.
 
-    Two fields and no draft echoed back: the console already holds the record
-    it sent, and the frame's URL is the whole interface (§Preview, rule 8).
-
-        Attributes:
-            expires_at (datetime.datetime):
-            preview_url (str):
+    Attributes:
+        expires_at (datetime.datetime):
+        preview_url (str):
     """
 
     expires_at: datetime.datetime

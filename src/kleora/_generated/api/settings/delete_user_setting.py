@@ -94,13 +94,11 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Clear one user's setting
+    """Clear one user's setting
 
-     Remove the stored value so the default answers again (user-settings.md §API).
+     Remove the user's stored value, so the default applies again.
 
-    Gated and scoped exactly as the `PUT`: `settings:write`, definition and
-    user both resolved inside the path's environment. Clearing a value never
-    written is the same 204 — \"unset\" holds either way.
+    Requires `settings:write`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         environment_id (str):
@@ -135,13 +133,11 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Clear one user's setting
+    """Clear one user's setting
 
-     Remove the stored value so the default answers again (user-settings.md §API).
+     Remove the user's stored value, so the default applies again.
 
-    Gated and scoped exactly as the `PUT`: `settings:write`, definition and
-    user both resolved inside the path's environment. Clearing a value never
-    written is the same 204 — \"unset\" holds either way.
+    Requires `settings:write`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         environment_id (str):
@@ -171,13 +167,11 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Clear one user's setting
+    """Clear one user's setting
 
-     Remove the stored value so the default answers again (user-settings.md §API).
+     Remove the user's stored value, so the default applies again.
 
-    Gated and scoped exactly as the `PUT`: `settings:write`, definition and
-    user both resolved inside the path's environment. Clearing a value never
-    written is the same 204 — \"unset\" holds either way.
+    Requires `settings:write`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         environment_id (str):
@@ -210,13 +204,11 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Clear one user's setting
+    """Clear one user's setting
 
-     Remove the stored value so the default answers again (user-settings.md §API).
+     Remove the user's stored value, so the default applies again.
 
-    Gated and scoped exactly as the `PUT`: `settings:write`, definition and
-    user both resolved inside the path's environment. Clearing a value never
-    written is the same 204 — \"unset\" holds either way.
+    Requires `settings:write`. Idempotent: removing a value that was never stored is also `204`.
 
     Args:
         environment_id (str):

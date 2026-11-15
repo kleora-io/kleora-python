@@ -19,11 +19,9 @@ T = TypeVar("T", bound="ListQuery")
 
 @_attrs_define
 class ListQuery:
-    """The two query parameters every list endpoint takes.
+    """The two query parameters every list operation takes.
 
-    Declared once and reused, so `limit=201` is a 422 by schema rather than by a
-    check each endpoint has to remember — and so the OpenAPI document says the
-    bounds, which is what a generated client validates against.
+    `limit` outside its bounds is `422`.
 
         Attributes:
             cursor (None | str | Unset):

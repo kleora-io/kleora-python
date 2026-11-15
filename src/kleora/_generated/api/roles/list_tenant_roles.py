@@ -130,16 +130,13 @@ def sync_detailed(
     q: None | str | Unset = UNSET,
     scope: ListTenantRolesScopeType0 | None | Unset = UNSET,
 ) -> Response[Problem | RoleList]:
-    r"""Roles assignable in a tenant
+    """Roles assignable in a tenant
 
-     Every role assignable in this tenant: the app-scoped ones and its own.
+     Every role assignable in this tenant: the environment's app-scoped roles and the tenant's
+    own.
 
-    The tenant-scoped read of the roles resource, and the only way a
-    `tenant_member` sees an app-scoped role at all — `GET /roles/{role_id}` is
-    environment scope (rbac.md §API).
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    This is how a tenant member sees app-scoped roles. `q` is a case-insensitive substring of the
+    slug or the name.
 
     Args:
         tenant_id (str):
@@ -180,16 +177,13 @@ def sync(
     q: None | str | Unset = UNSET,
     scope: ListTenantRolesScopeType0 | None | Unset = UNSET,
 ) -> Problem | RoleList | None:
-    r"""Roles assignable in a tenant
+    """Roles assignable in a tenant
 
-     Every role assignable in this tenant: the app-scoped ones and its own.
+     Every role assignable in this tenant: the environment's app-scoped roles and the tenant's
+    own.
 
-    The tenant-scoped read of the roles resource, and the only way a
-    `tenant_member` sees an app-scoped role at all — `GET /roles/{role_id}` is
-    environment scope (rbac.md §API).
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    This is how a tenant member sees app-scoped roles. `q` is a case-insensitive substring of the
+    slug or the name.
 
     Args:
         tenant_id (str):
@@ -225,16 +219,13 @@ async def asyncio_detailed(
     q: None | str | Unset = UNSET,
     scope: ListTenantRolesScopeType0 | None | Unset = UNSET,
 ) -> Response[Problem | RoleList]:
-    r"""Roles assignable in a tenant
+    """Roles assignable in a tenant
 
-     Every role assignable in this tenant: the app-scoped ones and its own.
+     Every role assignable in this tenant: the environment's app-scoped roles and the tenant's
+    own.
 
-    The tenant-scoped read of the roles resource, and the only way a
-    `tenant_member` sees an app-scoped role at all — `GET /roles/{role_id}` is
-    environment scope (rbac.md §API).
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    This is how a tenant member sees app-scoped roles. `q` is a case-insensitive substring of the
+    slug or the name.
 
     Args:
         tenant_id (str):
@@ -273,16 +264,13 @@ async def asyncio(
     q: None | str | Unset = UNSET,
     scope: ListTenantRolesScopeType0 | None | Unset = UNSET,
 ) -> Problem | RoleList | None:
-    r"""Roles assignable in a tenant
+    """Roles assignable in a tenant
 
-     Every role assignable in this tenant: the app-scoped ones and its own.
+     Every role assignable in this tenant: the environment's app-scoped roles and the tenant's
+    own.
 
-    The tenant-scoped read of the roles resource, and the only way a
-    `tenant_member` sees an app-scoped role at all — `GET /roles/{role_id}` is
-    environment scope (rbac.md §API).
-
-    `q` is a case-insensitive substring of the slug or the name
-    (management-api.md §Conventions \"Search\"; Q3-59).
+    This is how a tenant member sees app-scoped roles. `q` is a case-insensitive substring of the
+    slug or the name.
 
     Args:
         tenant_id (str):

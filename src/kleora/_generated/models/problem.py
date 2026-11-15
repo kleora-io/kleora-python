@@ -24,13 +24,9 @@ T = TypeVar("T", bound="Problem")
 
 @_attrs_define
 class Problem:
-    """RFC 9457 problem details — the error shape of this surface.
+    """An RFC 9457 problem details document: the error shape of this API.
 
-    A plain `BaseModel` rather than a `ninja.Schema`, deliberately: a Schema
-    validates through django-ninja's attribute getter, which reads only the
-    fields it knows and would silently drop the extension members RFC 9457
-    exists to allow. Nothing here is ever built from a Django model, so the
-    getter buys nothing in exchange.
+    Problem documents may carry extension members beyond the fields listed here.
 
         Attributes:
             status (int):

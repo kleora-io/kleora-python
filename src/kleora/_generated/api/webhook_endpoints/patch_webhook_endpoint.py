@@ -110,30 +110,25 @@ def sync_detailed(
 ) -> Response[Problem | WebhookEndpointOut]:
     r"""Change a webhook endpoint
 
-     A merge patch. Never the secret — there is no field here that could carry it.
+     Update a webhook endpoint (merge patch). The secret cannot be changed here.
 
-    `{\"enabled\": false}` disables the endpoint and audits
-    `webhook_endpoint.disabled` rather than the generic `.updated`
-    (webhooks.md §API); `{\"enabled\": true}` re-enables one, whether a person
-    or the seven-day failure sweep (P6-08) turned it off, and clears
-    `disabled_at`/`disabled_reason`.
+    `{\"enabled\": false}` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+    `{\"enabled\": true}` re-enables it, whether it was disabled by a person or automatically after
+    repeated failures, and clears `disabled_at` and `disabled_reason`.
 
     Args:
         environment_id (str):
         webhook_endpoint_id (str):
-        body (WebhookEndpointPatch): `PATCH /api/v1/environments/{environment_id}/webhook-
-            endpoints/{id}`.
+        body (WebhookEndpointPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/webhook-endpoints/{webhook_endpoint_id}`.
 
-            `event_types` is replaced whole by a merge patch, like `ClientPatch`'s URI
-            arrays — `[]` unsubscribes from everything and is a valid value distinct
-            from the `null` this field does not accept (it is not nullable: a
-            subscription is always a list, possibly empty).
+            `event_types` is replaced whole; `[]` unsubscribes from everything, and `null` is not
+            accepted.
 
-            `enabled` is a plain `bool`: `false` disables — audited as
-            `webhook_endpoint.disabled` rather than the generic `.updated`
-            (webhooks.md §API) — and `true` re-enables an endpoint the seven-day
-            failure sweep (P6-08) or a person turned off, clearing `disabled_at`/
-            `disabled_reason` on the row.
+            `enabled: false` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+            `enabled:
+            true` re-enables it, whether it was disabled by a person or automatically after repeated
+            failures, and clears `disabled_at` and `disabled_reason`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,30 +160,25 @@ def sync(
 ) -> Problem | WebhookEndpointOut | None:
     r"""Change a webhook endpoint
 
-     A merge patch. Never the secret — there is no field here that could carry it.
+     Update a webhook endpoint (merge patch). The secret cannot be changed here.
 
-    `{\"enabled\": false}` disables the endpoint and audits
-    `webhook_endpoint.disabled` rather than the generic `.updated`
-    (webhooks.md §API); `{\"enabled\": true}` re-enables one, whether a person
-    or the seven-day failure sweep (P6-08) turned it off, and clears
-    `disabled_at`/`disabled_reason`.
+    `{\"enabled\": false}` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+    `{\"enabled\": true}` re-enables it, whether it was disabled by a person or automatically after
+    repeated failures, and clears `disabled_at` and `disabled_reason`.
 
     Args:
         environment_id (str):
         webhook_endpoint_id (str):
-        body (WebhookEndpointPatch): `PATCH /api/v1/environments/{environment_id}/webhook-
-            endpoints/{id}`.
+        body (WebhookEndpointPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/webhook-endpoints/{webhook_endpoint_id}`.
 
-            `event_types` is replaced whole by a merge patch, like `ClientPatch`'s URI
-            arrays — `[]` unsubscribes from everything and is a valid value distinct
-            from the `null` this field does not accept (it is not nullable: a
-            subscription is always a list, possibly empty).
+            `event_types` is replaced whole; `[]` unsubscribes from everything, and `null` is not
+            accepted.
 
-            `enabled` is a plain `bool`: `false` disables — audited as
-            `webhook_endpoint.disabled` rather than the generic `.updated`
-            (webhooks.md §API) — and `true` re-enables an endpoint the seven-day
-            failure sweep (P6-08) or a person turned off, clearing `disabled_at`/
-            `disabled_reason` on the row.
+            `enabled: false` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+            `enabled:
+            true` re-enables it, whether it was disabled by a person or automatically after repeated
+            failures, and clears `disabled_at` and `disabled_reason`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -215,30 +205,25 @@ async def asyncio_detailed(
 ) -> Response[Problem | WebhookEndpointOut]:
     r"""Change a webhook endpoint
 
-     A merge patch. Never the secret — there is no field here that could carry it.
+     Update a webhook endpoint (merge patch). The secret cannot be changed here.
 
-    `{\"enabled\": false}` disables the endpoint and audits
-    `webhook_endpoint.disabled` rather than the generic `.updated`
-    (webhooks.md §API); `{\"enabled\": true}` re-enables one, whether a person
-    or the seven-day failure sweep (P6-08) turned it off, and clears
-    `disabled_at`/`disabled_reason`.
+    `{\"enabled\": false}` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+    `{\"enabled\": true}` re-enables it, whether it was disabled by a person or automatically after
+    repeated failures, and clears `disabled_at` and `disabled_reason`.
 
     Args:
         environment_id (str):
         webhook_endpoint_id (str):
-        body (WebhookEndpointPatch): `PATCH /api/v1/environments/{environment_id}/webhook-
-            endpoints/{id}`.
+        body (WebhookEndpointPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/webhook-endpoints/{webhook_endpoint_id}`.
 
-            `event_types` is replaced whole by a merge patch, like `ClientPatch`'s URI
-            arrays — `[]` unsubscribes from everything and is a valid value distinct
-            from the `null` this field does not accept (it is not nullable: a
-            subscription is always a list, possibly empty).
+            `event_types` is replaced whole; `[]` unsubscribes from everything, and `null` is not
+            accepted.
 
-            `enabled` is a plain `bool`: `false` disables — audited as
-            `webhook_endpoint.disabled` rather than the generic `.updated`
-            (webhooks.md §API) — and `true` re-enables an endpoint the seven-day
-            failure sweep (P6-08) or a person turned off, clearing `disabled_at`/
-            `disabled_reason` on the row.
+            `enabled: false` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+            `enabled:
+            true` re-enables it, whether it was disabled by a person or automatically after repeated
+            failures, and clears `disabled_at` and `disabled_reason`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -268,30 +253,25 @@ async def asyncio(
 ) -> Problem | WebhookEndpointOut | None:
     r"""Change a webhook endpoint
 
-     A merge patch. Never the secret — there is no field here that could carry it.
+     Update a webhook endpoint (merge patch). The secret cannot be changed here.
 
-    `{\"enabled\": false}` disables the endpoint and audits
-    `webhook_endpoint.disabled` rather than the generic `.updated`
-    (webhooks.md §API); `{\"enabled\": true}` re-enables one, whether a person
-    or the seven-day failure sweep (P6-08) turned it off, and clears
-    `disabled_at`/`disabled_reason`.
+    `{\"enabled\": false}` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+    `{\"enabled\": true}` re-enables it, whether it was disabled by a person or automatically after
+    repeated failures, and clears `disabled_at` and `disabled_reason`.
 
     Args:
         environment_id (str):
         webhook_endpoint_id (str):
-        body (WebhookEndpointPatch): `PATCH /api/v1/environments/{environment_id}/webhook-
-            endpoints/{id}`.
+        body (WebhookEndpointPatch): The body of `PATCH
+            /api/v1/environments/{environment_id}/webhook-endpoints/{webhook_endpoint_id}`.
 
-            `event_types` is replaced whole by a merge patch, like `ClientPatch`'s URI
-            arrays — `[]` unsubscribes from everything and is a valid value distinct
-            from the `null` this field does not accept (it is not nullable: a
-            subscription is always a list, possibly empty).
+            `event_types` is replaced whole; `[]` unsubscribes from everything, and `null` is not
+            accepted.
 
-            `enabled` is a plain `bool`: `false` disables — audited as
-            `webhook_endpoint.disabled` rather than the generic `.updated`
-            (webhooks.md §API) — and `true` re-enables an endpoint the seven-day
-            failure sweep (P6-08) or a person turned off, clearing `disabled_at`/
-            `disabled_reason` on the row.
+            `enabled: false` disables the endpoint and is audited as `webhook_endpoint.disabled`.
+            `enabled:
+            true` re-enables it, whether it was disabled by a person or automatically after repeated
+            failures, and clears `disabled_at` and `disabled_reason`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

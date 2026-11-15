@@ -111,7 +111,7 @@ def sync_detailed(
 ) -> Response[Problem | SettingDefinitionList]:
     """List setting definitions
 
-     The environment's definitions by key — at most 50 of them (§Limits).
+     The environment's user setting definitions by key. An environment holds at most 50.
 
     Args:
         environment_id (str):
@@ -148,7 +148,7 @@ def sync(
 ) -> Problem | SettingDefinitionList | None:
     """List setting definitions
 
-     The environment's definitions by key — at most 50 of them (§Limits).
+     The environment's user setting definitions by key. An environment holds at most 50.
 
     Args:
         environment_id (str):
@@ -180,7 +180,7 @@ async def asyncio_detailed(
 ) -> Response[Problem | SettingDefinitionList]:
     """List setting definitions
 
-     The environment's definitions by key — at most 50 of them (§Limits).
+     The environment's user setting definitions by key. An environment holds at most 50.
 
     Args:
         environment_id (str):
@@ -215,7 +215,7 @@ async def asyncio(
 ) -> Problem | SettingDefinitionList | None:
     """List setting definitions
 
-     The environment's definitions by key — at most 50 of them (§Limits).
+     The environment's user setting definitions by key. An environment holds at most 50.
 
     Args:
         environment_id (str):

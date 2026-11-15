@@ -86,9 +86,8 @@ def sync_detailed(
 ) -> Response[MfaFactorList | Problem]:
     """The caller's own MFA factors
 
-     `GET /me/mfa` — every factor of the caller's, confirmed or not, in the
-    same `MfaFactorOut` shape `GET …/users/{uid}/mfa` answers with (never a
-    seed, never a hash).
+     Every MFA factor of yours, confirmed or not, in the same shape as `GET
+    .../users/{user_id}/mfa`. Secrets and recovery code hashes are never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,9 +112,8 @@ def sync(
 ) -> MfaFactorList | Problem | None:
     """The caller's own MFA factors
 
-     `GET /me/mfa` — every factor of the caller's, confirmed or not, in the
-    same `MfaFactorOut` shape `GET …/users/{uid}/mfa` answers with (never a
-    seed, never a hash).
+     Every MFA factor of yours, confirmed or not, in the same shape as `GET
+    .../users/{user_id}/mfa`. Secrets and recovery code hashes are never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -136,9 +134,8 @@ async def asyncio_detailed(
 ) -> Response[MfaFactorList | Problem]:
     """The caller's own MFA factors
 
-     `GET /me/mfa` — every factor of the caller's, confirmed or not, in the
-    same `MfaFactorOut` shape `GET …/users/{uid}/mfa` answers with (never a
-    seed, never a hash).
+     Every MFA factor of yours, confirmed or not, in the same shape as `GET
+    .../users/{user_id}/mfa`. Secrets and recovery code hashes are never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,9 +158,8 @@ async def asyncio(
 ) -> MfaFactorList | Problem | None:
     """The caller's own MFA factors
 
-     `GET /me/mfa` — every factor of the caller's, confirmed or not, in the
-    same `MfaFactorOut` shape `GET …/users/{uid}/mfa` answers with (never a
-    seed, never a hash).
+     Every MFA factor of yours, confirmed or not, in the same shape as `GET
+    .../users/{user_id}/mfa`. Secrets and recovery code hashes are never returned.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

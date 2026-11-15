@@ -18,20 +18,13 @@ T = TypeVar("T", bound="IdentityProviderIn")
 
 @_attrs_define
 class IdentityProviderIn:
-    """`PUT E/identity-providers/{kind}` — create or replace.
+    """The body of `PUT /environments/{environment_id}/identity-providers/{kind}`: create or
+    replace.
 
-    `client_secret` is **optional, and omitting it keeps the stored one.** That is
-    the one place this `PUT` is not a literal replacement, and it is deliberate:
-    the secret is write-only, so a console flipping `enabled` has never been able
-    to read the value it would have to send back, and requiring it would mean
-    asking the customer to mint a new secret at their provider in order to turn a
-    button off. Omitted on a *first* write it is 422 — a configuration with no
-    secret is a button that cannot work. Sent with a different value it rotates,
-    and the previous secret keeps working for 24 hours.
-
-    `null` is not the same as absent and is refused by the type: a caller who
-    meant "clear the secret" is asking for a configuration that cannot complete a
-    sign-in, and `DELETE` is how a provider goes away.
+    `client_secret` is optional, and omitting it keeps the stored secret, so a configuration can be
+    changed without sending the secret again. It is required on the first write for a kind (`422`).
+    Sending a different value rotates it, and the previous secret keeps working for 24 hours. `null`
+    is refused; to remove a provider, use `DELETE`.
 
         Attributes:
             client_id (str):

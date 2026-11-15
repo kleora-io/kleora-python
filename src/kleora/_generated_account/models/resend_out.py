@@ -17,11 +17,9 @@ T = TypeVar("T", bound="ResendOut")
 
 @_attrs_define
 class ResendOut:
-    """§API `POST /email/resend`: `{"sent": bool}`.
+    """Whether an email was sent.
 
-    `false` for a person whose address is already verified — the same document with
-    nothing sent, which is `users-and-credentials.md`'s rule and the reason this is
-    a bool rather than a `204`.
+    `POST /email/resend` answers `false`, and sends nothing, when the address is already verified.
 
         Attributes:
             sent (bool):

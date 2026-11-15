@@ -16,12 +16,8 @@ T = TypeVar("T", bound="CompositionBlock")
 
 @_attrs_define
 class CompositionBlock:
-    """One block of a composed region (branding.md §Composition).
-
-    A block is a name Kleora renders and nothing else: no URL, no field name,
-    no endpoint, no markup and no script. `extra="forbid"` is what makes that a
-    422 rather than a key quietly stored, and it is the same boundary ADR 0012
-    drew — a block that could carry markup is customer code wearing a costume.
+    """One block of a composed region: the name of a block the page renders, and nothing else. Any
+    other member is `422`.
 
         Attributes:
             block (str):

@@ -139,14 +139,12 @@ def sync_detailed(
     role: None | str | Unset = UNSET,
     status: ListMembersStatusType0 | None | Unset = UNSET,
 ) -> Response[MemberList | Problem]:
-    r"""List members
+    """List members
 
-     The tenant's members, newest first, with the user and the roles embedded.
+     The tenant's members, newest first, with the user and the roles included.
 
-    `q` is a case-insensitive substring of the user's email or name
-    (management-api.md §Conventions \"Search\"; Q3-59) and `role` is a role
-    slug. All three filters are named to `paginate` as well as applied, so a
-    cursor is bound to the filter set it was issued under.
+    `q` is a case-insensitive substring of the user's email or name, and `role` is a role slug. A
+    cursor is only valid with the filters it was issued for.
 
     Args:
         tenant_id (str):
@@ -190,14 +188,12 @@ def sync(
     role: None | str | Unset = UNSET,
     status: ListMembersStatusType0 | None | Unset = UNSET,
 ) -> MemberList | Problem | None:
-    r"""List members
+    """List members
 
-     The tenant's members, newest first, with the user and the roles embedded.
+     The tenant's members, newest first, with the user and the roles included.
 
-    `q` is a case-insensitive substring of the user's email or name
-    (management-api.md §Conventions \"Search\"; Q3-59) and `role` is a role
-    slug. All three filters are named to `paginate` as well as applied, so a
-    cursor is bound to the filter set it was issued under.
+    `q` is a case-insensitive substring of the user's email or name, and `role` is a role slug. A
+    cursor is only valid with the filters it was issued for.
 
     Args:
         tenant_id (str):
@@ -236,14 +232,12 @@ async def asyncio_detailed(
     role: None | str | Unset = UNSET,
     status: ListMembersStatusType0 | None | Unset = UNSET,
 ) -> Response[MemberList | Problem]:
-    r"""List members
+    """List members
 
-     The tenant's members, newest first, with the user and the roles embedded.
+     The tenant's members, newest first, with the user and the roles included.
 
-    `q` is a case-insensitive substring of the user's email or name
-    (management-api.md §Conventions \"Search\"; Q3-59) and `role` is a role
-    slug. All three filters are named to `paginate` as well as applied, so a
-    cursor is bound to the filter set it was issued under.
+    `q` is a case-insensitive substring of the user's email or name, and `role` is a role slug. A
+    cursor is only valid with the filters it was issued for.
 
     Args:
         tenant_id (str):
@@ -285,14 +279,12 @@ async def asyncio(
     role: None | str | Unset = UNSET,
     status: ListMembersStatusType0 | None | Unset = UNSET,
 ) -> MemberList | Problem | None:
-    r"""List members
+    """List members
 
-     The tenant's members, newest first, with the user and the roles embedded.
+     The tenant's members, newest first, with the user and the roles included.
 
-    `q` is a case-insensitive substring of the user's email or name
-    (management-api.md §Conventions \"Search\"; Q3-59) and `role` is a role
-    slug. All three filters are named to `paginate` as well as applied, so a
-    cursor is bound to the filter set it was issued under.
+    `q` is a case-insensitive substring of the user's email or name, and `role` is a role slug. A
+    cursor is only valid with the filters it was issued for.
 
     Args:
         tenant_id (str):

@@ -27,39 +27,20 @@ T = TypeVar("T", bound="BrandingOut")
 
 @_attrs_define
 class BrandingOut:
-    """The stored record, plus when it last changed.
+    """The stored branding record, and when it last changed.
 
-    `updated_at` is the Environment's, which is what the compiled-CSS cache key
-    is built from (branding.md §Behaviour) — a console that has just saved can
-    compare it and know whether the copy it is holding is the stored one.
-
-    `background` and `layout` widen to free-form objects on the way out, and
-    only here. A stored `{"kind": "solid"}` has to read back as
-    `{"kind": "solid"}`, and a stored `{"kind": "split"}` as `{"kind": "split"}`
-    — branding.md test 1 asks for the default record byte for byte after
-    normalisation, and a `PUT` of the members a typed model would emit beside
-    them (`from: null`, `side: null`, …) is a 422. The alternative, a
-    serialiser that drops them, collapses the whole schema to a bare object in
-    the OpenAPI document (django-ninja generates the response schema from the
-    serialiser's return type), which would lose the *input* declaration too.
-    So the input is typed, where the per-`kind` key rule is enforced, and the
-    output says "object".
+    `updated_at` lets a client tell whether the copy it holds is the stored one. `background` and
+    `layout` are returned exactly as stored, as objects carrying only the members their `kind` uses.
 
         Attributes:
             background (BrandingOutBackground):
             color_scheme (str):
-            colors (BrandingColors): The palette: seven required six-digit hex entries, and three optional ones.
+            colors (BrandingColors): The palette: seven required six-digit hex colours, and three optional ones.
 
-                `border` is the colour of every control's border: inputs, secondary and
-                quiet buttons, the strength meter's segments. `null`, or left out, borders
-                them in `muted`, which is how every page rendered before the key existed
-                (branding.md §Validation). It is optional because it was added after
-                2026-09-18, and a key added since then never turns an existing client's
-                unchanged `PUT` into a `422`. `GET` always carries it.
-
-                `on_background` and `success` are the same shape: each is `null` by
-                default, each names the colour it falls back to, and a record that says
-                nothing about either renders exactly as it did before that key existed.
+                `border` is the border colour of controls (inputs, secondary and quiet buttons, the password
+                strength meter); when `null` or absent, `muted` is used. `on_background` and `success` are also
+                optional and `null` by default, each falling back to another colour. `GET` always includes all
+                three.
             colors_dark (BrandingColors | None):
             composition (Composition | None):
             custom_css (str):

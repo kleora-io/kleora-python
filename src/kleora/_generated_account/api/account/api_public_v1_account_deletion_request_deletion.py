@@ -84,35 +84,18 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[DeletionOut | FlowProblem]:
-    r"""Ask for the signed-in person's own account to be deleted
+    """Ask for the signed-in person's own account to be deleted
 
-     Schedule this person's erasure for seven days' time, and mail them the undo.
+     Schedule the deletion of the signed-in person's account in seven days, and email them a link
+    that cancels it.
 
-    **No body.** §API's row has none, and there is nothing a caller could usefully
-    put in one: there is no user id on this surface, the grace period is ours, and a
-    \"reason\" would be free text about a person we are about to erase. The
-    re-authentication is the confirmation.
+    Takes no body; the re-authentication is the confirmation. Answers `202` because the account has
+    not been deleted yet: `erase_after` is the moment it will be, so a screen can tell the person
+    when.
 
-    `202`, not `204` and not `200`: the thing asked for has not happened yet.
-    `erase_after` is the moment it will, which is what lets a screen say \"your account
-    will be deleted on …\" — §\"What happens, and when\" requires that the delay be
-    \"said on the page in plain words\", and a page can only say it if the API does.
-
-    `409 last-owner` through the predicate `DELETE .../users/{id}` already applies
-    (ADR 0013): the service asks `guard_erasure`, and this handler only translates.
-    The `detail` is deliberately *not* the management surface's
-    `LAST_OWNER_ERASURE_DETAIL` — that one is written for an operator erasing somebody
-    else (\"give another member 'owner' first\" addressed to a third party) — but the
-    slug is byte-identical, which is the half that is contract.
-
-    **An outstanding request answers the same `202` with the same date, and sends
-    nothing.** `AlreadyRequested` is not a refusal here, for two reasons: it cannot be
-    reached through this surface anyway — the first request revoked every session, so a
-    second token is `401 session-revoked` at `AccountAuth` — and §\"Failure modes\" gives
-    this route no slug for it, so answering one would mean a problem document nothing
-    declares. Idempotent is the honest reading: the state the caller asked for holds,
-    and `erase_after` is read off the row rather than recomputed as \"now plus seven
-    days\", which would quietly *move* a deadline a person has already been told.
+    Every session of the person is revoked. If a deletion is already scheduled, the answer is the
+    same `202` with the same `erase_after`, and nothing is sent. `409 last-owner` when the person is
+    the last active owner of a tenant that must always have one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,35 +118,18 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> DeletionOut | FlowProblem | None:
-    r"""Ask for the signed-in person's own account to be deleted
+    """Ask for the signed-in person's own account to be deleted
 
-     Schedule this person's erasure for seven days' time, and mail them the undo.
+     Schedule the deletion of the signed-in person's account in seven days, and email them a link
+    that cancels it.
 
-    **No body.** §API's row has none, and there is nothing a caller could usefully
-    put in one: there is no user id on this surface, the grace period is ours, and a
-    \"reason\" would be free text about a person we are about to erase. The
-    re-authentication is the confirmation.
+    Takes no body; the re-authentication is the confirmation. Answers `202` because the account has
+    not been deleted yet: `erase_after` is the moment it will be, so a screen can tell the person
+    when.
 
-    `202`, not `204` and not `200`: the thing asked for has not happened yet.
-    `erase_after` is the moment it will, which is what lets a screen say \"your account
-    will be deleted on …\" — §\"What happens, and when\" requires that the delay be
-    \"said on the page in plain words\", and a page can only say it if the API does.
-
-    `409 last-owner` through the predicate `DELETE .../users/{id}` already applies
-    (ADR 0013): the service asks `guard_erasure`, and this handler only translates.
-    The `detail` is deliberately *not* the management surface's
-    `LAST_OWNER_ERASURE_DETAIL` — that one is written for an operator erasing somebody
-    else (\"give another member 'owner' first\" addressed to a third party) — but the
-    slug is byte-identical, which is the half that is contract.
-
-    **An outstanding request answers the same `202` with the same date, and sends
-    nothing.** `AlreadyRequested` is not a refusal here, for two reasons: it cannot be
-    reached through this surface anyway — the first request revoked every session, so a
-    second token is `401 session-revoked` at `AccountAuth` — and §\"Failure modes\" gives
-    this route no slug for it, so answering one would mean a problem document nothing
-    declares. Idempotent is the honest reading: the state the caller asked for holds,
-    and `erase_after` is read off the row rather than recomputed as \"now plus seven
-    days\", which would quietly *move* a deadline a person has already been told.
+    Every session of the person is revoked. If a deletion is already scheduled, the answer is the
+    same `202` with the same `erase_after`, and nothing is sent. `409 last-owner` when the person is
+    the last active owner of a tenant that must always have one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -182,35 +148,18 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[DeletionOut | FlowProblem]:
-    r"""Ask for the signed-in person's own account to be deleted
+    """Ask for the signed-in person's own account to be deleted
 
-     Schedule this person's erasure for seven days' time, and mail them the undo.
+     Schedule the deletion of the signed-in person's account in seven days, and email them a link
+    that cancels it.
 
-    **No body.** §API's row has none, and there is nothing a caller could usefully
-    put in one: there is no user id on this surface, the grace period is ours, and a
-    \"reason\" would be free text about a person we are about to erase. The
-    re-authentication is the confirmation.
+    Takes no body; the re-authentication is the confirmation. Answers `202` because the account has
+    not been deleted yet: `erase_after` is the moment it will be, so a screen can tell the person
+    when.
 
-    `202`, not `204` and not `200`: the thing asked for has not happened yet.
-    `erase_after` is the moment it will, which is what lets a screen say \"your account
-    will be deleted on …\" — §\"What happens, and when\" requires that the delay be
-    \"said on the page in plain words\", and a page can only say it if the API does.
-
-    `409 last-owner` through the predicate `DELETE .../users/{id}` already applies
-    (ADR 0013): the service asks `guard_erasure`, and this handler only translates.
-    The `detail` is deliberately *not* the management surface's
-    `LAST_OWNER_ERASURE_DETAIL` — that one is written for an operator erasing somebody
-    else (\"give another member 'owner' first\" addressed to a third party) — but the
-    slug is byte-identical, which is the half that is contract.
-
-    **An outstanding request answers the same `202` with the same date, and sends
-    nothing.** `AlreadyRequested` is not a refusal here, for two reasons: it cannot be
-    reached through this surface anyway — the first request revoked every session, so a
-    second token is `401 session-revoked` at `AccountAuth` — and §\"Failure modes\" gives
-    this route no slug for it, so answering one would mean a problem document nothing
-    declares. Idempotent is the honest reading: the state the caller asked for holds,
-    and `erase_after` is read off the row rather than recomputed as \"now plus seven
-    days\", which would quietly *move* a deadline a person has already been told.
+    Every session of the person is revoked. If a deletion is already scheduled, the answer is the
+    same `202` with the same `erase_after`, and nothing is sent. `409 last-owner` when the person is
+    the last active owner of a tenant that must always have one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,35 +180,18 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> DeletionOut | FlowProblem | None:
-    r"""Ask for the signed-in person's own account to be deleted
+    """Ask for the signed-in person's own account to be deleted
 
-     Schedule this person's erasure for seven days' time, and mail them the undo.
+     Schedule the deletion of the signed-in person's account in seven days, and email them a link
+    that cancels it.
 
-    **No body.** §API's row has none, and there is nothing a caller could usefully
-    put in one: there is no user id on this surface, the grace period is ours, and a
-    \"reason\" would be free text about a person we are about to erase. The
-    re-authentication is the confirmation.
+    Takes no body; the re-authentication is the confirmation. Answers `202` because the account has
+    not been deleted yet: `erase_after` is the moment it will be, so a screen can tell the person
+    when.
 
-    `202`, not `204` and not `200`: the thing asked for has not happened yet.
-    `erase_after` is the moment it will, which is what lets a screen say \"your account
-    will be deleted on …\" — §\"What happens, and when\" requires that the delay be
-    \"said on the page in plain words\", and a page can only say it if the API does.
-
-    `409 last-owner` through the predicate `DELETE .../users/{id}` already applies
-    (ADR 0013): the service asks `guard_erasure`, and this handler only translates.
-    The `detail` is deliberately *not* the management surface's
-    `LAST_OWNER_ERASURE_DETAIL` — that one is written for an operator erasing somebody
-    else (\"give another member 'owner' first\" addressed to a third party) — but the
-    slug is byte-identical, which is the half that is contract.
-
-    **An outstanding request answers the same `202` with the same date, and sends
-    nothing.** `AlreadyRequested` is not a refusal here, for two reasons: it cannot be
-    reached through this surface anyway — the first request revoked every session, so a
-    second token is `401 session-revoked` at `AccountAuth` — and §\"Failure modes\" gives
-    this route no slug for it, so answering one would mean a problem document nothing
-    declares. Idempotent is the honest reading: the state the caller asked for holds,
-    and `erase_after` is read off the row rather than recomputed as \"now plus seven
-    days\", which would quietly *move* a deadline a person has already been told.
+    Every session of the person is revoked. If a deletion is already scheduled, the answer is the
+    same `202` with the same `erase_after`, and nothing is sent. `409 last-owner` when the person is
+    the last active owner of a tenant that must always have one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

@@ -107,41 +107,30 @@ def sync_detailed(
 ) -> Response[Problem | PromotionOut]:
     r"""Promote sandbox configuration to production
 
-     Copy the sandbox's configuration onto its production sibling, in one transaction.
+     Copy the sandbox environment's configuration onto its production environment, in one
+    transaction.
 
-    Settings, branding, permissions, app-scoped roles and the twelve email
-    templates — never a User, a Tenant, a Client, an ApiKey or a SigningKey,
-    which is what lets a promoted App keep working with the credentials its
-    callers already hold (environments.md §Promotion).
+    Copies settings, branding, permissions, app-scoped roles and the email templates. Users,
+    tenants, clients, API keys and signing keys are never copied, so production keeps working with
+    the credentials its callers already hold.
 
-    `{\"dry_run\": true}` computes the identical diff, applies nothing and emits
-    no audit event; the real call writes exactly one `promotion.applied` on the
-    **production** environment, including when the diff is empty because
-    nothing has changed since the last promotion.
+    `{\"dry_run\": true}` computes the same diff and applies nothing. A real promotion records one
+    `promotion.applied` audit event on the production environment, even when nothing has changed.
 
-    Authorised twice. `settings:write` at account scope opens the endpoint;
-    then every section of the computed diff that is not empty must be one the
-    caller could have written directly — `branding:write`,
-    `email_templates:write`, `permissions:write`, `roles:write` — or the answer
-    is 403 `insufficient-permission` naming all of the ones lacking, with
-    nothing written and no audit event. A dry run is authorised identically, so
-    it reports the refusal an apply would have given rather than a diff the
-    caller could not have had.
+    Requires `settings:write`, and also the write permission for every part of the diff that is not
+    empty (`branding:write`, `email_templates:write`, `permissions:write`, `roles:write`); otherwise
+    `403 insufficient-permission` naming each missing one, and nothing is written. A dry run is
+    authorised the same way.
 
-    One column is more than a value. A diff moving `tenant_mode` to `single`
-    runs the preconditions the settings `PATCH` runs — 409
-    `tenant-mode-switch-blocked` while production holds another Tenant, 409
-    `tenant-mode-backfill-pending` while an earlier sweep is in flight — and
-    queues the membership backfill when it is allowed. A dry run reports those
-    refusals too, because a rehearsal that omitted them would be a rehearsal of
-    a different request.
+    A diff that switches `tenant_mode` to `single` has the same preconditions as the settings
+    `PATCH` (`409 tenant-mode-switch-blocked`, `409 tenant-mode-backfill-pending`), and a dry run
+    reports them too.
 
     Args:
         environment_id (str):
-        body (PromotionIn): `POST /api/v1/environments/{environment_id}/promote`.
+        body (PromotionIn): The body of `POST /api/v1/environments/{environment_id}/promote`.
 
-            One field, defaulting to false, and `extra="forbid"` so a caller who
-            mistyped it is told rather than silently promoted.
+            `dry_run` defaults to `false`. Unknown fields are refused.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -171,41 +160,30 @@ def sync(
 ) -> Problem | PromotionOut | None:
     r"""Promote sandbox configuration to production
 
-     Copy the sandbox's configuration onto its production sibling, in one transaction.
+     Copy the sandbox environment's configuration onto its production environment, in one
+    transaction.
 
-    Settings, branding, permissions, app-scoped roles and the twelve email
-    templates — never a User, a Tenant, a Client, an ApiKey or a SigningKey,
-    which is what lets a promoted App keep working with the credentials its
-    callers already hold (environments.md §Promotion).
+    Copies settings, branding, permissions, app-scoped roles and the email templates. Users,
+    tenants, clients, API keys and signing keys are never copied, so production keeps working with
+    the credentials its callers already hold.
 
-    `{\"dry_run\": true}` computes the identical diff, applies nothing and emits
-    no audit event; the real call writes exactly one `promotion.applied` on the
-    **production** environment, including when the diff is empty because
-    nothing has changed since the last promotion.
+    `{\"dry_run\": true}` computes the same diff and applies nothing. A real promotion records one
+    `promotion.applied` audit event on the production environment, even when nothing has changed.
 
-    Authorised twice. `settings:write` at account scope opens the endpoint;
-    then every section of the computed diff that is not empty must be one the
-    caller could have written directly — `branding:write`,
-    `email_templates:write`, `permissions:write`, `roles:write` — or the answer
-    is 403 `insufficient-permission` naming all of the ones lacking, with
-    nothing written and no audit event. A dry run is authorised identically, so
-    it reports the refusal an apply would have given rather than a diff the
-    caller could not have had.
+    Requires `settings:write`, and also the write permission for every part of the diff that is not
+    empty (`branding:write`, `email_templates:write`, `permissions:write`, `roles:write`); otherwise
+    `403 insufficient-permission` naming each missing one, and nothing is written. A dry run is
+    authorised the same way.
 
-    One column is more than a value. A diff moving `tenant_mode` to `single`
-    runs the preconditions the settings `PATCH` runs — 409
-    `tenant-mode-switch-blocked` while production holds another Tenant, 409
-    `tenant-mode-backfill-pending` while an earlier sweep is in flight — and
-    queues the membership backfill when it is allowed. A dry run reports those
-    refusals too, because a rehearsal that omitted them would be a rehearsal of
-    a different request.
+    A diff that switches `tenant_mode` to `single` has the same preconditions as the settings
+    `PATCH` (`409 tenant-mode-switch-blocked`, `409 tenant-mode-backfill-pending`), and a dry run
+    reports them too.
 
     Args:
         environment_id (str):
-        body (PromotionIn): `POST /api/v1/environments/{environment_id}/promote`.
+        body (PromotionIn): The body of `POST /api/v1/environments/{environment_id}/promote`.
 
-            One field, defaulting to false, and `extra="forbid"` so a caller who
-            mistyped it is told rather than silently promoted.
+            `dry_run` defaults to `false`. Unknown fields are refused.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -230,41 +208,30 @@ async def asyncio_detailed(
 ) -> Response[Problem | PromotionOut]:
     r"""Promote sandbox configuration to production
 
-     Copy the sandbox's configuration onto its production sibling, in one transaction.
+     Copy the sandbox environment's configuration onto its production environment, in one
+    transaction.
 
-    Settings, branding, permissions, app-scoped roles and the twelve email
-    templates — never a User, a Tenant, a Client, an ApiKey or a SigningKey,
-    which is what lets a promoted App keep working with the credentials its
-    callers already hold (environments.md §Promotion).
+    Copies settings, branding, permissions, app-scoped roles and the email templates. Users,
+    tenants, clients, API keys and signing keys are never copied, so production keeps working with
+    the credentials its callers already hold.
 
-    `{\"dry_run\": true}` computes the identical diff, applies nothing and emits
-    no audit event; the real call writes exactly one `promotion.applied` on the
-    **production** environment, including when the diff is empty because
-    nothing has changed since the last promotion.
+    `{\"dry_run\": true}` computes the same diff and applies nothing. A real promotion records one
+    `promotion.applied` audit event on the production environment, even when nothing has changed.
 
-    Authorised twice. `settings:write` at account scope opens the endpoint;
-    then every section of the computed diff that is not empty must be one the
-    caller could have written directly — `branding:write`,
-    `email_templates:write`, `permissions:write`, `roles:write` — or the answer
-    is 403 `insufficient-permission` naming all of the ones lacking, with
-    nothing written and no audit event. A dry run is authorised identically, so
-    it reports the refusal an apply would have given rather than a diff the
-    caller could not have had.
+    Requires `settings:write`, and also the write permission for every part of the diff that is not
+    empty (`branding:write`, `email_templates:write`, `permissions:write`, `roles:write`); otherwise
+    `403 insufficient-permission` naming each missing one, and nothing is written. A dry run is
+    authorised the same way.
 
-    One column is more than a value. A diff moving `tenant_mode` to `single`
-    runs the preconditions the settings `PATCH` runs — 409
-    `tenant-mode-switch-blocked` while production holds another Tenant, 409
-    `tenant-mode-backfill-pending` while an earlier sweep is in flight — and
-    queues the membership backfill when it is allowed. A dry run reports those
-    refusals too, because a rehearsal that omitted them would be a rehearsal of
-    a different request.
+    A diff that switches `tenant_mode` to `single` has the same preconditions as the settings
+    `PATCH` (`409 tenant-mode-switch-blocked`, `409 tenant-mode-backfill-pending`), and a dry run
+    reports them too.
 
     Args:
         environment_id (str):
-        body (PromotionIn): `POST /api/v1/environments/{environment_id}/promote`.
+        body (PromotionIn): The body of `POST /api/v1/environments/{environment_id}/promote`.
 
-            One field, defaulting to false, and `extra="forbid"` so a caller who
-            mistyped it is told rather than silently promoted.
+            `dry_run` defaults to `false`. Unknown fields are refused.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -292,41 +259,30 @@ async def asyncio(
 ) -> Problem | PromotionOut | None:
     r"""Promote sandbox configuration to production
 
-     Copy the sandbox's configuration onto its production sibling, in one transaction.
+     Copy the sandbox environment's configuration onto its production environment, in one
+    transaction.
 
-    Settings, branding, permissions, app-scoped roles and the twelve email
-    templates — never a User, a Tenant, a Client, an ApiKey or a SigningKey,
-    which is what lets a promoted App keep working with the credentials its
-    callers already hold (environments.md §Promotion).
+    Copies settings, branding, permissions, app-scoped roles and the email templates. Users,
+    tenants, clients, API keys and signing keys are never copied, so production keeps working with
+    the credentials its callers already hold.
 
-    `{\"dry_run\": true}` computes the identical diff, applies nothing and emits
-    no audit event; the real call writes exactly one `promotion.applied` on the
-    **production** environment, including when the diff is empty because
-    nothing has changed since the last promotion.
+    `{\"dry_run\": true}` computes the same diff and applies nothing. A real promotion records one
+    `promotion.applied` audit event on the production environment, even when nothing has changed.
 
-    Authorised twice. `settings:write` at account scope opens the endpoint;
-    then every section of the computed diff that is not empty must be one the
-    caller could have written directly — `branding:write`,
-    `email_templates:write`, `permissions:write`, `roles:write` — or the answer
-    is 403 `insufficient-permission` naming all of the ones lacking, with
-    nothing written and no audit event. A dry run is authorised identically, so
-    it reports the refusal an apply would have given rather than a diff the
-    caller could not have had.
+    Requires `settings:write`, and also the write permission for every part of the diff that is not
+    empty (`branding:write`, `email_templates:write`, `permissions:write`, `roles:write`); otherwise
+    `403 insufficient-permission` naming each missing one, and nothing is written. A dry run is
+    authorised the same way.
 
-    One column is more than a value. A diff moving `tenant_mode` to `single`
-    runs the preconditions the settings `PATCH` runs — 409
-    `tenant-mode-switch-blocked` while production holds another Tenant, 409
-    `tenant-mode-backfill-pending` while an earlier sweep is in flight — and
-    queues the membership backfill when it is allowed. A dry run reports those
-    refusals too, because a rehearsal that omitted them would be a rehearsal of
-    a different request.
+    A diff that switches `tenant_mode` to `single` has the same preconditions as the settings
+    `PATCH` (`409 tenant-mode-switch-blocked`, `409 tenant-mode-backfill-pending`), and a dry run
+    reports them too.
 
     Args:
         environment_id (str):
-        body (PromotionIn): `POST /api/v1/environments/{environment_id}/promote`.
+        body (PromotionIn): The body of `POST /api/v1/environments/{environment_id}/promote`.
 
-            One field, defaulting to false, and `extra="forbid"` so a caller who
-            mistyped it is told rather than silently promoted.
+            `dry_run` defaults to `false`. Unknown fields are refused.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

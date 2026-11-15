@@ -108,15 +108,13 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: WebhookTestIn,
 ) -> Response[Problem | WebhookTestOut]:
-    r"""Send a test event to a webhook endpoint
+    """Send a test event to a webhook endpoint
 
-     A representative payload of `event_type`, marked `test: true` on the envelope.
+     Send a representative `event_type` payload to the endpoint, marked `test: true` in the
+    envelope.
 
-    So that wiring up a handler does not require provoking a real password
-    reset to see one arrive (webhooks.md §\"Trackable and debuggable\"). `202`,
-    not `200`: the event is written and its dispatch scheduled, but whether it
-    reaches this endpoint's own HTTP handler is a fact of delivery
-    (P6-08), not of this request.
+    Answers `202`: the event is recorded and its delivery scheduled. Whether it reaches the endpoint
+    shows in the delivery log.
 
     Args:
         environment_id (str):
@@ -151,15 +149,13 @@ def sync(
     client: AuthenticatedClient,
     body: WebhookTestIn,
 ) -> Problem | WebhookTestOut | None:
-    r"""Send a test event to a webhook endpoint
+    """Send a test event to a webhook endpoint
 
-     A representative payload of `event_type`, marked `test: true` on the envelope.
+     Send a representative `event_type` payload to the endpoint, marked `test: true` in the
+    envelope.
 
-    So that wiring up a handler does not require provoking a real password
-    reset to see one arrive (webhooks.md §\"Trackable and debuggable\"). `202`,
-    not `200`: the event is written and its dispatch scheduled, but whether it
-    reaches this endpoint's own HTTP handler is a fact of delivery
-    (P6-08), not of this request.
+    Answers `202`: the event is recorded and its delivery scheduled. Whether it reaches the endpoint
+    shows in the delivery log.
 
     Args:
         environment_id (str):
@@ -189,15 +185,13 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: WebhookTestIn,
 ) -> Response[Problem | WebhookTestOut]:
-    r"""Send a test event to a webhook endpoint
+    """Send a test event to a webhook endpoint
 
-     A representative payload of `event_type`, marked `test: true` on the envelope.
+     Send a representative `event_type` payload to the endpoint, marked `test: true` in the
+    envelope.
 
-    So that wiring up a handler does not require provoking a real password
-    reset to see one arrive (webhooks.md §\"Trackable and debuggable\"). `202`,
-    not `200`: the event is written and its dispatch scheduled, but whether it
-    reaches this endpoint's own HTTP handler is a fact of delivery
-    (P6-08), not of this request.
+    Answers `202`: the event is recorded and its delivery scheduled. Whether it reaches the endpoint
+    shows in the delivery log.
 
     Args:
         environment_id (str):
@@ -230,15 +224,13 @@ async def asyncio(
     client: AuthenticatedClient,
     body: WebhookTestIn,
 ) -> Problem | WebhookTestOut | None:
-    r"""Send a test event to a webhook endpoint
+    """Send a test event to a webhook endpoint
 
-     A representative payload of `event_type`, marked `test: true` on the envelope.
+     Send a representative `event_type` payload to the endpoint, marked `test: true` in the
+    envelope.
 
-    So that wiring up a handler does not require provoking a real password
-    reset to see one arrive (webhooks.md §\"Trackable and debuggable\"). `202`,
-    not `200`: the event is written and its dispatch scheduled, but whether it
-    reaches this endpoint's own HTTP handler is a fact of delivery
-    (P6-08), not of this request.
+    Answers `202`: the event is recorded and its delivery scheduled. Whether it reaches the endpoint
+    shows in the delivery log.
 
     Args:
         environment_id (str):

@@ -92,51 +92,20 @@ def sync_detailed(
 ) -> Response[FlowProblem | ResendOut]:
     r"""Ask to change the signed-in person's own email address
 
-     Step 1 of two: mail a confirmation link to the **new** address.
+     Step 1 of changing the email address: email a confirmation link to the new address.
 
-    Sensitive — §\"The operations\" marks it — so `@self_service` has already refused an
-    un-re-authenticated caller before this body runs. That gate is the reason the
-    operation can be so plain: it changes nothing, and everything it could change is
-    behind a link that arrives somewhere the caller may not be able to read.
+    Requires a recent re-authentication. Nothing changes until the link is confirmed with `POST
+    /email/confirm`.
 
-    **`202 {\"sent\": true}` whatever happens**, which is §API's row and
-    §\"Failure modes\"' \"`POST /email` with an address already registered in this
-    Environment | `202` | identical to success, and nothing is sent\". `ResendOut` is
-    reused rather than a `SentOut` of its own: it is `{\"sent\": bool}` and the bool is
-    always `true` here, which is exactly the point — a generated client sees one shape
-    for \"a mail was asked for\" across this surface, and a second schema with the same
-    single member would be two names for one thing.
-
-    Why `true` and not the truth: the document is what a stranger reads. §API declares
-    the literal and the no-enumeration rule requires it, so the one branch that sends
-    nothing must be indistinguishable — including in the budget, which is why
-    `mail_send` is spent here, ahead of the service's decision.
-
-    **The shared per-user mailed-link budget, not a bucket of its own.**
-    §\"Rate limits\" gives this row as \"*the shared per-user mailed-link budget*\" — one
-    window across verification, reset and this, counted for the person. So the
-    `@self_service` limiter stays the catch-all row (there is no `account-email` bucket
-    to declare) and `throttles.mail_send` is the real limit, exactly as
-    `POST /email/resend` above spends it.
+    Always answers `202 {\"sent\": true}`, including when the address is already registered in this
+    environment (in which case nothing is sent), so the answer does not reveal which addresses
+    exist. Counts toward the person's shared budget for emailed links, along with verification and
+    password reset mail.
 
     Args:
-        body (EmailChangeIn): §"Changing an email address" step 1: `POST /email` with `{email}`.
+        body (EmailChangeIn): The body of `POST /email`: the new address.
 
-            **The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`
-            declares `writes_own={"email"}` — the one declared exception on this surface, and
-            `api.public.v1.account.authz`'s module docstring argues it. The spec gives the
-            body as `{email}` and the spec wins; what the declaration says is that this
-            `email` is a value written onto the caller's own row rather than a way to name
-            somebody else's.
-
-            `max_length` and nothing else. §"Failure modes" wants a malformed or over-length
-            address to be `422 validation-error` with `field = "email"` — "the caller is a
-            program here, not a login form, so there is no oracle to protect: it never saw an
-            address it did not supply" — and the normalisation and the real validation are
-            `users-and-credentials.md` §Email's, applied by the service through
-            `normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be
-            a *second* definition of a valid address, which is the thing `User.email` is a
-            `CharField` rather than an `EmailField` to avoid.
+            A malformed or over-long address is `422 validation-error` with `field = "email"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,51 +133,20 @@ def sync(
 ) -> FlowProblem | ResendOut | None:
     r"""Ask to change the signed-in person's own email address
 
-     Step 1 of two: mail a confirmation link to the **new** address.
+     Step 1 of changing the email address: email a confirmation link to the new address.
 
-    Sensitive — §\"The operations\" marks it — so `@self_service` has already refused an
-    un-re-authenticated caller before this body runs. That gate is the reason the
-    operation can be so plain: it changes nothing, and everything it could change is
-    behind a link that arrives somewhere the caller may not be able to read.
+    Requires a recent re-authentication. Nothing changes until the link is confirmed with `POST
+    /email/confirm`.
 
-    **`202 {\"sent\": true}` whatever happens**, which is §API's row and
-    §\"Failure modes\"' \"`POST /email` with an address already registered in this
-    Environment | `202` | identical to success, and nothing is sent\". `ResendOut` is
-    reused rather than a `SentOut` of its own: it is `{\"sent\": bool}` and the bool is
-    always `true` here, which is exactly the point — a generated client sees one shape
-    for \"a mail was asked for\" across this surface, and a second schema with the same
-    single member would be two names for one thing.
-
-    Why `true` and not the truth: the document is what a stranger reads. §API declares
-    the literal and the no-enumeration rule requires it, so the one branch that sends
-    nothing must be indistinguishable — including in the budget, which is why
-    `mail_send` is spent here, ahead of the service's decision.
-
-    **The shared per-user mailed-link budget, not a bucket of its own.**
-    §\"Rate limits\" gives this row as \"*the shared per-user mailed-link budget*\" — one
-    window across verification, reset and this, counted for the person. So the
-    `@self_service` limiter stays the catch-all row (there is no `account-email` bucket
-    to declare) and `throttles.mail_send` is the real limit, exactly as
-    `POST /email/resend` above spends it.
+    Always answers `202 {\"sent\": true}`, including when the address is already registered in this
+    environment (in which case nothing is sent), so the answer does not reveal which addresses
+    exist. Counts toward the person's shared budget for emailed links, along with verification and
+    password reset mail.
 
     Args:
-        body (EmailChangeIn): §"Changing an email address" step 1: `POST /email` with `{email}`.
+        body (EmailChangeIn): The body of `POST /email`: the new address.
 
-            **The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`
-            declares `writes_own={"email"}` — the one declared exception on this surface, and
-            `api.public.v1.account.authz`'s module docstring argues it. The spec gives the
-            body as `{email}` and the spec wins; what the declaration says is that this
-            `email` is a value written onto the caller's own row rather than a way to name
-            somebody else's.
-
-            `max_length` and nothing else. §"Failure modes" wants a malformed or over-length
-            address to be `422 validation-error` with `field = "email"` — "the caller is a
-            program here, not a login form, so there is no oracle to protect: it never saw an
-            address it did not supply" — and the normalisation and the real validation are
-            `users-and-credentials.md` §Email's, applied by the service through
-            `normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be
-            a *second* definition of a valid address, which is the thing `User.email` is a
-            `CharField` rather than an `EmailField` to avoid.
+            A malformed or over-long address is `422 validation-error` with `field = "email"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -231,51 +169,20 @@ async def asyncio_detailed(
 ) -> Response[FlowProblem | ResendOut]:
     r"""Ask to change the signed-in person's own email address
 
-     Step 1 of two: mail a confirmation link to the **new** address.
+     Step 1 of changing the email address: email a confirmation link to the new address.
 
-    Sensitive — §\"The operations\" marks it — so `@self_service` has already refused an
-    un-re-authenticated caller before this body runs. That gate is the reason the
-    operation can be so plain: it changes nothing, and everything it could change is
-    behind a link that arrives somewhere the caller may not be able to read.
+    Requires a recent re-authentication. Nothing changes until the link is confirmed with `POST
+    /email/confirm`.
 
-    **`202 {\"sent\": true}` whatever happens**, which is §API's row and
-    §\"Failure modes\"' \"`POST /email` with an address already registered in this
-    Environment | `202` | identical to success, and nothing is sent\". `ResendOut` is
-    reused rather than a `SentOut` of its own: it is `{\"sent\": bool}` and the bool is
-    always `true` here, which is exactly the point — a generated client sees one shape
-    for \"a mail was asked for\" across this surface, and a second schema with the same
-    single member would be two names for one thing.
-
-    Why `true` and not the truth: the document is what a stranger reads. §API declares
-    the literal and the no-enumeration rule requires it, so the one branch that sends
-    nothing must be indistinguishable — including in the budget, which is why
-    `mail_send` is spent here, ahead of the service's decision.
-
-    **The shared per-user mailed-link budget, not a bucket of its own.**
-    §\"Rate limits\" gives this row as \"*the shared per-user mailed-link budget*\" — one
-    window across verification, reset and this, counted for the person. So the
-    `@self_service` limiter stays the catch-all row (there is no `account-email` bucket
-    to declare) and `throttles.mail_send` is the real limit, exactly as
-    `POST /email/resend` above spends it.
+    Always answers `202 {\"sent\": true}`, including when the address is already registered in this
+    environment (in which case nothing is sent), so the answer does not reveal which addresses
+    exist. Counts toward the person's shared budget for emailed links, along with verification and
+    password reset mail.
 
     Args:
-        body (EmailChangeIn): §"Changing an email address" step 1: `POST /email` with `{email}`.
+        body (EmailChangeIn): The body of `POST /email`: the new address.
 
-            **The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`
-            declares `writes_own={"email"}` — the one declared exception on this surface, and
-            `api.public.v1.account.authz`'s module docstring argues it. The spec gives the
-            body as `{email}` and the spec wins; what the declaration says is that this
-            `email` is a value written onto the caller's own row rather than a way to name
-            somebody else's.
-
-            `max_length` and nothing else. §"Failure modes" wants a malformed or over-length
-            address to be `422 validation-error` with `field = "email"` — "the caller is a
-            program here, not a login form, so there is no oracle to protect: it never saw an
-            address it did not supply" — and the normalisation and the real validation are
-            `users-and-credentials.md` §Email's, applied by the service through
-            `normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be
-            a *second* definition of a valid address, which is the thing `User.email` is a
-            `CharField` rather than an `EmailField` to avoid.
+            A malformed or over-long address is `422 validation-error` with `field = "email"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -301,51 +208,20 @@ async def asyncio(
 ) -> FlowProblem | ResendOut | None:
     r"""Ask to change the signed-in person's own email address
 
-     Step 1 of two: mail a confirmation link to the **new** address.
+     Step 1 of changing the email address: email a confirmation link to the new address.
 
-    Sensitive — §\"The operations\" marks it — so `@self_service` has already refused an
-    un-re-authenticated caller before this body runs. That gate is the reason the
-    operation can be so plain: it changes nothing, and everything it could change is
-    behind a link that arrives somewhere the caller may not be able to read.
+    Requires a recent re-authentication. Nothing changes until the link is confirmed with `POST
+    /email/confirm`.
 
-    **`202 {\"sent\": true}` whatever happens**, which is §API's row and
-    §\"Failure modes\"' \"`POST /email` with an address already registered in this
-    Environment | `202` | identical to success, and nothing is sent\". `ResendOut` is
-    reused rather than a `SentOut` of its own: it is `{\"sent\": bool}` and the bool is
-    always `true` here, which is exactly the point — a generated client sees one shape
-    for \"a mail was asked for\" across this surface, and a second schema with the same
-    single member would be two names for one thing.
-
-    Why `true` and not the truth: the document is what a stranger reads. §API declares
-    the literal and the no-enumeration rule requires it, so the one branch that sends
-    nothing must be indistinguishable — including in the budget, which is why
-    `mail_send` is spent here, ahead of the service's decision.
-
-    **The shared per-user mailed-link budget, not a bucket of its own.**
-    §\"Rate limits\" gives this row as \"*the shared per-user mailed-link budget*\" — one
-    window across verification, reset and this, counted for the person. So the
-    `@self_service` limiter stays the catch-all row (there is no `account-email` bucket
-    to declare) and `throttles.mail_send` is the real limit, exactly as
-    `POST /email/resend` above spends it.
+    Always answers `202 {\"sent\": true}`, including when the address is already registered in this
+    environment (in which case nothing is sent), so the answer does not reveal which addresses
+    exist. Counts toward the person's shared budget for emailed links, along with verification and
+    password reset mail.
 
     Args:
-        body (EmailChangeIn): §"Changing an email address" step 1: `POST /email` with `{email}`.
+        body (EmailChangeIn): The body of `POST /email`: the new address.
 
-            **The member is `email`, which `authz.SUBJECT_NAMES` refuses**, so `POST /email`
-            declares `writes_own={"email"}` — the one declared exception on this surface, and
-            `api.public.v1.account.authz`'s module docstring argues it. The spec gives the
-            body as `{email}` and the spec wins; what the declaration says is that this
-            `email` is a value written onto the caller's own row rather than a way to name
-            somebody else's.
-
-            `max_length` and nothing else. §"Failure modes" wants a malformed or over-length
-            address to be `422 validation-error` with `field = "email"` — "the caller is a
-            program here, not a login form, so there is no oracle to protect: it never saw an
-            address it did not supply" — and the normalisation and the real validation are
-            `users-and-credentials.md` §Email's, applied by the service through
-            `normalise_email` and `validate_user_email`. A pydantic `EmailStr` here would be
-            a *second* definition of a valid address, which is the thing `User.email` is a
-            `CharField` rather than an `EmailField` to avoid.
+            A malformed or over-long address is `422 validation-error` with `field = "email"`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

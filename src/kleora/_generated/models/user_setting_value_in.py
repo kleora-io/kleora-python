@@ -16,10 +16,9 @@ T = TypeVar("T", bound="UserSettingValueIn")
 
 @_attrs_define
 class UserSettingValueIn:
-    """`PUT …/settings/users/{user_id}/values/{key}` — one value, whole.
+    """The body of `PUT .../settings/users/{user_id}/values/{key}`: the whole value.
 
-    Never `null`: a write writes a value, and the value's legality is the
-    definition's business (`422` from the shared validator), not the schema's.
+    Never `null`. A value the setting's constraints refuse is `422`.
 
         Attributes:
             value (bool | float | int | str):

@@ -19,11 +19,9 @@ T = TypeVar("T", bound="SessionOut")
 
 @_attrs_define
 class SessionOut:
-    """One browser session (sessions-and-tokens.md §API, Session resource).
+    """One browser session.
 
-    `client_ids` is the set of OAuth clients that hold a live refresh token in
-    the session — what makes "which of our applications is this browser signed
-    in to" answerable without exposing anything that could be replayed.
+    `client_ids` lists the OAuth clients holding a live refresh token in the session.
 
         Attributes:
             amr (list[str]):

@@ -108,27 +108,17 @@ def sync_detailed(
 ) -> Response[Any | Problem]:
     """Set a user's password
 
-     A new password without the old one, and everything it protected cut off.
+     Set a new password for the user, without the old one.
 
-    204, deliberately: the password is not echoed, and there is nothing else
-    this operation has to say that a `GET` does not already answer. Every
-    session and refresh family of the user is revoked and a `password_changed`
-    message is sent, because a password somebody else chose is a thing the
-    person has to be told about.
-
-    Account or environment scope only — a `tenant_member` is 403
-    `insufficient-scope` even holding `users:write`, which `@requires` decides
-    before this runs.
+    Answers `204`. Every session and refresh token of the user is revoked, and the user is emailed
+    to say their password was changed. Not available to a tenant member's token: `403
+    insufficient-scope`, even with `users:write`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPasswordIn): `POST …/users/{user_id}/password` — one field, and no response
-            body.
-
-            A schema of its own rather than a bare string, so the document names the
-            property and a generated client sends `{"password": "…"}` rather than a
-            JSON scalar.
+        body (UserPasswordIn): The body of `POST .../users/{user_id}/password`: the new password.
+            No response body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -160,27 +150,17 @@ def sync(
 ) -> Any | Problem | None:
     """Set a user's password
 
-     A new password without the old one, and everything it protected cut off.
+     Set a new password for the user, without the old one.
 
-    204, deliberately: the password is not echoed, and there is nothing else
-    this operation has to say that a `GET` does not already answer. Every
-    session and refresh family of the user is revoked and a `password_changed`
-    message is sent, because a password somebody else chose is a thing the
-    person has to be told about.
-
-    Account or environment scope only — a `tenant_member` is 403
-    `insufficient-scope` even holding `users:write`, which `@requires` decides
-    before this runs.
+    Answers `204`. Every session and refresh token of the user is revoked, and the user is emailed
+    to say their password was changed. Not available to a tenant member's token: `403
+    insufficient-scope`, even with `users:write`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPasswordIn): `POST …/users/{user_id}/password` — one field, and no response
-            body.
-
-            A schema of its own rather than a bare string, so the document names the
-            property and a generated client sends `{"password": "…"}` rather than a
-            JSON scalar.
+        body (UserPasswordIn): The body of `POST .../users/{user_id}/password`: the new password.
+            No response body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -207,27 +187,17 @@ async def asyncio_detailed(
 ) -> Response[Any | Problem]:
     """Set a user's password
 
-     A new password without the old one, and everything it protected cut off.
+     Set a new password for the user, without the old one.
 
-    204, deliberately: the password is not echoed, and there is nothing else
-    this operation has to say that a `GET` does not already answer. Every
-    session and refresh family of the user is revoked and a `password_changed`
-    message is sent, because a password somebody else chose is a thing the
-    person has to be told about.
-
-    Account or environment scope only — a `tenant_member` is 403
-    `insufficient-scope` even holding `users:write`, which `@requires` decides
-    before this runs.
+    Answers `204`. Every session and refresh token of the user is revoked, and the user is emailed
+    to say their password was changed. Not available to a tenant member's token: `403
+    insufficient-scope`, even with `users:write`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPasswordIn): `POST …/users/{user_id}/password` — one field, and no response
-            body.
-
-            A schema of its own rather than a bare string, so the document names the
-            property and a generated client sends `{"password": "…"}` rather than a
-            JSON scalar.
+        body (UserPasswordIn): The body of `POST .../users/{user_id}/password`: the new password.
+            No response body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -257,27 +227,17 @@ async def asyncio(
 ) -> Any | Problem | None:
     """Set a user's password
 
-     A new password without the old one, and everything it protected cut off.
+     Set a new password for the user, without the old one.
 
-    204, deliberately: the password is not echoed, and there is nothing else
-    this operation has to say that a `GET` does not already answer. Every
-    session and refresh family of the user is revoked and a `password_changed`
-    message is sent, because a password somebody else chose is a thing the
-    person has to be told about.
-
-    Account or environment scope only — a `tenant_member` is 403
-    `insufficient-scope` even holding `users:write`, which `@requires` decides
-    before this runs.
+    Answers `204`. Every session and refresh token of the user is revoked, and the user is emailed
+    to say their password was changed. Not available to a tenant member's token: `403
+    insufficient-scope`, even with `users:write`.
 
     Args:
         environment_id (str):
         user_id (str):
-        body (UserPasswordIn): `POST …/users/{user_id}/password` — one field, and no response
-            body.
-
-            A schema of its own rather than a bare string, so the document names the
-            property and a generated client sends `{"password": "…"}` rather than a
-            JSON scalar.
+        body (UserPasswordIn): The body of `POST .../users/{user_id}/password`: the new password.
+            No response body.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

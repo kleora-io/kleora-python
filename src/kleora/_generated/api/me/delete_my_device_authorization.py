@@ -88,17 +88,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke one of the caller's own device authorizations
+    """Revoke one of the caller's own device authorizations
 
-     Revoke it, exactly as the administrative route does. 204, idempotent.
+     Revoke one of your own device authorizations, as the administrative operation does.
+    Idempotent.
 
-    `allow_unpaid`, like every other self-service write on this surface: a
-    dunning block must not stand between somebody and revoking a credential of
-    their own (billing.md §\"When payment fails\" gates what costs money, and this
-    ends something rather than starting it).
-
-    `reason` is `logout` rather than `admin` — the person who authorised the
-    thing is the one ending it (`sessions.Reason`, audit-log.md §Taxonomy).
+    Available whatever the Account's billing state. Audited with the reason `logout`.
 
     Args:
         authorization_id (str):
@@ -127,17 +122,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke one of the caller's own device authorizations
+    """Revoke one of the caller's own device authorizations
 
-     Revoke it, exactly as the administrative route does. 204, idempotent.
+     Revoke one of your own device authorizations, as the administrative operation does.
+    Idempotent.
 
-    `allow_unpaid`, like every other self-service write on this surface: a
-    dunning block must not stand between somebody and revoking a credential of
-    their own (billing.md §\"When payment fails\" gates what costs money, and this
-    ends something rather than starting it).
-
-    `reason` is `logout` rather than `admin` — the person who authorised the
-    thing is the one ending it (`sessions.Reason`, audit-log.md §Taxonomy).
+    Available whatever the Account's billing state. Audited with the reason `logout`.
 
     Args:
         authorization_id (str):
@@ -161,17 +151,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Problem]:
-    r"""Revoke one of the caller's own device authorizations
+    """Revoke one of the caller's own device authorizations
 
-     Revoke it, exactly as the administrative route does. 204, idempotent.
+     Revoke one of your own device authorizations, as the administrative operation does.
+    Idempotent.
 
-    `allow_unpaid`, like every other self-service write on this surface: a
-    dunning block must not stand between somebody and revoking a credential of
-    their own (billing.md §\"When payment fails\" gates what costs money, and this
-    ends something rather than starting it).
-
-    `reason` is `logout` rather than `admin` — the person who authorised the
-    thing is the one ending it (`sessions.Reason`, audit-log.md §Taxonomy).
+    Available whatever the Account's billing state. Audited with the reason `logout`.
 
     Args:
         authorization_id (str):
@@ -198,17 +183,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Problem | None:
-    r"""Revoke one of the caller's own device authorizations
+    """Revoke one of the caller's own device authorizations
 
-     Revoke it, exactly as the administrative route does. 204, idempotent.
+     Revoke one of your own device authorizations, as the administrative operation does.
+    Idempotent.
 
-    `allow_unpaid`, like every other self-service write on this surface: a
-    dunning block must not stand between somebody and revoking a credential of
-    their own (billing.md §\"When payment fails\" gates what costs money, and this
-    ends something rather than starting it).
-
-    `reason` is `logout` rather than `admin` — the person who authorised the
-    thing is the one ending it (`sessions.Reason`, audit-log.md §Taxonomy).
+    Available whatever the Account's billing state. Audited with the reason `logout`.
 
     Args:
         authorization_id (str):

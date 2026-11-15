@@ -74,18 +74,12 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EmailOut | FlowProblem]:
-    r"""The signed-in person's own address, and whether a change is outstanding
+    """The signed-in person's own address, and whether a change is outstanding
 
-     `{email, email_verified, change_pending}`.
+     The person's email address, whether it is verified, and whether a change of address is
+    waiting for confirmation.
 
-    `change_pending` is read from the existence of an unspent `change_email`
-    `ActionToken` — §\"Changing an email address\": \"there is exactly one place the
-    pending address is written and no second place for it to be wrong\".
-
-    **It never names the pending address**, only that there is one. The address is on
-    the token and the token was mailed to it; a `GET` that echoed it would hand a
-    stolen session the one fact a person could otherwise notice from the mail in their
-    own inbox, and §API asks for a bool.
+    The pending new address itself is never returned, only that there is one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -108,18 +102,12 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> EmailOut | FlowProblem | None:
-    r"""The signed-in person's own address, and whether a change is outstanding
+    """The signed-in person's own address, and whether a change is outstanding
 
-     `{email, email_verified, change_pending}`.
+     The person's email address, whether it is verified, and whether a change of address is
+    waiting for confirmation.
 
-    `change_pending` is read from the existence of an unspent `change_email`
-    `ActionToken` — §\"Changing an email address\": \"there is exactly one place the
-    pending address is written and no second place for it to be wrong\".
-
-    **It never names the pending address**, only that there is one. The address is on
-    the token and the token was mailed to it; a `GET` that echoed it would hand a
-    stolen session the one fact a person could otherwise notice from the mail in their
-    own inbox, and §API asks for a bool.
+    The pending new address itself is never returned, only that there is one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,18 +126,12 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[EmailOut | FlowProblem]:
-    r"""The signed-in person's own address, and whether a change is outstanding
+    """The signed-in person's own address, and whether a change is outstanding
 
-     `{email, email_verified, change_pending}`.
+     The person's email address, whether it is verified, and whether a change of address is
+    waiting for confirmation.
 
-    `change_pending` is read from the existence of an unspent `change_email`
-    `ActionToken` — §\"Changing an email address\": \"there is exactly one place the
-    pending address is written and no second place for it to be wrong\".
-
-    **It never names the pending address**, only that there is one. The address is on
-    the token and the token was mailed to it; a `GET` that echoed it would hand a
-    stolen session the one fact a person could otherwise notice from the mail in their
-    own inbox, and §API asks for a bool.
+    The pending new address itself is never returned, only that there is one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -170,18 +152,12 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> EmailOut | FlowProblem | None:
-    r"""The signed-in person's own address, and whether a change is outstanding
+    """The signed-in person's own address, and whether a change is outstanding
 
-     `{email, email_verified, change_pending}`.
+     The person's email address, whether it is verified, and whether a change of address is
+    waiting for confirmation.
 
-    `change_pending` is read from the existence of an unspent `change_email`
-    `ActionToken` — §\"Changing an email address\": \"there is exactly one place the
-    pending address is written and no second place for it to be wrong\".
-
-    **It never names the pending address**, only that there is one. The address is on
-    the token and the token was mailed to it; a `GET` that echoed it would hand a
-    stolen session the one fact a person could otherwise notice from the mail in their
-    own inbox, and §API asks for a bool.
+    The pending new address itself is never returned, only that there is one.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

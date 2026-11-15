@@ -27,7 +27,7 @@ T = TypeVar("T", bound="MeOut")
 
 @_attrs_define
 class MeOut:
-    """Everything a caller can learn about itself (management-api.md §`GET /me`).
+    """Everything a caller can learn about its own credential.
 
     Attributes:
         permissions (list[str]):

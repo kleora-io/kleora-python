@@ -21,12 +21,10 @@ T = TypeVar("T", bound="ApiKeyCreated")
 
 @_attrs_define
 class ApiKeyCreated:
-    """The `201` of a creation, and the `200` of `POST …/rotate`: the resource,
-    plus the full key, once.
+    """The `201` of creating an API key, and the `200` of rotating one: the key's details, plus the
+    full key, once.
 
-    Required rather than optional, unlike `ClientCreated`: both operations mint
-    exactly one credential, so there is always one to carry. These are the only
-    two responses in the surface that will ever hold it.
+    These are the only responses that ever include the key.
 
         Attributes:
             created_at (datetime.datetime):

@@ -24,11 +24,10 @@ T = TypeVar("T", bound="AuditActor")
 
 @_attrs_define
 class AuditActor:
-    """Who acted: `{"kind": …, "id": …}`, with `id` null for `system`/`anonymous`.
+    """Who acted: `{"kind": ..., "id": ...}`, with `id` `null` for `system` and `anonymous`.
 
-    `display` names a `user` actor — resolved when the page is read
-    (audit-log.md §"Naming the actor and the target") — and is absent, not
-    null, for `api_key`, `system` and `anonymous`: none of them has a name.
+    `display` names a `user` actor, as they are now, and is absent for `api_key`, `system` and
+    `anonymous`.
 
         Attributes:
             id (None | UUID):

@@ -130,21 +130,12 @@ def sync_detailed(
     q: None | str | Unset = UNSET,
     status: ListTenantsStatusType0 | None | Unset = UNSET,
 ) -> Response[Problem | TenantList]:
-    r"""List tenants
+    """List tenants
 
      The environment's tenants, newest first, filtered by `q` and `status`.
 
-    In `single` mode the default tenant is **excluded**: it is hidden there, it
-    is never a selection step, and a console page listing it would offer a row
-    the product says does not exist (tenants-and-membership.md §\"Tenant modes\").
-    That exclusion is not a caller's filter and so is not in the cursor's
-    fingerprint — the environment already is, through the resolved path.
-
-    `q` is a case-insensitive substring of the name or the slug
-    (management-api.md §Conventions \"Search\"; Q3-59). Both filters are named
-    to `paginate` as well as applied, so a cursor issued for `?status=suspended`
-    cannot be presented against the unfiltered listing and seek at a position
-    that means something else there.
+    In `single` tenant mode, the default tenant is not listed. `q` is a case-insensitive substring
+    of the name or the slug. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -185,21 +176,12 @@ def sync(
     q: None | str | Unset = UNSET,
     status: ListTenantsStatusType0 | None | Unset = UNSET,
 ) -> Problem | TenantList | None:
-    r"""List tenants
+    """List tenants
 
      The environment's tenants, newest first, filtered by `q` and `status`.
 
-    In `single` mode the default tenant is **excluded**: it is hidden there, it
-    is never a selection step, and a console page listing it would offer a row
-    the product says does not exist (tenants-and-membership.md §\"Tenant modes\").
-    That exclusion is not a caller's filter and so is not in the cursor's
-    fingerprint — the environment already is, through the resolved path.
-
-    `q` is a case-insensitive substring of the name or the slug
-    (management-api.md §Conventions \"Search\"; Q3-59). Both filters are named
-    to `paginate` as well as applied, so a cursor issued for `?status=suspended`
-    cannot be presented against the unfiltered listing and seek at a position
-    that means something else there.
+    In `single` tenant mode, the default tenant is not listed. `q` is a case-insensitive substring
+    of the name or the slug. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -235,21 +217,12 @@ async def asyncio_detailed(
     q: None | str | Unset = UNSET,
     status: ListTenantsStatusType0 | None | Unset = UNSET,
 ) -> Response[Problem | TenantList]:
-    r"""List tenants
+    """List tenants
 
      The environment's tenants, newest first, filtered by `q` and `status`.
 
-    In `single` mode the default tenant is **excluded**: it is hidden there, it
-    is never a selection step, and a console page listing it would offer a row
-    the product says does not exist (tenants-and-membership.md §\"Tenant modes\").
-    That exclusion is not a caller's filter and so is not in the cursor's
-    fingerprint — the environment already is, through the resolved path.
-
-    `q` is a case-insensitive substring of the name or the slug
-    (management-api.md §Conventions \"Search\"; Q3-59). Both filters are named
-    to `paginate` as well as applied, so a cursor issued for `?status=suspended`
-    cannot be presented against the unfiltered listing and seek at a position
-    that means something else there.
+    In `single` tenant mode, the default tenant is not listed. `q` is a case-insensitive substring
+    of the name or the slug. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):
@@ -288,21 +261,12 @@ async def asyncio(
     q: None | str | Unset = UNSET,
     status: ListTenantsStatusType0 | None | Unset = UNSET,
 ) -> Problem | TenantList | None:
-    r"""List tenants
+    """List tenants
 
      The environment's tenants, newest first, filtered by `q` and `status`.
 
-    In `single` mode the default tenant is **excluded**: it is hidden there, it
-    is never a selection step, and a console page listing it would offer a row
-    the product says does not exist (tenants-and-membership.md §\"Tenant modes\").
-    That exclusion is not a caller's filter and so is not in the cursor's
-    fingerprint — the environment already is, through the resolved path.
-
-    `q` is a case-insensitive substring of the name or the slug
-    (management-api.md §Conventions \"Search\"; Q3-59). Both filters are named
-    to `paginate` as well as applied, so a cursor issued for `?status=suspended`
-    cannot be presented against the unfiltered listing and seek at a position
-    that means something else there.
+    In `single` tenant mode, the default tenant is not listed. `q` is a case-insensitive substring
+    of the name or the slug. A cursor is only valid with the filters it was issued for.
 
     Args:
         environment_id (str):

@@ -177,29 +177,17 @@ def sync_detailed(
     mfa: ListUsersMfaType0 | None | Unset = UNSET,
     session: Literal["active"] | None | Unset = UNSET,
 ) -> Response[Problem | UserList]:
-    r"""List users
+    """List users
 
      The environment's users, newest first, narrowed by up to six filters.
 
-    Newest first because that is the order a console reads them in: the person
-    who just signed up is the one somebody is looking for.
+    Erased users are excluded unless `status=erased` asks for them.
 
-    `erased` users are absent unless `status=erased` asks for them
-    (users-and-credentials.md §\"Deletion and erasure\"), which is why the
-    default is not \"no filter\" but \"every status but that one\".
+    `session=active` selects users holding at least one live session. It counts users, not sessions,
+    so it can differ from the overview's count of active sessions.
 
-    `session=active` is the people holding at least one live session — the same
-    three predicates the overview's `totals.active_sessions` counts and the
-    per-user session listing shows, because all three call
-    `sessions.live_sessions` (C8-17). It selects **users**: somebody signed in on
-    three devices is one row here and 3 in that count, so the two numbers may
-    differ and neither is wrong.
-
-    Every filter is named to `paginate` as well as applied, so all six are in
-    the cursor's fingerprint: a cursor issued for `?status=blocked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there. The `tenant_id` in that fingerprint is the *effective*
-    one, so a `tenant_member`'s cursor is bound to its own tenant as well.
+    A cursor is only valid with the filters it was issued for, and a tenant member's cursor only
+    within its own tenant.
 
     Args:
         environment_id (str):
@@ -252,29 +240,17 @@ def sync(
     mfa: ListUsersMfaType0 | None | Unset = UNSET,
     session: Literal["active"] | None | Unset = UNSET,
 ) -> Problem | UserList | None:
-    r"""List users
+    """List users
 
      The environment's users, newest first, narrowed by up to six filters.
 
-    Newest first because that is the order a console reads them in: the person
-    who just signed up is the one somebody is looking for.
+    Erased users are excluded unless `status=erased` asks for them.
 
-    `erased` users are absent unless `status=erased` asks for them
-    (users-and-credentials.md §\"Deletion and erasure\"), which is why the
-    default is not \"no filter\" but \"every status but that one\".
+    `session=active` selects users holding at least one live session. It counts users, not sessions,
+    so it can differ from the overview's count of active sessions.
 
-    `session=active` is the people holding at least one live session — the same
-    three predicates the overview's `totals.active_sessions` counts and the
-    per-user session listing shows, because all three call
-    `sessions.live_sessions` (C8-17). It selects **users**: somebody signed in on
-    three devices is one row here and 3 in that count, so the two numbers may
-    differ and neither is wrong.
-
-    Every filter is named to `paginate` as well as applied, so all six are in
-    the cursor's fingerprint: a cursor issued for `?status=blocked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there. The `tenant_id` in that fingerprint is the *effective*
-    one, so a `tenant_member`'s cursor is bound to its own tenant as well.
+    A cursor is only valid with the filters it was issued for, and a tenant member's cursor only
+    within its own tenant.
 
     Args:
         environment_id (str):
@@ -322,29 +298,17 @@ async def asyncio_detailed(
     mfa: ListUsersMfaType0 | None | Unset = UNSET,
     session: Literal["active"] | None | Unset = UNSET,
 ) -> Response[Problem | UserList]:
-    r"""List users
+    """List users
 
      The environment's users, newest first, narrowed by up to six filters.
 
-    Newest first because that is the order a console reads them in: the person
-    who just signed up is the one somebody is looking for.
+    Erased users are excluded unless `status=erased` asks for them.
 
-    `erased` users are absent unless `status=erased` asks for them
-    (users-and-credentials.md §\"Deletion and erasure\"), which is why the
-    default is not \"no filter\" but \"every status but that one\".
+    `session=active` selects users holding at least one live session. It counts users, not sessions,
+    so it can differ from the overview's count of active sessions.
 
-    `session=active` is the people holding at least one live session — the same
-    three predicates the overview's `totals.active_sessions` counts and the
-    per-user session listing shows, because all three call
-    `sessions.live_sessions` (C8-17). It selects **users**: somebody signed in on
-    three devices is one row here and 3 in that count, so the two numbers may
-    differ and neither is wrong.
-
-    Every filter is named to `paginate` as well as applied, so all six are in
-    the cursor's fingerprint: a cursor issued for `?status=blocked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there. The `tenant_id` in that fingerprint is the *effective*
-    one, so a `tenant_member`'s cursor is bound to its own tenant as well.
+    A cursor is only valid with the filters it was issued for, and a tenant member's cursor only
+    within its own tenant.
 
     Args:
         environment_id (str):
@@ -395,29 +359,17 @@ async def asyncio(
     mfa: ListUsersMfaType0 | None | Unset = UNSET,
     session: Literal["active"] | None | Unset = UNSET,
 ) -> Problem | UserList | None:
-    r"""List users
+    """List users
 
      The environment's users, newest first, narrowed by up to six filters.
 
-    Newest first because that is the order a console reads them in: the person
-    who just signed up is the one somebody is looking for.
+    Erased users are excluded unless `status=erased` asks for them.
 
-    `erased` users are absent unless `status=erased` asks for them
-    (users-and-credentials.md §\"Deletion and erasure\"), which is why the
-    default is not \"no filter\" but \"every status but that one\".
+    `session=active` selects users holding at least one live session. It counts users, not sessions,
+    so it can differ from the overview's count of active sessions.
 
-    `session=active` is the people holding at least one live session — the same
-    three predicates the overview's `totals.active_sessions` counts and the
-    per-user session listing shows, because all three call
-    `sessions.live_sessions` (C8-17). It selects **users**: somebody signed in on
-    three devices is one row here and 3 in that count, so the two numbers may
-    differ and neither is wrong.
-
-    Every filter is named to `paginate` as well as applied, so all six are in
-    the cursor's fingerprint: a cursor issued for `?status=blocked` cannot be
-    presented against the unfiltered listing and seek at a position that means
-    something else there. The `tenant_id` in that fingerprint is the *effective*
-    one, so a `tenant_member`'s cursor is bound to its own tenant as well.
+    A cursor is only valid with the filters it was issued for, and a tenant member's cursor only
+    within its own tenant.
 
     Args:
         environment_id (str):

@@ -27,13 +27,12 @@ T = TypeVar("T", bound="UserExport")
 
 @_attrs_define
 class UserExport:
-    """`GET …/users/{user_id}/export` (users-and-credentials.md §Export).
+    """The body of `GET .../users/{user_id}/export`: everything held about one user, as one
+    document.
 
-    One document, so that a subject access request is one call: the user
-    record, the identities without their secrets, the MFA factors without their
-    seeds, the memberships, the sessions, and the audit events where this user
-    is actor or target — newest first, capped, with the cap reported rather
-    than silently applied.
+    The user record, identities without their secrets, MFA factors without their seeds, memberships,
+    sessions, and the audit events where the user is actor or target, newest first. The audit events
+    are capped, and `audit_events_truncated` says when the cap applied.
 
         Attributes:
             audit_events (list[ExportAuditEvent]):
@@ -43,13 +42,10 @@ class UserExport:
             memberships (list[ExportMembership]):
             mfa_factors (list[ExportFactor]):
             sessions (list[ExportSession]):
-            user (UserOut): A User as every read of it reports it (users-and-credentials.md §API).
+            user (UserOut): A user.
 
-                Three fields are derived rather than stored. `status` folds `erased_at` in,
-                because `erased` is a state a caller has to be able to see and not a value
-                the column holds; `has_password` is whether a `password` Identity exists,
-                which is the only thing a read ever says about a credential; and
-                `mfa_enrolled` is whether a confirmed factor exists.
+                `status` includes `erased`. `has_password` says whether the user has a password, and
+                `mfa_enrolled` whether they hold a confirmed MFA factor.
     """
 
     audit_events: list[ExportAuditEvent]

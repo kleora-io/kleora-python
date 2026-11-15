@@ -19,23 +19,21 @@ T = TypeVar("T", bound="WebhookEndpointCreated")
 
 @_attrs_define
 class WebhookEndpointCreated:
-    """The `201` of creation: the resource, plus the secret — always, unlike
-    `ClientCreated`'s optional one, because every `WebhookEndpoint` has a
-    secret from the moment it exists.
+    """The `201` of creating a webhook endpoint: the endpoint, plus its signing secret.
 
-        Attributes:
-            created_at (datetime.datetime):
-            disabled_at (datetime.datetime | None):
-            disabled_reason (str):
-            enabled (bool):
-            environment_id (UUID):
-            event_types (list[str]):
-            id (UUID):
-            name (str):
-            previous_secret_expires_at (datetime.datetime | None):
-            secret (str):
-            updated_at (datetime.datetime):
-            url (str):
+    Attributes:
+        created_at (datetime.datetime):
+        disabled_at (datetime.datetime | None):
+        disabled_reason (str):
+        enabled (bool):
+        environment_id (UUID):
+        event_types (list[str]):
+        id (UUID):
+        name (str):
+        previous_secret_expires_at (datetime.datetime | None):
+        secret (str):
+        updated_at (datetime.datetime):
+        url (str):
     """
 
     created_at: datetime.datetime

@@ -18,16 +18,10 @@ T = TypeVar("T", bound="BillingSessionOut")
 
 @_attrs_define
 class BillingSessionOut:
-    """A Stripe-hosted page to send the customer to.
+    """A page hosted by the payment provider to send the customer to.
 
-    Named for its surface rather than for its shape: `SessionOut` in this
-    module is a *browser* session (sessions-and-tokens.md), and two things
-    called `SessionOut` in one generated SDK would be one thing called
-    `SessionOut` and one called `SessionOut2`.
-
-    `url` is a bearer credential for somebody's payment details. It is returned
-    to the caller that asked for it and is written nowhere else — not to the
-    audit log, not to a log line, not to a row.
+    `url` grants access to the customer's payment details. It is returned only to the caller and is
+    not recorded anywhere.
 
         Attributes:
             expires_at (datetime.datetime | None):

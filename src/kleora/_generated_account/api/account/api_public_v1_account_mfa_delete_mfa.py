@@ -85,15 +85,11 @@ def sync_detailed(
 ) -> Response[Any | FlowProblem]:
     """Remove the signed-in person's own second factor
 
-     `403 mfa-required` for the last factor under `required`; `404` otherwise.
+     Remove one of the person's MFA factors.
 
-    A malformed id and somebody else's factor answer identically — `404`, never
-    `403` — so an id reveals nothing about what exists for another person.
-
-    Removing either kind removes both, which is
-    `apps.identity.services.mfa.remove_factors`' rule and is shared with the
-    administrative reset: a person who removes their TOTP factor does not keep a
-    recovery-code set that can no longer back anything up.
+    `403 mfa-required` for the last factor when the environment requires MFA. `404` for a malformed
+    id and for another person's factor alike. Removing a TOTP factor also removes the recovery
+    codes, and the other way round.
 
     Args:
         factor_id (str):
@@ -124,15 +120,11 @@ def sync(
 ) -> Any | FlowProblem | None:
     """Remove the signed-in person's own second factor
 
-     `403 mfa-required` for the last factor under `required`; `404` otherwise.
+     Remove one of the person's MFA factors.
 
-    A malformed id and somebody else's factor answer identically — `404`, never
-    `403` — so an id reveals nothing about what exists for another person.
-
-    Removing either kind removes both, which is
-    `apps.identity.services.mfa.remove_factors`' rule and is shared with the
-    administrative reset: a person who removes their TOTP factor does not keep a
-    recovery-code set that can no longer back anything up.
+    `403 mfa-required` for the last factor when the environment requires MFA. `404` for a malformed
+    id and for another person's factor alike. Removing a TOTP factor also removes the recovery
+    codes, and the other way round.
 
     Args:
         factor_id (str):
@@ -158,15 +150,11 @@ async def asyncio_detailed(
 ) -> Response[Any | FlowProblem]:
     """Remove the signed-in person's own second factor
 
-     `403 mfa-required` for the last factor under `required`; `404` otherwise.
+     Remove one of the person's MFA factors.
 
-    A malformed id and somebody else's factor answer identically — `404`, never
-    `403` — so an id reveals nothing about what exists for another person.
-
-    Removing either kind removes both, which is
-    `apps.identity.services.mfa.remove_factors`' rule and is shared with the
-    administrative reset: a person who removes their TOTP factor does not keep a
-    recovery-code set that can no longer back anything up.
+    `403 mfa-required` for the last factor when the environment requires MFA. `404` for a malformed
+    id and for another person's factor alike. Removing a TOTP factor also removes the recovery
+    codes, and the other way round.
 
     Args:
         factor_id (str):
@@ -195,15 +183,11 @@ async def asyncio(
 ) -> Any | FlowProblem | None:
     """Remove the signed-in person's own second factor
 
-     `403 mfa-required` for the last factor under `required`; `404` otherwise.
+     Remove one of the person's MFA factors.
 
-    A malformed id and somebody else's factor answer identically — `404`, never
-    `403` — so an id reveals nothing about what exists for another person.
-
-    Removing either kind removes both, which is
-    `apps.identity.services.mfa.remove_factors`' rule and is shared with the
-    administrative reset: a person who removes their TOTP factor does not keep a
-    recovery-code set that can no longer back anything up.
+    `403 mfa-required` for the last factor when the environment requires MFA. `404` for a malformed
+    id and for another person's factor alike. Removing a TOTP factor also removes the recovery
+    codes, and the other way round.
 
     Args:
         factor_id (str):
