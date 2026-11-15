@@ -1,11 +1,12 @@
 # Publishes this package to PyPI through trusted publishing: no token exists
 # anywhere. PyPI's publisher for this project names this repository, this file
 # (`release.yml`) and the environment `pypi`, which requires a maintainer's
-# approval before the upload runs.
+# approval and accepts only `main`. Renaming this file or the environment
+# refuses every upload until the publisher is edited on PyPI.
 #
-# For now it publishes the 0.0.0 placeholder that reserves the name. The real
-# SDK replaces the package contents; this file keeps its name, so the publisher
-# never changes.
+# The version published is whatever `pyproject.toml` says; PyPI refuses a
+# version that already exists, so bump it before running this. The unit suite
+# runs against the committed lockfile before anything is built.
 name: Release
 
 on:
@@ -23,6 +24,12 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: uv sync --locked
+      - name: Test
+        run: uv run --locked pytest
       - name: Build
         run: uv build --out-dir dist && ls -l dist
       - name: Upload to PyPI
